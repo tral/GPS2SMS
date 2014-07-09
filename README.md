@@ -1,4 +1,4 @@
 GPS2SMS
-=======
+==============
 
-Application for sending GPS coordinats via SMS
+Send your GPS coordinats via SMS using this app!

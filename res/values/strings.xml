@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GPS2SMS</string>
+    <string name="sms_text_placeholder">What\'s happened?</string>
+    <string name="send_coords_text">Add coordinats to SMS</string>
+    <string name="send_button_text">Send SMS</string>
+    
+	<string name="info_sms_sent">SMS отправлена</string>
+	<string name="info_sms_delivered">SMS доставлена получателю</string>
+	<string name="info_sms_not_delivered">SMS НЕ доставлена получателю!</string>
+	<string name="info_sms_noservice">Нет обслуживания! SMS не отправлена!</string>
+	<string name="info_sms_radioof">Нет связи с сотовым оператором! SMS не отправлена!</string>
+	<string name="info_sms_nullpdu">Ошибка PDU! SMS не отправлена!</string>
+	<string name="info_sms_generic">Общий сбой! SMS не отправлена!</string>
+	
+	<string name="error_sms_empty">Введите текст SMS!</string>
+	
+	<string name="gps_state_disabled">GPS выключен!</string>
+	<string name="gps_state_in_progress">Определение координат...</string>
+	<string name="gps_state_unavialable">Данные о местоположении недоступны</string>
+	
+	<string name="menu_item_settings">Settings</string>
+	<string name="menu_item_rules">Rules</string>
+	
+	<string name="phone_edit_text_placeholder"> </string>
+
+	<string name="rules_str">Вы должны отправить на телефон +7 (919) 488-61-72 короткое сообщение, в котором указать:\n- Ваше местоположение. Если Вы находитесь в Перми, то город указывать не надо. Если Вы находитесь на трассе, то указываете трассу и километр или положение относительно известных ориентиров;\n- информацию о экстренной ситуации;\n- информацию о характере требуемой помощи.\n\nНапример:\n- “перекресток чкалова-куйбышева, столкновение с волгой, нужна помощь с разбором”;\n- “20 км от казачьей заставы в сторону воткинска, вылетел с трассы, помогите”;\n- “восточный объезд Перми, 10 км от садового в сторону березников, нужна эвакуация”.\n\nНет необходимости указывать Ваш номер телефона или имя - сервис самостоятельно его подставит в начало сообщения.\n\nВы должны использовать номер телефона, использованный при регистрации в сервисе. Сообщения, отправленные с других номеров, игнорируются (вдальнейшем появится возможность отправки сообщений с любых телефонов с использованием личного кодового слова).\n\nЗапрещено отправлять сообщения:\n- содержащие какую-либо рекламу;\n- если экстренную ситуацию вызвал пьяный мотоциклист;\n- содержащие ложную информацию;\n- содержащие оскорбления в адрес других участников сервиса.\n\nВ случае отправки сообщений, нарушающих данные правила, Вам будет запрещено пользоваться сервисом, а Ваш поручитель лишиться возможности в дальнейшем добавлять новых пользователей в сервис.\n</string>
+	
+	<string name="another_msg_button_text">Отправить еще одно SMS</string>
+	
+	<string name="enable_gps_btn">Turn on GPS</string>
+
+    
+</resources>
