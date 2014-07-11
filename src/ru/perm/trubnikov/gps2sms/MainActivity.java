@@ -2,8 +2,6 @@ package ru.perm.trubnikov.gps2sms;
 
 import java.util.Locale;
 
-import ru.perm.trubnikov.gps2sms.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,9 +31,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,18 +39,16 @@ public class MainActivity extends Activity {
 
 	// Menu
 	public static final int IDM_SETTINGS = 101;
-	public static final int IDM_RULES = 102;
 	
 	// Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
     private final static int PHONE_DIALOG_ID = 1;
-    private final static int RULES_DIALOG_ID = 2;
 	ProgressDialog mSMSProgressDialog;
 
 	// My GPS states
 	public static final int GPS_PROVIDER_DISABLED = 1;
-	public static final int GPS_GETTING_COORDINATS = 2;
-	public static final int GPS_GOT_COORDINATS = 3;
+	public static final int GPS_GETTING_COORDINATES = 2;
+	public static final int GPS_GOT_COORDINATES = 3;
 	public static final int GPS_PROVIDER_UNAVIALABLE = 4;
 	public static final int GPS_PROVIDER_OUT_OF_SERVICE = 5;
 	public static final int GPS_PAUSE_SCANNING = 6;
@@ -70,11 +63,9 @@ public class MainActivity extends Activity {
 	TextView GPSstate;
 	Button sendBtn;
 	Button enableGPSBtn ;
-	CheckBox checkBox;
-	public static EditText smsEdit;
+	Button btnSelContact;
 	
 	// Globals
-	private String phoneNumber;
 	private String coordsToSend;
 	
     // Database
@@ -95,24 +86,21 @@ public class MainActivity extends Activity {
 	    toast.show();
 	}
     
+	/*
 	protected void HideKeyboard() {
-		
 		InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-
         //	check if no view has focus:
         View v=this.getCurrentFocus();
         if(v!=null)
         	inputManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-		
 	}
-	
-	
+
 	protected void ShowKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(smsEdit, InputMethodManager.SHOW_IMPLICIT);
-		
 	}
-
+	 */
+	
     // Define the Handler that receives messages from the thread and update the progress
  	// SMS send thread. Result handling
      final Handler handler = new Handler() {
@@ -124,7 +112,7 @@ public class MainActivity extends Activity {
         	 dismissDialog(SEND_SMS_DIALOG_ID);
         	 
         	 if (res_send.equalsIgnoreCase(getString(R.string.info_sms_sent))) {
-        		HideKeyboard();
+        		//HideKeyboard();
         		Intent intent = new Intent(MainActivity.this, AnotherMsgActivity.class);
      	     	startActivity(intent);
         	 } else {
@@ -139,7 +127,7 @@ public class MainActivity extends Activity {
 	private LocationListener locListener = new LocationListener() {
 		
 		public void onLocationChanged(Location argLocation) {
-			printLocation(argLocation, GPS_GOT_COORDINATS);
+			printLocation(argLocation, GPS_GOT_COORDINATES);
 		}
 	
 		@Override
@@ -158,18 +146,13 @@ public class MainActivity extends Activity {
 	
 	private void Pause_GPS_Scanning() {
 		manager.removeUpdates(locListener);
-		if (!checkBox.isChecked()) {
-			sendBtn.setEnabled(true);
-		}
 	} 
 	
 	private void Resume_GPS_Scanning() {
-		if (checkBox.isChecked()) {
-			manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
-			sendBtn.setEnabled(false);
-			if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-				printLocation(null, GPS_GETTING_COORDINATS);
-			}
+		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
+		sendBtn.setEnabled(false);
+		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			printLocation(null, GPS_GETTING_COORDINATES);
 		}
 	} 
 	
@@ -183,7 +166,7 @@ public class MainActivity extends Activity {
 			GPSstate.setTextColor(Color.RED);
 			enableGPSBtn.setVisibility(View.VISIBLE);
 			break;
-		case GPS_GETTING_COORDINATS :
+		case GPS_GETTING_COORDINATES :
 			GPSstate.setText(R.string.gps_state_in_progress);
 			GPSstate.setTextColor(Color.YELLOW);
 			enableGPSBtn.setVisibility(View.INVISIBLE);
@@ -192,18 +175,19 @@ public class MainActivity extends Activity {
 			GPSstate.setText("");
 			enableGPSBtn.setVisibility(View.INVISIBLE);
 			break;	
-		case GPS_GOT_COORDINATS :
+		case GPS_GOT_COORDINATES :
 			if (loc != null) {
 
-				coordsToSend = String.format(Locale.US , "%2.5f", loc.getLatitude()) + " " + String.format(Locale.US ,"%3.5f", loc.getLongitude());
+				coordsToSend = String.format(Locale.US , "%2.7f", loc.getLatitude()) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude());
 
 				// Accuracy
 				if (loc.getAccuracy() < 0.0001) {accuracy = "?"; }
 					else if (loc.getAccuracy() > 99) {accuracy = "> 99";}
-						else {accuracy = String.format("%2.0f", loc.getAccuracy());};
+						else {accuracy = String.format(Locale.US, "%2.0f", loc.getAccuracy());};
 				
-				GPSstate.setText("Координаты получены, точность: " + accuracy + " м. ");
-				//+ "\t\nШирота: " + loc.getLatitude() + "Долгота: " + loc.getLongitude());
+				GPSstate.setText(getString(R.string.info_print1) + " " + accuracy + " " + getString(R.string.info_print2)
+						+ "\t\n" + getString(R.string.info_latitude) + " " + String.format(Locale.US , "%2.7f", loc.getLatitude()) 
+						+ "\t\n" + getString(R.string.info_longitude) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude()));
 				GPSstate.setTextColor(Color.GREEN);
 				sendBtn.setEnabled(true);
 				enableGPSBtn.setVisibility(View.INVISIBLE);
@@ -227,7 +211,6 @@ public class MainActivity extends Activity {
 		//return true;
 	
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
-		menu.add(Menu.NONE, IDM_RULES, Menu.NONE, R.string.menu_item_rules);
 		return(super.onCreateOptionsMenu(menu));
 	}
 		
@@ -243,44 +226,9 @@ public class MainActivity extends Activity {
         	  mSMSProgressDialog.setCanceledOnTouchOutside(false);
         	  mSMSProgressDialog.setCancelable(false);
         	  mSMSProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        	  mSMSProgressDialog.setMessage("Дождитесь окончания отправки SMS...");
+        	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait));
         	  return mSMSProgressDialog;
         	  
-        case RULES_DIALOG_ID:
-        	
-            LayoutInflater inflater_rules = getLayoutInflater();
-            View layout_rules = inflater_rules.inflate(R.layout.rules_dialog, (ViewGroup)findViewById(R.id.rules_dialog_layout));
-            
-            AlertDialog.Builder builder_rules = new AlertDialog.Builder(this);
-            builder_rules.setView(layout_rules);
-            
-            // Stored phone number
-            //final EditText keyDlgEdit = (EditText) layout_phone.findViewById(R.id.phone_edit_text);
-    		
-            TextView rulesView = (TextView) layout_rules.findViewById(R.id.textView1);
-            
-            rulesView.setText(R.string.rules_str);
-    		
-            //builder_rules.setMessage("Порядок извещения других участников сервиса об экстренном событии");
-            /*
-            builder_rules.setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-
-                	
-                }
-            });*/
-            
-            builder_rules.setNegativeButton("Понятно", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                	ShowKeyboard();
-                    }
-            });
-            
-            builder_rules.setCancelable(false);
-            
-            return builder_rules.create();
-            
         case PHONE_DIALOG_ID:
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.phone_dialog, (ViewGroup)findViewById(R.id.phone_dialog_layout));
@@ -288,31 +236,31 @@ public class MainActivity extends Activity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(layout);
             
-            // Stored phone number
-            final EditText keyDlgEdit = (EditText) layout.findViewById(R.id.phone_edit_text);
+            // Stored msg
+            final EditText keyDlgEdit = (EditText) layout.findViewById(R.id.msg_edit_text);
     		dbHelper = new DBHelper(this);
-         	keyDlgEdit.setText(dbHelper.getPhone());
+         	keyDlgEdit.setText(dbHelper.getSmsMsg());
     		dbHelper.close();
     		
-            builder.setMessage("Номер телефона для SMS");
+            builder.setMessage(getString(R.string.info_sms_txt));
             
-            builder.setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.save_btn_txt), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
 
-                	// update phone number
+                	// update 
                 	dbHelper = new DBHelper(MainActivity.this);
 	        		SQLiteDatabase db = dbHelper.getWritableDatabase();
 	        		ContentValues cv = new ContentValues();
-	                cv.put("phone", keyDlgEdit.getText().toString());
-	                db.update("phone", cv, "_id = ?", new String[] { "1" });
+	                cv.put("msg", keyDlgEdit.getText().toString());
+	                db.update("msg", cv, "_id = ?", new String[] { "1" });
 	                dbHelper.close();
-	                phoneNumber = keyDlgEdit.getText().toString();
-	                keyDlgEdit.selectAll(); // чтобы при повторном открытии номер был выделен
+	                keyDlgEdit.selectAll(); // чтобы при повторном открытии текст был выделен
                 }
             });
             
-            builder.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getString(R.string.cancel_btn_txt), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                	keyDlgEdit.selectAll(); // чтобы при повторном открытии текст был выделен
                     dialog.cancel();
                     }
             });
@@ -334,10 +282,6 @@ public class MainActivity extends Activity {
  	public boolean onOptionsItemSelected(MenuItem item) {
         
         switch (item.getItemId()) {
-            case IDM_RULES:
-            	HideKeyboard();
-            	showDialog(RULES_DIALOG_ID);
-                break;
             case IDM_SETTINGS:
             	showDialog(PHONE_DIALOG_ID);
                 break;    
@@ -353,72 +297,24 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		Resume_GPS_Scanning();
-		//ShowKeyboard();
-			
-    //    }
 	}
 		
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
 		Pause_GPS_Scanning();
-//		 try {
-	            //unregisterReceiver(sendBroadcastReceiver);
-//	            unregisterReceiver(deliveryBroadcastReciever);
-//	     } catch (Exception e) {
-//	            e.printStackTrace();
-//	     }
 	}
 	
-	@Override
-	protected void onDestroy() {
-	    super.onDestroy();
-	    try {
-//	        unregisterReceiver(sendBroadcastReceiver);
-//	        unregisterReceiver(deliveryBroadcastReciever);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
-
-	protected void getContactInfo(Intent intent) {
-		Cursor cursor =  managedQuery(intent.getData(), null, null, null, null);
-		String contactId;
-		String name;
-		String ph="";
-		   while (cursor.moveToNext()) 
-		   {           
-		       contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-		       name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME)); 
-
-		       String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-
-		       if ( hasPhone.equalsIgnoreCase("1"))
-		           hasPhone = "true";
-		       else
-		           hasPhone = "false" ;
-
-		       if (Boolean.parseBoolean(hasPhone)) 
-		       {
-		        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId,null, null);
-		        while (phones.moveToNext()) 
-		        {
-		          ph = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-		        }
-		        phones.close();
-		       }
-		      
-		  }  //while (cursor.moveToNext())        
-		   cursor.close();
-		   
-		   TextView textView2 = (TextView)findViewById(R.id.textView2);
-	       textView2.setText(ph);
-		   
+	
+	public void showSelectedNumber(String number, String name) {
+		if (number.equalsIgnoreCase("") && name.equalsIgnoreCase("")) {
+			btnSelContact.setText(getString(R.string.select_contact_btn_txt));
+		} else {
+			btnSelContact.setText(name + " (" + number + ")");
+		}
 	}
 	
-	public void showSelectedNumber(int type, String number, String name) {
-	    Toast.makeText(this, type + ": " + number+ ":" + name, Toast.LENGTH_LONG).show();      
-	}
 	
 	@Override
 	public void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -428,18 +324,13 @@ public class MainActivity extends Activity {
 	    case (1001) :
 	    	String number = "";
 	        String name = "";
-	        int type = 0;
+	        //int type = 0;
 	        if (data != null) {
 	            Uri uri = data.getData();
 
 	            if (uri != null) {
 	                Cursor c = null;
-	                //Cursor c2  = null;
-	                try {/*
-	                	c2 =  managedQuery(uri, null, null, null, null);
-	                	if (c2 != null && c2.moveToFirst()) {
-	                		name = c2.getString(c2.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-	                	}*/
+	                try {
 	                	
 	                    c = getContentResolver().query(uri, new String[]{ 
 	                                ContactsContract.CommonDataKinds.Phone.NUMBER,  
@@ -449,13 +340,25 @@ public class MainActivity extends Activity {
 
 	                    if (c != null && c.moveToFirst()) {
 	                        number = c.getString(0);
-	                        type = c.getInt(1);
+	                        number = number.replaceAll("(-| )", "");
+	                        //type = c.getInt(1);
 	                        name = c.getString(2);
-	                        showSelectedNumber(type, number, name);
+	                        showSelectedNumber(number, name);
+
+	                    	// update 
+	                    	dbHelper = new DBHelper(MainActivity.this);
+	    	        		SQLiteDatabase db = dbHelper.getWritableDatabase();
+	    	        		ContentValues cv = new ContentValues();
+	    	                cv.put("contact", name);
+	    	                db.update("contact", cv, "_id = ?", new String[] { "1" });
+	    	                cv.clear();
+	    	                cv.put("phone", number);
+	    	                db.update("phone", cv, "_id = ?", new String[] { "1" });
+	    	                dbHelper.close();
+	                        
 	                    }
 	                } finally {
 	                    if (c != null) { c.close(); }
-	                    //if (c2 != null) { c2.close(); }
 	                }
 	            }
 	        }
@@ -473,35 +376,27 @@ public class MainActivity extends Activity {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // Stored phone number
+        // Select contact
+ 		btnSelContact = (Button)findViewById(R.id.button2);
+ 		btnSelContact.setOnClickListener(new OnClickListener() {
+
+ 	        	@Override
+ 	            public void onClick(View v) {
+ 	        		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+ 	        		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+ 	        		startActivityForResult(intent, 1001);
+ 	            }
+ 	        });
+        
+        // Stored phone number & name -> to button
 		dbHelper = new DBHelper(this);
-     	phoneNumber = dbHelper.getPhone();
+     	showSelectedNumber(dbHelper.getPhone(), dbHelper.getName());
 		dbHelper.close();
         
-        // Checkbox
-        checkBox = (CheckBox)findViewById(R.id.checkBox1);
-        checkBox.setChecked(true);
-    	checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-    	    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-    	        if ( isChecked ) {
-    	        	Resume_GPS_Scanning();
-    	        } else {
-    	        	Pause_GPS_Scanning();
-    	        	// только здесь, т.к. скрыть текст нужно только 
-    	        	// при отключении флага, а не при паузе активности к примеру
-    	    		printLocation(null, GPS_PAUSE_SCANNING); 
-    	        }
-    	    }
-    	});
-    	
         // GPS init
         manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);		
       
         //Prepare SMS Listeners, prepare Send button 
-        smsEdit = (EditText)findViewById(R.id.editText2);
-        smsEdit.requestFocus();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        
         sendBtn = (Button)findViewById(R.id.button1);
         sendBtn.setEnabled(false);
         
@@ -509,76 +404,51 @@ public class MainActivity extends Activity {
 
         	@Override
             public void onClick(View v) {
-                if (smsEdit.getText().toString().equals("")
-                        | smsEdit.getText().toString().equals(null)) {
-                    MainActivity.this.ShowToast(R.string.error_sms_empty, Toast.LENGTH_LONG);
-                } else {
-                	
+        		
+        		dbHelper = new DBHelper(MainActivity.this);
+        		String smsMsg = dbHelper.getSmsMsg() + " " + coordsToSend;
+        		String phNum = dbHelper.getPhone();
+        		dbHelper.close();
+
+        		if (phNum.equalsIgnoreCase("")) {
+        			MainActivity.this.ShowToast(R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
+        		} else {
                 	showDialog(SEND_SMS_DIALOG_ID);
-                	
-                	//sendSMS(phoneNumber, smsEdit.getText().toString());
-                	String message = smsEdit.getText().toString();
-    	    		if (checkBox.isChecked()) {
-    	    			message = message + " " + coordsToSend;
-                	}
 
 					// Запускаем новый поток для отправки SMS
 					mThreadSendSMS = new ThreadSendSMS(handler, getApplicationContext());
-					mThreadSendSMS.setMsg(message);
-					mThreadSendSMS.setPhone(phoneNumber);
+					mThreadSendSMS.setMsg(smsMsg);
+					mThreadSendSMS.setPhone(phNum);
 					mThreadSendSMS.setState(ThreadSendSMS.STATE_RUNNING);
 					mThreadSendSMS.start();
-                }
+        		}
+                
             }
+        	
         });
      
         // Enable GPS button
         enableGPSBtn = (Button)findViewById(R.id.button3);
+        enableGPSBtn.setVisibility(View.INVISIBLE);
         enableGPSBtn.setOnClickListener(new OnClickListener() {
 
         	@Override
             public void onClick(View v) {
                	if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-           			startActivity(new Intent(
-           		        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+           			startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
            		}
             }
+        	
         });
         
-    	// GPS-state TextView
+    	// GPS-state TextView init
         GPSstate = (TextView)findViewById(R.id.textView1);
-        GPSstate.setTextColor(Color.GREEN);
-        enableGPSBtn.setVisibility(View.INVISIBLE);
-        
-        // Show rules immediately after launch?
-        dbHelper = new DBHelper(this);
-     	if (dbHelper.needToSplashRules()) {
-     		SQLiteDatabase db = dbHelper.getWritableDatabase();
-    		ContentValues cv = new ContentValues();
-            cv.put("rules", 0);
-            db.update("rules", cv, "_id = ?", new String[] { "1" });
-            HideKeyboard();
-     		showDialog(RULES_DIALOG_ID);
-     	}
-		dbHelper.close();
+        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        	GPSstate.setTextColor(Color.YELLOW);
+        } else {
+        	GPSstate.setTextColor(Color.RED);
+        }
 
-		//DEL
-		Button btn2 = (Button)findViewById(R.id.button2);
-		btn2.setOnClickListener(new OnClickListener() {
-
-	        	@Override
-	            public void onClick(View v) {
-	        		
-	        		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-	        		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-	        		startActivityForResult(intent, 1001);
-	        		
-	        		//Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-	        		//startActivityForResult(intent, 1001);
-	            }
-	        });
-
-		
         
     }
     

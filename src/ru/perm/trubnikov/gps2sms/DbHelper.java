@@ -1,7 +1,5 @@
 package ru.perm.trubnikov.gps2sms;
 
-import java.util.Calendar;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,11 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
   class DBHelper extends SQLiteOpenHelper {
 
+	private String defSmsMsg;
+	  
     public DBHelper(Context context) {
       // конструктор суперкласса
       super(context, "rupermtrubnikovgps2smsDB", null, 1);
+      defSmsMsg = context.getString(R.string.default_sms_msg);
     }
 
+    
     public String getPhone() {
     	SQLiteDatabase db = this.getWritableDatabase();
     	Cursor c = db.query("phone", null, "_id=1", null, null, null, null);
@@ -28,22 +30,34 @@ import android.database.sqlite.SQLiteOpenHelper;
     	return "";
     }
 
-    public boolean needToSplashRules() {
+    
+    public String getName() {
     	SQLiteDatabase db = this.getWritableDatabase();
-    	Cursor c = db.query("rules", null, "_id=1", null, null, null, null);
+    	Cursor c = db.query("contact", null, "_id=1", null, null, null, null);
     	
     	if (c.moveToFirst()) {
-            int idx = c.getColumnIndex("rules");
-            int rules = c.getInt(idx);
-            if (rules>0) { return true; }
-            else {return false;}
+            int idx = c.getColumnIndex("contact");
+            String contact = c.getString(idx);
+            return contact;
 		}
     	
-    	return false;
+    	return "";
     }
+
     
-    
-    
+    public String getSmsMsg() {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor c = db.query("msg", null, "_id=1", null, null, null, null);
+    	
+    	if (c.moveToFirst()) {
+            int idx = c.getColumnIndex("msg");
+            String msg = c.getString(idx);
+            return msg;
+		}
+    	
+    	return "";
+    }    
+
     @Override
     public void onCreate(SQLiteDatabase db) {
       
@@ -57,20 +71,31 @@ import android.database.sqlite.SQLiteOpenHelper;
       
       // ƒоговорились, что телефон хранитс€ в таблице с _id=1
       cv.put("_id", 1);
-      cv.put("phone", "9955555555"); // без "+7" !!!
+      cv.put("phone", ""); // без "+7" !!!
       db.insert("phone", null, cv);  
       
-      // ѕоказывать ли правила при запуске
-      db.execSQL("create table rules ("
+      db.execSQL("create table contact ("
               + "_id integer primary key," 
-              + "rules int"
+              + "contact text"
               + ");");
       
       // ƒоговорились, что хранитс€ в таблице с _id=1
       cv.clear();
       cv.put("_id", 1);
-      cv.put("rules", 1); 
-      db.insert("rules", null, cv);  
+      cv.put("contact", ""); 
+      db.insert("contact", null, cv);  
+     
+      
+      db.execSQL("create table msg ("
+              + "_id integer primary key," 
+              + "msg text"
+              + ");");
+      
+      // ƒоговорились, что хранитс€ в таблице с _id=1
+      cv.clear();
+      cv.put("_id", 1);
+      cv.put("msg", defSmsMsg);
+      db.insert("msg", null, cv);
       
     }
 

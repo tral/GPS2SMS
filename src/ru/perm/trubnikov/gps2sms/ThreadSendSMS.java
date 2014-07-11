@@ -147,7 +147,7 @@ public class ThreadSendSMS extends Thread {
 	    		}
 	    		  
 	    		//sms.sendMultipartTextMessage("+7" + this.smsPhone, null, mArray, sentArrayIntents, deliveredArrayIntents);
-	    		sms.sendMultipartTextMessage("+7" + this.smsPhone, null, mArray, sentArrayIntents, null);
+	    		sms.sendMultipartTextMessage(this.smsPhone, null, mArray, sentArrayIntents, null);
 
 	        }
 	        catch (Exception e) {
