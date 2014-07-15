@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -29,9 +31,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,11 +64,13 @@ public class MainActivity extends Activity {
 	// Views
 	TextView GPSstate;
 	Button sendBtn;
+	ImageButton shareBtn; 
 	Button enableGPSBtn ;
 	Button btnSelContact;
 	
 	// Globals
 	private String coordsToSend;
+	private String coordsToShare;
 	
     // Database
     DBHelper dbHelper;
@@ -151,6 +155,7 @@ public class MainActivity extends Activity {
 	private void Resume_GPS_Scanning() {
 		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
 		sendBtn.setEnabled(false);
+		setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			printLocation(null, GPS_GETTING_COORDINATES);
 		}
@@ -178,18 +183,26 @@ public class MainActivity extends Activity {
 		case GPS_GOT_COORDINATES :
 			if (loc != null) {
 
-				coordsToSend = String.format(Locale.US , "%2.7f", loc.getLatitude()) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude());
-
 				// Accuracy
 				if (loc.getAccuracy() < 0.0001) {accuracy = "?"; }
 					else if (loc.getAccuracy() > 99) {accuracy = "> 99";}
 						else {accuracy = String.format(Locale.US, "%2.0f", loc.getAccuracy());};
+
+				String la = String.format(Locale.US , "%2.7f", loc.getLatitude());
+				String lo = String.format(Locale.US ,"%3.7f", loc.getLongitude());
+				
+				coordsToSend = la + " " + lo;
+				coordsToShare = getString(R.string.info_latitude) + " " + la 
+						+ "\t\n" + getString(R.string.info_longitude) + " " + lo
+						+ "\t\n" + getString(R.string.info_accuracy) + " " + accuracy + " " +getString(R.string.info_print2) 
+						+ "\t\n\t\n" + "https://maps.google.com?q=" + la + "," + lo; 
 				
 				GPSstate.setText(getString(R.string.info_print1) + " " + accuracy + " " + getString(R.string.info_print2)
 						+ "\t\n" + getString(R.string.info_latitude) + " " + String.format(Locale.US , "%2.7f", loc.getLatitude()) 
 						+ "\t\n" + getString(R.string.info_longitude) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude()));
 				GPSstate.setTextColor(Color.GREEN);
 				sendBtn.setEnabled(true);
+				setImageButtonEnabled(getApplicationContext(), true, shareBtn, R.drawable.share);
 				enableGPSBtn.setVisibility(View.INVISIBLE);
 				
 			}
@@ -209,7 +222,7 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		//getMenuInflater().inflate(R.menu.main, menu);
 		//return true;
-	
+		
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
 		return(super.onCreateOptionsMenu(menu));
 	}
@@ -367,7 +380,38 @@ public class MainActivity extends Activity {
 	      break;
 	  }
 	}
+
+	/**
+	 * Sets the image button to the given state and grays-out the icon.
+	 * 
+	 * @param enabled The state of the button
+	 * @param item The button item to modify
+	 * @param iconResId The button's icon ID
+	 */
+	public static void setImageButtonEnabled(Context ctxt, boolean enabled, 
+	        ImageButton item, int iconResId) {
+
+	    item.setEnabled(enabled);
+	    Drawable originalIcon = ctxt.getResources().getDrawable(iconResId);
+	    Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+	    item.setImageDrawable(icon);
+	}
 	
+	/**
+	 * Mutates and applies a filter that converts the given drawable to a Gray
+	 * image. This method may be used to simulate the color of disable icons in
+	 * Honeycomb's ActionBar.
+	 * 
+	 * @return a mutated version of the given drawable with a color filter applied.
+	 */
+	public static Drawable convertDrawableToGrayScale(Drawable drawable) {
+	    if (drawable == null) 
+	        return null;
+
+	    Drawable res = drawable.mutate();
+	    res.setColorFilter(Color.GRAY, Mode.SRC_IN);
+	    return res;
+	}
 
 	// ------------------------------------------------------------------------------------------
     @Override
@@ -437,6 +481,24 @@ public class MainActivity extends Activity {
                	if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
            			startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
            		}
+            }
+        	
+        });
+        
+        // Share button
+        shareBtn = (ImageButton)findViewById(R.id.ShareButton);
+        setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
+        
+        shareBtn.setOnClickListener(new OnClickListener() {
+
+        	@Override
+            public void onClick(View v) {
+        		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND); 
+        	    sharingIntent.setType("text/plain");
+        	    String shareBody = coordsToShare;
+        	    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
+        	    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        	    startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
             }
         	
         });
