@@ -44,8 +44,13 @@
 	
 	<string name="info_latitude">Широта:</string>
 	<string name="info_longitude">Долгота:</string>
+	<string name="info_accuracy">Точность:</string>
 
 	<string name="info_please_wait">Дождитесь окончания отправки SMS...</string>
 	
+	<string name="share_topic">Мои GPS координаты</string>
+	<string name="share_via">Поделиться через</string>
+	
+	<string name="imgdesc">Кнопка \"Поделиться\"</string>
     
 </resources>

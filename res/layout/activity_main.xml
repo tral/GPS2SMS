@@ -16,25 +16,6 @@
  	    android:gravity="center"
  	    android:orientation="horizontal" >
 
-        <!-- 
-       <EditText
-	        
-	        android:id="@+id/editText2"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            
-	        android:maxLength="250"
-	        android:maxLines="4"
-	        
-            android:hint="@string/sms_text_placeholder">
-	        
-	     <requestFocus />
-	     
-	    </EditText>
-	     -->
-       
        <Button
            android:id="@+id/button2"
            android:layout_width="match_parent"
@@ -42,50 +23,37 @@
            
            android:text="@string/select_contact_btn_txt" />
        
-   </LinearLayout>
-
-   <LinearLayout
-       
-        android:id="@+id/linearLayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayoutSum"
-        android:orientation="horizontal" >
-   
-  	 <Button
-       android:id="@+id/button1"
-       android:layout_width="fill_parent"
-       android:layout_height="64dp"
-
-       android:gravity="center"
-       android:text="@string/send_button_text"
-       
-        />
-       
-   
-   
 	</LinearLayout>
 
-   <!-- 
-	<LinearLayout
-       
-        android:id="@+id/linearLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout2"
-         
-        android:orientation="horizontal" >
-
-		<CheckBox
-			android:id="@+id/checkBox1"
+ 	
+	<RelativeLayout 
+ 	    android:id="@+id/RelLayout2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/linearLayoutSum"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/ShareButton"
+			android:src="@drawable/share" 
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/send_coords_text" />
-       
-	</LinearLayout>
-	 -->
+			android:layout_height="64dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+ 	    
+ 	   <Button
+	       android:id="@+id/button1"
+	       android:layout_width="fill_parent"
+	       android:layout_height="64dp"
+	       android:layout_alignParentLeft="true"
+	       android:text="@string/send_button_text"
+	       android:layout_toLeftOf="@id/ShareButton"
+        />
+ 	    
+ 	</RelativeLayout>
+	
 
 	<LinearLayout
        
@@ -93,7 +61,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout2"
+        android:layout_below="@+id/RelLayout2"
         android:orientation="horizontal"
         android:paddingTop="8dp"  >
 
@@ -107,7 +75,8 @@
        
 	</LinearLayout>
 	
-<LinearLayout
+	
+	<LinearLayout
        
         android:id="@+id/linearLayout5"
         android:layout_width="fill_parent"
@@ -115,22 +84,17 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/linearLayout4"
         android:gravity="center"
-    	android:orientation="vertical"
+    	android:orientation="horizontal"
     	android:paddingTop="8dp" >
-       
- 		 <Button
+
+ 		<Button
  		    android:id="@+id/button3"
  		    style="?android:attr/buttonStyleSmall"
  		    android:layout_width="wrap_content"
  		    android:layout_height="wrap_content"
- 		    
- 		     
  		    android:text="@string/enable_gps_btn" />
- 		
+ 		 
 	</LinearLayout>
-
-
-
 
 
 </RelativeLayout>
