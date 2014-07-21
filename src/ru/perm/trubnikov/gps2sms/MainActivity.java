@@ -353,7 +353,7 @@ public class MainActivity extends Activity {
 
 	                    if (c != null && c.moveToFirst()) {
 	                        number = c.getString(0);
-	                        number = number.replaceAll("(-| )", "");
+	                        number = number.replace("-", "").replace(" ", "");
 	                        //type = c.getInt(1);
 	                        name = c.getString(2);
 	                        showSelectedNumber(number, name);
