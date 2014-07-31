@@ -195,7 +195,7 @@ public class MainActivity extends Activity {
 				coordsToShare = getString(R.string.info_latitude) + " " + la 
 						+ "\t\n" + getString(R.string.info_longitude) + " " + lo
 						+ "\t\n" + getString(R.string.info_accuracy) + " " + accuracy + " " +getString(R.string.info_print2) 
-						+ "\t\n\t\n" + "https://maps.google.com?q=" + la + "," + lo; 
+						+ "\t\n\t\n" + "https://www.google.com/maps/place/" + la + "," + lo; 
 				
 				GPSstate.setText(getString(R.string.info_print1) + " " + accuracy + " " + getString(R.string.info_print2)
 						+ "\t\n" + getString(R.string.info_latitude) + " " + String.format(Locale.US , "%2.7f", loc.getLatitude()) 
