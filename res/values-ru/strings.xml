@@ -20,6 +20,7 @@
 	<string name="gps_state_unavialable">Данные о местоположении недоступны</string>
 	
 	<string name="menu_item_settings">Настройки</string>
+	<string name="menu_item_rate">Оценить приложение</string>
 	<string name="menu_item_rules">Правила</string>
 	
 	<string name="phone_edit_text_placeholder"> </string>

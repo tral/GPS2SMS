@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
 
 	// Menu
 	public static final int IDM_SETTINGS = 101;
+	public static final int IDM_RATE = 105;
 	
 	// Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
@@ -224,6 +225,7 @@ public class MainActivity extends Activity {
 		//return true;
 		
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
+		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
 		return(super.onCreateOptionsMenu(menu));
 	}
 		
@@ -298,6 +300,11 @@ public class MainActivity extends Activity {
             case IDM_SETTINGS:
             	showDialog(PHONE_DIALOG_ID);
                 break;    
+            case IDM_RATE:
+            	Intent int_rate = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getApplicationContext().getPackageName()));
+            	int_rate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        		getApplicationContext().startActivity(int_rate);
+        		break;
             default:
                 return false;
         }
