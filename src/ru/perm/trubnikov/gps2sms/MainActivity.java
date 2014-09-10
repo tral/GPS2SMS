@@ -65,6 +65,7 @@ public class MainActivity extends Activity {
 	// Views
 	TextView GPSstate;
 	Button sendBtn;
+	ImageButton navitelBtn;
 	ImageButton shareBtn; 
 	Button enableGPSBtn ;
 	Button btnSelContact;
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
 	// Globals
 	private String coordsToSend;
 	private String coordsToShare;
+	private String coordsToNavitel;
 	
     // Database
     DBHelper dbHelper;
@@ -157,6 +159,7 @@ public class MainActivity extends Activity {
 		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
 		sendBtn.setEnabled(false);
 		setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
+		setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			printLocation(null, GPS_GETTING_COORDINATES);
 		}
@@ -192,7 +195,8 @@ public class MainActivity extends Activity {
 				String la = String.format(Locale.US , "%2.7f", loc.getLatitude());
 				String lo = String.format(Locale.US ,"%3.7f", loc.getLongitude());
 				
-				coordsToSend = la + " " + lo;
+				coordsToSend = la + "," + lo;
+				coordsToNavitel = "<NavitelLoc>" + la + " " + lo + "<N>";
 				coordsToShare = getString(R.string.info_latitude) + " " + la 
 						+ "\t\n" + getString(R.string.info_longitude) + " " + lo
 						+ "\t\n" + getString(R.string.info_accuracy) + " " + accuracy + " " +getString(R.string.info_print2) 
@@ -204,6 +208,7 @@ public class MainActivity extends Activity {
 				GPSstate.setTextColor(Color.GREEN);
 				sendBtn.setEnabled(true);
 				setImageButtonEnabled(getApplicationContext(), true, shareBtn, R.drawable.share);
+				setImageButtonEnabled(getApplicationContext(), true, navitelBtn, R.drawable.navitel);
 				enableGPSBtn.setVisibility(View.INVISIBLE);
 				
 			}
@@ -455,25 +460,7 @@ public class MainActivity extends Activity {
 
         	@Override
             public void onClick(View v) {
-        		
-        		dbHelper = new DBHelper(MainActivity.this);
-        		String smsMsg = dbHelper.getSmsMsg() + " " + coordsToSend;
-        		String phNum = dbHelper.getPhone();
-        		dbHelper.close();
-
-        		if (phNum.equalsIgnoreCase("")) {
-        			MainActivity.this.ShowToast(R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
-        		} else {
-                	showDialog(SEND_SMS_DIALOG_ID);
-
-					// Запускаем новый поток для отправки SMS
-					mThreadSendSMS = new ThreadSendSMS(handler, getApplicationContext());
-					mThreadSendSMS.setMsg(smsMsg);
-					mThreadSendSMS.setPhone(phNum);
-					mThreadSendSMS.setState(ThreadSendSMS.STATE_RUNNING);
-					mThreadSendSMS.start();
-        		}
-                
+        		sendSMS(coordsToSend, true);
             }
         	
         });
@@ -510,6 +497,20 @@ public class MainActivity extends Activity {
         	
         });
         
+        // Navitel Button
+        navitelBtn = (ImageButton)findViewById(R.id.NavitelButton);
+        setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
+        
+        navitelBtn.setOnClickListener(new OnClickListener() {
+
+        	@Override
+            public void onClick(View v) {
+        		sendSMS(coordsToNavitel, false);
+            }
+        	
+        });
+        
+        
     	// GPS-state TextView init
         GPSstate = (TextView)findViewById(R.id.textView1);
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -522,5 +523,32 @@ public class MainActivity extends Activity {
     }
     
 	// ------------------------------------------------------------------------------------------
+    
+    protected void sendSMS(String lCoords, boolean addText) {
+    	
+    	dbHelper = new DBHelper(MainActivity.this);
+    	String smsMsg = lCoords;
+    	if (addText) {
+    		smsMsg = dbHelper.getSmsMsg() + " " +smsMsg;
+    	}
+    	
+		String phNum = dbHelper.getPhone();
+		dbHelper.close();
+
+		if (phNum.equalsIgnoreCase("")) {
+			MainActivity.this.ShowToast(R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
+		} else {
+        	showDialog(SEND_SMS_DIALOG_ID);
+
+			// Запускаем новый поток для отправки SMS
+			mThreadSendSMS = new ThreadSendSMS(handler, getApplicationContext());
+			mThreadSendSMS.setMsg(smsMsg);
+			mThreadSendSMS.setPhone(phNum);
+			mThreadSendSMS.setState(ThreadSendSMS.STATE_RUNNING);
+			mThreadSendSMS.start();
+		}
+        
+    }
+    
     
 }

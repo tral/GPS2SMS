@@ -53,5 +53,6 @@
 	<string name="share_via">Поделиться через</string>
 	
 	<string name="imgdesc">Кнопка \"Поделиться\"</string>
+	<string name="naviteldesc">Кнопка \"Отправить СМС в Navitel\"</string>
     
 </resources>

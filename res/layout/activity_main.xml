@@ -42,6 +42,14 @@
 			android:layout_alignParentRight="true"
 			android:contentDescription="@string/imgdesc"
 		 />
+ 	   
+ 	    <ImageButton android:id="@+id/NavitelButton"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="64dp"
+			android:contentDescription="@string/naviteldesc"
+			android:layout_toLeftOf="@id/ShareButton"
+		 />
  	    
  	   <Button
 	       android:id="@+id/button1"
@@ -49,7 +57,7 @@
 	       android:layout_height="64dp"
 	       android:layout_alignParentLeft="true"
 	       android:text="@string/send_button_text"
-	       android:layout_toLeftOf="@id/ShareButton"
+	       android:layout_toLeftOf="@id/NavitelButton"
         />
  	    
  	</RelativeLayout>
