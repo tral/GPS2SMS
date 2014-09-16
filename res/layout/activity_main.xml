@@ -249,7 +249,7 @@
 
 	<RelativeLayout
        
-        android:id="@+id/RelLayoutInfo"
+        android:id="@+id/RelLayoutBottom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/RelLayout6"
@@ -258,7 +258,7 @@
         android:paddingLeft="0dp"
 	    android:paddingRight="0dp">
 
- 		<ImageButton android:id="@+id/MagicButton"
+ 		<ImageButton android:id="@+id/sendViaToggleButton"
 			android:src="@drawable/navitel" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
@@ -272,7 +272,7 @@
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:gravity="center"
-		   android:layout_toLeftOf="@id/MagicButton"
+		   android:layout_toLeftOf="@id/sendViaToggleButton"
            android:text="" />
  		
 
@@ -281,50 +281,7 @@
 	</RelativeLayout>
 	
 	
-	<RelativeLayout
-       
-        android:id="@+id/RelLayoutBottom"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayoutInfo"
-	    android:orientation="horizontal"
-	    android:paddingLeft="0dp"
-	    android:paddingRight="0dp" >
-
- 		
- 		 <!--  
- 		 <ImageButton android:id="@+id/ShareButton"
-			android:src="@drawable/share" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
-		 />
- 		 -->
- 		
- 		 
- 		 <!-- 
- 		 <CheckBox
-			android:id="@+id/checkBox1"
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			
-			android:layout_alignParentLeft="true"
-			android:text="@string/navitelformatcheckbox" />
-			 -->
- 		 <!-- 
- 		  <Button
-	       android:id="@+id/button7"
-	       android:layout_width="fill_parent"
-	       android:layout_height="54dp"
-	       android:layout_toLeftOf="@id/button3"
-	       android:layout_alignParentLeft="true"
-	       android:text="@string/send_button_text"
-        />
- 		  -->
- 		  
- 		 <!-- android:visibility="gone" -->
-	</RelativeLayout>
+	
 
 	<RelativeLayout
        

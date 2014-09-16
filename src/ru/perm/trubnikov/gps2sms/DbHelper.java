@@ -12,10 +12,49 @@ import android.database.sqlite.SQLiteOpenHelper;
 	  
     public DBHelper(Context context) {
       // конструктор суперкласса
-      super(context, "rupermtrubnikovgps2smsDB", null, 1);
+      super(context, "rupermtrubnikovgps2smsDB", null, 2);
       defSmsMsg = context.getString(R.string.default_sms_msg);
     }
 
+    public long getSettingsParamInt(String param) {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor c = db.query("settings", null, "param = '"+param+"'", null, null, null, null);
+    	
+    	if (c.moveToFirst()) {
+            int idx = c.getColumnIndex("val_int");
+            Long r = c.getLong(idx);
+            return r;
+		}
+    	
+    	return 0;
+    }
+    
+    public String getSettingsParamTxt(String param) {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor c = db.query("settings", null, "param = '"+param+"'", null, null, null, null);
+    	
+    	if (c.moveToFirst()) {
+            int idx = c.getColumnIndex("val_txt");
+            String r = c.getString(idx);
+            return r;
+		}
+    	
+    	return "";
+    }
+    
+    public void setSettingsParamInt(String param, long val) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+	    cv.put("val_int", val);
+	    db.update("settings", cv, "param = ?", new String[] { param });
+    }
+    
+    public void setSettingsParamTxt(String param, String val) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+	    cv.put("val_txt", val);
+	    db.update("settings", cv, "param = ?", new String[] { param });
+    }
     
     public String getPhone() {
     	SQLiteDatabase db = this.getWritableDatabase();
@@ -97,10 +136,46 @@ import android.database.sqlite.SQLiteOpenHelper;
       cv.put("msg", defSmsMsg);
       db.insert("msg", null, cv);
       
+      // Появилось с БД версии 2
+      // таблица настроек
+      db.execSQL("create table settings ("
+              + "id_ integer primary key autoincrement," 
+              + "param text,"
+              + "val_txt text,"
+              + "val_int integer"
+              + ");");
+      
+      cv.clear();
+      cv.put("param", "sendvia"); // Посылать СМС/Навител
+      cv.put("val_txt", "");
+      cv.put("val_int", 1);
+      db.insert("settings", null, cv);
+            
+      
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    	ContentValues cv = new ContentValues();
+    	
+    	if (oldVersion == 1 && newVersion == 2) {
+			// Появилось с БД версии 2
+		    // таблица настроек
+		    db.execSQL("create table settings ("
+		            + "id_ integer primary key autoincrement," 
+		            + "param text,"
+		            + "val_txt text,"
+		            + "val_int integer"
+		            + ");");
+		    
+		    cv.clear();
+		    cv.put("param", "sendvia"); // Посылать СМС/Навител
+		    cv.put("val_txt", "");
+		    cv.put("val_int", 1);
+		    db.insert("settings", null, cv);
+    	      
+    	}
+    	
     }
   }

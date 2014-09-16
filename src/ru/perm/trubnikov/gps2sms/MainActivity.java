@@ -58,6 +58,10 @@ public class MainActivity extends Activity {
 	public static final int GPS_PROVIDER_OUT_OF_SERVICE = 5;
 	public static final int GPS_PAUSE_SCANNING = 6;
 	
+	// Send SMS Via
+	public static final int SMS_SEND_VIA_SMS = 1;
+	public static final int SMS_SEND_VIA_NAVITEL = 2;
+	
 	// Location manager
 	private LocationManager manager;
 	
@@ -68,7 +72,8 @@ public class MainActivity extends Activity {
 	TextView GPSstate;
 	Button sendBtn;
 	//ImageButton navitelBtn;
-	//ImageButton shareBtn; 
+	//ImageButton shareBtn;
+	ImageButton sendViaToggleBtn;
 	Button enableGPSBtn ;
 	Button btnSelContact;
 	
@@ -78,6 +83,7 @@ public class MainActivity extends Activity {
 	private String coordsToNavitel;
 	private boolean enableShareBtnFlag = false;
 	private String phoneToSendSMS;
+
     // Database
     DBHelper dbHelper;
 	
@@ -552,6 +558,19 @@ public class MainActivity extends Activity {
         	
         });*/
         
+        // send Via SMS or Navitel Toggle Button 
+        sendViaToggleBtn = (ImageButton)findViewById(R.id.sendViaToggleButton);
+        refreshSendViaToggleButton(false);
+        
+        sendViaToggleBtn.setOnClickListener(new OnClickListener() {
+
+        	@Override
+            public void onClick(View v) {
+        		refreshSendViaToggleButton(true); 
+            }
+        	
+        });
+        
         
     	// GPS-state TextView init
         GPSstate = (TextView)findViewById(R.id.textView1);
@@ -591,6 +610,47 @@ public class MainActivity extends Activity {
         
     }
 
+    private long getIntDbParam(String param) {
+    	dbHelper = new DBHelper(MainActivity.this);
+        long val = dbHelper.getSettingsParamInt(param);
+        dbHelper.close();
+        return val;
+    }
+    
+    private void setIntDbParam(String param, long val) {
+    	dbHelper = new DBHelper(MainActivity.this);
+        dbHelper.setSettingsParamInt(param, val);
+        dbHelper.close();
+    }
+    
+    private void refreshSendViaToggleButton(boolean toggle) {
+    	
+    	Drawable navitelIcon = getResources().getDrawable(R.drawable.navitel);
+ 	    Drawable hangoutsIcon = getResources().getDrawable(R.drawable.hangouts);
+ 	    
+        long sendvia = getIntDbParam("sendvia");
+
+ 		if (sendvia == SMS_SEND_VIA_SMS) {
+ 			if (toggle) {
+ 				setIntDbParam("sendvia", SMS_SEND_VIA_NAVITEL);
+ 				sendViaToggleBtn.setImageDrawable(hangoutsIcon);
+ 			} else {
+ 				sendViaToggleBtn.setImageDrawable(navitelIcon);
+ 			}
+ 		}
+ 		
+ 		if (sendvia == SMS_SEND_VIA_NAVITEL) {
+ 			if (toggle) {
+ 				setIntDbParam("sendvia", SMS_SEND_VIA_SMS);
+ 				sendViaToggleBtn.setImageDrawable(navitelIcon);
+ 			} else {
+ 				sendViaToggleBtn.setImageDrawable(hangoutsIcon);
+ 			}
+ 		}
+    	
+    }
+    
+    
 	private void setActionBarButtonEnabled(boolean state) {
 		enableShareBtnFlag = state;
 	    invalidateOptionsMenu();
