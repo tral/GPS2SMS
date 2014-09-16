@@ -15,9 +15,9 @@
 	<string name="info_sms_nullpdu">Ошибка PDU! SMS не отправлена!</string>
 	<string name="info_sms_generic">Общий сбой! SMS не отправлена!</string>
 	
-	<string name="gps_state_disabled">GPS выключен!</string>
-	<string name="gps_state_in_progress">Определение координат...</string>
-	<string name="gps_state_unavialable">Данные о местоположении недоступны</string>
+	<string name="gps_state_disabled">\nGPS выключен!\n</string>
+	<string name="gps_state_in_progress">\nОпределение координат...\n</string>
+	<string name="gps_state_unavialable">\nДанные о местоположении недоступны\n</string>
 	
 	<string name="menu_item_settings">Настройки</string>
 	<string name="menu_item_rate">Оценить приложение</string>
@@ -53,6 +53,9 @@
 	<string name="share_via">Поделиться через</string>
 	
 	<string name="imgdesc">Кнопка \"Поделиться\"</string>
-	<string name="naviteldesc">Кнопка \"Отправить СМС в Navitel\"</string>
+    <string name="action_share">Поделиться</string>
+
+    <string name="enterAnyPhone">Номер телефона</string>
+    
     
 </resources>

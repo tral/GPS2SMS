@@ -26,6 +26,7 @@ import android.provider.ContactsContract;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +37,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class MainActivity extends Activity {
 
@@ -65,8 +67,8 @@ public class MainActivity extends Activity {
 	// Views
 	TextView GPSstate;
 	Button sendBtn;
-	ImageButton navitelBtn;
-	ImageButton shareBtn; 
+	//ImageButton navitelBtn;
+	//ImageButton shareBtn; 
 	Button enableGPSBtn ;
 	Button btnSelContact;
 	
@@ -74,9 +76,11 @@ public class MainActivity extends Activity {
 	private String coordsToSend;
 	private String coordsToShare;
 	private String coordsToNavitel;
-	
+	private boolean enableShareBtnFlag = false;
     // Database
     DBHelper dbHelper;
+    
+    private Menu mOptionsMenu;
 	
     
 	// Small util to show text messages by resource id
@@ -156,13 +160,16 @@ public class MainActivity extends Activity {
 	} 
 	
 	private void Resume_GPS_Scanning() {
+		
 		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
 		sendBtn.setEnabled(false);
-		setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
-		setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
+		setActionBarButtonEnabled(false);
+		//setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
+		//setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			printLocation(null, GPS_GETTING_COORDINATES);
 		}
+		
 	} 
 	
 	private void printLocation(Location loc, int state) {
@@ -207,8 +214,9 @@ public class MainActivity extends Activity {
 						+ "\t\n" + getString(R.string.info_longitude) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude()));
 				GPSstate.setTextColor(Color.GREEN);
 				sendBtn.setEnabled(true);
-				setImageButtonEnabled(getApplicationContext(), true, shareBtn, R.drawable.share);
-				setImageButtonEnabled(getApplicationContext(), true, navitelBtn, R.drawable.navitel);
+				setActionBarButtonEnabled(true);
+				//setImageButtonEnabled(getApplicationContext(), true, shareBtn, R.drawable.share);
+				//setImageButtonEnabled(getApplicationContext(), true, navitelBtn, R.drawable.navitel);
 				enableGPSBtn.setVisibility(View.INVISIBLE);
 				
 			}
@@ -231,6 +239,17 @@ public class MainActivity extends Activity {
 		
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
 		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
+		
+		
+		 // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_activity_actions, menu);
+	
+	    // Set share button state
+	    menu.findItem(R.id.action_share).setEnabled(enableShareBtnFlag);
+	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_share), R.drawable.ic_action_share);
+	    
+		
 		return(super.onCreateOptionsMenu(menu));
 	}
 		
@@ -310,6 +329,14 @@ public class MainActivity extends Activity {
             	int_rate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         		getApplicationContext().startActivity(int_rate);
         		break;
+            case R.id.action_share:
+            	Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND); 
+        	    sharingIntent.setType("text/plain");
+        	    String shareBody = coordsToShare;
+        	    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
+        	    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        	    startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+            	break;
             default:
                 return false;
         }
@@ -409,6 +436,15 @@ public class MainActivity extends Activity {
 	    item.setImageDrawable(icon);
 	}
 	
+	public static void setMenuItemEnabled(Context ctxt, boolean enabled, 
+			MenuItem item, int iconResId) {
+
+	    item.setEnabled(enabled);
+	    Drawable originalIcon = ctxt.getResources().getDrawable(iconResId);
+	    Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+	    item.setIcon(icon);
+	}
+	
 	/**
 	 * Mutates and applies a filter that converts the given drawable to a Gray
 	 * image. This method may be used to simulate the color of disable icons in
@@ -432,6 +468,9 @@ public class MainActivity extends Activity {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        //setMenuItemEnabled(getApplicationContext(), false, mOptionsMenu.findItem(R.id.action_share), R.drawable.ic_action_share);
+		//invalidateOptionsMenu();
+        
         // Select contact
  		btnSelContact = (Button)findViewById(R.id.button2);
  		btnSelContact.setOnClickListener(new OnClickListener() {
@@ -448,10 +487,10 @@ public class MainActivity extends Activity {
 		dbHelper = new DBHelper(this);
      	showSelectedNumber(dbHelper.getPhone(), dbHelper.getName());
 		dbHelper.close();
-        
+		
         // GPS init
         manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);		
-      
+        
         //Prepare SMS Listeners, prepare Send button 
         sendBtn = (Button)findViewById(R.id.button1);
         sendBtn.setEnabled(false);
@@ -464,10 +503,11 @@ public class MainActivity extends Activity {
             }
         	
         });
-     
+        
         // Enable GPS button
         enableGPSBtn = (Button)findViewById(R.id.button3);
         enableGPSBtn.setVisibility(View.INVISIBLE);
+        
         enableGPSBtn.setOnClickListener(new OnClickListener() {
 
         	@Override
@@ -480,9 +520,9 @@ public class MainActivity extends Activity {
         });
         
         // Share button
-        shareBtn = (ImageButton)findViewById(R.id.ShareButton);
-        setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
-        
+        //shareBtn = (ImageButton)findViewById(R.id.ShareButton);
+        //setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
+        /*
         shareBtn.setOnClickListener(new OnClickListener() {
 
         	@Override
@@ -495,9 +535,10 @@ public class MainActivity extends Activity {
         	    startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
             }
         	
-        });
+        });*/
         
         // Navitel Button
+        /*
         navitelBtn = (ImageButton)findViewById(R.id.NavitelButton);
         setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
         
@@ -508,7 +549,7 @@ public class MainActivity extends Activity {
         		sendSMS(coordsToNavitel, false);
             }
         	
-        });
+        });*/
         
         
     	// GPS-state TextView init
@@ -519,7 +560,6 @@ public class MainActivity extends Activity {
         	GPSstate.setTextColor(Color.RED);
         }
 
-        
     }
     
 	// ------------------------------------------------------------------------------------------
@@ -549,6 +589,19 @@ public class MainActivity extends Activity {
 		}
         
     }
+
+	private void setActionBarButtonEnabled(boolean state) {
+		enableShareBtnFlag = state;
+	    invalidateOptionsMenu();
+	}
+    
+    
+    /* TODO !!!
+     * Выбор количества слотов
+     * При отправке СМС писать номер на который отправляется
+     * При выборе контакта для слона не выводить в скобках его телефон (даже если у контакта короткое имя - происходит перенос строки)
+     * 
+     * */
     
     
 }

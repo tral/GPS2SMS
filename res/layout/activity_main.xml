@@ -7,7 +7,191 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
+    
+    
+	<RelativeLayout 
+ 	    android:id="@+id/RelLayout3"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/bb1"
+			android:src="@drawable/hangouts" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+ 	   <!-- 
+ 	    <ImageButton android:id="@+id/bb2"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/naviteldesc"
+			android:layout_toLeftOf="@id/bb1"
+		 />
+ -->
+ 	   <EditText
+ 	       android:id="@+id/editText1"
+ 	       android:layout_width="fill_parent"
+ 	       android:layout_height="wrap_content"
+		   android:hint="@string/enterAnyPhone"
+ 	       android:layout_centerVertical="true"
+ 	       android:layout_alignParentLeft="true"
+ 	       android:layout_toLeftOf="@id/bb1"
+ 	       android:ems="10"
+ 	       android:inputType="phone" >
 
+ 	       <requestFocus />
+ 	   </EditText>
+ 	    
+ 	</RelativeLayout>
+
+	<RelativeLayout 
+ 	    android:id="@+id/RelLayout4"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayout3"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/button15"
+			android:src="@drawable/hangouts" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+ 	   <!--  
+ 	    <ImageButton android:id="@+id/NavitelButton"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/naviteldesc"
+			android:layout_toLeftOf="@id/button15"
+		 />
+ 	    -->
+ 	    <Button
+           android:id="@+id/button2"
+           android:layout_width="fill_parent"
+           android:layout_height="54dp"
+           android:layout_toLeftOf="@id/button15"
+           android:text="@string/select_contact_btn_txt" />
+ 	    
+ 	</RelativeLayout>
+    
+    
+	<RelativeLayout
+ 	    android:id="@+id/RelLayout5"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayout4"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/bb01"
+			android:src="@drawable/hangouts" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+ 	   <!-- 
+ 	    <ImageButton android:id="@+id/bb02"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/naviteldesc"
+			android:layout_toLeftOf="@id/bb01"
+		 />
+ 	     -->
+ 	    <Button
+           android:id="@+id/bb03"
+           android:layout_width="fill_parent"
+           android:layout_height="54dp"
+           android:layout_toLeftOf="@id/bb01"
+           android:text="@string/select_contact_btn_txt" />
+ 	    
+ 	</RelativeLayout>
+	
+    
+  
+	<RelativeLayout
+ 	    android:id="@+id/RelLayout6"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayout5"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/bb11"
+			android:src="@drawable/hangouts" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+ 	   <!-- 
+ 	    <ImageButton android:id="@+id/bb12"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/naviteldesc"
+			android:layout_toLeftOf="@id/bb11"
+		 />
+ 	     -->
+ 	    <Button
+           android:id="@+id/bb13"
+           android:layout_width="fill_parent"
+           android:layout_height="54dp"
+           android:layout_toLeftOf="@id/bb11"
+           android:text="@string/select_contact_btn_txt" />
+ 	    
+ 	</RelativeLayout>
+	
+	  <!--  
+	<RelativeLayout
+ 	    android:id="@+id/RelLayout7"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayout6"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/bb21"
+			android:src="@drawable/hangouts" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+ 	   
+ 	    <ImageButton android:id="@+id/bb22"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/naviteldesc"
+			android:layout_toLeftOf="@id/bb21"
+		 />
+ 	     
+ 	    <Button
+           android:id="@+id/bb23"
+           android:layout_width="fill_parent"
+           android:layout_height="54dp"
+           android:layout_toLeftOf="@id/bb21"
+           android:text="@string/select_contact_btn_txt" />
+ 	    
+ 	</RelativeLayout>
+	 -->
+	
+<!-- 
  	<LinearLayout
  	    android:id="@+id/linearLayoutSum"
  	    android:layout_width="fill_parent"
@@ -30,7 +214,7 @@
  	    android:id="@+id/RelLayout2"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/linearLayoutSum"
+	    android:layout_below="@+id/RelLayout4"
 	    android:orientation="horizontal"
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
@@ -61,48 +245,147 @@
         />
  	    
  	</RelativeLayout>
-	
+	-->
 
-	<LinearLayout
+	<RelativeLayout
        
-        android:id="@+id/linearLayout4"
+        android:id="@+id/RelLayoutInfo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/RelLayout2"
+        android:layout_below="@+id/RelLayout6"
         android:orientation="horizontal"
-        android:paddingTop="8dp"  >
+          
+        android:paddingLeft="0dp"
+	    android:paddingRight="0dp">
 
+ 		<ImageButton android:id="@+id/MagicButton"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+			
+		 />
+	    
  		<TextView
            android:id="@+id/textView1"
-           android:layout_width="0dp"
-           android:layout_height="fill_parent"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
            android:gravity="center"
-           android:layout_weight="1"
+		   android:layout_toLeftOf="@id/MagicButton"
            android:text="" />
-       
-	</LinearLayout>
-	
-	
-	<LinearLayout
-       
-        android:id="@+id/linearLayout5"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout4"
-        android:gravity="center"
-    	android:orientation="horizontal"
-    	android:paddingTop="8dp" >
+ 		
 
- 		<Button
+ 		
+       
+	</RelativeLayout>
+	
+	
+	<RelativeLayout
+       
+        android:id="@+id/RelLayoutBottom"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayoutInfo"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+
+ 		
+ 		 <!--  
+ 		 <ImageButton android:id="@+id/ShareButton"
+			android:src="@drawable/share" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+ 		 -->
+ 		
+ 		 
+ 		 <!-- 
+ 		 <CheckBox
+			android:id="@+id/checkBox1"
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			
+			android:layout_alignParentLeft="true"
+			android:text="@string/navitelformatcheckbox" />
+			 -->
+ 		 <!-- 
+ 		  <Button
+	       android:id="@+id/button7"
+	       android:layout_width="fill_parent"
+	       android:layout_height="54dp"
+	       android:layout_toLeftOf="@id/button3"
+	       android:layout_alignParentLeft="true"
+	       android:text="@string/send_button_text"
+        />
+ 		  -->
+ 		  
+ 		 <!-- android:visibility="gone" -->
+	</RelativeLayout>
+
+	<RelativeLayout
+       
+        android:id="@+id/RelLayoutGPSBTN"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayoutBottom"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+	 
+	 <Button
  		    android:id="@+id/button3"
  		    style="?android:attr/buttonStyleSmall"
- 		    android:layout_width="wrap_content"
- 		    android:layout_height="wrap_content"
- 		    android:text="@string/enable_gps_btn" />
- 		 
-	</LinearLayout>
+ 		    android:layout_width="fill_parent"
+ 		    android:layout_height="54dp"
+ 		    
+ 		    android:text="@string/enable_gps_btn" 
+ 		    
+ 		    />
+	
+	</RelativeLayout>
+	
+	<RelativeLayout
+       
+        android:id="@+id/RelLayoutTmp"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayoutGPSBTN"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
 
-
+ 		
+ 		
+ 		  <Button
+	       android:id="@+id/button1"
+	       android:layout_width="fill_parent"
+	       android:layout_height="54dp"
+	       android:layout_alignParentLeft="true"
+	       android:text="@string/send_button_text"
+	       
+	       android:visibility="gone"
+        />
+ 		
+ 		    <!-- 
+ 		    <ImageButton android:id="@+id/NavitelButton"
+			android:src="@drawable/navitel" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/naviteldesc"
+			
+			 android:visibility="gone"
+		 />
+ 		     -->
+ 		    
+ 		    
+	</RelativeLayout>
+	
+	
+	
+	
+	
 </RelativeLayout>
