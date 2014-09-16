@@ -47,7 +47,8 @@
 	<string name="info_longitude">Долгота:</string>
 	<string name="info_accuracy">Точность:</string>
 
-	<string name="info_please_wait">Дождитесь окончания отправки SMS...</string>
+	<string name="info_please_wait1">Дождитесь окончания отправки SMS (</string>
+	<string name="info_please_wait2">)</string>
 	
 	<string name="share_topic">Мои GPS координаты</string>
 	<string name="share_via">Поделиться через</string>

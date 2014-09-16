@@ -77,10 +77,9 @@ public class MainActivity extends Activity {
 	private String coordsToShare;
 	private String coordsToNavitel;
 	private boolean enableShareBtnFlag = false;
+	private String phoneToSendSMS;
     // Database
     DBHelper dbHelper;
-    
-    private Menu mOptionsMenu;
 	
     
 	// Small util to show text messages by resource id
@@ -265,7 +264,7 @@ public class MainActivity extends Activity {
         	  mSMSProgressDialog.setCanceledOnTouchOutside(false);
         	  mSMSProgressDialog.setCancelable(false);
         	  mSMSProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait));
+        	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait1) + phoneToSendSMS + getString(R.string.info_please_wait2));
         	  return mSMSProgressDialog;
         	  
         case PHONE_DIALOG_ID:
@@ -316,6 +315,57 @@ public class MainActivity extends Activity {
         return null;
     }
 		
+    /*
+    // Update DialogData
+    protected void onPrepareDialog(int id, Dialog dialog) {
+        // получаем доступ к адаптеру списка диалога
+        AlertDialog aDialog = (AlertDialog) dialog;
+        //ListAdapter lAdapter = aDialog.getListView().getAdapter();
+     
+        switch (id) {
+        
+        case SEND_SMS_DIALOG_ID:
+        	EditText e1 = (EditText) dialog.findViewById(R.id.seagull_name);
+        	EditText e2 = (EditText) dialog.findViewById(R.id.seagull_ussd);
+        	EditText e3 = (EditText) dialog.findViewById(R.id.seagull_order);
+        	dialog.setMessage(getString(R.string.info_please_wait));
+        	e1.requestFocus();
+        	
+        	if (seagullId == -1) {
+        		e1.setText("");
+        		e2.setText("");
+        		e3.setText("");
+                aDialog.getButton(Dialog.BUTTON_NEGATIVE).setEnabled(false);
+        	} else {
+        		try {
+	        		dbHelper = new DBHelper(this);
+	        		e1.setText(dbHelper.getName(seagullId));
+	        		e2.setText(dbHelper.getUSSD(seagullId));
+	        		e3.setText(dbHelper.getOrder(seagullId) + "");
+	                dbHelper.close();
+	                aDialog.getButton(Dialog.BUTTON_NEGATIVE).setEnabled(true);
+                }
+        		catch (Exception e) {
+        	     	Log.d("seagull", "EXCEPTION! " + e.toString() +" Message:" +e.getMessage());
+        	    }        		
+        	}
+        	
+        	 
+            // проверка возможности преобразования
+          //if (lAdapter instanceof BaseAdapter) {
+            // преобразование и вызов метода-уведомления о новых данных
+            //BaseAdapter bAdapter = (BaseAdapter) lAdapter;
+            //bAdapter.notifyDataSetChanged();
+            
+          //}
+          break;
+        
+        default:
+          break;
+        }
+      };
+    */
+    
     // Menu
  	@Override
  	public boolean onOptionsItemSelected(MenuItem item) {
@@ -363,7 +413,8 @@ public class MainActivity extends Activity {
 		if (number.equalsIgnoreCase("") && name.equalsIgnoreCase("")) {
 			btnSelContact.setText(getString(R.string.select_contact_btn_txt));
 		} else {
-			btnSelContact.setText(name + " (" + number + ")");
+			//btnSelContact.setText(name + " (" + number + ")");
+			btnSelContact.setText(name);
 		}
 	}
 	
@@ -572,10 +623,10 @@ public class MainActivity extends Activity {
     		smsMsg = dbHelper.getSmsMsg() + " " +smsMsg;
     	}
     	
-		String phNum = dbHelper.getPhone();
+		phoneToSendSMS = dbHelper.getPhone();
 		dbHelper.close();
 
-		if (phNum.equalsIgnoreCase("")) {
+		if (phoneToSendSMS.equalsIgnoreCase("")) {
 			MainActivity.this.ShowToast(R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
 		} else {
         	showDialog(SEND_SMS_DIALOG_ID);
@@ -583,7 +634,7 @@ public class MainActivity extends Activity {
 			// Запускаем новый поток для отправки SMS
 			mThreadSendSMS = new ThreadSendSMS(handler, getApplicationContext());
 			mThreadSendSMS.setMsg(smsMsg);
-			mThreadSendSMS.setPhone(phNum);
+			mThreadSendSMS.setPhone(phoneToSendSMS);
 			mThreadSendSMS.setState(ThreadSendSMS.STATE_RUNNING);
 			mThreadSendSMS.start();
 		}
@@ -598,8 +649,6 @@ public class MainActivity extends Activity {
     
     /* TODO !!!
      * Выбор количества слотов
-     * При отправке СМС писать номер на который отправляется
-     * При выборе контакта для слона не выводить в скобках его телефон (даже если у контакта короткое имя - происходит перенос строки)
      * 
      * */
     

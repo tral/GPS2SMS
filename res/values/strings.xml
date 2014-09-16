@@ -47,7 +47,8 @@
 	<string name="info_longitude">Longitude:</string>
 	<string name="info_accuracy">Accuracy:</string>
 	
-	<string name="info_please_wait">Sending SMS... Please wait...</string>
+	<string name="info_please_wait1">Sending SMS, please wait (</string>
+	<string name="info_please_wait2">)</string>
 	
 	<string name="share_topic">My GPS coordinates</string>
 	<string name="share_via">Share via</string>
