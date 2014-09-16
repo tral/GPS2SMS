@@ -264,7 +264,7 @@ public class MainActivity extends Activity {
         	  mSMSProgressDialog.setCanceledOnTouchOutside(false);
         	  mSMSProgressDialog.setCancelable(false);
         	  mSMSProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait1) + phoneToSendSMS + getString(R.string.info_please_wait2));
+        	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait) + phoneToSendSMS);
         	  return mSMSProgressDialog;
         	  
         case PHONE_DIALOG_ID:
@@ -393,7 +393,7 @@ public class MainActivity extends Activity {
 
 	                    if (c != null && c.moveToFirst()) {
 	                        number = c.getString(0);
-	                        number = number.replace("-", "").replace(" ", "");
+	                        number = number.replace("-", "").replace(" ", "").replace("(", "").replace(")", "");
 	                        //type = c.getInt(1);
 	                        name = c.getString(2);
 	                        showSelectedNumber(number, name);
