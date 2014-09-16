@@ -264,7 +264,7 @@ public class MainActivity extends Activity {
         	  mSMSProgressDialog.setCanceledOnTouchOutside(false);
         	  mSMSProgressDialog.setCancelable(false);
         	  mSMSProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait) + phoneToSendSMS);
+        	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait) + " " + phoneToSendSMS);
         	  return mSMSProgressDialog;
         	  
         case PHONE_DIALOG_ID:
