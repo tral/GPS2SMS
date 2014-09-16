@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
   class DBHelper extends SQLiteOpenHelper {
 
@@ -97,6 +98,29 @@ import android.database.sqlite.SQLiteOpenHelper;
     	return "";
     }    
 
+    public String getSlot(int id, String col) {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Cursor c = db.query("slots", null, "_id="+id, null, null, null, null);
+    	
+    	if (c.moveToFirst()) {
+            int idx = c.getColumnIndex(col);
+            String val = c.getString(idx);
+            return val;
+		}
+    	
+    	return "";
+    }
+    
+    public void setSlot(int id, String name, String phone) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+	    cv.put("name", name);
+	    cv.put("phone", phone);
+	    //Log.d("gps", "save! " + name + " " + phone + " " + id);
+	    db.update("slots", cv, "_id = ?", new String[] { Integer.toString(id) });
+    }
+    
+    
     @Override
     public void onCreate(SQLiteDatabase db) {
       
@@ -136,46 +160,74 @@ import android.database.sqlite.SQLiteOpenHelper;
       cv.put("msg", defSmsMsg);
       db.insert("msg", null, cv);
       
-      // Появилось с БД версии 2
-      // таблица настроек
-      db.execSQL("create table settings ("
-              + "id_ integer primary key autoincrement," 
-              + "param text,"
-              + "val_txt text,"
-              + "val_int integer"
-              + ");");
-      
-      cv.clear();
-      cv.put("param", "sendvia"); // Посылать СМС/Навител
-      cv.put("val_txt", "");
-      cv.put("val_int", 1);
-      db.insert("settings", null, cv);
-            
+      Upgrade_1_to_2(db);
       
     }
 
+    
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     	ContentValues cv = new ContentValues();
     	
     	if (oldVersion == 1 && newVersion == 2) {
-			// Появилось с БД версии 2
-		    // таблица настроек
-		    db.execSQL("create table settings ("
-		            + "id_ integer primary key autoincrement," 
-		            + "param text,"
-		            + "val_txt text,"
-		            + "val_int integer"
-		            + ");");
-		    
-		    cv.clear();
-		    cv.put("param", "sendvia"); // Посылать СМС/Навител
-		    cv.put("val_txt", "");
-		    cv.put("val_int", 1);
-		    db.insert("settings", null, cv);
-    	      
+    		Upgrade_1_to_2(db);
     	}
     	
     }
+    
+    
+    public void Upgrade_1_to_2(SQLiteDatabase db) {
+    	
+    	ContentValues cv = new ContentValues();
+    	
+    	// Появилось с БД версии 2
+        // таблица настроек
+        db.execSQL("create table settings ("
+                + "_id integer primary key autoincrement," 
+                + "param text,"
+                + "val_txt text,"
+                + "val_int integer"
+                + ");");
+        
+        cv.clear();
+        cv.put("param", "sendvia"); // Посылать СМС/Навител
+        cv.put("val_txt", "");
+        cv.put("val_int", 1);
+        db.insert("settings", null, cv);
+        
+        // Слоты контактов, plain phone - нулевой слот
+        db.execSQL("create table slots ("
+                + "_id integer primary key," 
+                + "name text,"
+                + "phone text"
+                + ");");
+        
+        cv.clear();
+        cv.put("_id", 0);
+        cv.put("name", ""); 
+        cv.put("phone", "");
+        db.insert("slots", null, cv);
+        
+        cv.clear();
+        cv.put("_id", 1);
+        cv.put("name", ""); 
+        cv.put("phone", "");
+        db.insert("slots", null, cv);
+        
+        cv.clear();
+        cv.put("_id", 2);
+        cv.put("name", ""); 
+        cv.put("phone", "");
+        db.insert("slots", null, cv);
+        
+        cv.clear();
+        cv.put("_id", 3);
+        cv.put("name", ""); 
+        cv.put("phone", "");
+        db.insert("slots", null, cv);
+              
+    };
+    
+    
   }

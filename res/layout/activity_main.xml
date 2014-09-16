@@ -8,32 +8,24 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
     
+    <!-- Произвольный номер телефона -->
     
 	<RelativeLayout 
- 	    android:id="@+id/RelLayout3"
+ 	    android:id="@+id/RelLayout1"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    
 	    android:orientation="horizontal"
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
  	
- 	    <ImageButton android:id="@+id/bb1"
+ 	    <ImageButton android:id="@+id/send_plain"
 			android:src="@drawable/hangouts" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:layout_alignParentRight="true"
 			android:contentDescription="@string/imgdesc"
 		 />
- 	   <!-- 
- 	    <ImageButton android:id="@+id/bb2"
-			android:src="@drawable/navitel" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:contentDescription="@string/naviteldesc"
-			android:layout_toLeftOf="@id/bb1"
-		 />
- -->
+
  	   <EditText
  	       android:id="@+id/editText1"
  	       android:layout_width="fill_parent"
@@ -41,16 +33,76 @@
 		   android:hint="@string/enterAnyPhone"
  	       android:layout_centerVertical="true"
  	       android:layout_alignParentLeft="true"
- 	       android:layout_toLeftOf="@id/bb1"
+ 	       android:layout_toLeftOf="@id/send_plain"
  	       android:ems="10"
+ 	       android:selectAllOnFocus="true"
  	       android:inputType="phone" >
 
- 	       <requestFocus />
  	   </EditText>
  	    
  	</RelativeLayout>
 
+	<!-- 1-й слот для контакта -->
+	
 	<RelativeLayout 
+ 	    android:id="@+id/RelLayout2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayout1"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/send1"
+			android:src="@drawable/hangouts" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+
+ 	    <Button
+           android:id="@+id/cont1"
+           android:layout_width="fill_parent"
+           android:layout_height="54dp"
+           android:layout_toLeftOf="@id/send1"
+           android:text="@string/select_contact_btn_txt" 
+		/>
+ 	    
+ 	</RelativeLayout>
+    
+	<!-- 2-й слот для контакта -->
+    
+	<RelativeLayout
+ 	    android:id="@+id/RelLayout3"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/RelLayout2"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+ 	    <ImageButton android:id="@+id/send2"
+			android:src="@drawable/hangouts" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+		 />
+
+ 	    <Button
+           android:id="@+id/cont2"
+           android:layout_width="fill_parent"
+           android:layout_height="54dp"
+           android:layout_toLeftOf="@id/send2"
+           android:text="@string/select_contact_btn_txt" 
+		/>
+ 	    
+ 	</RelativeLayout>
+
+	<!-- 3-й слот для контакта -->
+	
+	<RelativeLayout
  	    android:id="@+id/RelLayout4"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -59,202 +111,33 @@
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
  	
- 	    <ImageButton android:id="@+id/button15"
+ 	    <ImageButton android:id="@+id/send3"
 			android:src="@drawable/hangouts" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:layout_alignParentRight="true"
 			android:contentDescription="@string/imgdesc"
 		 />
- 	   <!--  
- 	    <ImageButton android:id="@+id/NavitelButton"
-			android:src="@drawable/navitel" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:contentDescription="@string/naviteldesc"
-			android:layout_toLeftOf="@id/button15"
-		 />
- 	    -->
- 	    <Button
-           android:id="@+id/button2"
-           android:layout_width="fill_parent"
-           android:layout_height="54dp"
-           android:layout_toLeftOf="@id/button15"
-           android:text="@string/select_contact_btn_txt" />
- 	    
- 	</RelativeLayout>
-    
-    
-	<RelativeLayout
- 	    android:id="@+id/RelLayout5"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayout4"
-	    android:orientation="horizontal"
-	    android:paddingLeft="0dp"
-	    android:paddingRight="0dp" >
- 	
- 	    <ImageButton android:id="@+id/bb01"
-			android:src="@drawable/hangouts" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
-		 />
- 	   <!-- 
- 	    <ImageButton android:id="@+id/bb02"
-			android:src="@drawable/navitel" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:contentDescription="@string/naviteldesc"
-			android:layout_toLeftOf="@id/bb01"
-		 />
- 	     -->
- 	    <Button
-           android:id="@+id/button1"
-           android:layout_width="fill_parent"
-           android:layout_height="54dp"
-           android:layout_toLeftOf="@id/bb01"
-           android:text="@string/select_contact_btn_txt" />
- 	    
- 	</RelativeLayout>
-	
-    
-  
-	<RelativeLayout
- 	    android:id="@+id/RelLayout6"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayout5"
-	    android:orientation="horizontal"
-	    android:paddingLeft="0dp"
-	    android:paddingRight="0dp" >
- 	
- 	    <ImageButton android:id="@+id/bb11"
-			android:src="@drawable/hangouts" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
-		 />
- 	   <!-- 
- 	    <ImageButton android:id="@+id/bb12"
-			android:src="@drawable/navitel" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:contentDescription="@string/naviteldesc"
-			android:layout_toLeftOf="@id/bb11"
-		 />
- 	     -->
- 	    <Button
-           android:id="@+id/bb13"
-           android:layout_width="fill_parent"
-           android:layout_height="54dp"
-           android:layout_toLeftOf="@id/bb11"
-           android:text="@string/select_contact_btn_txt" />
- 	    
- 	</RelativeLayout>
-	
-	  <!--  
-	<RelativeLayout
- 	    android:id="@+id/RelLayout7"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayout6"
-	    android:orientation="horizontal"
-	    android:paddingLeft="0dp"
-	    android:paddingRight="0dp" >
- 	
- 	    <ImageButton android:id="@+id/bb21"
-			android:src="@drawable/hangouts" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
-		 />
- 	   
- 	    <ImageButton android:id="@+id/bb22"
-			android:src="@drawable/navitel" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:contentDescription="@string/naviteldesc"
-			android:layout_toLeftOf="@id/bb21"
-		 />
- 	     
- 	    <Button
-           android:id="@+id/bb23"
-           android:layout_width="fill_parent"
-           android:layout_height="54dp"
-           android:layout_toLeftOf="@id/bb21"
-           android:text="@string/select_contact_btn_txt" />
- 	    
- 	</RelativeLayout>
-	 -->
-	
-<!-- 
- 	<LinearLayout
- 	    android:id="@+id/linearLayoutSum"
- 	    android:layout_width="fill_parent"
- 	    android:layout_height="wrap_content"
- 	    android:layout_alignParentLeft="true"
- 	    android:gravity="center"
- 	    android:orientation="horizontal" >
 
-       <Button
-           android:id="@+id/button2"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           
-           android:text="@string/select_contact_btn_txt" />
-       
-	</LinearLayout>
-
- 	
-	<RelativeLayout 
- 	    android:id="@+id/RelLayout2"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayout4"
-	    android:orientation="horizontal"
-	    android:paddingLeft="0dp"
-	    android:paddingRight="0dp" >
- 	
- 	    <ImageButton android:id="@+id/ShareButton"
-			android:src="@drawable/share" 
-			android:layout_width="wrap_content"
-			android:layout_height="64dp"
-			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
-		 />
- 	   
- 	    <ImageButton android:id="@+id/NavitelButton"
-			android:src="@drawable/navitel" 
-			android:layout_width="wrap_content"
-			android:layout_height="64dp"
-			android:contentDescription="@string/naviteldesc"
-			android:layout_toLeftOf="@id/ShareButton"
-		 />
- 	    
- 	   <Button
-	       android:id="@+id/button1"
-	       android:layout_width="fill_parent"
-	       android:layout_height="64dp"
-	       android:layout_alignParentLeft="true"
-	       android:text="@string/send_button_text"
-	       android:layout_toLeftOf="@id/NavitelButton"
-        />
+ 	    <Button
+           android:id="@+id/cont3"
+           android:layout_width="fill_parent"
+           android:layout_height="54dp"
+           android:layout_toLeftOf="@id/send3"
+           android:text="@string/select_contact_btn_txt" 
+		/>
  	    
  	</RelativeLayout>
-	-->
 
+	<!-- Текст статуса координат и кнопка переключатель способа отправки СМС -->
+	
 	<RelativeLayout
        
         android:id="@+id/RelLayoutBottom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RelLayout6"
+        android:layout_below="@+id/RelLayout4"
         android:orientation="horizontal"
-          
         android:paddingLeft="0dp"
 	    android:paddingRight="0dp">
 
@@ -264,7 +147,6 @@
 			android:layout_height="54dp"
 			android:layout_alignParentRight="true"
 			android:contentDescription="@string/imgdesc"
-			
 		 />
 	    
  		<TextView
@@ -273,15 +155,12 @@
            android:layout_height="wrap_content"
            android:gravity="center"
 		   android:layout_toLeftOf="@id/sendViaToggleButton"
-           android:text="" />
- 		
-
- 		
+           android:text="" 
+		/>
        
 	</RelativeLayout>
 	
-	
-	
+	<!-- Кнопка включения GPS -->
 
 	<RelativeLayout
        
@@ -293,56 +172,15 @@
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
 	 
-	 <Button
+		<Button
  		    android:id="@+id/button3"
  		    style="?android:attr/buttonStyleSmall"
  		    android:layout_width="fill_parent"
  		    android:layout_height="54dp"
- 		    
  		    android:text="@string/enable_gps_btn" 
- 		    
- 		    />
+	    />
 	
 	</RelativeLayout>
-	
-	<RelativeLayout
-       
-        android:id="@+id/RelLayoutTmp"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayoutGPSBTN"
-	    android:orientation="horizontal"
-	    android:paddingLeft="0dp"
-	    android:paddingRight="0dp" >
-
- 		
- 		
- 		  <Button
-	       android:id="@+id/button111"
-	       android:layout_width="fill_parent"
-	       android:layout_height="54dp"
-	       android:layout_alignParentLeft="true"
-	       android:text="@string/send_button_text"
-	       
-	       android:visibility="gone"
-        />
- 		
- 		    <!-- 
- 		    <ImageButton android:id="@+id/NavitelButton"
-			android:src="@drawable/navitel" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:contentDescription="@string/naviteldesc"
-			
-			 android:visibility="gone"
-		 />
- 		     -->
- 		    
- 		    
-	</RelativeLayout>
-	
-	
-	
 	
 	
 </RelativeLayout>

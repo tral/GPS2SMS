@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +38,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 public class MainActivity extends Activity {
@@ -70,12 +72,20 @@ public class MainActivity extends Activity {
 	
 	// Views
 	TextView GPSstate;
-	Button sendBtn;
+	//Button sendBtn;
 	//ImageButton navitelBtn;
 	//ImageButton shareBtn;
 	ImageButton sendViaToggleBtn;
+	ImageButton sendpbtn;
+	ImageButton send1btn;
+	ImageButton send2btn;
+	ImageButton send3btn;
+	Button cont1;
+	Button cont2;
+	Button cont3;
 	Button enableGPSBtn ;
-	Button btnSelContact;
+	EditText plainPh;
+	//Button btnSelContact;
 	
 	// Globals
 	private String coordsToSend;
@@ -83,6 +93,7 @@ public class MainActivity extends Activity {
 	private String coordsToNavitel;
 	private boolean enableShareBtnFlag = false;
 	private String phoneToSendSMS;
+	private int tmpSlotId;
 
     // Database
     DBHelper dbHelper;
@@ -167,8 +178,13 @@ public class MainActivity extends Activity {
 	private void Resume_GPS_Scanning() {
 		
 		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
-		sendBtn.setEnabled(false);
+		//sendBtn.setEnabled(false);
+		setImageButtonEnabled(getApplicationContext(), false, sendpbtn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+		setImageButtonEnabled(getApplicationContext(), false, send1btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+		setImageButtonEnabled(getApplicationContext(), false, send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+		setImageButtonEnabled(getApplicationContext(), false, send3btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 		setActionBarButtonEnabled(false);
+
 		//setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
 		//setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -218,8 +234,12 @@ public class MainActivity extends Activity {
 						+ "\t\n" + getString(R.string.info_latitude) + " " + String.format(Locale.US , "%2.7f", loc.getLatitude()) 
 						+ "\t\n" + getString(R.string.info_longitude) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude()));
 				GPSstate.setTextColor(Color.GREEN);
-				sendBtn.setEnabled(true);
+				//sendBtn.setEnabled(true);
 				setActionBarButtonEnabled(true);
+				setImageButtonEnabled(getApplicationContext(), true, sendpbtn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+				setImageButtonEnabled(getApplicationContext(), true, send1btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+				setImageButtonEnabled(getApplicationContext(), true, send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+				setImageButtonEnabled(getApplicationContext(), true, send3btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 				//setImageButtonEnabled(getApplicationContext(), true, shareBtn, R.drawable.share);
 				//setImageButtonEnabled(getApplicationContext(), true, navitelBtn, R.drawable.navitel);
 				enableGPSBtn.setVisibility(View.INVISIBLE);
@@ -367,11 +387,30 @@ public class MainActivity extends Activity {
 	
 	public void showSelectedNumber(String number, String name) {
 		if (number.equalsIgnoreCase("") && name.equalsIgnoreCase("")) {
-			btnSelContact.setText(getString(R.string.select_contact_btn_txt));
+			//btnSelContact.setText(getString(R.string.select_contact_btn_txt));
+			if (tmpSlotId == 1) {
+				cont1.setText(getString(R.string.select_contact_btn_txt));
+			}
+			if (tmpSlotId == 2) {
+				cont2.setText(getString(R.string.select_contact_btn_txt));
+			}
+			if (tmpSlotId == 3) {
+				cont3.setText(getString(R.string.select_contact_btn_txt));
+			}
 		} else {
 			//btnSelContact.setText(name + " (" + number + ")");
-			btnSelContact.setText(name);
+			//btnSelContact.setText(name);
+			if (tmpSlotId == 1) {
+				cont1.setText(name);
+			}
+			if (tmpSlotId == 2) {
+				cont2.setText(name);
+			}
+			if (tmpSlotId == 3) {
+				cont3.setText(name);
+			}
 		}
+		
 	}
 	
 	
@@ -406,13 +445,7 @@ public class MainActivity extends Activity {
 
 	                    	// update 
 	                    	dbHelper = new DBHelper(MainActivity.this);
-	    	        		SQLiteDatabase db = dbHelper.getWritableDatabase();
-	    	        		ContentValues cv = new ContentValues();
-	    	                cv.put("contact", name);
-	    	                db.update("contact", cv, "_id = ?", new String[] { "1" });
-	    	                cv.clear();
-	    	                cv.put("phone", number);
-	    	                db.update("phone", cv, "_id = ?", new String[] { "1" });
+	                    	dbHelper.setSlot(tmpSlotId, name, number);
 	    	                dbHelper.close();
 	                        
 	                    }
@@ -421,7 +454,6 @@ public class MainActivity extends Activity {
 	                }
 	            }
 	        }
-	    	
 	    
 	      break;
 	  }
@@ -475,41 +507,63 @@ public class MainActivity extends Activity {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        //setMenuItemEnabled(getApplicationContext(), false, mOptionsMenu.findItem(R.id.action_share), R.drawable.ic_action_share);
-		//invalidateOptionsMenu();
+        // Plain phone number
+        plainPh = (EditText)findViewById(R.id.editText1);
+        plainPh.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		v.clearFocus();
+        		((EditText)v).selectAll();
+            }
+        });
         
         // Select contact
- 		btnSelContact = (Button)findViewById(R.id.button2);
- 		btnSelContact.setOnClickListener(new OnClickListener() {
-
- 	        	@Override
- 	            public void onClick(View v) {
- 	        		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
- 	        		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
- 	        		startActivityForResult(intent, 1001);
- 	            }
- 	        });
+        cont1 = (Button)findViewById(R.id.cont1);
+        cont2 = (Button)findViewById(R.id.cont2);
+        cont3 = (Button)findViewById(R.id.cont3);
+        
+        cont1.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		tmpSlotId = 1;
+        		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        		startActivityForResult(intent, 1001);
+            }
+        });
+        cont2.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		tmpSlotId = 2;
+        		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        		startActivityForResult(intent, 1001);
+            }
+        });
+        cont3.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		tmpSlotId = 3;
+        		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        		startActivityForResult(intent, 1001);
+            }
+        });
         
         // Stored phone number & name -> to button
 		dbHelper = new DBHelper(this);
-     	showSelectedNumber(dbHelper.getPhone(), dbHelper.getName());
+		plainPh.setText(dbHelper.getSlot(0, "phone"));
+		tmpSlotId = 1;
+     	showSelectedNumber(dbHelper.getSlot(tmpSlotId, "phone"), dbHelper.getSlot(tmpSlotId, "name"));
+     	tmpSlotId = 2;
+     	showSelectedNumber(dbHelper.getSlot(tmpSlotId, "phone"), dbHelper.getSlot(tmpSlotId, "name"));
+     	tmpSlotId = 3;
+     	showSelectedNumber(dbHelper.getSlot(tmpSlotId, "phone"), dbHelper.getSlot(tmpSlotId, "name"));
 		dbHelper.close();
+		
 		
         // GPS init
         manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);		
-        
-        //Prepare SMS Listeners, prepare Send button 
-        sendBtn = (Button)findViewById(R.id.button1);
-        sendBtn.setEnabled(false);
-        
-        sendBtn.setOnClickListener(new OnClickListener() {
-
-        	@Override
-            public void onClick(View v) {
-        		sendSMS(coordsToSend, true);
-            }
-        	
-        });
         
         // Enable GPS button
         enableGPSBtn = (Button)findViewById(R.id.button3);
@@ -526,38 +580,43 @@ public class MainActivity extends Activity {
         	
         });
         
-        // Share button
-        //shareBtn = (ImageButton)findViewById(R.id.ShareButton);
-        //setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
-        /*
-        shareBtn.setOnClickListener(new OnClickListener() {
-
+        
+        // Send buttons
+        sendpbtn = (ImageButton)findViewById(R.id.send_plain);
+        send1btn = (ImageButton)findViewById(R.id.send1);
+        send2btn = (ImageButton)findViewById(R.id.send2);
+        send3btn = (ImageButton)findViewById(R.id.send3);
+        setImageButtonEnabled(getApplicationContext(), false, sendpbtn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+		setImageButtonEnabled(getApplicationContext(), false, send1btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+		setImageButtonEnabled(getApplicationContext(), false, send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+		setImageButtonEnabled(getApplicationContext(), false, send3btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
+		
+		sendpbtn.setOnClickListener(new OnClickListener() {
         	@Override
             public void onClick(View v) {
-        		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND); 
-        	    sharingIntent.setType("text/plain");
-        	    String shareBody = coordsToShare;
-        	    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
-        	    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-        	    startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+        		sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend : coordsToNavitel, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true : false, 0);
             }
-        	
-        });*/
-        
-        // Navitel Button
-        /*
-        navitelBtn = (ImageButton)findViewById(R.id.NavitelButton);
-        setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
-        
-        navitelBtn.setOnClickListener(new OnClickListener() {
-
+        });
+		send1btn.setOnClickListener(new OnClickListener() {
         	@Override
             public void onClick(View v) {
-        		sendSMS(coordsToNavitel, false);
+        		sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend : coordsToNavitel, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true : false, 1);
             }
-        	
-        });*/
-        
+        });
+		send2btn.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend : coordsToNavitel, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true : false, 2);
+            }
+        });
+		send3btn.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend : coordsToNavitel, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true : false, 3);
+            }
+        });
+
+		
         // send Via SMS or Navitel Toggle Button 
         sendViaToggleBtn = (ImageButton)findViewById(R.id.sendViaToggleButton);
         refreshSendViaToggleButton(false);
@@ -571,7 +630,7 @@ public class MainActivity extends Activity {
         	
         });
         
-        
+       
     	// GPS-state TextView init
         GPSstate = (TextView)findViewById(R.id.textView1);
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -584,7 +643,7 @@ public class MainActivity extends Activity {
     
 	// ------------------------------------------------------------------------------------------
     
-    protected void sendSMS(String lCoords, boolean addText) {
+    protected void sendSMS(String lCoords, boolean addText, int Receiver) {
     	
     	dbHelper = new DBHelper(MainActivity.this);
     	String smsMsg = lCoords;
@@ -592,11 +651,19 @@ public class MainActivity extends Activity {
     		smsMsg = dbHelper.getSmsMsg() + " " +smsMsg;
     	}
     	
-		phoneToSendSMS = dbHelper.getPhone();
+    	if (Receiver == 0) {
+    		String plph = plainPh.getText().toString().replace("-", "").replace(" ", "").replace("(", "").replace(")", "");
+    		dbHelper.setSlot(Receiver, plph, plph);
+    	}
+    	
+    	phoneToSendSMS = dbHelper.getSlot(Receiver, "phone");
 		dbHelper.close();
 
 		if (phoneToSendSMS.equalsIgnoreCase("")) {
-			MainActivity.this.ShowToast(R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
+			if (Receiver == 0)
+				MainActivity.this.ShowToast(R.string.error_no_phone_number, Toast.LENGTH_LONG);
+			else
+				MainActivity.this.ShowToast(R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
 		} else {
         	showDialog(SEND_SMS_DIALOG_ID);
 
@@ -610,6 +677,7 @@ public class MainActivity extends Activity {
         
     }
 
+    
     private long getIntDbParam(String param) {
     	dbHelper = new DBHelper(MainActivity.this);
         long val = dbHelper.getSettingsParamInt(param);
@@ -617,34 +685,59 @@ public class MainActivity extends Activity {
         return val;
     }
     
+    
     private void setIntDbParam(String param, long val) {
     	dbHelper = new DBHelper(MainActivity.this);
         dbHelper.setSettingsParamInt(param, val);
         dbHelper.close();
     }
     
+    
     private void refreshSendViaToggleButton(boolean toggle) {
     	
-    	Drawable navitelIcon = getResources().getDrawable(R.drawable.navitel);
- 	    Drawable hangoutsIcon = getResources().getDrawable(R.drawable.hangouts);
+    	Drawable navitelIconT = getResources().getDrawable(R.drawable.navitel);
+ 	    Drawable hangoutsIconT = getResources().getDrawable(R.drawable.hangouts);
+ 	    Drawable navitelIcon = getResources().getDrawable(R.drawable.navitel);
+	    Drawable hangoutsIcon = getResources().getDrawable(R.drawable.hangouts);
+ 	    
+ 	    if (!sendpbtn.isEnabled()) {
+ 	    	navitelIcon = convertDrawableToGrayScale(navitelIcon);
+ 	    	hangoutsIcon = convertDrawableToGrayScale(hangoutsIcon);
+ 	    } 
  	    
         long sendvia = getIntDbParam("sendvia");
 
  		if (sendvia == SMS_SEND_VIA_SMS) {
  			if (toggle) {
  				setIntDbParam("sendvia", SMS_SEND_VIA_NAVITEL);
- 				sendViaToggleBtn.setImageDrawable(hangoutsIcon);
+ 				sendViaToggleBtn.setImageDrawable(hangoutsIconT);
+ 				sendpbtn.setImageDrawable(navitelIcon);
+ 				send1btn.setImageDrawable(navitelIcon);
+ 				send2btn.setImageDrawable(navitelIcon);
+ 				send3btn.setImageDrawable(navitelIcon);
  			} else {
- 				sendViaToggleBtn.setImageDrawable(navitelIcon);
+ 				sendViaToggleBtn.setImageDrawable(navitelIconT);
+ 				sendpbtn.setImageDrawable(hangoutsIcon);
+ 				send1btn.setImageDrawable(hangoutsIcon);
+ 				send2btn.setImageDrawable(hangoutsIcon);
+ 				send3btn.setImageDrawable(hangoutsIcon);
  			}
  		}
  		
  		if (sendvia == SMS_SEND_VIA_NAVITEL) {
  			if (toggle) {
  				setIntDbParam("sendvia", SMS_SEND_VIA_SMS);
- 				sendViaToggleBtn.setImageDrawable(navitelIcon);
+ 				sendViaToggleBtn.setImageDrawable(navitelIconT);
+ 				sendpbtn.setImageDrawable(hangoutsIcon);
+ 				send1btn.setImageDrawable(hangoutsIcon);
+ 				send2btn.setImageDrawable(hangoutsIcon);
+ 				send3btn.setImageDrawable(hangoutsIcon);
  			} else {
- 				sendViaToggleBtn.setImageDrawable(hangoutsIcon);
+ 				sendViaToggleBtn.setImageDrawable(hangoutsIconT);
+ 				sendpbtn.setImageDrawable(navitelIcon);
+ 				send1btn.setImageDrawable(navitelIcon);
+ 				send2btn.setImageDrawable(navitelIcon);
+ 				send3btn.setImageDrawable(navitelIcon);
  			}
  		}
     	
@@ -656,11 +749,7 @@ public class MainActivity extends Activity {
 	    invalidateOptionsMenu();
 	}
     
-    
-    /* TODO !!!
-     * Выбор количества слотов
-     * 
-     * */
+
     
     
 }
