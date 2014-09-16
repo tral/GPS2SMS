@@ -315,57 +315,7 @@ public class MainActivity extends Activity {
         return null;
     }
 		
-    /*
-    // Update DialogData
-    protected void onPrepareDialog(int id, Dialog dialog) {
-        // получаем доступ к адаптеру списка диалога
-        AlertDialog aDialog = (AlertDialog) dialog;
-        //ListAdapter lAdapter = aDialog.getListView().getAdapter();
-     
-        switch (id) {
         
-        case SEND_SMS_DIALOG_ID:
-        	EditText e1 = (EditText) dialog.findViewById(R.id.seagull_name);
-        	EditText e2 = (EditText) dialog.findViewById(R.id.seagull_ussd);
-        	EditText e3 = (EditText) dialog.findViewById(R.id.seagull_order);
-        	dialog.setMessage(getString(R.string.info_please_wait));
-        	e1.requestFocus();
-        	
-        	if (seagullId == -1) {
-        		e1.setText("");
-        		e2.setText("");
-        		e3.setText("");
-                aDialog.getButton(Dialog.BUTTON_NEGATIVE).setEnabled(false);
-        	} else {
-        		try {
-	        		dbHelper = new DBHelper(this);
-	        		e1.setText(dbHelper.getName(seagullId));
-	        		e2.setText(dbHelper.getUSSD(seagullId));
-	        		e3.setText(dbHelper.getOrder(seagullId) + "");
-	                dbHelper.close();
-	                aDialog.getButton(Dialog.BUTTON_NEGATIVE).setEnabled(true);
-                }
-        		catch (Exception e) {
-        	     	Log.d("seagull", "EXCEPTION! " + e.toString() +" Message:" +e.getMessage());
-        	    }        		
-        	}
-        	
-        	 
-            // проверка возможности преобразования
-          //if (lAdapter instanceof BaseAdapter) {
-            // преобразование и вызов метода-уведомления о новых данных
-            //BaseAdapter bAdapter = (BaseAdapter) lAdapter;
-            //bAdapter.notifyDataSetChanged();
-            
-          //}
-          break;
-        
-        default:
-          break;
-        }
-      };
-    */
-    
     // Menu
  	@Override
  	public boolean onOptionsItemSelected(MenuItem item) {
