@@ -2,7 +2,6 @@ package ru.perm.trubnikov.gps2sms;
 
 import java.util.Locale;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,7 +24,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,7 +31,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -191,7 +188,7 @@ public class MainActivity extends Activity {
 		setImageButtonEnabled(getApplicationContext(), false, send1btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 		//setImageButtonEnabled(getApplicationContext(), false, send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 		//setImageButtonEnabled(getApplicationContext(), false, send3btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
-		setActionBarButtonEnabled(false);
+		setActionBarShareButtonEnabled(false);
 
 		//setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
 		//setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
@@ -243,7 +240,7 @@ public class MainActivity extends Activity {
 						+ "\t\n" + getString(R.string.info_longitude) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude()));
 				GPSstate.setTextColor(Color.GREEN);
 				//sendBtn.setEnabled(true);
-				setActionBarButtonEnabled(true);
+				setActionBarShareButtonEnabled(true);
 				setImageButtonEnabled(getApplicationContext(), true, sendpbtn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 				setImageButtonEnabled(getApplicationContext(), true, send1btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 				//setImageButtonEnabled(getApplicationContext(), true, send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
@@ -776,11 +773,11 @@ public class MainActivity extends Activity {
  			}
  		}
  		
- 		setActionBarIcon();
+ 		setActionBarToggleBtnIcon();
     	
     }
 
-    private void setActionBarIcon() {
+    private void setActionBarToggleBtnIcon() {
     	
 		/*
 		if (android.os.Build.VERSION.SDK_INT >= 11) {
@@ -811,7 +808,7 @@ public class MainActivity extends Activity {
 	}
     
     
-	private void setActionBarButtonEnabled(boolean state) {
+	private void setActionBarShareButtonEnabled(boolean state) {
 
 		enableShareBtnFlag = state;
 		
