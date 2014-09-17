@@ -281,14 +281,14 @@ public class MainActivity extends Activity {
 	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_share), R.drawable.ic_action_share);
 	    
 	    // Toggle Button
-	    Drawable icon;
  	    if (toggleButtonIcon == TOGGLE_ICON_HANGOUTS) {
- 		    icon = getResources().getDrawable(R.drawable.hangouts);
- 	    } else {
- 		    icon = getResources().getDrawable(R.drawable.navitel);
- 	    }
+ 		    menu.findItem(R.id.action_navitel).setIcon(getResources().getDrawable(R.drawable.hangouts));
+ 	    } else 
+ 	    	if (toggleButtonIcon == TOGGLE_ICON_NAVITEL) {
+ 	    		menu.findItem(R.id.action_navitel).setIcon(getResources().getDrawable(R.drawable.navitel));
+ 	    	}
  	   
- 	    menu.findItem(R.id.action_navitel).setIcon(icon);
+ 	    
 
  	    //
 		
@@ -623,6 +623,10 @@ public class MainActivity extends Activity {
         		sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend : coordsToNavitel, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true : false, 1);
             }
         });
+		
+		// Toggle Button init
+		refreshSendViaToggleButton(false);
+		
 		/*send2btn.setOnClickListener(new OnClickListener() {
         	@Override
             public void onClick(View v) {
