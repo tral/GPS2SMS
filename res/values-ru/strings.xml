@@ -57,6 +57,6 @@
     <string name="action_share">Поделиться</string>
 
     <string name="enterAnyPhone">Номер телефона</string>
-    
+    <string name="toggle_sms_navitel_info">Формировать ли СМС в формате Navitel</string>
     
 </resources>

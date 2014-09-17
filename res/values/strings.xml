@@ -57,5 +57,6 @@
 	<string name="action_share">Share</string>
 
 	<string name="enterAnyPhone">Phone number</string>
+	<string name="toggle_sms_navitel_info">Build SMS in Navitel format or not</string>
 		
 </resources>

@@ -71,7 +71,7 @@
  	    
  	</RelativeLayout>
     
-	<!-- 2-й слот для контакта -->
+	<!-- 
     
 	<RelativeLayout
  	    android:id="@+id/RelLayout3"
@@ -100,7 +100,6 @@
  	    
  	</RelativeLayout>
 
-	<!-- 3-й слот для контакта -->
 	
 	<RelativeLayout
  	    android:id="@+id/RelLayout4"
@@ -128,6 +127,7 @@
 		/>
  	    
  	</RelativeLayout>
+-->
 
 	<!-- Текст статуса координат и кнопка переключатель способа отправки СМС -->
 	
@@ -136,7 +136,7 @@
         android:id="@+id/RelLayoutBottom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RelLayout4"
+        android:layout_below="@+id/RelLayout2"
         android:orientation="horizontal"
         android:paddingLeft="0dp"
 	    android:paddingRight="0dp">
