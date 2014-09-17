@@ -131,6 +131,29 @@
 
 	<!-- Текст статуса координат и кнопка переключатель способа отправки СМС -->
 	
+	
+	<LinearLayout
+       
+        android:id="@+id/linearLayoutText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/RelLayout2"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"  >
+
+ 		<TextView
+           android:id="@+id/textView1"
+           android:layout_width="0dp"
+           android:layout_height="fill_parent"
+           android:gravity="center"
+           android:layout_weight="1"
+           android:text="Координаты получены, точность 25 м\nШирота 3424234234\nДолгота 32424324" />
+       
+	</LinearLayout>
+	
+	<!--  
 	<RelativeLayout
        
         android:id="@+id/RelLayoutBottom"
@@ -154,20 +177,23 @@
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:gravity="center"
+           android:layout_alignParentLeft="true"
 		   android:layout_toLeftOf="@id/sendViaToggleButton"
-           android:text="" 
+           android:text="Координаты получены, точность 25 м\nШирота 3424234234\nДолгота 32424324" 
 		/>
        
 	</RelativeLayout>
-	
+	 -->
+	 
+	 
 	<!-- Кнопка включения GPS -->
 
-	<RelativeLayout
+	<LinearLayout
        
         android:id="@+id/RelLayoutGPSBTN"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayoutBottom"
+	    android:layout_below="@+id/linearLayoutText"
 	    android:orientation="horizontal"
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
@@ -180,7 +206,7 @@
  		    android:text="@string/enable_gps_btn" 
 	    />
 	
-	</RelativeLayout>
+	</LinearLayout>
 	
 	
 </RelativeLayout>

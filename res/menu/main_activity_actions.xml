@@ -1,8 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <!-- Search, should appear as action button -->
-    <item android:id="@+id/action_share"
+    <!-- should appear as action button -->
+	<item android:id="@+id/action_share"
           android:icon="@drawable/ic_action_share"
           android:title="@string/action_share"
+          android:showAsAction="ifRoom" />
+	<item android:id="@+id/action_navitel"
+          android:icon="@drawable/ic_action_navitel"
+          android:title="@string/toggle_sms_navitel_info"
           android:showAsAction="ifRoom" />
 </menu>
 

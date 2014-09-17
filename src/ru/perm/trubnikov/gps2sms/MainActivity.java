@@ -2,6 +2,7 @@ package ru.perm.trubnikov.gps2sms;
 
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,6 +24,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -64,6 +67,9 @@ public class MainActivity extends Activity {
 	public static final int SMS_SEND_VIA_SMS = 1;
 	public static final int SMS_SEND_VIA_NAVITEL = 2;
 	
+	public static final int TOGGLE_ICON_HANGOUTS = 1;
+	public static final int TOGGLE_ICON_NAVITEL = 2;
+	
 	// Location manager
 	private LocationManager manager;
 	
@@ -86,12 +92,14 @@ public class MainActivity extends Activity {
 	Button enableGPSBtn ;
 	EditText plainPh;
 	//Button btnSelContact;
+	Menu mMenu;
 	
 	// Globals
 	private String coordsToSend;
 	private String coordsToShare;
 	private String coordsToNavitel;
 	private boolean enableShareBtnFlag = false;
+	private int toggleButtonIcon;
 	private String phoneToSendSMS;
 	private int tmpSlotId;
 
@@ -262,9 +270,10 @@ public class MainActivity extends Activity {
 		//getMenuInflater().inflate(R.menu.main, menu);
 		//return true;
 		
+		mMenu = menu;
+		
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
 		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
-		
 		
 		 // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
@@ -274,6 +283,17 @@ public class MainActivity extends Activity {
 	    menu.findItem(R.id.action_share).setEnabled(enableShareBtnFlag);
 	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_share), R.drawable.ic_action_share);
 	    
+	    // Toggle Button
+	    Drawable icon;
+ 	    if (toggleButtonIcon == TOGGLE_ICON_HANGOUTS) {
+ 		    icon = getResources().getDrawable(R.drawable.hangouts);
+ 	    } else {
+ 		    icon = getResources().getDrawable(R.drawable.navitel);
+ 	    }
+ 	   
+ 	    menu.findItem(R.id.action_navitel).setIcon(icon);
+
+ 	    //
 		
 		return(super.onCreateOptionsMenu(menu));
 	}
@@ -362,6 +382,9 @@ public class MainActivity extends Activity {
         	    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
         	    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         	    startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+            	break;
+            case R.id.action_navitel:
+            	refreshSendViaToggleButton(true);
             	break;
             default:
                 return false;
@@ -618,7 +641,7 @@ public class MainActivity extends Activity {
 
 		
         // send Via SMS or Navitel Toggle Button 
-        sendViaToggleBtn = (ImageButton)findViewById(R.id.sendViaToggleButton);
+        /*sendViaToggleBtn = (ImageButton)findViewById(R.id.sendViaToggleButton);
         refreshSendViaToggleButton(false);
         
         sendViaToggleBtn.setOnClickListener(new OnClickListener() {
@@ -634,7 +657,7 @@ public class MainActivity extends Activity {
             	MainActivity.this.ShowToast(R.string.toggle_sms_navitel_info, Toast.LENGTH_LONG);
                 return true;
             }
-        });
+        });*/
         
        
     	// GPS-state TextView init
@@ -644,7 +667,7 @@ public class MainActivity extends Activity {
         } else {
         	GPSstate.setTextColor(Color.RED);
         }
-
+        
     }
     
 	// ------------------------------------------------------------------------------------------
@@ -701,8 +724,8 @@ public class MainActivity extends Activity {
     
     private void refreshSendViaToggleButton(boolean toggle) {
     	
-    	Drawable navitelIconT = getResources().getDrawable(R.drawable.navitel);
- 	    Drawable hangoutsIconT = getResources().getDrawable(R.drawable.hangouts);
+    	//Drawable navitelIconT = getResources().getDrawable(R.drawable.navitel);
+ 	    //Drawable hangoutsIconT = getResources().getDrawable(R.drawable.hangouts);
  	    Drawable navitelIcon = getResources().getDrawable(R.drawable.navitel);
 	    Drawable hangoutsIcon = getResources().getDrawable(R.drawable.hangouts);
  	    
@@ -716,13 +739,16 @@ public class MainActivity extends Activity {
  		if (sendvia == SMS_SEND_VIA_SMS) {
  			if (toggle) {
  				setIntDbParam("sendvia", SMS_SEND_VIA_NAVITEL);
- 				sendViaToggleBtn.setImageDrawable(hangoutsIconT);
+ 				//sendViaToggleBtn.setImageDrawable(hangoutsIconT);
+ 				toggleButtonIcon = TOGGLE_ICON_HANGOUTS;
  				sendpbtn.setImageDrawable(navitelIcon);
  				send1btn.setImageDrawable(navitelIcon);
  				//send2btn.setImageDrawable(navitelIcon);
  				//send3btn.setImageDrawable(navitelIcon);
+ 				
  			} else {
- 				sendViaToggleBtn.setImageDrawable(navitelIconT);
+ 				//sendViaToggleBtn.setImageDrawable(navitelIconT);
+ 				toggleButtonIcon = TOGGLE_ICON_NAVITEL;
  				sendpbtn.setImageDrawable(hangoutsIcon);
  				send1btn.setImageDrawable(hangoutsIcon);
  				//send2btn.setImageDrawable(hangoutsIcon);
@@ -733,26 +759,77 @@ public class MainActivity extends Activity {
  		if (sendvia == SMS_SEND_VIA_NAVITEL) {
  			if (toggle) {
  				setIntDbParam("sendvia", SMS_SEND_VIA_SMS);
- 				sendViaToggleBtn.setImageDrawable(navitelIconT);
+ 				//sendViaToggleBtn.setImageDrawable(navitelIconT);
+ 				toggleButtonIcon = TOGGLE_ICON_NAVITEL;
  				sendpbtn.setImageDrawable(hangoutsIcon);
  				send1btn.setImageDrawable(hangoutsIcon);
  				//send2btn.setImageDrawable(hangoutsIcon);
  				//send3btn.setImageDrawable(hangoutsIcon);
+ 				
  			} else {
- 				sendViaToggleBtn.setImageDrawable(hangoutsIconT);
+ 				//sendViaToggleBtn.setImageDrawable(hangoutsIconT);
+ 				toggleButtonIcon = TOGGLE_ICON_HANGOUTS;
  				sendpbtn.setImageDrawable(navitelIcon);
  				send1btn.setImageDrawable(navitelIcon);
  				//send2btn.setImageDrawable(navitelIcon);
  				//send3btn.setImageDrawable(navitelIcon);
  			}
  		}
+ 		
+ 		setActionBarIcon();
     	
     }
+
+    private void setActionBarIcon() {
+    	
+		/*
+		if (android.os.Build.VERSION.SDK_INT >= 11) {
+			invalidateOptionsMenu();			
+		} else {
+			supportInvalidateOptionsMenu();
+		}*/
+		
+		 if (mMenu != null) {
+		       MenuItem item = mMenu.findItem(R.id.action_navitel);
+		       if (item != null) {
+
+		    	   Drawable icon;
+		    	   if (toggleButtonIcon == TOGGLE_ICON_HANGOUTS) {
+		    		   icon = getResources().getDrawable(R.drawable.hangouts);
+		    	   } else {
+		    		   icon = getResources().getDrawable(R.drawable.navitel);
+		    	   }
+		    	   
+		    	   item.setIcon(icon);
+
+		           ActivityCompat.invalidateOptionsMenu(this);
+		        }
+		    }
+
+		 //Log.d("gps", "test");
+
+	}
     
     
 	private void setActionBarButtonEnabled(boolean state) {
+
 		enableShareBtnFlag = state;
-	    invalidateOptionsMenu();
+		
+		/*
+		if (android.os.Build.VERSION.SDK_INT >= 11) {
+			invalidateOptionsMenu();			
+		} else {
+			supportInvalidateOptionsMenu();
+		}*/
+		
+		 if (mMenu != null) {
+		       MenuItem item = mMenu.findItem(R.id.action_share);
+		       if (item != null) {
+		    	    item.setEnabled(enableShareBtnFlag);
+				    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, item, R.drawable.ic_action_share);
+		            ActivityCompat.invalidateOptionsMenu(this);
+		        }
+		    }
 	}
     
 
