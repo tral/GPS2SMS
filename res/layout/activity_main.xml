@@ -145,10 +145,11 @@
 
  		<TextView
            android:id="@+id/textView1"
-           android:layout_width="0dp"
+           android:layout_width="fill_parent"
            android:layout_height="fill_parent"
            android:gravity="center"
-           android:layout_weight="1"
+           android:maxLines="3"
+           android:singleLine="false"
            android:text="Координаты получены, точность 25 м\nШирота 3424234234\nДолгота 32424324" />
        
 	</LinearLayout>
