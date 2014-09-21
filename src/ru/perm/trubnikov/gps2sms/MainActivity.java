@@ -40,7 +40,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 public class MainActivity extends Activity {
 
 	// Menu
@@ -271,10 +270,7 @@ public class MainActivity extends Activity {
 		
 		mMenu = menu;
 		
-		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
-		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
-		
-		 // Inflate the menu items for use in the action bar
+		// Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.main_activity_actions, menu);
 	
@@ -290,9 +286,11 @@ public class MainActivity extends Activity {
  	    		menu.findItem(R.id.action_navitel).setIcon(getResources().getDrawable(R.drawable.navitel));
  	    	}
  	   
+	    menu.findItem(R.id.action_copy).setEnabled(enableShareBtnFlag);
+	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_copy), R.drawable.ic_action_copy);
  	    
-
- 	    //
+		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
+		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
 		
 		return(super.onCreateOptionsMenu(menu));
 	}
@@ -385,6 +383,11 @@ public class MainActivity extends Activity {
             case R.id.action_navitel:
             	refreshSendViaToggleButton(true);
             	break;
+            case R.id.action_copy:
+            	android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboard.setText(coordsToSend);
+                MainActivity.this.ShowToast(R.string.text_copied, Toast.LENGTH_LONG);
+            	break;
             default:
                 return false;
         }
@@ -396,6 +399,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		KeepScreenOnFlag();
 		Resume_GPS_Scanning();
 	}
 		
@@ -405,6 +410,16 @@ public class MainActivity extends Activity {
 		super.onPause();
 		Pause_GPS_Scanning();
 	}
+
+	
+	// Держать ли экран включенным?	
+	private void KeepScreenOnFlag() {
+		if (getIntDbParam("keepscreen") > 0) {
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		} else {
+			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		}
+	} 
 	
 	
 	public void showSelectedNumber(String number, String name) {
@@ -832,10 +847,21 @@ public class MainActivity extends Activity {
 				    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, item, R.drawable.ic_action_share);
 		            ActivityCompat.invalidateOptionsMenu(this);
 		        }
+		       MenuItem item2 = mMenu.findItem(R.id.action_copy);
+		       if (item2 != null) {
+		    	    item2.setEnabled(enableShareBtnFlag);
+				    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, item2, R.drawable.ic_action_copy);
+		            ActivityCompat.invalidateOptionsMenu(this);
+		        }
 		    }
 	}
     
-
+/* TODO 
+ * Новый экран меню:
+ * Что копировать в буфер: ссылка на гугл карты, яндекс карты или пара координат
+ * Держать экран включенным: да/нет
+ * Текст СМС
+ * */
     
     
 }

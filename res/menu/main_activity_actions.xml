@@ -8,6 +8,10 @@
           android:icon="@drawable/ic_action_navitel"
           android:title="@string/toggle_sms_navitel_info"
           android:showAsAction="ifRoom" />
+	<item android:id="@+id/action_copy"
+          android:icon="@drawable/ic_action_copy"
+          android:title="@string/action_copy"
+          android:showAsAction="never" />
 </menu>
 
 

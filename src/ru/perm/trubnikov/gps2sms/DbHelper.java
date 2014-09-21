@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 	  
     public DBHelper(Context context) {
       // конструктор суперкласса
-      super(context, "rupermtrubnikovgps2smsDB", null, 2);
+      super(context, "rupermtrubnikovgps2smsDB", null, 3);
       defSmsMsg = context.getString(R.string.default_sms_msg);
     }
 
@@ -160,6 +160,7 @@ import android.database.sqlite.SQLiteOpenHelper;
       db.insert("msg", null, cv);
       
       Upgrade_1_to_2(db);
+      Upgrade_2_to_3(db);
       
     }
 
@@ -169,8 +170,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
     	ContentValues cv = new ContentValues();
     	
-    	if (oldVersion == 1 && newVersion == 2) {
+    	if (oldVersion <= 1) {
     		Upgrade_1_to_2(db);
+    	}
+    	
+    	if (oldVersion <= 2) {
+    		Upgrade_2_to_3(db);
     	}
     	
     }
@@ -226,6 +231,19 @@ import android.database.sqlite.SQLiteOpenHelper;
         cv.put("phone", "");
         db.insert("slots", null, cv);
               
+    };
+    
+    
+    public void Upgrade_2_to_3(SQLiteDatabase db) {
+    	
+    	ContentValues cv = new ContentValues();
+    	
+        cv.clear();
+        cv.put("param", "keepscreen"); // Держать ли экран всегда включенным
+        cv.put("val_txt", "");
+        cv.put("val_int", 1);
+        db.insert("settings", null, cv);
+
     };
     
     
