@@ -3,16 +3,12 @@ package ru.perm.trubnikov.gps2sms;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
@@ -27,13 +23,11 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,7 +48,7 @@ public class MainActivity extends Activity {
 	
 	// Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
-    private final static int PHONE_DIALOG_ID = 1;
+    //private final static int PHONE_DIALOG_ID = 1;
 	ProgressDialog mSMSProgressDialog;
 
 	// My GPS states
@@ -884,32 +878,7 @@ public class MainActivity extends Activity {
 	}
 
 	
-	 private void getUserSettings() {
-	        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-	 
-	        StringBuilder builder = new StringBuilder();
-	 
-	        builder.append("\n Username: "
-	                + sharedPrefs.getString("prefUsername", "NULL"));
-	 
-	        builder.append("\n Send report:"
-	                + sharedPrefs.getBoolean("prefSendReport", false));
-	 
-	        builder.append("\n Sync Frequency: "
-	                + sharedPrefs.getString("prefSyncFrequency", "NULL"));
-	 
-	        //TextView settingsTextView = (TextView) findViewById(R.id.textUserSettings);
-	 
-//	        settingsTextView.setText(builder.toString());
-	    }
-	 
-	
-/* TODO 
- * Новый экран меню:
- * Что копировать в буфер: ссылка на гугл карты, яндекс карты или пара координат
- * Держать экран включенным: да/нет
- * Текст СМС
- * */
+
     
     
 }
