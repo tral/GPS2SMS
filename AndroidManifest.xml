@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.perm.trubnikov.gps2sms" 
-    android:installLocation="auto" 
-    android:versionCode="21" 
-    android:versionName="2.6" >
+    package="ru.perm.trubnikov.gps2sms"
+    android:installLocation="auto"
+    android:versionCode="22"
+    android:versionName="2.7" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -12,16 +12,15 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="ru.perm.trubnikov.gps2sms.MainActivity"
-            android:label="@string/app_name" 
-            >
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,16 +28,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ru.perm.trubnikov.gps2sms.AnotherMsgActivity"
-            android:label="@string/app_name" 
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:name=".AnotherMsgActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.CATEGORY_ALTERNATE" />
-                
+                <category android:name="android.intent.category.CATEGORY_ALTERNATE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UserSettingActivity"
+            android:label="@string/menu_item_settings" >
+        </activity>
     </application>
-  
-    
+
 </manifest>

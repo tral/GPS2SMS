@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="shareProviders">
+        <item name="1">Только координаты</item>
+        <item name="2">Ссылка на Google Maps</item>
+        <item name="3">Ссылка на OpenStreetMap</item>
+    </string-array>
+    <string-array name="shareProvidersValues">
+        <item name="1">1</item>
+        <item name="2">2</item>
+        <item name="3">3</item>
+    </string-array>
+     
+</resources>

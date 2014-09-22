@@ -61,5 +61,19 @@
 	<string name="toggle_sms_navitel_info">Simple SMS/Navitel SMS</string>
 	
 	<string name="text_copied">Copied to clipboard</string>
-		
+
+	
+	
+	
+    <string name="pref_keepscreen">Keep screen on</string> 
+	<string name="pref_keepscreen_summary">Check for permanent screen on</string>
+    <string name="pref_clip">Clipboard content</string>
+    <string name="pref_clip_summary">Specify what to copy to the clipboard</string>
+    <string name="pref_smstext">SMS Text</string>
+    <string name="pref_smstext_summary">Text in SMS before coordinates</string>
+    <string name="pref_general">General</string>
+    <string name="pref_content">Content</string>
+	
+	
+			
 </resources>

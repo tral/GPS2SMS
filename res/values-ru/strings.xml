@@ -62,5 +62,18 @@
     
     <string name="text_copied">Скопировано в буфер обмена</string>
     
+
+    
+   
+    <string name="pref_keepscreen">Держать экран включенным</string>
+    <string name="pref_keepscreen_summary">Если отмечено, экран не будет отключаться автоматически</string>
+    <string name="pref_clip">Буфер обмена</string>
+    <string name="pref_clip_summary">Укажите, что копировать в буфер обмена при нажатии соответствующей кнопки</string>
+    <string name="pref_smstext">Текст СМС</string>
+    <string name="pref_smstext_summary">Текст, который будет подставлен в СМС перед координатами</string>
+    <string name="pref_general">Общие</string>
+    <string name="pref_content">Содержание</string>
+    
+    
     
 </resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+ 
+    <PreferenceCategory android:title="@string/pref_general" >
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeepScreen"
+            android:summary="@string/pref_keepscreen_summary"
+            android:title="@string/pref_keepscreen" >
+        </CheckBoxPreference>
+        
+    </PreferenceCategory>
+     
+    <PreferenceCategory android:title="@string/pref_content" >
+        
+        <EditTextPreference
+            android:defaultValue="@string/default_sms_msg"
+            android:title="@string/pref_smstext"
+            android:summary="@string/pref_smstext_summary"
+            android:key="prefSMSText"/>
+ 
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/shareProviders"
+            android:entryValues="@array/shareProvidersValues"
+            android:title="@string/pref_clip"
+            android:summary="@string/pref_clip_summary"
+            android:key="prefClipboard"
+            />
+        
+    </PreferenceCategory>
+ 
+</PreferenceScreen>

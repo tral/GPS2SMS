@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.view.Gravity;
@@ -45,6 +47,10 @@ public class MainActivity extends Activity {
 	// Menu
 	public static final int IDM_SETTINGS = 101;
 	public static final int IDM_RATE = 105;
+	
+	// Activities
+	private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
+	private static final int ACT_RESULT_SETTINGS = 1002;
 	
 	// Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
@@ -94,6 +100,8 @@ public class MainActivity extends Activity {
 	private String coordsToSend;
 	private String coordsToShare;
 	private String coordsToNavitel;
+	private String gGoogleMapsLink;
+	private String gOpenStreetMapsLink;
 	private boolean enableShareBtnFlag = false;
 	private int toggleButtonIcon;
 	private String phoneToSendSMS;
@@ -224,21 +232,26 @@ public class MainActivity extends Activity {
 					else if (loc.getAccuracy() > 99) {accuracy = "> 99";}
 						else {accuracy = String.format(Locale.US, "%2.0f", loc.getAccuracy());};
 
+				String separ = System.getProperty("line.separator");
+						
 				String la = String.format(Locale.US , "%2.7f", loc.getLatitude());
 				String lo = String.format(Locale.US ,"%3.7f", loc.getLongitude());
 				
-				String separ = System.getProperty("line.separator");
-				
 				coordsToSend = la + "," + lo;
+				
+				gGoogleMapsLink = "https://www.google.com/maps/place/" + coordsToSend;
+				gOpenStreetMapsLink = "http://www.openstreetmap.org/?mlat=" + la + "&mlon=" + lo + "&zoom=17&layers=M";
+				
 				coordsToNavitel = "<NavitelLoc>" + la + " " + lo + "<N>";
+				
 				coordsToShare = getString(R.string.info_latitude) + " " + la 
 						+ separ + getString(R.string.info_longitude) + " " + lo
 						+ separ + getString(R.string.info_accuracy) + " " + accuracy + " " +getString(R.string.info_print2) 
-						+ separ + separ + "https://www.google.com/maps/place/" + la + "," + lo; 
+						+ separ + separ + gGoogleMapsLink; 
 				
 				GPSstate.setText(getString(R.string.info_print1) + " " + accuracy + " " + getString(R.string.info_print2)
-						+ separ + getString(R.string.info_latitude) + " " + String.format(Locale.US , "%2.7f", loc.getLatitude()) 
-						+ separ + getString(R.string.info_longitude) + " " + String.format(Locale.US ,"%3.7f", loc.getLongitude()));
+						+ separ + getString(R.string.info_latitude) + " " + la  
+						+ separ + getString(R.string.info_longitude) + " " + lo);
 				GPSstate.setTextColor(Color.GREEN);
 				//sendBtn.setEnabled(true);
 				setActionBarShareButtonEnabled(true);
@@ -310,7 +323,7 @@ public class MainActivity extends Activity {
         	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait) + " " + phoneToSendSMS);
         	  return mSMSProgressDialog;
         	  
-        case PHONE_DIALOG_ID:
+        /*case PHONE_DIALOG_ID:
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.phone_dialog, (ViewGroup)findViewById(R.id.phone_dialog_layout));
             
@@ -352,7 +365,7 @@ public class MainActivity extends Activity {
             // show keyboard automatically
             keyDlgEdit.selectAll();
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            return dialog;
+            return dialog;*/
 
         }
         return null;
@@ -365,7 +378,10 @@ public class MainActivity extends Activity {
         
         switch (item.getItemId()) {
             case IDM_SETTINGS:
-            	showDialog(PHONE_DIALOG_ID);
+            	//showDialog(PHONE_DIALOG_ID);
+            	Intent i = new Intent(this, UserSettingActivity.class);
+                startActivityForResult(i, ACT_RESULT_SETTINGS);
+                 
                 break;    
             case IDM_RATE:
             	Intent int_rate = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getApplicationContext().getPackageName()));
@@ -385,7 +401,14 @@ public class MainActivity extends Activity {
             	break;
             case R.id.action_copy:
             	android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboard.setText(coordsToSend);
+            	
+            	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        		String clip = sharedPrefs.getString("prefClipboard", "1");
+            	
+        		if (clip.equalsIgnoreCase("1")) {clipboard.setText(coordsToSend);} 
+        		if (clip.equalsIgnoreCase("2")) {clipboard.setText(gGoogleMapsLink);}
+        		if (clip.equalsIgnoreCase("3")) {clipboard.setText(gOpenStreetMapsLink);}
+
                 MainActivity.this.ShowToast(R.string.text_copied, Toast.LENGTH_LONG);
             	break;
             default:
@@ -414,7 +437,10 @@ public class MainActivity extends Activity {
 	
 	// Держать ли экран включенным?	
 	private void KeepScreenOnFlag() {
-		if (getIntDbParam("keepscreen") > 0) {
+		
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		if (sharedPrefs.getBoolean("prefKeepScreen", true)) {
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		} else {
 			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -456,7 +482,7 @@ public class MainActivity extends Activity {
 	  super.onActivityResult(reqCode, resultCode, data);
 
 	  switch (reqCode) {
-	    case (1001) :
+	    case (ACT_RESULT_CHOOSE_CONTACT) :
 	    	String number = "";
 	        String name = "";
 	        //int type = 0;
@@ -565,7 +591,7 @@ public class MainActivity extends Activity {
         		tmpSlotId = 1;
         		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-        		startActivityForResult(intent, 1001);
+        		startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);
             }
         });
         /*cont2.setOnClickListener(new OnClickListener() {
@@ -574,7 +600,7 @@ public class MainActivity extends Activity {
         		tmpSlotId = 2;
         		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-        		startActivityForResult(intent, 1001);
+        		startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);
             }
         });
         cont3.setOnClickListener(new OnClickListener() {
@@ -583,7 +609,7 @@ public class MainActivity extends Activity {
         		tmpSlotId = 3;
         		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-        		startActivityForResult(intent, 1001);
+        		startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);
             }
         });*/
         
@@ -695,7 +721,8 @@ public class MainActivity extends Activity {
     	dbHelper = new DBHelper(MainActivity.this);
     	String smsMsg = lCoords;
     	if (addText) {
-    		smsMsg = dbHelper.getSmsMsg() + " " +smsMsg;
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+    		smsMsg = sharedPrefs.getString("prefSMSText", "") + " " +smsMsg;
     	}
     	
     	if (Receiver == 0) {
@@ -855,7 +882,28 @@ public class MainActivity extends Activity {
 		        }
 		    }
 	}
-    
+
+	
+	 private void getUserSettings() {
+	        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+	 
+	        StringBuilder builder = new StringBuilder();
+	 
+	        builder.append("\n Username: "
+	                + sharedPrefs.getString("prefUsername", "NULL"));
+	 
+	        builder.append("\n Send report:"
+	                + sharedPrefs.getBoolean("prefSendReport", false));
+	 
+	        builder.append("\n Sync Frequency: "
+	                + sharedPrefs.getString("prefSyncFrequency", "NULL"));
+	 
+	        //TextView settingsTextView = (TextView) findViewById(R.id.textUserSettings);
+	 
+//	        settingsTextView.setText(builder.toString());
+	    }
+	 
+	
 /* TODO 
  * Новый экран меню:
  * Что копировать в буфер: ссылка на гугл карты, яндекс карты или пара координат
