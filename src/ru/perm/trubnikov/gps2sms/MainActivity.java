@@ -716,7 +716,7 @@ public class MainActivity extends Activity {
     	String smsMsg = lCoords;
     	if (addText) {
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    		smsMsg = sharedPrefs.getString("prefSMSText", "") + " " +smsMsg;
+    		smsMsg = sharedPrefs.getString("prefSMSText", getString(R.string.default_sms_msg)) + " " +smsMsg;
     	}
     	
     	if (Receiver == 0) {
