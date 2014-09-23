@@ -295,6 +295,8 @@ public class MainActivity extends Activity {
  	   
 	    menu.findItem(R.id.action_copy).setEnabled(enableShareBtnFlag);
 	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_copy), R.drawable.ic_action_copy);
+	    
+	    menu.findItem(R.id.action_openmap).setEnabled(enableShareBtnFlag);
  	    
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
 		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
@@ -405,6 +407,24 @@ public class MainActivity extends Activity {
 
                 MainActivity.this.ShowToast(R.string.text_copied, Toast.LENGTH_LONG);
             	break;
+            	
+            case R.id.action_openmap:	
+            	//try {
+//            	String uri = String.format(Locale.ENGLISH, "geo:%f,%f", gLa, gLo);
+            	Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+ coordsToSend));
+            	intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            	getApplicationContext().startActivity(intent_openmap);
+		        //}
+				//catch (Exception e) {
+			    // 	Log.d("seagull", "EXCEPTION! " + e.toString() +" Message:" +e.getMessage());
+			    //}    
+            	
+            	
+            	
+            	
+            	break;
+            	
+            	
             default:
                 return false;
         }
@@ -874,6 +894,13 @@ public class MainActivity extends Activity {
 				    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, item2, R.drawable.ic_action_copy);
 		            ActivityCompat.invalidateOptionsMenu(this);
 		        }
+		       MenuItem item3 = mMenu.findItem(R.id.action_openmap);
+		       if (item3 != null) {
+		    	    item3.setEnabled(enableShareBtnFlag);
+		            ActivityCompat.invalidateOptionsMenu(this);
+		        }
+		       
+		       
 		    }
 	}
 

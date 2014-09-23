@@ -12,6 +12,9 @@
           android:icon="@drawable/ic_action_copy"
           android:title="@string/action_copy"
           android:showAsAction="never" />
+	<item android:id="@+id/action_openmap"
+          android:title="@string/action_openmap"
+          android:showAsAction="never" />
 </menu>
 
 

@@ -56,6 +56,7 @@
 	<string name="imgdesc">Share button</string>
 	<string name="action_share">Share</string>
 	<string name="action_copy">Copy</string>
+	<string name="action_openmap">Open on map</string>
 
 	<string name="enterAnyPhone">Phone number</string>
 	<string name="toggle_sms_navitel_info">Simple SMS/Navitel SMS</string>
