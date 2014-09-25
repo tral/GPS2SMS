@@ -726,6 +726,11 @@ public class MainActivity extends Activity {
         	GPSstate.setTextColor(Color.RED);
         }
         
+        
+        
+
+        
+        
     }
     
 	// ------------------------------------------------------------------------------------------

@@ -31,4 +31,14 @@
         
     </PreferenceCategory>
  
+    <PreferenceCategory android:title="@string/pref_about" >
+        
+         <Preference 
+             android:title="@string/app_name"
+             android:summary="@string/pref_about_summary"
+             android:key="prefAbout" 
+		  />
+        
+    </PreferenceCategory>
+    
 </PreferenceScreen>
