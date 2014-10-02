@@ -21,46 +21,48 @@ public class IncomingSms extends BroadcastReceiver {
      
     public void onReceive(Context context, Intent intent) {
      
-        // Retrieves a map of extended data from the intent.
-        final Bundle bundle = intent.getExtras();
- 
-        try {
-             
-            if (bundle != null) {
-                 
-                final Object[] pdusObj = (Object[]) bundle.get("pdus");
-                 
-                for (int i = 0; i < pdusObj.length; i++) {
-                     
-                    SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
-                    //String phoneNumber = currentMessage.getDisplayOriginatingAddress();
-                    //String senderNum = phoneNumber;
-                    String message = currentMessage.getDisplayMessageBody();
-                    //Log.d("gps", "senderNum: "+ senderNum + "; message: " + message);
-                     
-                    Pattern p = Pattern.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
- 			        Matcher m = p.matcher(message);
- 			        
- 			        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
- 			       
- 	        		if (sharedPrefs.getBoolean("prefRegexpSMS", true)) {
+    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+    	if (sharedPrefs.getBoolean("prefRegexpSMS", true)) {
+    	
+	        // Retrieves a map of extended data from the intent.
+	        final Bundle bundle = intent.getExtras();
+	 
+	        try {
+	             
+	            if (bundle != null) {
+	                 
+	                final Object[] pdusObj = (Object[]) bundle.get("pdus");
+	                 
+	                for (int i = 0; i < pdusObj.length; i++) {
+	                     
+	                    SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+	                    //String phoneNumber = currentMessage.getDisplayOriginatingAddress();
+	                    //String senderNum = phoneNumber;
+	                    String message = currentMessage.getDisplayMessageBody();
+	                    //Log.d("gps", "senderNum: "+ senderNum + "; message: " + message);
+	                     
+	                    Pattern p = Pattern.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
+	 			        Matcher m = p.matcher(message);
+	 			        
 		 			    if(m.find()) {
 		 			    	Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+ m.group(0)));
 		 			    	intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		 			    	context.startActivity(intent_openmap);
 		 			    }
-	 			    }
- 
-                   // Show Alert
-                   //Toast toast = Toast.makeText(context, clip, Toast.LENGTH_LONG);
-                   //toast.show();
-
-                } // end for loop
-              } // bundle is null
- 
-        } catch (Exception e) {
-            Log.d("gps", "Exception smsReceiver" +e);
-             
-        }
+		 			     
+	                   // Show Alert
+	                   //Toast toast = Toast.makeText(context, clip, Toast.LENGTH_LONG);
+	                   //toast.show();
+	
+	                } // end for loop
+	              } // bundle is null
+	 
+	        } catch (Exception e) {
+	            Log.d("gps", "Exception smsReceiver" +e);
+	             
+	        }
+        
+    	}
+        
     }    
 }
