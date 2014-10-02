@@ -439,27 +439,35 @@ public class MainActivity extends Activity {
         					"date DESC, _id DESC LIMIT 5");
         			cursor.moveToFirst();
 
-        			do {
+        			if (cursor.getCount() > 0) {
 
-        			   for(int idx=0;idx<cursor.getColumnCount();idx++) {
-        				   /*msgData = " " + cursor.getColumnName(idx) + ":" + cursor.getString(idx);
-        				   long messageId = cursor.getLong(0);
-        	               long threadId = cursor.getLong(1);
-        	               String address = cursor.getString(2);
-        	               long contactId = cursor.getLong(3);
-        	               String contactId_string = String.valueOf(contactId);
-        	               long timestamp = cursor.getLong(4);
-        			       msgData  = dbHelper.getDateTimeByTimestamp(cursor.getLong(1))+"\n"+cursor.getString(0);
-        			       msgData  = cursor.getLong(1)+"\n"+cursor.getString(0);
-        			       String tp  = cursor.getString(6);
-        			       typeCol = mCurSms.getColumnIndex("type");
-        			       */
-        				   
-        				   initOneSMSRegexpBtn( layout, idx, pixels_b, pixels_m, cursor.getString(0), dialog);
-        			             
-        			       //Log.d("gps", msgData + " " +messageId+" "+threadId+" "+address+" "+timestamp+" "+contactId_string+" "+tp);
-        			   }
-        			} while(cursor.moveToNext());
+	        			int idx=0;
+	        			do {
+	
+	        			   //for(int idx=0;idx<cursor.getColumnCount();idx++) {
+	        				   /*msgData = " " + cursor.getColumnName(idx) + ":" + cursor.getString(idx);
+	        				   long messageId = cursor.getLong(0);
+	        	               long threadId = cursor.getLong(1);
+	        	               String address = cursor.getString(2);
+	        	               long contactId = cursor.getLong(3);
+	        	               String contactId_string = String.valueOf(contactId);
+	        	               long timestamp = cursor.getLong(4);
+	        			       msgData  = dbHelper.getDateTimeByTimestamp(cursor.getLong(1))+"\n"+cursor.getString(0);
+	        			       msgData  = cursor.getLong(1)+"\n"+cursor.getString(0);
+	        			       String tp  = cursor.getString(6);
+	        			       typeCol = mCurSms.getColumnIndex("type");
+	        			       */
+	        				   
+	        				   idx++;
+	        				   initOneSMSRegexpBtn( layout, idx, pixels_b, pixels_m, cursor.getString(0), dialog);
+	        			             
+	        			       //Log.d("gps", msgData + " " +messageId+" "+threadId+" "+address+" "+timestamp+" "+contactId_string+" "+tp);
+	        			   //}
+	        			} while(cursor.moveToNext());
+	        			
+        			} else {
+        				initOneSMSRegexpBtn( layout, 0, pixels_b, pixels_m, getString(R.string.err_no_sms_regexp), dialog);
+        			}
         		}
         		catch (Exception e) {
         	     	Log.d("gps", "EXCEPTION! " + e.toString() +" Message:" +e.getMessage());
@@ -499,8 +507,9 @@ public class MainActivity extends Activity {
 			    	Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+ m.group(0)));
 			    	intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			    	getApplicationContext().startActivity(intent_openmap);
+			    } else{
+			    	lDlg.dismiss();
 			    }
-			    //lDlg.dismiss();
    	         }
    	     });
    	     

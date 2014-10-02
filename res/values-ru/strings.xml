@@ -85,6 +85,6 @@
 	<string name="pref_regexp_sms">Сканировать входящие СМС</string>
 	<string name="pref_regexp_sms_summary">Если отмечено, в случае обнаружения во входящем СМС сообщении координат, программа будет пытаться открыть позицию на картах по умолчанию </string>
 	
-	
+	<string name="err_no_sms_regexp">Не найдено СМС с координатами</string>	
     
 </resources>
