@@ -10,6 +10,13 @@
             android:title="@string/pref_keepscreen" >
         </CheckBoxPreference>
         
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefRegexpSMS"
+            android:summary="@string/pref_regexp_sms_summary"
+            android:title="@string/pref_regexp_sms" >
+        </CheckBoxPreference>
+        
     </PreferenceCategory>
      
     <PreferenceCategory android:title="@string/pref_content" >

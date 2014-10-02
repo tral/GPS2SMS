@@ -80,7 +80,11 @@
     <string name="pref_about_summary">Версия</string>
     
    
-    
-    
+	<string name="menu_item_sms_regexp">Входящие СМС</string>    
+
+	<string name="pref_regexp_sms">Сканировать входящие СМС</string>
+	<string name="pref_regexp_sms_summary">Если отмечено, в случае обнаружения во входящем СМС сообщении координат, программа будет пытаться открыть позицию на картах по умолчанию </string>
+	
+	
     
 </resources>

@@ -1,13 +1,18 @@
 package ru.perm.trubnikov.gps2sms;
 
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
@@ -22,16 +27,22 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +52,7 @@ public class MainActivity extends Activity {
 	// Menu
 	public static final int IDM_SETTINGS = 101;
 	public static final int IDM_RATE = 105;
+	public static final int IDM_SMS_REGEXP = 106;
 	
 	// Activities
 	private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
@@ -48,6 +60,7 @@ public class MainActivity extends Activity {
 	
 	// Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
+    private static final int SMS_REGEXP_DIALOG_ID = 2;
     //private final static int PHONE_DIALOG_ID = 1;
 	ProgressDialog mSMSProgressDialog;
 
@@ -233,7 +246,9 @@ public class MainActivity extends Activity {
 				
 				coordsToSend = la + "," + lo;
 				
-				gGoogleMapsLink = "https://www.google.com/maps/place/" + coordsToSend;
+				//gGoogleMapsLink = "https://www.google.com/maps/place/" + coordsToSend;
+				gGoogleMapsLink = "http://maps.google.com/maps?q=loc:" + coordsToSend;
+					
 				gOpenStreetMapsLink = "http://www.openstreetmap.org/?mlat=" + la + "&mlon=" + lo + "&zoom=17&layers=M";
 				
 				coordsToNavitel = "<NavitelLoc>" + la + " " + lo + "<N>";
@@ -297,9 +312,12 @@ public class MainActivity extends Activity {
 	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_copy), R.drawable.ic_action_copy);
 	    
 	    menu.findItem(R.id.action_openmap).setEnabled(enableShareBtnFlag);
- 	    
+
+	    menu.add(Menu.NONE, IDM_SMS_REGEXP, Menu.NONE, R.string.menu_item_sms_regexp);
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
 		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
+		
+		
 		
 		return(super.onCreateOptionsMenu(menu));
 	}
@@ -318,7 +336,25 @@ public class MainActivity extends Activity {
         	  mSMSProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         	  mSMSProgressDialog.setMessage(getString(R.string.info_please_wait) + " " + phoneToSendSMS);
         	  return mSMSProgressDialog;
-        	  
+        case SMS_REGEXP_DIALOG_ID:
+      	  LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.sms_regexp_search, (ViewGroup)findViewById(R.id.choose));
+            
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(layout);
+            
+            builder.setOnCancelListener(new  Dialog.OnCancelListener() { 
+                public  void  onCancel(DialogInterface dialog) { 
+                	dialog.dismiss();
+                } 
+            }); 
+            
+            //builder.setMessage(getString(R.string.header_choose_number));
+            
+            builder.setCancelable(true);
+            AlertDialog dialog = builder.create();
+
+            return dialog;	  
         /*case PHONE_DIALOG_ID:
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.phone_dialog, (ViewGroup)findViewById(R.id.phone_dialog_layout));
@@ -367,7 +403,112 @@ public class MainActivity extends Activity {
         return null;
     }
 		
+    
+    
+ // Update DialogData
+    protected void onPrepareDialog(int id, Dialog dialog) {
+
+    	switch (id) {
         
+        	case SMS_REGEXP_DIALOG_ID:
+        	
+        		LinearLayout layout = (LinearLayout) dialog.findViewById(R.id.linearchoose);
+             
+        		if(((LinearLayout) layout).getChildCount() > 0) 
+        			((LinearLayout) layout).removeAllViews(); 
+             
+        		Resources r = getApplicationContext().getResources();
+             
+        		// число пикселей для высоты кнопок (относительно dp)
+        		int pixels_b = (int) TypedValue.applyDimension(
+     		         TypedValue.COMPLEX_UNIT_DIP,
+     		         82,
+     		         r.getDisplayMetrics());
+
+        		// число пикселей для margin'ов (относительно dp)
+        		int pixels_m = (int) TypedValue.applyDimension(
+     	             TypedValue.COMPLEX_UNIT_DIP,
+     	             4, 
+     	             r.getDisplayMetrics());
+         		
+        		try{	
+        			Cursor cursor = getContentResolver().query(Uri.parse("content://sms/inbox"), 
+        					new String[] { "DISTINCT strftime('%d.%m.%Y %H:%M:%S', date/1000, 'unixepoch',  'localtime') || '\n' || body "},//, "thread_id", "address", "person", "date", "body", "type" }, 
+        					"body  like '%__._______,__._______' ", 
+        					null,
+        					"date DESC, _id DESC LIMIT 5");
+        			cursor.moveToFirst();
+
+        			do {
+
+        			   for(int idx=0;idx<cursor.getColumnCount();idx++) {
+        				   /*msgData = " " + cursor.getColumnName(idx) + ":" + cursor.getString(idx);
+        				   long messageId = cursor.getLong(0);
+        	               long threadId = cursor.getLong(1);
+        	               String address = cursor.getString(2);
+        	               long contactId = cursor.getLong(3);
+        	               String contactId_string = String.valueOf(contactId);
+        	               long timestamp = cursor.getLong(4);
+        			       msgData  = dbHelper.getDateTimeByTimestamp(cursor.getLong(1))+"\n"+cursor.getString(0);
+        			       msgData  = cursor.getLong(1)+"\n"+cursor.getString(0);
+        			       String tp  = cursor.getString(6);
+        			       typeCol = mCurSms.getColumnIndex("type");
+        			       */
+        				   
+        				   initOneSMSRegexpBtn( layout, idx, pixels_b, pixels_m, cursor.getString(0), dialog);
+        			             
+        			       //Log.d("gps", msgData + " " +messageId+" "+threadId+" "+address+" "+timestamp+" "+contactId_string+" "+tp);
+        			   }
+        			} while(cursor.moveToNext());
+        		}
+        		catch (Exception e) {
+        	     	Log.d("gps", "EXCEPTION! " + e.toString() +" Message:" +e.getMessage());
+        	    }
+        		
+	        	break;
+        
+        	default:
+        		break;
+    	}
+    };
+    
+    
+    protected void initOneSMSRegexpBtn(LinearLayout layout, int i, int pixels_b, int pixels_m, String lMsg, final Dialog lDlg) {
+
+		LinearLayout row = new LinearLayout(this);
+		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		
+		Button btnTag = new Button(this);
+		 
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, pixels_b);
+		
+		params.setMargins(-pixels_m, -pixels_m, -pixels_m, -pixels_m);
+		 
+		btnTag.setLayoutParams(params);
+		btnTag.setText(lMsg);
+		btnTag.setId(i);
+		btnTag.setBackgroundColor(DBHelper.getRndColor());
+		
+		btnTag.setOnClickListener(new View.OnClickListener() {
+   	         @Override
+   	         public void onClick(View v) {
+   	        	Button b = (Button)v;
+   	        	Pattern p = Pattern.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
+			    Matcher m = p.matcher(b.getText().toString());
+			    if(m.find()) {
+			    	Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+ m.group(0)));
+			    	intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			    	getApplicationContext().startActivity(intent_openmap);
+			    }
+			    //lDlg.dismiss();
+   	         }
+   	     });
+   	     
+   	     row.addView(btnTag);
+   	     layout.addView(row);
+    }
+
+    
     // Menu
  	@Override
  	public boolean onOptionsItemSelected(MenuItem item) {
@@ -378,7 +519,10 @@ public class MainActivity extends Activity {
             	Intent i = new Intent(this, UserSettingActivity.class);
                 startActivityForResult(i, ACT_RESULT_SETTINGS);
                  
-                break;    
+                break;
+            case IDM_SMS_REGEXP:
+            	showDialog(SMS_REGEXP_DIALOG_ID);
+            	break;
             case IDM_RATE:
             	Intent int_rate = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getApplicationContext().getPackageName()));
             	int_rate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -602,6 +746,9 @@ public class MainActivity extends Activity {
         cont1.setOnClickListener(new OnClickListener() {
         	@Override
             public void onClick(View v) {
+        		
+        		readSMSFromInbox();
+        		
         		tmpSlotId = 1;
         		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
@@ -909,7 +1056,10 @@ public class MainActivity extends Activity {
 		    }
 	}
 
+	private void readSMSFromInbox() {
 	
+		
+	}
 
     
     

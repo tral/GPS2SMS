@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.perm.trubnikov.gps2sms"
     android:installLocation="auto"
-    android:versionCode="25"
+    android:versionCode="26"
     android:versionName="@string/version_name" >
 
     <uses-sdk
@@ -11,6 +11,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
@@ -40,6 +42,16 @@
             android:name=".UserSettingActivity"
             android:label="@string/menu_item_settings" >
         </activity>
+        
+        
+<receiver android:name=".IncomingSms">   
+     <intent-filter>
+         <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+     </intent-filter>
+ </receiver>
+        
+        
+        
     </application>
 
 </manifest>

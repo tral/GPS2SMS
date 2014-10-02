@@ -1,10 +1,13 @@
 package ru.perm.trubnikov.gps2sms;
 
+import java.util.Random;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 
   class DBHelper extends SQLiteOpenHelper {
 
@@ -119,6 +122,28 @@ import android.database.sqlite.SQLiteOpenHelper;
 	    db.update("slots", cv, "_id = ?", new String[] { Integer.toString(id) });
     }
     
+    public static int getRndColor() {
+   	 Random rand = new Random();
+   	 	// Чтобы не генерился слишком светлый фон, иначе символы нечитаемы
+        int rc = rand.nextInt(230);
+        int g = rand.nextInt(230);
+        int b = rand.nextInt(230);
+
+        int randomColor = Color.rgb(rc,g,b);
+        return randomColor;
+   }
+    /*
+    public static String getDateTimeByTimestamp(long timeStamp){
+
+        try{
+            DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+            Date netDate = (new Date(timeStamp));
+            return sdf.format(netDate);
+        }
+        catch(Exception ex){
+            return "unknown date";
+        }
+    } */
     
     @Override
     public void onCreate(SQLiteDatabase db) {

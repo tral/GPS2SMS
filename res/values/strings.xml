@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">2.8.1</string>
+    <string name="version_name">2.9</string>
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Add coordinates to SMS</string>
@@ -78,6 +78,9 @@
     <string name="pref_about">About</string>
     <string name="pref_about_summary">Version</string>
 	
+	<string name="menu_item_sms_regexp">Inbox SMS</string>
 	
+	<string name="pref_regexp_sms">Catch SMS with GPS coordinates</string>
+	<string name="pref_regexp_sms_summary">Check for automatic launching the default maps app in case of receiving SMS winth coordinates</string>
 			
 </resources>
