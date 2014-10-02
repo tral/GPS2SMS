@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">2.9</string>
+    <string name="version_name">2.9</string> <!-- Править в ДВУХ файлах !!! -->
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Add coordinates to SMS</string>
