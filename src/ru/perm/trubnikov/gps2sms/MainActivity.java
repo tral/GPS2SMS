@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
 	// Menu
 	public static final int IDM_SETTINGS = 101;
 	public static final int IDM_RATE = 105;
-	public static final int IDM_SMS_REGEXP = 106;
+	//public static final int IDM_SMS_REGEXP = 106;
 	
 	// Activities
 	private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
@@ -93,6 +93,9 @@ public class MainActivity extends Activity {
 	ImageButton sendViaToggleBtn;
 	ImageButton sendpbtn;
 	ImageButton send1btn;
+	ImageButton btnShare;
+	ImageButton btnMap;
+	ImageButton btnCopy;
 	//ImageButton send2btn;
 	//ImageButton send3btn;
 	Button cont1;
@@ -104,12 +107,12 @@ public class MainActivity extends Activity {
 	Menu mMenu;
 	
 	// Globals
+	//private boolean enableShareBtnFlag = false;
 	private String coordsToSend;
 	private String coordsToShare;
 	private String coordsToNavitel;
 	private String gGoogleMapsLink;
 	private String gOpenStreetMapsLink;
-	private boolean enableShareBtnFlag = false;
 	private int toggleButtonIcon;
 	private String phoneToSendSMS;
 	private int tmpSlotId;
@@ -198,11 +201,15 @@ public class MainActivity extends Activity {
 		
 		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
 		//sendBtn.setEnabled(false);
+		btnShare.setVisibility(View.INVISIBLE);
+        btnCopy.setVisibility(View.INVISIBLE);
+        btnMap.setVisibility(View.INVISIBLE);
+        
 		setImageButtonEnabled(getApplicationContext(), false, sendpbtn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 		setImageButtonEnabled(getApplicationContext(), false, send1btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 		//setImageButtonEnabled(getApplicationContext(), false, send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 		//setImageButtonEnabled(getApplicationContext(), false, send3btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
-		setActionBarShareButtonEnabled(false);
+		//setActionBarShareButtonEnabled(false);
 
 		//setImageButtonEnabled(getApplicationContext(), false, shareBtn, R.drawable.share);
 		//setImageButtonEnabled(getApplicationContext(), false, navitelBtn, R.drawable.navitel);
@@ -263,7 +270,10 @@ public class MainActivity extends Activity {
 						+ separ + getString(R.string.info_longitude) + " " + lo);
 				GPSstate.setTextColor(Color.GREEN);
 				//sendBtn.setEnabled(true);
-				setActionBarShareButtonEnabled(true);
+				btnShare.setVisibility(View.VISIBLE);
+		        btnCopy.setVisibility(View.VISIBLE);
+		        btnMap.setVisibility(View.VISIBLE);
+				//setActionBarShareButtonEnabled(true);
 				setImageButtonEnabled(getApplicationContext(), true, sendpbtn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 				setImageButtonEnabled(getApplicationContext(), true, send1btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
 				//setImageButtonEnabled(getApplicationContext(), true, send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts : R.drawable.navitel);
@@ -297,8 +307,8 @@ public class MainActivity extends Activity {
 	    inflater.inflate(R.menu.main_activity_actions, menu);
 	
 	    // Set share button state
-	    menu.findItem(R.id.action_share).setEnabled(enableShareBtnFlag);
-	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_share), R.drawable.ic_action_share);
+	    //menu.findItem(R.id.action_share).setEnabled(enableShareBtnFlag);
+	    //setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_share), R.drawable.ic_action_share);
 	    
 	    // Toggle Button
  	    if (toggleButtonIcon == TOGGLE_ICON_HANGOUTS) {
@@ -308,17 +318,15 @@ public class MainActivity extends Activity {
  	    		menu.findItem(R.id.action_navitel).setIcon(getResources().getDrawable(R.drawable.navitel));
  	    	}
  	   
-	    menu.findItem(R.id.action_copy).setEnabled(enableShareBtnFlag);
-	    setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_copy), R.drawable.ic_action_copy);
+	    //menu.findItem(R.id.action_copy).setEnabled(enableShareBtnFlag);
+	    //setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, menu.findItem(R.id.action_copy), R.drawable.ic_action_copy);
 	    
-	    menu.findItem(R.id.action_openmap).setEnabled(enableShareBtnFlag);
+	    //menu.findItem(R.id.action_openmap).setEnabled(enableShareBtnFlag);
 
-	    menu.add(Menu.NONE, IDM_SMS_REGEXP, Menu.NONE, R.string.menu_item_sms_regexp);
+	    //menu.add(Menu.NONE, IDM_SMS_REGEXP, Menu.NONE, R.string.menu_item_sms_regexp);
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE, R.string.menu_item_settings);
 		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
-		
-		
-		
+
 		return(super.onCreateOptionsMenu(menu));
 	}
 		
@@ -444,7 +452,7 @@ public class MainActivity extends Activity {
 	        			int idx=0;
 	        			do {
 	
-	        			   //for(int idx=0;idx<cursor.getColumnCount();idx++) {
+	        			       //for(int idx=0;idx<cursor.getColumnCount();idx++) {
 	        				   /*msgData = " " + cursor.getColumnName(idx) + ":" + cursor.getString(idx);
 	        				   long messageId = cursor.getLong(0);
 	        	               long threadId = cursor.getLong(1);
@@ -529,7 +537,7 @@ public class MainActivity extends Activity {
                 startActivityForResult(i, ACT_RESULT_SETTINGS);
                  
                 break;
-            case IDM_SMS_REGEXP:
+            case R.id.action_sms_regexp:
             	showDialog(SMS_REGEXP_DIALOG_ID);
             	break;
             case IDM_RATE:
@@ -537,6 +545,7 @@ public class MainActivity extends Activity {
             	int_rate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         		getApplicationContext().startActivity(int_rate);
         		break;
+        	/*
             case R.id.action_share:
             	Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND); 
         	    sharingIntent.setType("text/plain");
@@ -544,10 +553,11 @@ public class MainActivity extends Activity {
         	    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
         	    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         	    startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
-            	break;
+            	break;*/
             case R.id.action_navitel:
             	refreshSendViaToggleButton(true);
             	break;
+            /*
             case R.id.action_copy:
             	android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             	
@@ -559,8 +569,8 @@ public class MainActivity extends Activity {
         		if (clip.equalsIgnoreCase("3")) {clipboard.setText(gOpenStreetMapsLink);}
 
                 MainActivity.this.ShowToast(R.string.text_copied, Toast.LENGTH_LONG);
-            	break;
-            	
+            	break;*/
+            /*
             case R.id.action_openmap:	
             	//try {
 //            	String uri = String.format(Locale.ENGLISH, "geo:%f,%f", gLa, gLo);
@@ -571,12 +581,7 @@ public class MainActivity extends Activity {
 				//catch (Exception e) {
 			    // 	Log.d("seagull", "EXCEPTION! " + e.toString() +" Message:" +e.getMessage());
 			    //}    
-            	
-            	
-            	
-            	
-            	break;
-            	
+            	break;*/
             	
             default:
                 return false;
@@ -810,7 +815,50 @@ public class MainActivity extends Activity {
         	
         });
         
+        // Share buttons
         
+        btnShare = (ImageButton)findViewById(R.id.btnShare);
+        btnCopy = (ImageButton)findViewById(R.id.btnCopy);
+        btnMap = (ImageButton)findViewById(R.id.btnMap);
+        btnShare.setVisibility(View.INVISIBLE);
+        btnCopy.setVisibility(View.INVISIBLE);
+        btnMap.setVisibility(View.INVISIBLE);
+        btnShare.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND); 
+        	    sharingIntent.setType("text/plain");
+        	    String shareBody = coordsToShare;
+        	    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
+        	    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        	    startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+            }
+        });
+        btnCopy.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+            	android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            	
+            	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        		String clip = sharedPrefs.getString("prefClipboard", "1");
+            	
+        		if (clip.equalsIgnoreCase("1")) {clipboard.setText(coordsToSend);} 
+        		if (clip.equalsIgnoreCase("2")) {clipboard.setText(gGoogleMapsLink);}
+        		if (clip.equalsIgnoreCase("3")) {clipboard.setText(gOpenStreetMapsLink);}
+
+                MainActivity.this.ShowToast(R.string.text_copied, Toast.LENGTH_LONG);
+            }
+        });
+        btnMap.setOnClickListener(new OnClickListener() {
+        	@Override
+            public void onClick(View v) {
+        		Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+ coordsToSend));
+            	intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            	getApplicationContext().startActivity(intent_openmap);
+            }
+        });
+
+
         // Send buttons
         sendpbtn = (ImageButton)findViewById(R.id.send_plain);
         send1btn = (ImageButton)findViewById(R.id.send1);
@@ -1027,17 +1075,16 @@ public class MainActivity extends Activity {
 
 	}
     
-    
+    /*
 	private void setActionBarShareButtonEnabled(boolean state) {
 
 		enableShareBtnFlag = state;
 		
-		/*
-		if (android.os.Build.VERSION.SDK_INT >= 11) {
-			invalidateOptionsMenu();			
-		} else {
-			supportInvalidateOptionsMenu();
-		}*/
+		//if (android.os.Build.VERSION.SDK_INT >= 11) {
+		//	invalidateOptionsMenu();			
+		//} else {
+		//	supportInvalidateOptionsMenu();
+		//}
 		
 		 if (mMenu != null) {
 		       MenuItem item = mMenu.findItem(R.id.action_share);
@@ -1057,10 +1104,8 @@ public class MainActivity extends Activity {
 		    	    item3.setEnabled(enableShareBtnFlag);
 		            ActivityCompat.invalidateOptionsMenu(this);
 		        }
-		       
-		       
 		    }
-	}
+	}*/
 
     
 }

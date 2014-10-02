@@ -1,8 +1,6 @@
 package ru.perm.trubnikov.gps2sms;
 import java.util.ArrayList;
 
-import ru.perm.trubnikov.gps2sms.R;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;

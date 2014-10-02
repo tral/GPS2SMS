@@ -2,7 +2,7 @@
 <resources>
 
     
-    <string name="version_name">2.9</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="version_name">3.0</string> <!-- Править в ДВУХ файлах !!! -->
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Добавить координаты к SMS</string>

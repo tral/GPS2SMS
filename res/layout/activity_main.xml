@@ -191,6 +191,58 @@
 	 -->
 	 
 	 
+	 <!-- Кнопки шаринга -->
+	 <RelativeLayout 
+ 	    android:id="@+id/RelLayoutSh"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/linearLayoutText"
+	    android:orientation="horizontal"
+	    android:paddingLeft="0dp"
+	    android:paddingRight="0dp" >
+ 	
+	     <ImageButton android:id="@+id/btnMap"
+			android:src="@drawable/ic_action_map" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+
+			android:layout_alignParentRight="true"
+			android:contentDescription="@string/imgdesc"
+			android:adjustViewBounds="true"
+    	    android:scaleType="fitCenter" 
+		 />
+	    
+	     <ImageButton android:id="@+id/btnCopy"
+			android:src="@drawable/ic_action_copy" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/imgdesc"
+			
+			android:layout_alignParentLeft="true"
+			android:adjustViewBounds="true"
+    	    android:scaleType="fitCenter" 
+		 />
+	     
+ 		<ImageButton android:id="@+id/btnShare"
+			android:src="@drawable/ic_action_share" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/imgdesc"
+			android:title="@string/action_share"
+			android:layout_toLeftOf="@id/btnMap"
+			android:layout_toRightOf="@id/btnCopy"
+			
+			android:adjustViewBounds="true"
+    	    android:scaleType="fitCenter" 
+		/>
+ 		
+ 	    
+ 	    
+	   
+ 	    
+ 	 
+ 	    
+ 	</RelativeLayout>
 	<!-- Кнопка включения GPS -->
 
 	<LinearLayout
@@ -198,7 +250,7 @@
         android:id="@+id/RelLayoutGPSBTN"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/linearLayoutText"
+	    android:layout_below="@+id/RelLayoutSh"
 	    android:orientation="horizontal"
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
