@@ -746,9 +746,6 @@ public class MainActivity extends Activity {
         cont1.setOnClickListener(new OnClickListener() {
         	@Override
             public void onClick(View v) {
-        		
-        		readSMSFromInbox();
-        		
         		tmpSlotId = 1;
         		Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
@@ -1056,11 +1053,5 @@ public class MainActivity extends Activity {
 		    }
 	}
 
-	private void readSMSFromInbox() {
-	
-		
-	}
-
-    
     
 }
