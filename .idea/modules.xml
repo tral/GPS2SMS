@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GPS2SMS.iml" filepath="$PROJECT_DIR$/GPS2SMS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appcompat_v7_3/appcompat_v7_3.iml" filepath="$PROJECT_DIR$/appcompat_v7_3/appcompat_v7_3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gps2sms.trubnikov.perm.ru/gps2sms.trubnikov.perm.ru.iml" filepath="$PROJECT_DIR$/gps2sms.trubnikov.perm.ru/gps2sms.trubnikov.perm.ru.iml" />
+    </modules>
+  </component>
+</project>
+

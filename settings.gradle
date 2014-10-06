@@ -1,0 +1,2 @@
+include ':appcompat_v7_3'
+include ':gps2sms.trubnikov.perm.ru'
