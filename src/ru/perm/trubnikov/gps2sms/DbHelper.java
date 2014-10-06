@@ -14,7 +14,7 @@ import android.graphics.Color;
 	private String defSmsMsg;
 	  
     public DBHelper(Context context) {
-      // конструктор суперкласса
+      // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃСѓРїРµСЂРєР»Р°СЃСЃР°
       super(context, "rupermtrubnikovgps2smsDB", null, 3);
       defSmsMsg = context.getString(R.string.default_sms_msg);
     }
@@ -124,7 +124,7 @@ import android.graphics.Color;
     
     public static int getRndColor() {
    	 Random rand = new Random();
-   	 	// Чтобы не генерился слишком светлый фон, иначе символы нечитаемы
+   	 	// Р§С‚РѕР±С‹ РЅРµ РіРµРЅРµСЂРёР»СЃСЏ СЃР»РёС€РєРѕРј СЃРІРµС‚Р»С‹Р№ С„РѕРЅ, РёРЅР°С‡Рµ СЃРёРјРІРѕР»С‹ РЅРµС‡РёС‚Р°РµРјС‹
         int rc = rand.nextInt(230);
         int g = rand.nextInt(230);
         int b = rand.nextInt(230);
@@ -150,15 +150,15 @@ import android.graphics.Color;
       
       ContentValues cv = new ContentValues();
 
-      // номер телефона для отправки SMS
+      // РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РґР»СЏ РѕС‚РїСЂР°РІРєРё SMS
       db.execSQL("create table phone ("
               + "_id integer primary key," 
               + "phone text"
               + ");");
       
-      // Договорились, что телефон хранится в таблице с _id=1
+      // Р”РѕРіРѕРІРѕСЂРёР»РёСЃСЊ, С‡С‚Рѕ С‚РµР»РµС„РѕРЅ С…СЂР°РЅРёС‚СЃСЏ РІ С‚Р°Р±Р»РёС†Рµ СЃ _id=1
       cv.put("_id", 1);
-      cv.put("phone", ""); // без "+7" !!!
+      cv.put("phone", ""); // Р±РµР· "+7" !!!
       db.insert("phone", null, cv);  
       
       db.execSQL("create table contact ("
@@ -166,7 +166,7 @@ import android.graphics.Color;
               + "contact text"
               + ");");
       
-      // Договорились, что хранится в таблице с _id=1
+      // Р”РѕРіРѕРІРѕСЂРёР»РёСЃСЊ, С‡С‚Рѕ С…СЂР°РЅРёС‚СЃСЏ РІ С‚Р°Р±Р»РёС†Рµ СЃ _id=1
       cv.clear();
       cv.put("_id", 1);
       cv.put("contact", ""); 
@@ -178,7 +178,7 @@ import android.graphics.Color;
               + "msg text"
               + ");");
       
-      // Договорились, что хранится в таблице с _id=1
+      // Р”РѕРіРѕРІРѕСЂРёР»РёСЃСЊ, С‡С‚Рѕ С…СЂР°РЅРёС‚СЃСЏ РІ С‚Р°Р±Р»РёС†Рµ СЃ _id=1
       cv.clear();
       cv.put("_id", 1);
       cv.put("msg", defSmsMsg);
@@ -210,8 +210,8 @@ import android.graphics.Color;
     	
     	ContentValues cv = new ContentValues();
     	
-    	// Появилось с БД версии 2
-        // таблица настроек
+    	// РџРѕСЏРІРёР»РѕСЃСЊ СЃ Р‘Р” РІРµСЂСЃРёРё 2
+        // С‚Р°Р±Р»РёС†Р° РЅР°СЃС‚СЂРѕРµРє
         db.execSQL("create table settings ("
                 + "_id integer primary key autoincrement," 
                 + "param text,"
@@ -220,12 +220,12 @@ import android.graphics.Color;
                 + ");");
         
         cv.clear();
-        cv.put("param", "sendvia"); // Посылать СМС/Навител
+        cv.put("param", "sendvia"); // РџРѕСЃС‹Р»Р°С‚СЊ РЎРњРЎ/РќР°РІРёС‚РµР»
         cv.put("val_txt", "");
         cv.put("val_int", 1);
         db.insert("settings", null, cv);
         
-        // Слоты контактов, plain phone - нулевой слот
+        // РЎР»РѕС‚С‹ РєРѕРЅС‚Р°РєС‚РѕРІ, plain phone - РЅСѓР»РµРІРѕР№ СЃР»РѕС‚
         db.execSQL("create table slots ("
                 + "_id integer primary key," 
                 + "name text,"
@@ -264,7 +264,7 @@ import android.graphics.Color;
     	ContentValues cv = new ContentValues();
     	
         cv.clear();
-        cv.put("param", "keepscreen"); // Держать ли экран всегда включенным
+        cv.put("param", "keepscreen"); // Р”РµСЂР¶Р°С‚СЊ Р»Рё СЌРєСЂР°РЅ РІСЃРµРіРґР° РІРєР»СЋС‡РµРЅРЅС‹Рј
         cv.put("val_txt", "");
         cv.put("val_int", 1);
         db.insert("settings", null, cv);
