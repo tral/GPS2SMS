@@ -1,4 +1,4 @@
-package ru.perm.trubnikov.gps2sms;
+﻿package ru.perm.trubnikov.gps2sms;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;

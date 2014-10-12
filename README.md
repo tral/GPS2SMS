@@ -1,4 +1,4 @@
-GPS2SMS
+﻿GPS2SMS
 ==============
 
 Do you want to convert your GPS location to SMS? 

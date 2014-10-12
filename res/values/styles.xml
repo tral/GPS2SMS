@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
 
     <attr name="btn_ic_action_copy" format="reference"/>
     <attr name="btn_ic_action_collection" format="reference"/>

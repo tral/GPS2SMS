@@ -1,4 +1,4 @@
-package ru.perm.trubnikov.gps2sms;
+﻿package ru.perm.trubnikov.gps2sms;
 import java.util.ArrayList;
 
 import android.app.Activity;

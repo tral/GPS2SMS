@@ -1,4 +1,4 @@
-package ru.perm.trubnikov.gps2sms;
+п»їpackage ru.perm.trubnikov.gps2sms;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -388,13 +388,13 @@ public class MainActivity extends Activity {
 	                cv.put("msg", keyDlgEdit.getText().toString());
 	                db.update("msg", cv, "_id = ?", new String[] { "1" });
 	                dbHelper.close();
-	                keyDlgEdit.selectAll(); // чтобы при повторном открытии текст был выделен
+	                keyDlgEdit.selectAll(); // С‡С‚РѕР±С‹ РїСЂРё РїРѕРІС‚РѕСЂРЅРѕРј РѕС‚РєСЂС‹С‚РёРё С‚РµРєСЃС‚ Р±С‹Р» РІС‹РґРµР»РµРЅ
                 }
             });
             
             builder.setNegativeButton(getString(R.string.cancel_btn_txt), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                	keyDlgEdit.selectAll(); // чтобы при повторном открытии текст был выделен
+                	keyDlgEdit.selectAll(); // С‡С‚РѕР±С‹ РїСЂРё РїРѕРІС‚РѕСЂРЅРѕРј РѕС‚РєСЂС‹С‚РёРё С‚РµРєСЃС‚ Р±С‹Р» РІС‹РґРµР»РµРЅ
                     dialog.cancel();
                     }
             });
@@ -427,13 +427,13 @@ public class MainActivity extends Activity {
              
         		Resources r = getApplicationContext().getResources();
              
-        		// число пикселей для высоты кнопок (относительно dp)
+        		// С‡РёСЃР»Рѕ РїРёРєСЃРµР»РµР№ РґР»СЏ РІС‹СЃРѕС‚С‹ РєРЅРѕРїРѕРє (РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ dp)
         		int pixels_b = (int) TypedValue.applyDimension(
      		         TypedValue.COMPLEX_UNIT_DIP,
      		         82,
      		         r.getDisplayMetrics());
 
-        		// число пикселей для margin'ов (относительно dp)
+        		// С‡РёСЃР»Рѕ РїРёРєСЃРµР»РµР№ РґР»СЏ margin'РѕРІ (РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ dp)
         		int pixels_m = (int) TypedValue.applyDimension(
      	             TypedValue.COMPLEX_UNIT_DIP,
      	             4, 
@@ -607,7 +607,7 @@ public class MainActivity extends Activity {
 	}
 
 	
-	// Держать ли экран включенным?	
+	// Р”РµСЂР¶Р°С‚СЊ Р»Рё СЌРєСЂР°РЅ РІРєР»СЋС‡РµРЅРЅС‹Рј?	
 	private void KeepScreenOnFlag() {
 		
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -970,7 +970,7 @@ public class MainActivity extends Activity {
 		} else {
         	showDialog(SEND_SMS_DIALOG_ID);
 
-			// Запускаем новый поток для отправки SMS
+			// Р—Р°РїСѓСЃРєР°РµРј РЅРѕРІС‹Р№ РїРѕС‚РѕРє РґР»СЏ РѕС‚РїСЂР°РІРєРё SMS
 			mThreadSendSMS = new ThreadSendSMS(handler, getApplicationContext());
 			mThreadSendSMS.setMsg(smsMsg);
 			mThreadSendSMS.setPhone(phoneToSendSMS);

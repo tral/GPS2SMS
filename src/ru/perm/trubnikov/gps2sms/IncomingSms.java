@@ -1,4 +1,4 @@
-package ru.perm.trubnikov.gps2sms;
+﻿package ru.perm.trubnikov.gps2sms;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
