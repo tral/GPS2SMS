@@ -202,7 +202,7 @@
 	    android:paddingRight="0dp" >
  	
 	     <ImageButton android:id="@+id/btnMap"
-			android:src="@drawable/ic_action_map" 
+			android:src="?attr/btn_ic_action_map" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 
@@ -213,7 +213,7 @@
 		 />
 	    
 	     <ImageButton android:id="@+id/btnCopy"
-			android:src="@drawable/ic_action_copy" 
+			android:src="?attr/btn_ic_action_copy" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:contentDescription="@string/imgdesc"
@@ -224,7 +224,7 @@
 		 />
 	     
  		<ImageButton android:id="@+id/btnShare"
-			android:src="@drawable/ic_action_share" 
+			android:src="?attr/btn_ic_action_share" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:contentDescription="@string/imgdesc"

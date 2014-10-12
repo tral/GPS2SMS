@@ -17,6 +17,16 @@
             android:title="@string/pref_regexp_sms" >
         </CheckBoxPreference>
         
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/appTheme"
+            android:entryValues="@array/appThemeValues"
+            android:title="@string/pref_apptheme"
+            android:summary="@string/pref_apptheme_summary"
+            android:key="prefAppTheme"
+            />
+        
+        
     </PreferenceCategory>
      
     <PreferenceCategory android:title="@string/pref_content" >

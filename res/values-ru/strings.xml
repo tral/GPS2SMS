@@ -2,7 +2,7 @@
 <resources>
 
     
-    <string name="version_name">3.0</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="version_name">3.1</string> <!-- Править в ДВУХ файлах !!! -->
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Добавить координаты к SMS</string>
@@ -78,6 +78,9 @@
     <string name="pref_content">Содержание</string>
     <string name="pref_about">О приложении</string>
     <string name="pref_about_summary">Версия</string>
+    <string name="pref_apptheme">Тема оформления</string>
+    <string name="pref_apptheme_summary">Вступит в силу после перезапуска приложения</string>
+    
     
    
 	<string name="menu_item_sms_regexp">Входящие СМС</string>    

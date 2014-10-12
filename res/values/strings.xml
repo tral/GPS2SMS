@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">3.0</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="version_name">3.1</string> <!-- Править в ДВУХ файлах !!! -->
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Add coordinates to SMS</string>
@@ -77,6 +77,8 @@
     <string name="pref_content">Content</string>
     <string name="pref_about">About</string>
     <string name="pref_about_summary">Version</string>
+    <string name="pref_apptheme">Application Theme</string>
+    <string name="pref_apptheme_summary">Restart required</string>
 	
 	<string name="menu_item_sms_regexp">Inbox SMS</string>
 	
