@@ -83,7 +83,7 @@
 	<string name="menu_item_sms_regexp">Inbox SMS</string>
 	
 	<string name="pref_regexp_sms">Catch SMS with GPS coordinates</string>
-	<string name="pref_regexp_sms_summary">Check for automatic launching the default maps app in case of receiving SMS winth coordinates</string>
+	<string name="pref_regexp_sms_summary">Check for automatic launching the default maps app in case of receiving SMS with coordinates</string>
 	
 	<string name="err_no_sms_regexp">No SMS with coordinates were found</string>
 	
