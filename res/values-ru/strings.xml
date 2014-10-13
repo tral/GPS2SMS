@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    
-    <string name="version_name">3.1</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="version_name">3.2</string> <!-- Править в ДВУХ файлах !!! -->
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Добавить координаты к SMS</string>
@@ -55,7 +54,12 @@
 	<string name="share_topic">Мои GPS координаты</string>
 	<string name="share_via">Поделиться через</string>
 	
-	<string name="imgdesc">Кнопка \"Поделиться\"</string>
+	<string name="imgdesc_copy">Кнопка \"Копировать в буфер\"</string>
+	<string name="imgdesc_share">Кнопка \"Поделиться\"</string>
+	<string name="imgdesc_map">Кнопка \"Открыть на карте\"</string>
+	<string name="imgdesc_save">Кнопка \"Сохранить\"</string>
+	<string name="imgdesc_send_sms">Кнопка \"Отправить СМС\"</string>
+	
     <string name="action_share">Поделиться</string>
     <string name="action_copy">Копировать</string>
     <string name="action_openmap">Открыть на карте</string>

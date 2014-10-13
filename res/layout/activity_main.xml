@@ -23,7 +23,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
+			android:contentDescription="@string/imgdesc_send_sms"
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter"
 		 />
@@ -60,7 +60,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
+			android:contentDescription="@string/imgdesc_send_sms"
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter" 
 		 />
@@ -201,39 +201,50 @@
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
  	
-	     <ImageButton android:id="@+id/btnMap"
+ 		<ImageButton android:id="@+id/btnSave"
+			android:src="?attr/btn_ic_action_save" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/imgdesc_save"
+			android:adjustViewBounds="true"
+    	    android:scaleType="fitCenter" 
+    	    
+			android:layout_alignParentRight="true"
+		 />
+
+		<ImageButton android:id="@+id/btnMap"
 			android:src="?attr/btn_ic_action_map" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
-
-			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc"
+			android:contentDescription="@string/imgdesc_map"
 			android:adjustViewBounds="true"
-    	    android:scaleType="fitCenter" 
-		 />
-	    
-	     <ImageButton android:id="@+id/btnCopy"
+    	    android:scaleType="fitCenter"
+    	    
+			android:layout_toLeftOf="@id/btnSave"
+		/>
+ 		
+	    <ImageButton android:id="@+id/btnCopy"
 			android:src="?attr/btn_ic_action_copy" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
-			android:contentDescription="@string/imgdesc"
-			
-			android:layout_alignParentLeft="true"
+			android:contentDescription="@string/imgdesc_copy"
 			android:adjustViewBounds="true"
-    	    android:scaleType="fitCenter" 
-		 />
-	     
+    	    android:scaleType="fitCenter"
+    	    
+    	    android:layout_toLeftOf="@id/btnMap"
+		/>
+ 			     
  		<ImageButton android:id="@+id/btnShare"
 			android:src="?attr/btn_ic_action_share" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
-			android:contentDescription="@string/imgdesc"
+			android:contentDescription="@string/imgdesc_share"
 			android:title="@string/action_share"
-			android:layout_toLeftOf="@id/btnMap"
-			android:layout_toRightOf="@id/btnCopy"
-			
 			android:adjustViewBounds="true"
-    	    android:scaleType="fitCenter" 
+    	    android:scaleType="fitCenter"
+    	    
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_toLeftOf="@id/btnCopy"
 		/>
  		
  	    

@@ -9,6 +9,7 @@
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_dark</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_dark</item>
         <item name="btn_ic_action_share">@drawable/ic_action_share_dark</item>
+        <item name="btn_ic_action_save">@drawable/ic_action_save_dark</item>
         <!-- API 11 theme customizations can go here. -->
     </style>
 
@@ -17,6 +18,7 @@
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_light</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_light</item>
         <item name="btn_ic_action_share">@drawable/ic_action_share_light</item>
+        <item name="btn_ic_action_save">@drawable/ic_action_save_light</item>
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to

@@ -95,6 +95,7 @@ public class MainActivity extends Activity {
 	ImageButton btnShare;
 	ImageButton btnMap;
 	ImageButton btnCopy;
+	ImageButton btnSave;
 	// ImageButton send2btn;
 	// ImageButton send3btn;
 	Button cont1;
@@ -201,6 +202,7 @@ public class MainActivity extends Activity {
 		btnShare.setVisibility(View.INVISIBLE);
 		btnCopy.setVisibility(View.INVISIBLE);
 		btnMap.setVisibility(View.INVISIBLE);
+		btnSave.setVisibility(View.INVISIBLE);
 
 		setImageButtonEnabled(
 				getApplicationContext(),
@@ -299,6 +301,7 @@ public class MainActivity extends Activity {
 				btnShare.setVisibility(View.VISIBLE);
 				btnCopy.setVisibility(View.VISIBLE);
 				btnMap.setVisibility(View.VISIBLE);
+				btnSave.setVisibility(View.VISIBLE);
 				// setActionBarShareButtonEnabled(true);
 				setImageButtonEnabled(
 						getApplicationContext(),
@@ -901,9 +904,11 @@ public class MainActivity extends Activity {
 		btnShare = (ImageButton) findViewById(R.id.btnShare);
 		btnCopy = (ImageButton) findViewById(R.id.btnCopy);
 		btnMap = (ImageButton) findViewById(R.id.btnMap);
+		btnSave = (ImageButton) findViewById(R.id.btnSave);
 		btnShare.setVisibility(View.INVISIBLE);
 		btnCopy.setVisibility(View.INVISIBLE);
 		btnMap.setVisibility(View.INVISIBLE);
+		btnSave.setVisibility(View.INVISIBLE);
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -951,7 +956,13 @@ public class MainActivity extends Activity {
 				getApplicationContext().startActivity(intent_openmap);
 			}
 		});
-
+		btnSave.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// @TODO
+			}
+		});
+		
 		// Send buttons
 		sendpbtn = (ImageButton) findViewById(R.id.send_plain);
 		send1btn = (ImageButton) findViewById(R.id.send1);
@@ -1207,4 +1218,19 @@ public class MainActivity extends Activity {
 	 * ActivityCompat.invalidateOptionsMenu(this); } } }
 	 */
 
+	/* TODO
+	 * Отличное приложение, которое быстро развивается! Хотел бы увидеть в следующих версиях возможность 
+	 * сохранения координат в самой программе , а не только отправка и сохранение в стороних приложениях. 
+	 * Было бы очень удобно иметь возможность сохранять координаты в самой программе с вожможностью выбора 
+	 * (в настройках) места хранения (внутренняя память или sdcard). А далее добавить в меню программы пункт : 
+	 * "сохраненные координаты" или "мои координаты" , открыв который , можно будет присваивать имена каждой точке. 
+	 * А также в этом меню ( "мои координаты") ,  должна уже быть возможнось , при выборе определенной (сохраненной) 
+	 * точки координат , отправки по смс , отправки по почте , сохранения в стороннюю праграмму , и открытие в гуглмапс 
+	 * или другрих приложениях. Если появятся такие возможности у этой программы , то она будет лучшей из всех по работе 
+	 * с координатами. И было бы вообще отлично , если бы при полученнии координат на девайс с установленной вашей 
+	 * программой , была возможность сразу открывать в гуглмапс. Удачи вам в разработках.
+	 * 
+	 * */
+	
+	
 }
