@@ -200,7 +200,7 @@
 	    android:orientation="horizontal"
 	    android:paddingLeft="0dp"
 	    android:paddingRight="0dp" >
-  
+   
  		<ImageButton android:id="@+id/btnSave"
 			android:src="?attr/btn_ic_action_save" 
 			android:layout_width="wrap_content"
@@ -209,9 +209,9 @@
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter" 
     	    
-			android:layout_alignParentRight="true"
+			android:layout_alignParentRight="true"			
 		 />
- 
+  
 		<ImageButton android:id="@+id/btnMap"
 			android:src="?attr/btn_ic_action_map" 
 			android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter"
     	    
-			android:layout_toLeftOf="@id/btnSave"
+    	    android:layout_toLeftOf="@id/btnSave"
 		/>
  		
 	    <ImageButton android:id="@+id/btnCopy"
