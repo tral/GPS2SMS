@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
 	ImageButton btnShare;
 	ImageButton btnMap;
 	ImageButton btnCopy;
-	//ImageButton btnSave;
+	ImageButton btnSave;
 	// ImageButton send2btn;
 	// ImageButton send3btn;
 	Button cont1;
@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
 		btnShare.setVisibility(View.INVISIBLE);
 		btnCopy.setVisibility(View.INVISIBLE);
 		btnMap.setVisibility(View.INVISIBLE);
-		//btnSave.setVisibility(View.INVISIBLE);
+		btnSave.setVisibility(View.INVISIBLE);
 
 		setImageButtonEnabled(
 				getApplicationContext(),
@@ -301,7 +301,7 @@ public class MainActivity extends Activity {
 				btnShare.setVisibility(View.VISIBLE);
 				btnCopy.setVisibility(View.VISIBLE);
 				btnMap.setVisibility(View.VISIBLE);
-				//btnSave.setVisibility(View.VISIBLE);
+				btnSave.setVisibility(View.VISIBLE);
 				// setActionBarShareButtonEnabled(true);
 				setImageButtonEnabled(
 						getApplicationContext(),
@@ -900,11 +900,11 @@ public class MainActivity extends Activity {
 		btnShare = (ImageButton) findViewById(R.id.btnShare);
 		btnCopy = (ImageButton) findViewById(R.id.btnCopy);
 		btnMap = (ImageButton) findViewById(R.id.btnMap);
-		//btnSave = (ImageButton) findViewById(R.id.btnSave);
+		btnSave = (ImageButton) findViewById(R.id.btnSave);
 		btnShare.setVisibility(View.INVISIBLE);
 		btnCopy.setVisibility(View.INVISIBLE);
 		btnMap.setVisibility(View.INVISIBLE);
-		//btnSave.setVisibility(View.INVISIBLE);
+		btnSave.setVisibility(View.INVISIBLE);
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -952,12 +952,12 @@ public class MainActivity extends Activity {
 				getApplicationContext().startActivity(intent_openmap);
 			}
 		});
-		/*btnSave.setOnClickListener(new OnClickListener() {
+		btnSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// @TODO
 			}
-		});*/
+		});
 		
 		// Send buttons
 		sendpbtn = (ImageButton) findViewById(R.id.send_plain);
