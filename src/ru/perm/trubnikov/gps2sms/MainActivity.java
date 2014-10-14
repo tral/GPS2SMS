@@ -819,7 +819,7 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		// Plain phone number
 		plainPh = (EditText) findViewById(R.id.editText1);
 		plainPh.setOnClickListener(new OnClickListener() {
