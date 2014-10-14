@@ -5,7 +5,7 @@
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo">
+    <style name="AppBaseThemeDark" parent="android:Theme.Holo">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_dark</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_dark</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_dark</item>
@@ -14,7 +14,7 @@
         <!-- API 14 theme customizations can go here. -->
     </style>
 	
-    <style name="ThemeLight" parent="android:Theme.Holo.Light">
+    <style name="AppBaseThemeLight" parent="android:Theme.Holo.Light">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_light</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_light</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_light</item>

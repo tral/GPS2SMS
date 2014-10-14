@@ -10,7 +10,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Black">
+    <style name="AppBaseThemeDark" parent="android:Theme.Black">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_dark</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_dark</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_dark</item>
@@ -23,7 +23,7 @@
         -->
     </style>
 
-    <style name="ThemeLight" parent="android:Theme.Light">
+    <style name="AppBaseThemeLight" parent="android:Theme.Light">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_light</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_light</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_light</item>
@@ -37,12 +37,13 @@
     </style>
     
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme_Dark" parent="AppBaseThemeDark">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    
-
-    
+    <style name="AppTheme_Light" parent="AppBaseThemeLight">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+   
     
 </resources>

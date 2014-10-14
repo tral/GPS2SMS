@@ -4,7 +4,7 @@
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo">
+    <style name="AppBaseThemeDark" parent="android:Theme.Holo">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_dark</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_dark</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_dark</item>
@@ -13,7 +13,7 @@
         <!-- API 11 theme customizations can go here. -->
     </style>
 
-    <style name="ThemeLight" parent="android:Theme.Holo.Light">
+    <style name="AppBaseThemeLight" parent="android:Theme.Holo.Light">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_light</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_collection_light</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_light</item>

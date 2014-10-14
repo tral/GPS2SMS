@@ -14,17 +14,13 @@ public class AnotherMsgActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
-
+		// Определение темы должно быть ДО super.onCreate и setContentView
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
-		if (sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("2")) {
-			setTheme(R.style.ThemeLight);
-		} else {
-			setTheme(R.style.AppTheme);
-		}
-
+		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+		
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_another_msg);
 
 		Button btn = (Button) findViewById(R.id.button1);

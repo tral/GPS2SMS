@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
 	ImageButton btnShare;
 	ImageButton btnMap;
 	ImageButton btnCopy;
-	ImageButton btnSave;
+	//ImageButton btnSave;
 	// ImageButton send2btn;
 	// ImageButton send3btn;
 	Button cont1;
@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
 		btnShare.setVisibility(View.INVISIBLE);
 		btnCopy.setVisibility(View.INVISIBLE);
 		btnMap.setVisibility(View.INVISIBLE);
-		btnSave.setVisibility(View.INVISIBLE);
+		//btnSave.setVisibility(View.INVISIBLE);
 
 		setImageButtonEnabled(
 				getApplicationContext(),
@@ -301,7 +301,7 @@ public class MainActivity extends Activity {
 				btnShare.setVisibility(View.VISIBLE);
 				btnCopy.setVisibility(View.VISIBLE);
 				btnMap.setVisibility(View.VISIBLE);
-				btnSave.setVisibility(View.VISIBLE);
+				//btnSave.setVisibility(View.VISIBLE);
 				// setActionBarShareButtonEnabled(true);
 				setImageButtonEnabled(
 						getApplicationContext(),
@@ -811,17 +811,13 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
-
+		// Определение темы должно быть ДО super.onCreate и setContentView
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
+		
+		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 
-		if (sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("2")) {
-			setTheme(R.style.ThemeLight);
-		} else {
-			setTheme(R.style.AppTheme);
-		}
-
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		// Plain phone number
@@ -904,11 +900,11 @@ public class MainActivity extends Activity {
 		btnShare = (ImageButton) findViewById(R.id.btnShare);
 		btnCopy = (ImageButton) findViewById(R.id.btnCopy);
 		btnMap = (ImageButton) findViewById(R.id.btnMap);
-		btnSave = (ImageButton) findViewById(R.id.btnSave);
+		//btnSave = (ImageButton) findViewById(R.id.btnSave);
 		btnShare.setVisibility(View.INVISIBLE);
 		btnCopy.setVisibility(View.INVISIBLE);
 		btnMap.setVisibility(View.INVISIBLE);
-		btnSave.setVisibility(View.INVISIBLE);
+		//btnSave.setVisibility(View.INVISIBLE);
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -956,12 +952,12 @@ public class MainActivity extends Activity {
 				getApplicationContext().startActivity(intent_openmap);
 			}
 		});
-		btnSave.setOnClickListener(new OnClickListener() {
+		/*btnSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// @TODO
 			}
-		});
+		});*/
 		
 		// Send buttons
 		sendpbtn = (ImageButton) findViewById(R.id.send_plain);
@@ -1229,7 +1225,12 @@ public class MainActivity extends Activity {
 	 * или другрих приложениях. Если появятся такие возможности у этой программы , то она будет лучшей из всех по работе 
 	 * с координатами. И было бы вообще отлично , если бы при полученнии координат на девайс с установленной вашей 
 	 * программой , была возможность сразу открывать в гуглмапс. Удачи вам в разработках.
+	 *
 	 * 
+	 * Можно также добавить импортировать для сохранения в программе локально из смс , что бы все свои и полученые 
+	 * координаты можно было хранить не в смс , а непосредственно в программе.удачи и развития программы.
+	 * 
+	 * Фотку на кнопке с выбранным контактом
 	 * */
 	
 	
