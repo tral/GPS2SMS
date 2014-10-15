@@ -1,17 +1,16 @@
-﻿package ru.perm.trubnikov.gps2sms;
+package ru.perm.trubnikov.gps2sms;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.TabHost;
 
-public class AnotherMsgActivity extends Activity {
+public class TabsActivity extends TabActivity {
 
 	// ------------------------------------------------------------------------------------------
 	@Override
@@ -24,24 +23,29 @@ public class AnotherMsgActivity extends Activity {
 		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_another_msg);
+		setContentView(R.layout.activity_tabs);
 		
 		ShowBackButton();
-
-		Button btn = (Button) findViewById(R.id.button1);
-		btn.requestFocus();
-		btn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-
+		
+		// получаем TabHost
+        TabHost tabHost = getTabHost();
+        
+        // инициализация была выполнена в getTabHost
+        // метод setup вызывать не нужно
+        
+        TabHost.TabSpec tabSpec;
+        
+        tabSpec = tabHost.newTabSpec("tag1");
+        tabSpec.setIndicator(getString(R.string.tab_mycoords));
+        tabSpec.setContent(new Intent(this, MyCoordsActivity.class));
+        tabHost.addTab(tabSpec);
+        
+        tabSpec = tabHost.newTabSpec("tag2");
+        tabSpec.setIndicator(getString(R.string.tab_mysms));
+        tabSpec.setContent(new Intent(this, MySMSActivity.class));
+        tabHost.addTab(tabSpec);
 	}
 
-	// ------------------------------------------------------------------------------------------
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -52,7 +56,7 @@ public class AnotherMsgActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
+	
 	@TargetApi(11)
 	public void ShowBackButton() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -60,5 +64,7 @@ public class AnotherMsgActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
+	
+	// ------------------------------------------------------------------------------------------
 
 }

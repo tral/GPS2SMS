@@ -59,9 +59,12 @@ public class UserSettingActivity extends PreferenceActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
+			finish();
+			/*
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			*/
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

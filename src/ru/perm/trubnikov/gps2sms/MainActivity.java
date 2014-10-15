@@ -597,7 +597,10 @@ public class MainActivity extends Activity {
 
 			break;
 		case R.id.action_sms_regexp:
-			showDialog(SMS_REGEXP_DIALOG_ID);
+			//showDialog(SMS_REGEXP_DIALOG_ID);
+			Intent intent = new Intent(MainActivity.this,
+					TabsActivity.class);
+			startActivity(intent);
 			break;
 		case IDM_RATE:
 			Intent int_rate = new Intent(Intent.ACTION_VIEW,
