@@ -210,7 +210,6 @@ public class MainActivity extends Activity {
 					accuracy = String.format(Locale.US, "%2.0f",
 							loc.getAccuracy());
 				}
-				;
 
 				String separ = System.getProperty("line.separator");
 
