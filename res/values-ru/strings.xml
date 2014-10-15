@@ -93,5 +93,10 @@
 	<string name="tab_mycoords">Мои координаты</string>
 	<string name="tab_mysms">Мои СМС</string>
 	
+	<string name="point_edit_text_placeholder">Название точки</string>
+	<string name="save_point_dlg_header">Сохранение координат</string>
+	
+	
+	
     
 </resources>

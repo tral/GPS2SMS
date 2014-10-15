@@ -59,8 +59,9 @@ public class MainActivity extends Activity {
 
 	// Dialogs
 	private static final int SEND_SMS_DIALOG_ID = 0;
+	private final static int SAVE_POINT_DIALOG_ID = 1;
 	private static final int SMS_REGEXP_DIALOG_ID = 2;
-	// private final static int PHONE_DIALOG_ID = 1;
+	
 	ProgressDialog mSMSProgressDialog;
 
 	// My GPS states
@@ -393,6 +394,45 @@ public class MainActivity extends Activity {
 			mSMSProgressDialog.setMessage(getString(R.string.info_please_wait)
 					+ " " + phoneToSendSMS);
 			return mSMSProgressDialog;
+		case SAVE_POINT_DIALOG_ID:
+			LayoutInflater inflater_sp = getLayoutInflater();
+            View layout_sp = inflater_sp.inflate(R.layout.save_point_dialog, (ViewGroup)findViewById(R.id.save_point_dialog_layout));
+            
+            AlertDialog.Builder builder_sp = new AlertDialog.Builder(this);
+            builder_sp.setView(layout_sp);
+            
+            final EditText lPointName = (EditText) layout_sp.findViewById(R.id.point_edit_text);
+            
+            builder_sp.setMessage(getString(R.string.save_point_dlg_header));
+            
+            builder_sp.setPositiveButton(getString(R.string.save_btn_txt), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	
+                	// update secret key
+                	/*dbHelper = new DBHelper(MainActivity.this);
+	        		SQLiteDatabase db = dbHelper.getWritableDatabase();
+	        		ContentValues cv = new ContentValues();
+	                cv.put("key_val", lPointName.getText().toString());
+	                db.update("keys", cv, "_id = ?", new String[] { "1" });
+	                dbHelper.close();
+	                */
+                	dbHelper = new DBHelper(MainActivity.this);
+                	dbHelper.insertMyCoord(lPointName.getText().toString(), coordsToSend);
+                	dbHelper.close();
+	                lPointName.setText(""); // Чистим 
+	                
+                    //MainActivity.this.finish();
+                }
+            });
+            
+            builder_sp.setNegativeButton(getString(R.string.cancel_btn_txt), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                    }
+            });
+            
+            builder_sp.setCancelable(true);
+            return builder_sp.create();
 		case SMS_REGEXP_DIALOG_ID:
 			LayoutInflater inflater = getLayoutInflater();
 			View layout = inflater.inflate(R.layout.sms_regexp_search,
@@ -413,47 +453,6 @@ public class MainActivity extends Activity {
 			AlertDialog dialog = builder.create();
 
 			return dialog;
-			/*
-			 * case PHONE_DIALOG_ID: LayoutInflater inflater =
-			 * getLayoutInflater(); View layout =
-			 * inflater.inflate(R.layout.phone_dialog,
-			 * (ViewGroup)findViewById(R.id.phone_dialog_layout));
-			 * 
-			 * AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			 * builder.setView(layout);
-			 * 
-			 * // Stored msg final EditText keyDlgEdit = (EditText)
-			 * layout.findViewById(R.id.msg_edit_text); dbHelper = new
-			 * DBHelper(this); keyDlgEdit.setText(dbHelper.getSmsMsg());
-			 * dbHelper.close();
-			 * 
-			 * builder.setMessage(getString(R.string.info_sms_txt));
-			 * 
-			 * builder.setPositiveButton(getString(R.string.save_btn_txt), new
-			 * DialogInterface.OnClickListener() { public void
-			 * onClick(DialogInterface dialog, int id) {
-			 * 
-			 * // update dbHelper = new DBHelper(MainActivity.this);
-			 * SQLiteDatabase db = dbHelper.getWritableDatabase(); ContentValues
-			 * cv = new ContentValues(); cv.put("msg",
-			 * keyDlgEdit.getText().toString()); db.update("msg", cv, "_id = ?",
-			 * new String[] { "1" }); dbHelper.close(); keyDlgEdit.selectAll();
-			 * // чтобы при повторном открытии текст был выделен } });
-			 * 
-			 * builder.setNegativeButton(getString(R.string.cancel_btn_txt), new
-			 * DialogInterface.OnClickListener() { public void
-			 * onClick(DialogInterface dialog, int id) { keyDlgEdit.selectAll();
-			 * // чтобы при повторном открытии текст был выделен
-			 * dialog.cancel(); } });
-			 * 
-			 * builder.setCancelable(false);
-			 * 
-			 * AlertDialog dialog = builder.create(); // show keyboard
-			 * automatically keyDlgEdit.selectAll();
-			 * dialog.getWindow().setSoftInputMode
-			 * (WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE); return
-			 * dialog;
-			 */
 
 		}
 		return null;
@@ -958,7 +957,7 @@ public class MainActivity extends Activity {
 		btnSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// @TODO
+				showDialog(SAVE_POINT_DIALOG_ID);
 			}
 		});
 		

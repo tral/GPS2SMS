@@ -93,5 +93,9 @@
 	<string name="tab_mycoords">My coordinates</string>
 	<string name="tab_mysms">My messages</string>
 	
+	<string name="point_edit_text_placeholder">Point name</string>
+	<string name="save_point_dlg_header">Save coordinates</string>
+	
+	
 			
 </resources>
