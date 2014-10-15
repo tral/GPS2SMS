@@ -135,18 +135,6 @@ public class MainActivity extends Activity {
 		toast.show();
 	}
 
-	/*
-	 * protected void HideKeyboard() { InputMethodManager inputManager =
-	 * (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-	 * // check if no view has focus: View v=this.getCurrentFocus(); if(v!=null)
-	 * inputManager.hideSoftInputFromWindow(v.getWindowToken(),
-	 * InputMethodManager.HIDE_NOT_ALWAYS); }
-	 * 
-	 * protected void ShowKeyboard() { InputMethodManager imm =
-	 * (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-	 * imm.showSoftInput(smsEdit, InputMethodManager.SHOW_IMPLICIT); }
-	 */
-
 	// Define the Handler that receives messages from the thread and update the
 	// progress
 	// SMS send thread. Result handling
@@ -217,18 +205,7 @@ public class MainActivity extends Activity {
 				send1btn,
 				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
 						: R.drawable.navitel);
-		// setImageButtonEnabled(getApplicationContext(), false, send2btn,
-		// (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-		// : R.drawable.navitel);
-		// setImageButtonEnabled(getApplicationContext(), false, send3btn,
-		// (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-		// : R.drawable.navitel);
-		// setActionBarShareButtonEnabled(false);
 
-		// setImageButtonEnabled(getApplicationContext(), false, shareBtn,
-		// R.drawable.share);
-		// setImageButtonEnabled(getApplicationContext(), false, navitelBtn,
-		// R.drawable.navitel);
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			printLocation(null, GPS_GETTING_COORDINATES);
 		}
@@ -368,11 +345,10 @@ public class MainActivity extends Activity {
 		// menu.findItem(R.id.action_copy).setEnabled(enableShareBtnFlag);
 		// setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag,
 		// menu.findItem(R.id.action_copy), R.drawable.ic_action_copy);
-
 		// menu.findItem(R.id.action_openmap).setEnabled(enableShareBtnFlag);
-
 		// menu.add(Menu.NONE, IDM_SMS_REGEXP, Menu.NONE,
 		// R.string.menu_item_sms_regexp);
+		
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE,
 				R.string.menu_item_settings);
 		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
@@ -394,6 +370,7 @@ public class MainActivity extends Activity {
 			mSMSProgressDialog.setMessage(getString(R.string.info_please_wait)
 					+ " " + phoneToSendSMS);
 			return mSMSProgressDialog;
+
 		case SAVE_POINT_DIALOG_ID:
 			LayoutInflater inflater_sp = getLayoutInflater();
             View layout_sp = inflater_sp.inflate(R.layout.save_point_dialog, (ViewGroup)findViewById(R.id.save_point_dialog_layout));
@@ -407,21 +384,10 @@ public class MainActivity extends Activity {
             
             builder_sp.setPositiveButton(getString(R.string.save_btn_txt), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                	
-                	// update secret key
-                	/*dbHelper = new DBHelper(MainActivity.this);
-	        		SQLiteDatabase db = dbHelper.getWritableDatabase();
-	        		ContentValues cv = new ContentValues();
-	                cv.put("key_val", lPointName.getText().toString());
-	                db.update("keys", cv, "_id = ?", new String[] { "1" });
-	                dbHelper.close();
-	                */
                 	dbHelper = new DBHelper(MainActivity.this);
                 	dbHelper.insertMyCoord(lPointName.getText().toString(), coordsToSend);
                 	dbHelper.close();
 	                lPointName.setText(""); // Чистим 
-	                
-                    //MainActivity.this.finish();
                 }
             });
             
@@ -433,6 +399,7 @@ public class MainActivity extends Activity {
             
             builder_sp.setCancelable(true);
             return builder_sp.create();
+
 		case SMS_REGEXP_DIALOG_ID:
 			LayoutInflater inflater = getLayoutInflater();
 			View layout = inflater.inflate(R.layout.sms_regexp_search,
@@ -446,8 +413,6 @@ public class MainActivity extends Activity {
 					dialog.dismiss();
 				}
 			});
-
-			// builder.setMessage(getString(R.string.header_choose_number));
 
 			builder.setCancelable(true);
 			AlertDialog dialog = builder.create();
@@ -501,29 +466,10 @@ public class MainActivity extends Activity {
 					int idx = 0;
 					do {
 
-						// for(int idx=0;idx<cursor.getColumnCount();idx++) {
-						/*
-						 * msgData = " " + cursor.getColumnName(idx) + ":" +
-						 * cursor.getString(idx); long messageId =
-						 * cursor.getLong(0); long threadId = cursor.getLong(1);
-						 * String address = cursor.getString(2); long contactId
-						 * = cursor.getLong(3); String contactId_string =
-						 * String.valueOf(contactId); long timestamp =
-						 * cursor.getLong(4); msgData =
-						 * dbHelper.getDateTimeByTimestamp
-						 * (cursor.getLong(1))+"\n"+cursor.getString(0); msgData
-						 * = cursor.getLong(1)+"\n"+cursor.getString(0); String
-						 * tp = cursor.getString(6); typeCol =
-						 * mCurSms.getColumnIndex("type");
-						 */
-
 						idx++;
 						initOneSMSRegexpBtn(layout, idx, pixels_b, pixels_m,
 								cursor.getString(0), dialog);
 
-						// Log.d("gps", msgData + " "
-						// +messageId+" "+threadId+" "+address+" "+timestamp+" "+contactId_string+" "+tp);
-						// }
 					} while (cursor.moveToNext());
 
 				} else {
@@ -608,47 +554,10 @@ public class MainActivity extends Activity {
 			int_rate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			getApplicationContext().startActivity(int_rate);
 			break;
-		/*
-		 * case R.id.action_share: Intent sharingIntent = new
-		 * Intent(android.content.Intent.ACTION_SEND);
-		 * sharingIntent.setType("text/plain"); String shareBody =
-		 * coordsToShare;
-		 * sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-		 * getString(R.string.share_topic));
-		 * sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-		 * startActivity(Intent.createChooser(sharingIntent,
-		 * getString(R.string.share_via))); break;
-		 */
+
 		case R.id.action_navitel:
 			refreshSendViaToggleButton(true);
 			break;
-		/*
-		 * case R.id.action_copy: android.text.ClipboardManager clipboard =
-		 * (android.text.ClipboardManager)
-		 * getSystemService(Context.CLIPBOARD_SERVICE);
-		 * 
-		 * SharedPreferences sharedPrefs =
-		 * PreferenceManager.getDefaultSharedPreferences(this); String clip =
-		 * sharedPrefs.getString("prefClipboard", "1");
-		 * 
-		 * if (clip.equalsIgnoreCase("1")) {clipboard.setText(coordsToSend);} if
-		 * (clip.equalsIgnoreCase("2")) {clipboard.setText(gGoogleMapsLink);} if
-		 * (clip.equalsIgnoreCase("3"))
-		 * {clipboard.setText(gOpenStreetMapsLink);}
-		 * 
-		 * MainActivity.this.ShowToast(R.string.text_copied, Toast.LENGTH_LONG);
-		 * break;
-		 */
-		/*
-		 * case R.id.action_openmap: //try { // String uri =
-		 * String.format(Locale.ENGLISH, "geo:%f,%f", gLa, gLo); Intent
-		 * intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"+
-		 * coordsToSend));
-		 * intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		 * getApplicationContext().startActivity(intent_openmap); //} //catch
-		 * (Exception e) { // Log.d("seagull", "EXCEPTION! " + e.toString()
-		 * +" Message:" +e.getMessage()); //} break;
-		 */
 
 		default:
 			return false;
@@ -847,22 +756,6 @@ public class MainActivity extends Activity {
 				startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);
 			}
 		});
-		/*
-		 * cont2.setOnClickListener(new OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { tmpSlotId = 2; Intent intent
-		 * = new Intent(Intent.ACTION_PICK,
-		 * ContactsContract.Contacts.CONTENT_URI);
-		 * intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-		 * startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT); } });
-		 * cont3.setOnClickListener(new OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { tmpSlotId = 3; Intent intent
-		 * = new Intent(Intent.ACTION_PICK,
-		 * ContactsContract.Contacts.CONTENT_URI);
-		 * intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-		 * startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT); } });
-		 */
 
 		// Stored phone number & name -> to button
 		dbHelper = new DBHelper(this);
@@ -1007,39 +900,6 @@ public class MainActivity extends Activity {
 		// Toggle Button init
 		refreshSendViaToggleButton(false);
 
-		/*
-		 * send2btn.setOnClickListener(new OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) {
-		 * sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend
-		 * : coordsToNavitel, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ?
-		 * true : false, 2); } }); send3btn.setOnClickListener(new
-		 * OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) {
-		 * sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend
-		 * : coordsToNavitel, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ?
-		 * true : false, 3); } });
-		 */
-
-		// send Via SMS or Navitel Toggle Button
-		/*
-		 * sendViaToggleBtn =
-		 * (ImageButton)findViewById(R.id.sendViaToggleButton);
-		 * refreshSendViaToggleButton(false);
-		 * 
-		 * sendViaToggleBtn.setOnClickListener(new OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) {
-		 * refreshSendViaToggleButton(true); } });
-		 * 
-		 * sendViaToggleBtn.setOnLongClickListener(new OnLongClickListener() {
-		 * 
-		 * @Override public boolean onLongClick(View v) {
-		 * MainActivity.this.ShowToast(R.string.toggle_sms_navitel_info,
-		 * Toast.LENGTH_LONG); return true; } });
-		 */
-
 		// GPS-state TextView init
 		GPSstate = (TextView) findViewById(R.id.textView1);
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -1108,10 +968,6 @@ public class MainActivity extends Activity {
 
 	private void refreshSendViaToggleButton(boolean toggle) {
 
-		// Drawable navitelIconT =
-		// getResources().getDrawable(R.drawable.navitel);
-		// Drawable hangoutsIconT =
-		// getResources().getDrawable(R.drawable.hangouts);
 		Drawable navitelIcon = getResources().getDrawable(R.drawable.navitel);
 		Drawable hangoutsIcon = getResources().getDrawable(R.drawable.hangouts);
 
@@ -1193,28 +1049,6 @@ public class MainActivity extends Activity {
 		// Log.d("gps", "test");
 
 	}
-
-	/*
-	 * private void setActionBarShareButtonEnabled(boolean state) {
-	 * 
-	 * enableShareBtnFlag = state;
-	 * 
-	 * //if (android.os.Build.VERSION.SDK_INT >= 11) { //
-	 * invalidateOptionsMenu(); //} else { // supportInvalidateOptionsMenu();
-	 * //}
-	 * 
-	 * if (mMenu != null) { MenuItem item = mMenu.findItem(R.id.action_share);
-	 * if (item != null) { item.setEnabled(enableShareBtnFlag);
-	 * setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, item,
-	 * R.drawable.ic_action_share); ActivityCompat.invalidateOptionsMenu(this);
-	 * } MenuItem item2 = mMenu.findItem(R.id.action_copy); if (item2 != null) {
-	 * item2.setEnabled(enableShareBtnFlag);
-	 * setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag, item2,
-	 * R.drawable.ic_action_copy); ActivityCompat.invalidateOptionsMenu(this); }
-	 * MenuItem item3 = mMenu.findItem(R.id.action_openmap); if (item3 != null)
-	 * { item3.setEnabled(enableShareBtnFlag);
-	 * ActivityCompat.invalidateOptionsMenu(this); } } }
-	 */
 
 	/* TODO
 	 * Отличное приложение, которое быстро развивается! Хотел бы увидеть в следующих версиях возможность 
