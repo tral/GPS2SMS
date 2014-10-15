@@ -179,39 +179,6 @@ public class MainActivity extends Activity {
 		}
 	};
 
-	private void Pause_GPS_Scanning() {
-		manager.removeUpdates(locListener);
-	}
-
-	private void Resume_GPS_Scanning() {
-
-		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				locListener);
-		// sendBtn.setEnabled(false);
-		btnShare.setVisibility(View.INVISIBLE);
-		btnCopy.setVisibility(View.INVISIBLE);
-		btnMap.setVisibility(View.INVISIBLE);
-		btnSave.setVisibility(View.INVISIBLE);
-
-		setImageButtonEnabled(
-				getApplicationContext(),
-				false,
-				sendpbtn,
-				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-						: R.drawable.navitel);
-		setImageButtonEnabled(
-				getApplicationContext(),
-				false,
-				send1btn,
-				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-						: R.drawable.navitel);
-
-		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			printLocation(null, GPS_GETTING_COORDINATES);
-		}
-
-	}
-
 	private void printLocation(Location loc, int state) {
 
 		String accuracy;
@@ -570,19 +537,7 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		KeepScreenOnFlag();
-		Resume_GPS_Scanning();
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		Pause_GPS_Scanning();
-	}
-
-	// Держать ли экран включенным?
-	private void KeepScreenOnFlag() {
-
+		// Держать ли экран включенным?
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
@@ -593,6 +548,39 @@ public class MainActivity extends Activity {
 			getWindow().clearFlags(
 					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
+		
+		// Возобновляем работу с GPS-приемником
+		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+				locListener);
+
+		btnShare.setVisibility(View.INVISIBLE);
+		btnCopy.setVisibility(View.INVISIBLE);
+		btnMap.setVisibility(View.INVISIBLE);
+		btnSave.setVisibility(View.INVISIBLE);
+
+		setImageButtonEnabled(
+				getApplicationContext(),
+				false,
+				sendpbtn,
+				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
+						: R.drawable.navitel);
+		setImageButtonEnabled(
+				getApplicationContext(),
+				false,
+				send1btn,
+				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
+						: R.drawable.navitel);
+
+		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			printLocation(null, GPS_GETTING_COORDINATES);
+		}
+		
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		manager.removeUpdates(locListener);
 	}
 
 	public void showSelectedNumber(String number, String name) {
