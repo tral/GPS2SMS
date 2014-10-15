@@ -15,7 +15,7 @@ class DBHelper extends SQLiteOpenHelper {
 
 	public DBHelper(Context context) {
 		// конструктор суперкласса
-		super(context, "rupermtrubnikovgps2smsDB", null, 3);
+		super(context, "rupermtrubnikovgps2smsDB", null, 4);
 		defSmsMsg = context.getString(R.string.default_sms_msg);
 	}
 
@@ -122,6 +122,16 @@ class DBHelper extends SQLiteOpenHelper {
 		db.update("slots", cv, "_id = ?", new String[] { Integer.toString(id) });
 	}
 
+	public void insertMyCoord(String name, String coord) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.clear();
+		cv.put("name", name);
+		cv.put("coord", coord);
+		// Log.d("gps", "save! " + name + " " + phone + " " + id);
+		db.insert("mycoords", null, cv);
+	}
+	
 	public static int getRndColor() {
 		Random rand = new Random();
 		// Чтобы не генерился слишком светлый фон, иначе символы нечитаемы
@@ -175,6 +185,7 @@ class DBHelper extends SQLiteOpenHelper {
 
 		Upgrade_1_to_2(db);
 		Upgrade_2_to_3(db);
+		Upgrade_3_to_4(db);
 
 	}
 
@@ -189,6 +200,10 @@ class DBHelper extends SQLiteOpenHelper {
 
 		if (oldVersion <= 2) {
 			Upgrade_2_to_3(db);
+		}
+		
+		if (oldVersion <= 3) {
+			Upgrade_3_to_4(db);
 		}
 
 	}
@@ -248,6 +263,16 @@ class DBHelper extends SQLiteOpenHelper {
 		cv.put("val_txt", "");
 		cv.put("val_int", 1);
 		db.insert("settings", null, cv);
+
+	};
+	
+	public void Upgrade_3_to_4(SQLiteDatabase db) {
+
+		db.execSQL("create table mycoords ("
+		+ "_id integer primary key autoincrement," 
+		+ "name text,"
+		+ "coord text" 
+		+ ");");
 
 	};
 
