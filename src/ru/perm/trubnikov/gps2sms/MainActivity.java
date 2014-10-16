@@ -29,7 +29,6 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,7 +60,7 @@ public class MainActivity extends Activity {
 	private static final int SEND_SMS_DIALOG_ID = 0;
 	private final static int SAVE_POINT_DIALOG_ID = 1;
 	private static final int SMS_REGEXP_DIALOG_ID = 2;
-	
+
 	ProgressDialog mSMSProgressDialog;
 
 	// My GPS states
@@ -112,28 +111,12 @@ public class MainActivity extends Activity {
 	private String coordsToSend;
 	private String coordsToShare;
 	private String coordsToNavitel;
-	private String gGoogleMapsLink;
-	private String gOpenStreetMapsLink;
 	private int toggleButtonIcon;
 	private String phoneToSendSMS;
 	private int tmpSlotId;
 
 	// Database
 	DBHelper dbHelper;
-
-	// Small util to show text messages by resource id
-	protected void ShowToast(int txt, int lng) {
-		Toast toast = Toast.makeText(MainActivity.this, txt, lng);
-		toast.setGravity(Gravity.TOP, 0, 0);
-		toast.show();
-	}
-
-	// Small util to show text messages
-	protected void ShowToastT(String txt, int lng) {
-		Toast toast = Toast.makeText(MainActivity.this, txt, lng);
-		toast.setGravity(Gravity.TOP, 0, 0);
-		toast.show();
-	}
 
 	// Define the Handler that receives messages from the thread and update the
 	// progress
@@ -152,7 +135,8 @@ public class MainActivity extends Activity {
 						AnotherMsgActivity.class);
 				startActivity(intent);
 			} else {
-				MainActivity.this.ShowToastT(res_send, Toast.LENGTH_SHORT);
+				DBHelper.ShowToastT(MainActivity.this, res_send,
+						Toast.LENGTH_SHORT);
 			}
 
 		}
@@ -220,21 +204,20 @@ public class MainActivity extends Activity {
 
 				coordsToSend = la + "," + lo;
 
-				// gGoogleMapsLink = "https://www.google.com/maps/place/" +
-				// coordsToSend;
-				gGoogleMapsLink = "http://maps.google.com/maps?q=loc:"
-						+ coordsToSend;
-
-				gOpenStreetMapsLink = "http://www.openstreetmap.org/?mlat="
-						+ la + "&mlon=" + lo + "&zoom=17&layers=M";
+				//gGoogleMapsLink = "https://www.google.com/maps/place/" + coordsToSend;
+				//gGoogleMapsLink = "http://maps.google.com/maps?q=loc:" + coordsToSend;
+				//gOpenStreetMapsLink = "http://www.openstreetmap.org/?mlat="
+				//+ la + "&mlon=" + lo + "&zoom=17&layers=M";
 
 				coordsToNavitel = "<NavitelLoc>" + la + " " + lo + "<N>";
 
-				coordsToShare = getString(R.string.info_latitude) + " " + la
-						+ separ + getString(R.string.info_longitude) + " " + lo
-						+ separ + getString(R.string.info_accuracy) + " "
-						+ accuracy + " " + getString(R.string.info_print2)
-						+ separ + separ + gGoogleMapsLink;
+				coordsToShare = DBHelper.getShareBody(MainActivity.this, coordsToSend, accuracy);						
+						
+//						getString(R.string.info_latitude) + " " + la
+//						+ separ + getString(R.string.info_longitude) + " " + lo
+//						+ separ + getString(R.string.info_accuracy) + " "
+//						+ accuracy + " " + getString(R.string.info_print2)
+//						+ separ + separ + DBHelper.getGoogleMapsLink(coordsToSend);
 
 				GPSstate.setText(getString(R.string.info_print1) + " "
 						+ accuracy + " " + getString(R.string.info_print2)
@@ -314,7 +297,7 @@ public class MainActivity extends Activity {
 		// menu.findItem(R.id.action_openmap).setEnabled(enableShareBtnFlag);
 		// menu.add(Menu.NONE, IDM_SMS_REGEXP, Menu.NONE,
 		// R.string.menu_item_sms_regexp);
-		
+
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE,
 				R.string.menu_item_settings);
 		menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
@@ -339,51 +322,56 @@ public class MainActivity extends Activity {
 
 		case SAVE_POINT_DIALOG_ID:
 			LayoutInflater inflater_sp = getLayoutInflater();
-            View layout_sp = inflater_sp.inflate(R.layout.save_point_dialog, (ViewGroup)findViewById(R.id.save_point_dialog_layout));
-            
-            AlertDialog.Builder builder_sp = new AlertDialog.Builder(this);
-            builder_sp.setView(layout_sp);
-            
-            final EditText lPointName = (EditText) layout_sp.findViewById(R.id.point_edit_text);
-            
-            builder_sp.setMessage(getString(R.string.save_point_dlg_header));
-            
-            builder_sp.setPositiveButton(getString(R.string.save_btn_txt), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                	dbHelper = new DBHelper(MainActivity.this);
-                	dbHelper.insertMyCoord(lPointName.getText().toString(), coordsToSend);
-                	dbHelper.close();
-	                lPointName.setText(""); // Чистим 
-                }
-            });
-            
-            builder_sp.setNegativeButton(getString(R.string.cancel_btn_txt), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                    }
-            });
-            
-            builder_sp.setCancelable(true);
-            return builder_sp.create();
+			View layout_sp = inflater_sp.inflate(R.layout.save_point_dialog,
+					(ViewGroup) findViewById(R.id.save_point_dialog_layout));
 
-		case SMS_REGEXP_DIALOG_ID:
-			LayoutInflater inflater = getLayoutInflater();
-			View layout = inflater.inflate(R.layout.sms_regexp_search,
-					(ViewGroup) findViewById(R.id.choose));
+			AlertDialog.Builder builder_sp = new AlertDialog.Builder(this);
+			builder_sp.setView(layout_sp);
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setView(layout);
+			final EditText lPointName = (EditText) layout_sp
+					.findViewById(R.id.point_edit_text);
 
-			builder.setOnCancelListener(new Dialog.OnCancelListener() {
-				public void onCancel(DialogInterface dialog) {
-					dialog.dismiss();
-				}
-			});
+			builder_sp.setMessage(getString(R.string.save_point_dlg_header));
 
-			builder.setCancelable(true);
-			AlertDialog dialog = builder.create();
+			builder_sp.setPositiveButton(getString(R.string.save_btn_txt),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dbHelper = new DBHelper(MainActivity.this);
+							dbHelper.insertMyCoord(lPointName.getText()
+									.toString(), coordsToSend);
+							dbHelper.close();
+							lPointName.setText(""); // Чистим
+						}
+					});
 
-			return dialog;
+			builder_sp.setNegativeButton(getString(R.string.cancel_btn_txt),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					});
+
+			builder_sp.setCancelable(true);
+			return builder_sp.create();
+
+			/*
+			 * case SMS_REGEXP_DIALOG_ID: LayoutInflater inflater =
+			 * getLayoutInflater(); View layout =
+			 * inflater.inflate(R.layout.sms_regexp_search, (ViewGroup)
+			 * findViewById(R.id.choose));
+			 * 
+			 * AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			 * builder.setView(layout);
+			 * 
+			 * builder.setOnCancelListener(new Dialog.OnCancelListener() {
+			 * public void onCancel(DialogInterface dialog) { dialog.dismiss();
+			 * } });
+			 * 
+			 * builder.setCancelable(true); AlertDialog dialog =
+			 * builder.create();
+			 * 
+			 * return dialog;
+			 */
 
 		}
 		return null;
@@ -472,6 +460,7 @@ public class MainActivity extends Activity {
 		btnTag.setLayoutParams(params);
 		btnTag.setText(lMsg);
 		btnTag.setId(i);
+
 		btnTag.setBackgroundColor(DBHelper.getRndColor());
 
 		btnTag.setOnClickListener(new View.OnClickListener() {
@@ -508,9 +497,8 @@ public class MainActivity extends Activity {
 
 			break;
 		case R.id.action_sms_regexp:
-			//showDialog(SMS_REGEXP_DIALOG_ID);
-			Intent intent = new Intent(MainActivity.this,
-					TabsActivity.class);
+			// showDialog(SMS_REGEXP_DIALOG_ID);
+			Intent intent = new Intent(MainActivity.this, TabsActivity.class);
 			startActivity(intent);
 			break;
 		case IDM_RATE:
@@ -547,7 +535,7 @@ public class MainActivity extends Activity {
 			getWindow().clearFlags(
 					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
-		
+
 		// Возобновляем работу с GPS-приемником
 		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
 				locListener);
@@ -573,7 +561,7 @@ public class MainActivity extends Activity {
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			printLocation(null, GPS_GETTING_COORDINATES);
 		}
-		
+
 	}
 
 	@Override
@@ -712,12 +700,13 @@ public class MainActivity extends Activity {
 		// Определение темы должно быть ДО super.onCreate и setContentView
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
-		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+
+		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
+				"1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		// Plain phone number
 		plainPh = (EditText) findViewById(R.id.editText1);
 		plainPh.setOnClickListener(new OnClickListener() {
@@ -805,8 +794,7 @@ public class MainActivity extends Activity {
 		btnCopy.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-
+				/*android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 				SharedPreferences sharedPrefs = PreferenceManager
 						.getDefaultSharedPreferences(getApplicationContext());
 				String clip = sharedPrefs.getString("prefClipboard", "1");
@@ -819,19 +807,23 @@ public class MainActivity extends Activity {
 				}
 				if (clip.equalsIgnoreCase("3")) {
 					clipboard.setText(gOpenStreetMapsLink);
-				}
-
-				MainActivity.this.ShowToast(R.string.text_copied,
-						Toast.LENGTH_LONG);
+				}*/
+				DBHelper.clipboardCopy(getApplicationContext(), coordsToSend,
+						DBHelper.getGoogleMapsLink(coordsToSend),
+						DBHelper.getOSMLink(coordsToSend));
+				DBHelper.ShowToast(MainActivity.this, R.string.text_copied, Toast.LENGTH_LONG);
 			}
 		});
 		btnMap.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri
-						.parse("geo:" + coordsToSend));
-				intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				getApplicationContext().startActivity(intent_openmap);
+				DBHelper.openOnMap(getApplicationContext(), coordsToSend);
+				/*
+				 * Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri
+				 * .parse("geo:" + coordsToSend));
+				 * intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				 * getApplicationContext().startActivity(intent_openmap);
+				 */
 			}
 		});
 		btnSave.setOnClickListener(new OnClickListener() {
@@ -840,7 +832,7 @@ public class MainActivity extends Activity {
 				showDialog(SAVE_POINT_DIALOG_ID);
 			}
 		});
-		
+
 		// Send buttons
 		sendpbtn = (ImageButton) findViewById(R.id.send_plain);
 		send1btn = (ImageButton) findViewById(R.id.send1);
@@ -921,12 +913,9 @@ public class MainActivity extends Activity {
 
 		if (phoneToSendSMS.equalsIgnoreCase("")) {
 			if (Receiver == 0)
-				MainActivity.this.ShowToast(R.string.error_no_phone_number,
-						Toast.LENGTH_LONG);
+				DBHelper.ShowToast(MainActivity.this, R.string.error_no_phone_number, Toast.LENGTH_LONG);
 			else
-				MainActivity.this.ShowToast(
-						R.string.error_contact_is_not_selected,
-						Toast.LENGTH_LONG);
+				DBHelper.ShowToast(MainActivity.this, R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
 		} else {
 			showDialog(SEND_SMS_DIALOG_ID);
 
@@ -1037,24 +1026,30 @@ public class MainActivity extends Activity {
 
 	}
 
-	/* TODO
-	 * Отличное приложение, которое быстро развивается! Хотел бы увидеть в следующих версиях возможность 
-	 * сохранения координат в самой программе , а не только отправка и сохранение в стороних приложениях. 
-	 * Было бы очень удобно иметь возможность сохранять координаты в самой программе с вожможностью выбора 
-	 * (в настройках) места хранения (внутренняя память или sdcard). А далее добавить в меню программы пункт : 
-	 * "сохраненные координаты" или "мои координаты" , открыв который , можно будет присваивать имена каждой точке. 
-	 * А также в этом меню ( "мои координаты") ,  должна уже быть возможнось , при выборе определенной (сохраненной) 
-	 * точки координат , отправки по смс , отправки по почте , сохранения в стороннюю праграмму , и открытие в гуглмапс 
-	 * или другрих приложениях. Если появятся такие возможности у этой программы , то она будет лучшей из всех по работе 
-	 * с координатами. И было бы вообще отлично , если бы при полученнии координат на девайс с установленной вашей 
-	 * программой , была возможность сразу открывать в гуглмапс. Удачи вам в разработках.
-	 *
+	/*
+	 * TODO Отличное приложение, которое быстро развивается! Хотел бы увидеть в
+	 * следующих версиях возможность сохранения координат в самой программе , а
+	 * не только отправка и сохранение в стороних приложениях. Было бы очень
+	 * удобно иметь возможность сохранять координаты в самой программе с
+	 * вожможностью выбора (в настройках) места хранения (внутренняя память или
+	 * sdcard). А далее добавить в меню программы пункт :
+	 * "сохраненные координаты" или "мои координаты" , открыв который , можно
+	 * будет присваивать имена каждой точке. А также в этом меню (
+	 * "мои координаты") , должна уже быть возможнось , при выборе определенной
+	 * (сохраненной) точки координат , отправки по смс , отправки по почте ,
+	 * сохранения в стороннюю праграмму , и открытие в гуглмапс или другрих
+	 * приложениях. Если появятся такие возможности у этой программы , то она
+	 * будет лучшей из всех по работе с координатами. И было бы вообще отлично ,
+	 * если бы при полученнии координат на девайс с установленной вашей
+	 * программой , была возможность сразу открывать в гуглмапс. Удачи вам в
+	 * разработках.
 	 * 
-	 * Можно также добавить импортировать для сохранения в программе локально из смс , что бы все свои и полученые 
-	 * координаты можно было хранить не в смс , а непосредственно в программе.удачи и развития программы.
+	 * 
+	 * Можно также добавить импортировать для сохранения в программе локально из
+	 * смс , что бы все свои и полученые координаты можно было хранить не в смс
+	 * , а непосредственно в программе.удачи и развития программы.
 	 * 
 	 * Фотку на кнопке с выбранным контактом
-	 * */
-	
-	
+	 */
+
 }
