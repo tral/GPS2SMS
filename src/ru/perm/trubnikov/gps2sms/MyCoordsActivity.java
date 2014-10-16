@@ -1,7 +1,9 @@
 package ru.perm.trubnikov.gps2sms;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -11,10 +13,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -22,7 +27,10 @@ import android.widget.Toast;
 
 public class MyCoordsActivity extends Activity {
 
+	private final static int MYCOORDS_PROPS_DIALOG_ID = 5;
+
 	DBHelper dbHelper;
+	private int actionCoordsId;
 	private String actionCoords;
 	private String[] myCoords;
 	private int[] ids;
@@ -30,6 +38,12 @@ public class MyCoordsActivity extends Activity {
 	private ImageButton btnShare;
 	private ImageButton btnCopy;
 	private ImageButton btnMap;
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		refillMainScreen();
+	}
 
 	// ------------------------------------------------------------------------------------------
 	@Override
@@ -45,6 +59,12 @@ public class MyCoordsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mycoords);
 
+		refillMainScreen();
+
+	}
+
+	protected void refillMainScreen() {
+
 		LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutCoords);
 
 		if (((LinearLayout) layout).getChildCount() > 0)
@@ -56,16 +76,12 @@ public class MyCoordsActivity extends Activity {
 		int pixels_b = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 64, r.getDisplayMetrics());
 
-		// число пикселей для margin'ов (относительно dp)
-		int pixels_m = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 4, r.getDisplayMetrics());
-
 		try {
 
 			dbHelper = new DBHelper(this);
 			SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-			String sqlQuery = "SELECT d._id, d.name, d.coord FROM mycoords as d  ORDER BY d._id DESC";
+			String sqlQuery = "SELECT d._id, d.name, d.coord FROM mycoords as d ORDER BY d._id DESC";
 
 			Cursor mCur = db.rawQuery(sqlQuery, null);
 
@@ -79,7 +95,7 @@ public class MyCoordsActivity extends Activity {
 				int valColIndex = mCur.getColumnIndex("coord");
 
 				do {
-					initOneBtn(layout, i, pixels_b, pixels_m,
+					initOneBtn(layout, i, pixels_b,
 							mCur.getString(nameColIndex),
 							mCur.getString(valColIndex),
 							mCur.getInt(idColIndex));
@@ -101,7 +117,7 @@ public class MyCoordsActivity extends Activity {
 	// ------------------------------------------------------------------------------------------
 
 	protected void initOneBtn(LinearLayout layout, int i, int pixels_b,
-			int pixels_m, String name, String coord, int id) {
+			String name, String coord, int id) {
 
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -129,39 +145,32 @@ public class MyCoordsActivity extends Activity {
 
 		myCoords[i] = coord;
 		ids[i] = id;
-		/*
-		 * btnTag.setOnLongClickListener(new View.OnLongClickListener() { public
-		 * boolean onLongClick(View v) { seagullId = ids[v.getId()];
-		 * showDialog(SEAGULL_PROPS_DIALOG_ID); return true; } });
-		 */
+
+		btnTag.setOnLongClickListener(new View.OnLongClickListener() {
+			public boolean onLongClick(View v) {
+				actionCoordsId = ids[v.getId()];
+				showDialog(MYCOORDS_PROPS_DIALOG_ID);
+				return true;
+			}
+		});
+
 		btnTag.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+
+				// selected coordinates
 				actionCoords = myCoords[v.getId()];
 
 				// custom dialog
 				final Dialog dialog = new Dialog(MyCoordsActivity.this);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.options1_coords_dialog);
-				// dialog.setTitle("Custom Dialog");
-
-				// set the custom dialog components - text, image and button
-				// TextView text = (TextView)
-				// dialog.findViewById(R.id.textDialog);
-				// text.setText("Custom dialog Android example.");
-				// ImageView image = (ImageView)
-				// dialog.findViewById(R.id.imageDialog);
-				// image.setImageResource(R.drawable.image0);
-
+				dialog.setContentView(R.layout.options1_mycoords_dialog);
+				dialog.setTitle(getString(R.string.mycoords_actions));
 				dialog.show();
 
 				btnShare = (ImageButton) dialog.findViewById(R.id.btnShare1);
 				btnCopy = (ImageButton) dialog.findViewById(R.id.btnCopy1);
 				btnMap = (ImageButton) dialog.findViewById(R.id.btnMap1);
-
-				// Button declineButton = (Button)
-				// dialog.findViewById(R.id.declineButton);
 
 				btnShare.setOnClickListener(new OnClickListener() {
 					@Override
@@ -172,6 +181,7 @@ public class MyCoordsActivity extends Activity {
 										actionCoords, ""));
 					}
 				});
+
 				btnCopy.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -186,6 +196,7 @@ public class MyCoordsActivity extends Activity {
 
 					}
 				});
+
 				btnMap.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -196,11 +207,99 @@ public class MyCoordsActivity extends Activity {
 				});
 
 			}
-
 		});
 
 		row.addView(btnTag);
 		row.addView(viewTag);
 		layout.addView(row);
 	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case MYCOORDS_PROPS_DIALOG_ID:
+			return mycoordProps();
+		}
+		return null;
+	}
+
+	protected AlertDialog mycoordProps() {
+
+		LayoutInflater inflater = getLayoutInflater();
+		View layout = inflater.inflate(R.layout.options2_mycoords_dialog,
+				(ViewGroup) findViewById(R.id.options2_mycoords_dialog_layout));
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setView(layout);
+
+		final EditText nameEdit = (EditText) layout
+				.findViewById(R.id.mycoords_name);
+
+		builder.setPositiveButton(getString(R.string.save_btn_txt),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+
+						dbHelper = new DBHelper(MyCoordsActivity.this);
+						dbHelper.setMyccordName(actionCoordsId, nameEdit
+								.getText().toString());
+						dbHelper.close();
+						refillMainScreen();
+					}
+				});
+
+		builder.setNegativeButton(getString(R.string.del_btn_txt),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dbHelper = new DBHelper(MyCoordsActivity.this);
+						dbHelper.deleteMyccord(actionCoordsId);
+						dbHelper.close();
+						refillMainScreen();
+					}
+				});
+
+		builder.setNeutralButton(getString(R.string.cancel_btn_txt),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+
+		builder.setCancelable(true);
+
+		AlertDialog dialog = builder.create();
+		// show keyboard automatically
+		dialog.getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		return dialog;
+	}
+
+	// Update DialogData
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		AlertDialog aDialog = (AlertDialog) dialog;
+
+		switch (id) {
+
+		case MYCOORDS_PROPS_DIALOG_ID:
+			try {
+				EditText e1 = (EditText) dialog
+						.findViewById(R.id.mycoords_name);
+				e1.requestFocus();
+
+				dbHelper = new DBHelper(this);
+				e1.setText(dbHelper.getMyccordName(actionCoordsId));
+				dbHelper.close();
+				e1.selectAll();
+			} catch (Exception e) {
+				Log.d("gps",
+						"EXCEPTION! " + e.toString() + " Message:"
+								+ e.getMessage());
+			}
+
+			break;
+
+		default:
+			break;
+		}
+	};
+
 }

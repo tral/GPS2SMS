@@ -1,6 +1,12 @@
 package ru.perm.trubnikov.gps2sms;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -10,15 +16,37 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
 
 public class MySMSActivity extends Activity {
 
+	private final static int SAVE_POINT_DIALOG_ID = 10;
+
 	DBHelper dbHelper;
-	private int[] ids;
+
+	private String actionCoords;
+	private String[] myCoords;
+
+	private ImageButton btnShare;
+	private ImageButton btnCopy;
+	private ImageButton btnMap;
+	private ImageButton btnSave;
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		refillMainScreen();
+	}
 
 	// ------------------------------------------------------------------------------------------
 	@Override
@@ -34,6 +62,12 @@ public class MySMSActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mysms);
 
+		refillMainScreen();
+
+	}
+
+	protected void refillMainScreen() {
+
 		LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutSMS);
 
 		if (((LinearLayout) layout).getChildCount() > 0)
@@ -45,10 +79,6 @@ public class MySMSActivity extends Activity {
 		int pixels_b = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 64, r.getDisplayMetrics());
 
-		// число пикселей для margin'ов (относительно dp)
-		int pixels_m = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 4, r.getDisplayMetrics());
-
 		try {
 
 			Cursor cursor = getContentResolver()
@@ -58,13 +88,13 @@ public class MySMSActivity extends Activity {
 							"body  like '%__._______,__._______' ", null,
 							"date DESC, _id DESC "); // LIMIT 5
 
-			ids = new int[cursor.getCount()];
-			int i = 0;
+			myCoords = new String[cursor.getCount()];
 
+			int i = 0;
 			if (cursor.moveToFirst()) {
+
 				do {
-					initOneBtn(layout, i, pixels_b, pixels_m,
-							cursor.getString(0));
+					initOneBtn(layout, i, pixels_b, cursor.getString(0));
 					i++;
 				} while (cursor.moveToNext());
 			}
@@ -82,7 +112,7 @@ public class MySMSActivity extends Activity {
 	// ------------------------------------------------------------------------------------------
 
 	protected void initOneBtn(LinearLayout layout, int i, int pixels_b,
-			int pixels_m, String name) {
+			String name) {
 
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -94,7 +124,6 @@ public class MySMSActivity extends Activity {
 				pixels_b);
 
 		Button btnTag = new Button(this);
-		// params.setMargins(-pixels_m, -pixels_m, -pixels_m, -pixels_m);
 		btnTag.setLayoutParams(params);
 		btnTag.setText(name);
 		btnTag.setId(i);
@@ -108,35 +137,135 @@ public class MySMSActivity extends Activity {
 		viewTag.setLayoutParams(view_params);
 		viewTag.setBackgroundColor(Color.parseColor("#90909090"));
 
-		ids[i] = i;
-		/*
-		 * btnTag.setOnLongClickListener(new View.OnLongClickListener() { public
-		 * boolean onLongClick(View v) { seagullId = ids[v.getId()];
-		 * showDialog(SEAGULL_PROPS_DIALOG_ID); return true; } });
-		 * 
-		 * btnTag.setOnClickListener(new View.OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) {
-		 * 
-		 * try { String cToSend = "tel:" + phones[v.getId()].replace("#",
-		 * Uri.encode("#")); startActivityForResult(new Intent(
-		 * "android.intent.action.CALL", Uri.parse(cToSend)), 1);
-		 * 
-		 * // This works too // Intent intent = new //
-		 * Intent(Intent.ACTION_CALL).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
-		 * // intent.setData(Uri.parse(cToSend)); //
-		 * getApplicationContext().startActivity(intent); } catch (Exception e)
-		 * { MainActivity.this.ShowToastT("EXCEPTION! " + e.toString() +
-		 * " Message:" + e.getMessage(), Toast.LENGTH_LONG); }
-		 * 
-		 * }
-		 * 
-		 * });
-		 */
+		Pattern p = Pattern
+				.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
+		Matcher m = p.matcher(name);
+
+		myCoords[i] = m.find() ? m.group(0) : "0,0";
+
+		btnTag.setOnLongClickListener(new View.OnLongClickListener() {
+			public boolean onLongClick(View v) {
+				// actionCoordsId = ids[v.getId()];
+				// showDialog(MYCOORDS_PROPS_DIALOG_ID);
+				return true;
+			}
+		});
+
+		btnTag.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				// selected coordinates
+				actionCoords = myCoords[v.getId()];
+
+				// custom dialog
+				final Dialog dialog = new Dialog(MySMSActivity.this);
+				dialog.setContentView(R.layout.options1_mysms_dialog);
+				dialog.setTitle(getString(R.string.mysms_actions));
+				dialog.show();
+
+				btnShare = (ImageButton) dialog.findViewById(R.id.btnShare2);
+				btnCopy = (ImageButton) dialog.findViewById(R.id.btnCopy2);
+				btnMap = (ImageButton) dialog.findViewById(R.id.btnMap2);
+				btnSave = (ImageButton) dialog.findViewById(R.id.btnSave2);
+
+				btnSave.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+						showDialog(SAVE_POINT_DIALOG_ID);
+					}
+				});
+
+				btnShare.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+						DBHelper.shareCoordinates(MySMSActivity.this, DBHelper
+								.getShareBody(MySMSActivity.this, actionCoords,
+										""));
+					}
+				});
+
+				btnCopy.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+						DBHelper.clipboardCopy(getApplicationContext(),
+								actionCoords,
+								DBHelper.getGoogleMapsLink(actionCoords),
+								DBHelper.getOSMLink(actionCoords));
+						DBHelper.ShowToastT(MySMSActivity.this,
+								getString(R.string.text_copied),
+								Toast.LENGTH_LONG);
+					}
+				});
+
+				btnMap.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+						DBHelper.openOnMap(getApplicationContext(),
+								actionCoords);
+					}
+				});
+
+			}
+		});
 
 		row.addView(btnTag);
 		row.addView(viewTag);
 		layout.addView(row);
+	}
+
+	// Dialogs
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+
+		case SAVE_POINT_DIALOG_ID:
+			LayoutInflater inflater_sp = getLayoutInflater();
+			View layout_sp = inflater_sp.inflate(R.layout.save_point_dialog,
+					(ViewGroup) findViewById(R.id.save_point_dialog_layout));
+
+			AlertDialog.Builder builder_sp = new AlertDialog.Builder(this);
+			builder_sp.setView(layout_sp);
+
+			final EditText lPointName = (EditText) layout_sp
+					.findViewById(R.id.point_edit_text);
+
+			builder_sp.setPositiveButton(getString(R.string.save_btn_txt),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dbHelper = new DBHelper(MySMSActivity.this);
+							dbHelper.insertMyCoord(lPointName.getText()
+									.toString(), actionCoords);
+							dbHelper.close();
+							lPointName.setText(""); // Чистим
+							DBHelper.ShowToast(MySMSActivity.this,
+									R.string.point_saved, Toast.LENGTH_LONG);
+						}
+					});
+
+			builder_sp.setNegativeButton(getString(R.string.cancel_btn_txt),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							lPointName.setText(""); // Чистим
+							dialog.cancel();
+						}
+					});
+
+			builder_sp.setCancelable(true);
+			AlertDialog dialog = builder_sp.create();
+			dialog.setTitle(getString(R.string.save_point_dlg_header));
+			// show keyboard automatically
+			dialog.getWindow().setSoftInputMode(
+					WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+			return dialog;
+
+		}
+		return null;
 	}
 
 }

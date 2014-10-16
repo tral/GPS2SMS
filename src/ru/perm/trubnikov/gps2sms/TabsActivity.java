@@ -20,30 +20,31 @@ public class TabsActivity extends TabActivity {
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
-		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
-		
+		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
+				"1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tabs);
-		
+
 		ShowBackButton();
-		
+
 		// получаем TabHost
-        TabHost tabHost = getTabHost();
-        
-        // инициализация была выполнена в getTabHost
-        // метод setup вызывать не нужно
-        
-        TabHost.TabSpec tabSpec;
-        
-        tabSpec = tabHost.newTabSpec("tag1");
-        tabSpec.setIndicator(getString(R.string.tab_mycoords));
-        tabSpec.setContent(new Intent(this, MyCoordsActivity.class));
-        tabHost.addTab(tabSpec);
-        
-        tabSpec = tabHost.newTabSpec("tag2");
-        tabSpec.setIndicator(getString(R.string.tab_mysms));
-        tabSpec.setContent(new Intent(this, MySMSActivity.class));
-        tabHost.addTab(tabSpec);
+		TabHost tabHost = getTabHost();
+
+		// инициализация была выполнена в getTabHost
+		// метод setup вызывать не нужно
+
+		TabHost.TabSpec tabSpec;
+
+		tabSpec = tabHost.newTabSpec("tag1");
+		tabSpec.setIndicator(getString(R.string.tab_mycoords));
+		tabSpec.setContent(new Intent(this, MyCoordsActivity.class));
+		tabHost.addTab(tabSpec);
+
+		tabSpec = tabHost.newTabSpec("tag2");
+		tabSpec.setIndicator(getString(R.string.tab_mysms));
+		tabSpec.setContent(new Intent(this, MySMSActivity.class));
+		tabHost.addTab(tabSpec);
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class TabsActivity extends TabActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	@TargetApi(11)
 	public void ShowBackButton() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -64,7 +65,7 @@ public class TabsActivity extends TabActivity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------------------------
 
 }

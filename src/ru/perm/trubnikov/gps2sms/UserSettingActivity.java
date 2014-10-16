@@ -1,7 +1,6 @@
 ﻿package ru.perm.trubnikov.gps2sms;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,13 +14,14 @@ public class UserSettingActivity extends PreferenceActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		// Определение темы должно быть ДО super.onCreate и setContentView
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
-		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
-		
+
+		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
+				"1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+
 		super.onCreate(savedInstanceState);
 
 		ShowBackButton();
@@ -61,10 +61,10 @@ public class UserSettingActivity extends PreferenceActivity {
 		case android.R.id.home:
 			finish();
 			/*
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			*/
+			 * Intent intent = new Intent(this, MainActivity.class);
+			 * intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			 * startActivity(intent);
+			 */
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

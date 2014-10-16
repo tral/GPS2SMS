@@ -1,8 +1,6 @@
 ﻿package ru.perm.trubnikov.gps2sms;
 
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
@@ -27,8 +24,6 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,8 +35,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +52,7 @@ public class MainActivity extends Activity {
 	// Dialogs
 	private static final int SEND_SMS_DIALOG_ID = 0;
 	private final static int SAVE_POINT_DIALOG_ID = 1;
-	private static final int SMS_REGEXP_DIALOG_ID = 2;
+	// private static final int SMS_REGEXP_DIALOG_ID = 2;
 
 	ProgressDialog mSMSProgressDialog;
 
@@ -204,20 +197,23 @@ public class MainActivity extends Activity {
 
 				coordsToSend = la + "," + lo;
 
-				//gGoogleMapsLink = "https://www.google.com/maps/place/" + coordsToSend;
-				//gGoogleMapsLink = "http://maps.google.com/maps?q=loc:" + coordsToSend;
-				//gOpenStreetMapsLink = "http://www.openstreetmap.org/?mlat="
-				//+ la + "&mlon=" + lo + "&zoom=17&layers=M";
+				// gGoogleMapsLink = "https://www.google.com/maps/place/" +
+				// coordsToSend;
+				// gGoogleMapsLink = "http://maps.google.com/maps?q=loc:" +
+				// coordsToSend;
+				// gOpenStreetMapsLink = "http://www.openstreetmap.org/?mlat="
+				// + la + "&mlon=" + lo + "&zoom=17&layers=M";
 
 				coordsToNavitel = "<NavitelLoc>" + la + " " + lo + "<N>";
 
-				coordsToShare = DBHelper.getShareBody(MainActivity.this, coordsToSend, accuracy);						
-						
-//						getString(R.string.info_latitude) + " " + la
-//						+ separ + getString(R.string.info_longitude) + " " + lo
-//						+ separ + getString(R.string.info_accuracy) + " "
-//						+ accuracy + " " + getString(R.string.info_print2)
-//						+ separ + separ + DBHelper.getGoogleMapsLink(coordsToSend);
+				coordsToShare = DBHelper.getShareBody(MainActivity.this,
+						coordsToSend, accuracy);
+
+				// getString(R.string.info_latitude) + " " + la
+				// + separ + getString(R.string.info_longitude) + " " + lo
+				// + separ + getString(R.string.info_accuracy) + " "
+				// + accuracy + " " + getString(R.string.info_print2)
+				// + separ + separ + DBHelper.getGoogleMapsLink(coordsToSend);
 
 				GPSstate.setText(getString(R.string.info_print1) + " "
 						+ accuracy + " " + getString(R.string.info_print2)
@@ -331,7 +327,7 @@ public class MainActivity extends Activity {
 			final EditText lPointName = (EditText) layout_sp
 					.findViewById(R.id.point_edit_text);
 
-			builder_sp.setMessage(getString(R.string.save_point_dlg_header));
+			// builder_sp.setMessage(getString(R.string.save_point_dlg_header));
 
 			builder_sp.setPositiveButton(getString(R.string.save_btn_txt),
 					new DialogInterface.OnClickListener() {
@@ -341,18 +337,26 @@ public class MainActivity extends Activity {
 									.toString(), coordsToSend);
 							dbHelper.close();
 							lPointName.setText(""); // Чистим
+							DBHelper.ShowToast(MainActivity.this,
+									R.string.point_saved, Toast.LENGTH_LONG);
 						}
 					});
 
 			builder_sp.setNegativeButton(getString(R.string.cancel_btn_txt),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
+							lPointName.setText(""); // Чистим
 							dialog.cancel();
 						}
 					});
 
 			builder_sp.setCancelable(true);
-			return builder_sp.create();
+			AlertDialog dialog = builder_sp.create();
+			dialog.setTitle(getString(R.string.save_point_dlg_header));
+			// show keyboard automatically
+			dialog.getWindow().setSoftInputMode(
+					WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+			return dialog;
 
 			/*
 			 * case SMS_REGEXP_DIALOG_ID: LayoutInflater inflater =
@@ -377,113 +381,86 @@ public class MainActivity extends Activity {
 		return null;
 	}
 
-	// Update DialogData
-	protected void onPrepareDialog(int id, Dialog dialog) {
+	/*
+	 * // Update DialogData protected void onPrepareDialog(int id, Dialog
+	 * dialog) {
+	 * 
+	 * switch (id) {
+	 * 
+	 * case SMS_REGEXP_DIALOG_ID:
+	 * 
+	 * LinearLayout layout = (LinearLayout) dialog
+	 * .findViewById(R.id.linearchoose);
+	 * 
+	 * if (((LinearLayout) layout).getChildCount() > 0) ((LinearLayout)
+	 * layout).removeAllViews();
+	 * 
+	 * Resources r = getApplicationContext().getResources();
+	 * 
+	 * // число пикселей для высоты кнопок (относительно dp) int pixels_b =
+	 * (int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 82,
+	 * r.getDisplayMetrics());
+	 * 
+	 * // число пикселей для margin'ов (относительно dp) int pixels_m = (int)
+	 * TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 4,
+	 * r.getDisplayMetrics());
+	 * 
+	 * try { Cursor cursor = getContentResolver()
+	 * .query(Uri.parse("content://sms/inbox"), new String[] {
+	 * "DISTINCT strftime('%d.%m.%Y %H:%M:%S', date/1000, 'unixepoch',  'localtime') || '\n' || body "
+	 * },// , // "thread_id", // "address", // "person", // "date", // "body",
+	 * // "type" // }, "body  like '%__._______,__._______' ", null,
+	 * "date DESC, _id DESC LIMIT 5"); cursor.moveToFirst();
+	 * 
+	 * if (cursor.getCount() > 0) {
+	 * 
+	 * int idx = 0; do {
+	 * 
+	 * idx++; initOneSMSRegexpBtn(layout, idx, pixels_b, pixels_m,
+	 * cursor.getString(0), dialog);
+	 * 
+	 * } while (cursor.moveToNext());
+	 * 
+	 * } else { initOneSMSRegexpBtn(layout, 0, pixels_b, pixels_m,
+	 * getString(R.string.err_no_sms_regexp), dialog); } } catch (Exception e) {
+	 * Log.d("gps", "EXCEPTION! " + e.toString() + " Message:" +
+	 * e.getMessage()); }
+	 * 
+	 * break;
+	 * 
+	 * default: break; } }
+	 */
 
-		switch (id) {
-
-		case SMS_REGEXP_DIALOG_ID:
-
-			LinearLayout layout = (LinearLayout) dialog
-					.findViewById(R.id.linearchoose);
-
-			if (((LinearLayout) layout).getChildCount() > 0)
-				((LinearLayout) layout).removeAllViews();
-
-			Resources r = getApplicationContext().getResources();
-
-			// число пикселей для высоты кнопок (относительно dp)
-			int pixels_b = (int) TypedValue.applyDimension(
-					TypedValue.COMPLEX_UNIT_DIP, 82, r.getDisplayMetrics());
-
-			// число пикселей для margin'ов (относительно dp)
-			int pixels_m = (int) TypedValue.applyDimension(
-					TypedValue.COMPLEX_UNIT_DIP, 4, r.getDisplayMetrics());
-
-			try {
-				Cursor cursor = getContentResolver()
-						.query(Uri.parse("content://sms/inbox"),
-								new String[] { "DISTINCT strftime('%d.%m.%Y %H:%M:%S', date/1000, 'unixepoch',  'localtime') || '\n' || body " },// ,
-																																					// "thread_id",
-																																					// "address",
-																																					// "person",
-																																					// "date",
-																																					// "body",
-																																					// "type"
-																																					// },
-								"body  like '%__._______,__._______' ", null,
-								"date DESC, _id DESC LIMIT 5");
-				cursor.moveToFirst();
-
-				if (cursor.getCount() > 0) {
-
-					int idx = 0;
-					do {
-
-						idx++;
-						initOneSMSRegexpBtn(layout, idx, pixels_b, pixels_m,
-								cursor.getString(0), dialog);
-
-					} while (cursor.moveToNext());
-
-				} else {
-					initOneSMSRegexpBtn(layout, 0, pixels_b, pixels_m,
-							getString(R.string.err_no_sms_regexp), dialog);
-				}
-			} catch (Exception e) {
-				Log.d("gps",
-						"EXCEPTION! " + e.toString() + " Message:"
-								+ e.getMessage());
-			}
-
-			break;
-
-		default:
-			break;
-		}
-	};
-
-	protected void initOneSMSRegexpBtn(LinearLayout layout, int i,
-			int pixels_b, int pixels_m, String lMsg, final Dialog lDlg) {
-
-		LinearLayout row = new LinearLayout(this);
-		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT));
-
-		Button btnTag = new Button(this);
-
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
-				pixels_b);
-
-		params.setMargins(-pixels_m, -pixels_m, -pixels_m, -pixels_m);
-
-		btnTag.setLayoutParams(params);
-		btnTag.setText(lMsg);
-		btnTag.setId(i);
-
-		btnTag.setBackgroundColor(DBHelper.getRndColor());
-
-		btnTag.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Button b = (Button) v;
-				Pattern p = Pattern
-						.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
-				Matcher m = p.matcher(b.getText().toString());
-				if (m.find()) {
-					Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri
-							.parse("geo:" + m.group(0)));
-					intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					getApplicationContext().startActivity(intent_openmap);
-				} else {
-					lDlg.dismiss();
-				}
-			}
-		});
-
-		row.addView(btnTag);
-		layout.addView(row);
-	}
+	/*
+	 * protected void initOneSMSRegexpBtn(LinearLayout layout, int i, int
+	 * pixels_b, int pixels_m, String lMsg, final Dialog lDlg) {
+	 * 
+	 * LinearLayout row = new LinearLayout(this); row.setLayoutParams(new
+	 * LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+	 * 
+	 * Button btnTag = new Button(this);
+	 * 
+	 * LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+	 * pixels_b);
+	 * 
+	 * params.setMargins(-pixels_m, -pixels_m, -pixels_m, -pixels_m);
+	 * 
+	 * btnTag.setLayoutParams(params); btnTag.setText(lMsg); btnTag.setId(i);
+	 * 
+	 * btnTag.setBackgroundColor(DBHelper.getRndColor());
+	 * 
+	 * btnTag.setOnClickListener(new View.OnClickListener() {
+	 * 
+	 * @Override public void onClick(View v) { Button b = (Button) v; Pattern p
+	 * = Pattern .compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
+	 * Matcher m = p.matcher(b.getText().toString()); if (m.find()) { Intent
+	 * intent_openmap = new Intent(Intent.ACTION_VIEW, Uri .parse("geo:" +
+	 * m.group(0))); intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	 * getApplicationContext().startActivity(intent_openmap); } else {
+	 * lDlg.dismiss(); } } });
+	 * 
+	 * row.addView(btnTag); layout.addView(row); }
+	 */
 
 	// Menu
 	@Override
@@ -794,24 +771,26 @@ public class MainActivity extends Activity {
 		btnCopy.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-				SharedPreferences sharedPrefs = PreferenceManager
-						.getDefaultSharedPreferences(getApplicationContext());
-				String clip = sharedPrefs.getString("prefClipboard", "1");
-
-				if (clip.equalsIgnoreCase("1")) {
-					clipboard.setText(coordsToSend);
-				}
-				if (clip.equalsIgnoreCase("2")) {
-					clipboard.setText(gGoogleMapsLink);
-				}
-				if (clip.equalsIgnoreCase("3")) {
-					clipboard.setText(gOpenStreetMapsLink);
-				}*/
+				/*
+				 * android.text.ClipboardManager clipboard =
+				 * (android.text.ClipboardManager)
+				 * getSystemService(Context.CLIPBOARD_SERVICE);
+				 * SharedPreferences sharedPrefs = PreferenceManager
+				 * .getDefaultSharedPreferences(getApplicationContext()); String
+				 * clip = sharedPrefs.getString("prefClipboard", "1");
+				 * 
+				 * if (clip.equalsIgnoreCase("1")) {
+				 * clipboard.setText(coordsToSend); } if
+				 * (clip.equalsIgnoreCase("2")) {
+				 * clipboard.setText(gGoogleMapsLink); } if
+				 * (clip.equalsIgnoreCase("3")) {
+				 * clipboard.setText(gOpenStreetMapsLink); }
+				 */
 				DBHelper.clipboardCopy(getApplicationContext(), coordsToSend,
 						DBHelper.getGoogleMapsLink(coordsToSend),
 						DBHelper.getOSMLink(coordsToSend));
-				DBHelper.ShowToast(MainActivity.this, R.string.text_copied, Toast.LENGTH_LONG);
+				DBHelper.ShowToast(MainActivity.this, R.string.text_copied,
+						Toast.LENGTH_LONG);
 			}
 		});
 		btnMap.setOnClickListener(new OnClickListener() {
@@ -913,9 +892,12 @@ public class MainActivity extends Activity {
 
 		if (phoneToSendSMS.equalsIgnoreCase("")) {
 			if (Receiver == 0)
-				DBHelper.ShowToast(MainActivity.this, R.string.error_no_phone_number, Toast.LENGTH_LONG);
+				DBHelper.ShowToast(MainActivity.this,
+						R.string.error_no_phone_number, Toast.LENGTH_LONG);
 			else
-				DBHelper.ShowToast(MainActivity.this, R.string.error_contact_is_not_selected, Toast.LENGTH_LONG);
+				DBHelper.ShowToast(MainActivity.this,
+						R.string.error_contact_is_not_selected,
+						Toast.LENGTH_LONG);
 		} else {
 			showDialog(SEND_SMS_DIALOG_ID);
 

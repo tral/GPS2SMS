@@ -67,6 +67,33 @@ class DBHelper extends SQLiteOpenHelper {
 		db.update("settings", cv, "param = ?", new String[] { param });
 	}
 
+	public void setMyccordName(int id, String name) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put("name", name);
+		db.update("mycoords", cv, "_id = ?",
+				new String[] { Integer.toString(id) });
+	}
+
+	public String getMyccordName(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.query("mycoords", null, "_id=" + id, null, null, null,
+				null);
+
+		if (c.moveToFirst()) {
+			int idx = c.getColumnIndex("name");
+			String res = c.getString(idx);
+			return res;
+		}
+
+		return "";
+	}
+
+	public void deleteMyccord(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete("mycoords", "_id = " + id, null);
+	}
+
 	public String getPhone() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.query("phone", null, "_id=1", null, null, null, null);
@@ -149,25 +176,25 @@ class DBHelper extends SQLiteOpenHelper {
 		return randomColor;
 	}
 
-	
-	public static String getShareBody(Context context, String crds, String accuracy){
-		
+	public static String getShareBody(Context context, String crds,
+			String accuracy) {
+
 		String separ = System.getProperty("line.separator");
-		String crds1 = crds.replace(",", separ + context.getString(R.string.info_longitude) + " ");
-		
+		String crds1 = crds.replace(",",
+				separ + context.getString(R.string.info_longitude) + " ");
+
 		String res = context.getString(R.string.info_latitude) + " " + crds1;
-				
+
 		if (!accuracy.equalsIgnoreCase("")) {
-			res = res + separ + context.getString(R.string.info_accuracy) + " " + accuracy + " " + context.getString(R.string.info_print2);
+			res = res + separ + context.getString(R.string.info_accuracy) + " "
+					+ accuracy + " " + context.getString(R.string.info_print2);
 		}
-		
+
 		res = res + separ + separ + DBHelper.getGoogleMapsLink(crds);
-		
+
 		return res;
 	}
-	
-	
-	
+
 	public static String getGoogleMapsLink(String crds) {
 		// gGoogleMapsLink = "https://www.google.com/maps/place/" +
 		// coordsToSend;
@@ -194,21 +221,16 @@ class DBHelper extends SQLiteOpenHelper {
 	}
 
 	public static void shareCoordinates(Context context, String crds) {
-		Intent sharingIntent = new Intent(
-				android.content.Intent.ACTION_SEND);
+		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 		sharingIntent.setType("text/plain");
 		String shareBody = crds;
-		sharingIntent.putExtra(
-				android.content.Intent.EXTRA_SUBJECT,
+		sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
 				context.getString(R.string.share_topic));
-		sharingIntent.putExtra(
-				android.content.Intent.EXTRA_TEXT, shareBody);
+		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 		context.startActivity(Intent.createChooser(sharingIntent,
 				context.getString(R.string.share_via)));
 	}
-	
-	
-	
+
 	public static void openOnMap(Context context, String crds) {
 		Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"
 				+ crds));
@@ -236,13 +258,7 @@ class DBHelper extends SQLiteOpenHelper {
 		}
 	}
 
-	/*
-	 * public static String getDateTimeByTimestamp(long timeStamp){
-	 * 
-	 * try{ DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss"); Date
-	 * netDate = (new Date(timeStamp)); return sdf.format(netDate); }
-	 * catch(Exception ex){ return "unknown date"; } }
-	 */
+	// --------------------------------------------------------------------------------------------
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {

@@ -21,11 +21,12 @@ public class AnotherMsgActivity extends Activity {
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
-		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase("1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
-		
+		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
+				"1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_another_msg);
-		
+
 		ShowBackButton();
 
 		Button btn = (Button) findViewById(R.id.button1);
@@ -41,7 +42,7 @@ public class AnotherMsgActivity extends Activity {
 	}
 
 	// ------------------------------------------------------------------------------------------
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

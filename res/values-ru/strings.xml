@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">3.1.2</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="version_name">3.2</string> <!-- Править в ДВУХ файлах !!! -->
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Добавить координаты к SMS</string>
@@ -42,6 +42,7 @@
 	
 	<string name="save_btn_txt">Сохранить</string>
 	<string name="cancel_btn_txt">Отменить</string>
+	<string name="del_btn_txt">Удалить</string>
 	
 	<string name="info_print1">Координаты получены, точность:</string>
 	<string name="info_print2">м</string>
@@ -95,8 +96,9 @@
 	
 	<string name="point_edit_text_placeholder">Название точки</string>
 	<string name="save_point_dlg_header">Сохранение координат</string>
-	
-	
+	<string name="mycoords_actions">Действия</string>
+	<string name="mysms_actions">Действия</string>	
+	<string name="point_saved">Координаты сохранены</string>
 	
     
 </resources>
