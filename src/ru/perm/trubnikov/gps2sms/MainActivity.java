@@ -79,9 +79,6 @@ public class MainActivity extends Activity {
 
 	// Views
 	TextView GPSstate;
-	// Button sendBtn;
-	// ImageButton navitelBtn;
-	// ImageButton shareBtn;
 	ImageButton sendViaToggleBtn;
 	ImageButton sendpbtn;
 	ImageButton send1btn;
@@ -89,18 +86,12 @@ public class MainActivity extends Activity {
 	ImageButton btnMap;
 	ImageButton btnCopy;
 	ImageButton btnSave;
-	// ImageButton send2btn;
-	// ImageButton send3btn;
 	Button cont1;
-	// Button cont2;
-	// Button cont3;
 	Button enableGPSBtn;
 	EditText plainPh;
-	// Button btnSelContact;
 	Menu mMenu;
 
 	// Globals
-	// private boolean enableShareBtnFlag = false;
 	private String coordsToSend;
 	private String coordsToShare;
 	private String coordsToNavitel;
@@ -197,23 +188,10 @@ public class MainActivity extends Activity {
 
 				coordsToSend = la + "," + lo;
 
-				// gGoogleMapsLink = "https://www.google.com/maps/place/" +
-				// coordsToSend;
-				// gGoogleMapsLink = "http://maps.google.com/maps?q=loc:" +
-				// coordsToSend;
-				// gOpenStreetMapsLink = "http://www.openstreetmap.org/?mlat="
-				// + la + "&mlon=" + lo + "&zoom=17&layers=M";
-
 				coordsToNavitel = "<NavitelLoc>" + la + " " + lo + "<N>";
 
 				coordsToShare = DBHelper.getShareBody(MainActivity.this,
 						coordsToSend, accuracy);
-
-				// getString(R.string.info_latitude) + " " + la
-				// + separ + getString(R.string.info_longitude) + " " + lo
-				// + separ + getString(R.string.info_accuracy) + " "
-				// + accuracy + " " + getString(R.string.info_print2)
-				// + separ + separ + DBHelper.getGoogleMapsLink(coordsToSend);
 
 				GPSstate.setText(getString(R.string.info_print1) + " "
 						+ accuracy + " " + getString(R.string.info_print2)
@@ -238,16 +216,7 @@ public class MainActivity extends Activity {
 						send1btn,
 						(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
 								: R.drawable.navitel);
-				// setImageButtonEnabled(getApplicationContext(), true,
-				// send2btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ?
-				// R.drawable.hangouts : R.drawable.navitel);
-				// setImageButtonEnabled(getApplicationContext(), true,
-				// send3btn, (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ?
-				// R.drawable.hangouts : R.drawable.navitel);
-				// setImageButtonEnabled(getApplicationContext(), true,
-				// shareBtn, R.drawable.share);
-				// setImageButtonEnabled(getApplicationContext(), true,
-				// navitelBtn, R.drawable.navitel);
+
 				enableGPSBtn.setVisibility(View.INVISIBLE);
 
 			} else {
@@ -263,20 +232,12 @@ public class MainActivity extends Activity {
 	// Menu
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.main, menu);
-		// return true;
 
 		mMenu = menu;
 
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main_activity_actions, menu);
-
-		// Set share button state
-		// menu.findItem(R.id.action_share).setEnabled(enableShareBtnFlag);
-		// setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag,
-		// menu.findItem(R.id.action_share), R.drawable.ic_action_share);
 
 		// Toggle Button
 		if (toggleButtonIcon == TOGGLE_ICON_HANGOUTS) {
@@ -286,13 +247,6 @@ public class MainActivity extends Activity {
 			menu.findItem(R.id.action_navitel).setIcon(
 					getResources().getDrawable(R.drawable.navitel));
 		}
-
-		// menu.findItem(R.id.action_copy).setEnabled(enableShareBtnFlag);
-		// setMenuItemEnabled(getApplicationContext(), enableShareBtnFlag,
-		// menu.findItem(R.id.action_copy), R.drawable.ic_action_copy);
-		// menu.findItem(R.id.action_openmap).setEnabled(enableShareBtnFlag);
-		// menu.add(Menu.NONE, IDM_SMS_REGEXP, Menu.NONE,
-		// R.string.menu_item_sms_regexp);
 
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE,
 				R.string.menu_item_settings);
@@ -358,109 +312,9 @@ public class MainActivity extends Activity {
 					WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 			return dialog;
 
-			/*
-			 * case SMS_REGEXP_DIALOG_ID: LayoutInflater inflater =
-			 * getLayoutInflater(); View layout =
-			 * inflater.inflate(R.layout.sms_regexp_search, (ViewGroup)
-			 * findViewById(R.id.choose));
-			 * 
-			 * AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			 * builder.setView(layout);
-			 * 
-			 * builder.setOnCancelListener(new Dialog.OnCancelListener() {
-			 * public void onCancel(DialogInterface dialog) { dialog.dismiss();
-			 * } });
-			 * 
-			 * builder.setCancelable(true); AlertDialog dialog =
-			 * builder.create();
-			 * 
-			 * return dialog;
-			 */
-
 		}
 		return null;
 	}
-
-	/*
-	 * // Update DialogData protected void onPrepareDialog(int id, Dialog
-	 * dialog) {
-	 * 
-	 * switch (id) {
-	 * 
-	 * case SMS_REGEXP_DIALOG_ID:
-	 * 
-	 * LinearLayout layout = (LinearLayout) dialog
-	 * .findViewById(R.id.linearchoose);
-	 * 
-	 * if (((LinearLayout) layout).getChildCount() > 0) ((LinearLayout)
-	 * layout).removeAllViews();
-	 * 
-	 * Resources r = getApplicationContext().getResources();
-	 * 
-	 * // число пикселей для высоты кнопок (относительно dp) int pixels_b =
-	 * (int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 82,
-	 * r.getDisplayMetrics());
-	 * 
-	 * // число пикселей для margin'ов (относительно dp) int pixels_m = (int)
-	 * TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 4,
-	 * r.getDisplayMetrics());
-	 * 
-	 * try { Cursor cursor = getContentResolver()
-	 * .query(Uri.parse("content://sms/inbox"), new String[] {
-	 * "DISTINCT strftime('%d.%m.%Y %H:%M:%S', date/1000, 'unixepoch',  'localtime') || '\n' || body "
-	 * },// , // "thread_id", // "address", // "person", // "date", // "body",
-	 * // "type" // }, "body  like '%__._______,__._______' ", null,
-	 * "date DESC, _id DESC LIMIT 5"); cursor.moveToFirst();
-	 * 
-	 * if (cursor.getCount() > 0) {
-	 * 
-	 * int idx = 0; do {
-	 * 
-	 * idx++; initOneSMSRegexpBtn(layout, idx, pixels_b, pixels_m,
-	 * cursor.getString(0), dialog);
-	 * 
-	 * } while (cursor.moveToNext());
-	 * 
-	 * } else { initOneSMSRegexpBtn(layout, 0, pixels_b, pixels_m,
-	 * getString(R.string.err_no_sms_regexp), dialog); } } catch (Exception e) {
-	 * Log.d("gps", "EXCEPTION! " + e.toString() + " Message:" +
-	 * e.getMessage()); }
-	 * 
-	 * break;
-	 * 
-	 * default: break; } }
-	 */
-
-	/*
-	 * protected void initOneSMSRegexpBtn(LinearLayout layout, int i, int
-	 * pixels_b, int pixels_m, String lMsg, final Dialog lDlg) {
-	 * 
-	 * LinearLayout row = new LinearLayout(this); row.setLayoutParams(new
-	 * LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	 * 
-	 * Button btnTag = new Button(this);
-	 * 
-	 * LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
-	 * pixels_b);
-	 * 
-	 * params.setMargins(-pixels_m, -pixels_m, -pixels_m, -pixels_m);
-	 * 
-	 * btnTag.setLayoutParams(params); btnTag.setText(lMsg); btnTag.setId(i);
-	 * 
-	 * btnTag.setBackgroundColor(DBHelper.getRndColor());
-	 * 
-	 * btnTag.setOnClickListener(new View.OnClickListener() {
-	 * 
-	 * @Override public void onClick(View v) { Button b = (Button) v; Pattern p
-	 * = Pattern .compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
-	 * Matcher m = p.matcher(b.getText().toString()); if (m.find()) { Intent
-	 * intent_openmap = new Intent(Intent.ACTION_VIEW, Uri .parse("geo:" +
-	 * m.group(0))); intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	 * getApplicationContext().startActivity(intent_openmap); } else {
-	 * lDlg.dismiss(); } } });
-	 * 
-	 * row.addView(btnTag); layout.addView(row); }
-	 */
 
 	// Menu
 	@Override
@@ -549,26 +403,13 @@ public class MainActivity extends Activity {
 
 	public void showSelectedNumber(String number, String name) {
 		if (number.equalsIgnoreCase("") && name.equalsIgnoreCase("")) {
-			// btnSelContact.setText(getString(R.string.select_contact_btn_txt));
 			if (tmpSlotId == 1) {
 				cont1.setText(getString(R.string.select_contact_btn_txt));
 			}
-			/*
-			 * if (tmpSlotId == 2) {
-			 * cont2.setText(getString(R.string.select_contact_btn_txt)); } if
-			 * (tmpSlotId == 3) {
-			 * cont3.setText(getString(R.string.select_contact_btn_txt)); }
-			 */
 		} else {
-			// btnSelContact.setText(name + " (" + number + ")");
-			// btnSelContact.setText(name);
 			if (tmpSlotId == 1) {
 				cont1.setText(name);
 			}
-			/*
-			 * if (tmpSlotId == 2) { cont2.setText(name); } if (tmpSlotId == 3)
-			 * { cont3.setText(name); }
-			 */
 		}
 
 	}
@@ -623,16 +464,6 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Sets the image button to the given state and grays-out the icon.
-	 * 
-	 * @param enabled
-	 *            The state of the button
-	 * @param item
-	 *            The button item to modify
-	 * @param iconResId
-	 *            The button's icon ID
-	 */
 	public static void setImageButtonEnabled(Context ctxt, boolean enabled,
 			ImageButton item, int iconResId) {
 
@@ -696,8 +527,6 @@ public class MainActivity extends Activity {
 
 		// Select contact
 		cont1 = (Button) findViewById(R.id.cont1);
-		// cont2 = (Button)findViewById(R.id.cont2);
-		// cont3 = (Button)findViewById(R.id.cont3);
 
 		cont1.setOnClickListener(new OnClickListener() {
 			@Override
@@ -771,21 +600,6 @@ public class MainActivity extends Activity {
 		btnCopy.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*
-				 * android.text.ClipboardManager clipboard =
-				 * (android.text.ClipboardManager)
-				 * getSystemService(Context.CLIPBOARD_SERVICE);
-				 * SharedPreferences sharedPrefs = PreferenceManager
-				 * .getDefaultSharedPreferences(getApplicationContext()); String
-				 * clip = sharedPrefs.getString("prefClipboard", "1");
-				 * 
-				 * if (clip.equalsIgnoreCase("1")) {
-				 * clipboard.setText(coordsToSend); } if
-				 * (clip.equalsIgnoreCase("2")) {
-				 * clipboard.setText(gGoogleMapsLink); } if
-				 * (clip.equalsIgnoreCase("3")) {
-				 * clipboard.setText(gOpenStreetMapsLink); }
-				 */
 				DBHelper.clipboardCopy(getApplicationContext(), coordsToSend,
 						DBHelper.getGoogleMapsLink(coordsToSend),
 						DBHelper.getOSMLink(coordsToSend));
@@ -797,12 +611,6 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				DBHelper.openOnMap(getApplicationContext(), coordsToSend);
-				/*
-				 * Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri
-				 * .parse("geo:" + coordsToSend));
-				 * intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				 * getApplicationContext().startActivity(intent_openmap);
-				 */
 			}
 		});
 		btnSave.setOnClickListener(new OnClickListener() {
@@ -815,8 +623,6 @@ public class MainActivity extends Activity {
 		// Send buttons
 		sendpbtn = (ImageButton) findViewById(R.id.send_plain);
 		send1btn = (ImageButton) findViewById(R.id.send1);
-		// send2btn = (ImageButton)findViewById(R.id.send2);
-		// send3btn = (ImageButton)findViewById(R.id.send3);
 		setImageButtonEnabled(
 				getApplicationContext(),
 				false,
@@ -829,12 +635,6 @@ public class MainActivity extends Activity {
 				send1btn,
 				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
 						: R.drawable.navitel);
-		// setImageButtonEnabled(getApplicationContext(), false, send2btn,
-		// (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-		// : R.drawable.navitel);
-		// setImageButtonEnabled(getApplicationContext(), false, send3btn,
-		// (getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-		// : R.drawable.navitel);
 
 		sendpbtn.setOnClickListener(new OnClickListener() {
 			@Override
@@ -939,40 +739,26 @@ public class MainActivity extends Activity {
 		if (sendvia == SMS_SEND_VIA_SMS) {
 			if (toggle) {
 				setIntDbParam("sendvia", SMS_SEND_VIA_NAVITEL);
-				// sendViaToggleBtn.setImageDrawable(hangoutsIconT);
 				toggleButtonIcon = TOGGLE_ICON_HANGOUTS;
 				sendpbtn.setImageDrawable(navitelIcon);
 				send1btn.setImageDrawable(navitelIcon);
-				// send2btn.setImageDrawable(navitelIcon);
-				// send3btn.setImageDrawable(navitelIcon);
-
 			} else {
-				// sendViaToggleBtn.setImageDrawable(navitelIconT);
 				toggleButtonIcon = TOGGLE_ICON_NAVITEL;
 				sendpbtn.setImageDrawable(hangoutsIcon);
 				send1btn.setImageDrawable(hangoutsIcon);
-				// send2btn.setImageDrawable(hangoutsIcon);
-				// send3btn.setImageDrawable(hangoutsIcon);
 			}
 		}
 
 		if (sendvia == SMS_SEND_VIA_NAVITEL) {
 			if (toggle) {
 				setIntDbParam("sendvia", SMS_SEND_VIA_SMS);
-				// sendViaToggleBtn.setImageDrawable(navitelIconT);
 				toggleButtonIcon = TOGGLE_ICON_NAVITEL;
 				sendpbtn.setImageDrawable(hangoutsIcon);
 				send1btn.setImageDrawable(hangoutsIcon);
-				// send2btn.setImageDrawable(hangoutsIcon);
-				// send3btn.setImageDrawable(hangoutsIcon);
-
 			} else {
-				// sendViaToggleBtn.setImageDrawable(hangoutsIconT);
 				toggleButtonIcon = TOGGLE_ICON_HANGOUTS;
 				sendpbtn.setImageDrawable(navitelIcon);
 				send1btn.setImageDrawable(navitelIcon);
-				// send2btn.setImageDrawable(navitelIcon);
-				// send3btn.setImageDrawable(navitelIcon);
 			}
 		}
 
@@ -1009,29 +795,9 @@ public class MainActivity extends Activity {
 	}
 
 	/*
-	 * TODO Отличное приложение, которое быстро развивается! Хотел бы увидеть в
-	 * следующих версиях возможность сохранения координат в самой программе , а
-	 * не только отправка и сохранение в стороних приложениях. Было бы очень
-	 * удобно иметь возможность сохранять координаты в самой программе с
-	 * вожможностью выбора (в настройках) места хранения (внутренняя память или
-	 * sdcard). А далее добавить в меню программы пункт :
-	 * "сохраненные координаты" или "мои координаты" , открыв который , можно
-	 * будет присваивать имена каждой точке. А также в этом меню (
-	 * "мои координаты") , должна уже быть возможнось , при выборе определенной
-	 * (сохраненной) точки координат , отправки по смс , отправки по почте ,
-	 * сохранения в стороннюю праграмму , и открытие в гуглмапс или другрих
-	 * приложениях. Если появятся такие возможности у этой программы , то она
-	 * будет лучшей из всех по работе с координатами. И было бы вообще отлично ,
-	 * если бы при полученнии координат на девайс с установленной вашей
-	 * программой , была возможность сразу открывать в гуглмапс. Удачи вам в
-	 * разработках.
+	 * TODO
 	 * 
-	 * 
-	 * Можно также добавить импортировать для сохранения в программе локально из
-	 * смс , что бы все свои и полученые координаты можно было хранить не в смс
-	 * , а непосредственно в программе.удачи и развития программы.
-	 * 
-	 * Фотку на кнопке с выбранным контактом
+	 * Удаление СМС, Фотку на кнопке с выбранным контактом
 	 */
 
 }
