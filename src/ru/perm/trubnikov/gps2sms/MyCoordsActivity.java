@@ -33,8 +33,9 @@ public class MyCoordsActivity extends Activity {
 	private int actionCoordsId;
 	private String actionCoords;
 	private String[] myCoords;
+	private String[] myCoordsNames;
 	private int[] ids;
-
+	
 	private ImageButton btnShare;
 	private ImageButton btnCopy;
 	private ImageButton btnMap;
@@ -86,6 +87,7 @@ public class MyCoordsActivity extends Activity {
 			Cursor mCur = db.rawQuery(sqlQuery, null);
 
 			myCoords = new String[mCur.getCount()];
+			myCoordsNames = new String[mCur.getCount()];
 			ids = new int[mCur.getCount()];
 			int i = 0;
 			if (mCur.moveToFirst()) {
@@ -133,6 +135,13 @@ public class MyCoordsActivity extends Activity {
 		btnTag.setLayoutParams(params);
 		btnTag.setText(name + System.getProperty("line.separator") + coord);
 		btnTag.setId(i);
+		
+		SharedPreferences sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		btnTag.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
+				.equalsIgnoreCase("1") ? Color.parseColor("#FFFFFF") : Color
+				.parseColor("#000000"));
+		
 		btnTag.setBackgroundColor(Color.TRANSPARENT);
 
 		// Separator
@@ -144,6 +153,7 @@ public class MyCoordsActivity extends Activity {
 		viewTag.setBackgroundColor(Color.parseColor("#90909090"));
 
 		myCoords[i] = coord;
+		myCoordsNames[i] = name;
 		ids[i] = id;
 
 		btnTag.setOnLongClickListener(new View.OnLongClickListener() {
@@ -165,7 +175,7 @@ public class MyCoordsActivity extends Activity {
 				// custom dialog
 				final Dialog dialog = new Dialog(MyCoordsActivity.this);
 				dialog.setContentView(R.layout.options1_mycoords_dialog);
-				dialog.setTitle(getString(R.string.mycoords_actions));
+				dialog.setTitle(myCoordsNames[v.getId()]);
 				dialog.show();
 
 				btnShare = (ImageButton) dialog.findViewById(R.id.btnShare1);

@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.content.res.Resources.Theme;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -127,6 +128,13 @@ public class MySMSActivity extends Activity {
 		btnTag.setLayoutParams(params);
 		btnTag.setText(name);
 		btnTag.setId(i);
+
+		SharedPreferences sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		btnTag.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
+				.equalsIgnoreCase("1") ? Color.parseColor("#FFFFFF") : Color
+				.parseColor("#000000"));
+
 		btnTag.setBackgroundColor(Color.TRANSPARENT);
 
 		// Separator
