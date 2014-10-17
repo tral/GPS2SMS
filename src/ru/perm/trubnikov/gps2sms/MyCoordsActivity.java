@@ -35,7 +35,7 @@ public class MyCoordsActivity extends Activity {
 	private String[] myCoords;
 	private String[] myCoordsNames;
 	private int[] ids;
-	
+
 	private ImageButton btnShare;
 	private ImageButton btnCopy;
 	private ImageButton btnMap;
@@ -135,13 +135,13 @@ public class MyCoordsActivity extends Activity {
 		btnTag.setLayoutParams(params);
 		btnTag.setText(name + System.getProperty("line.separator") + coord);
 		btnTag.setId(i);
-		
+
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		btnTag.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
 				.equalsIgnoreCase("1") ? Color.parseColor("#FFFFFF") : Color
 				.parseColor("#000000"));
-		
+
 		btnTag.setBackgroundColor(Color.TRANSPARENT);
 
 		// Separator

@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.content.res.Resources.Theme;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
