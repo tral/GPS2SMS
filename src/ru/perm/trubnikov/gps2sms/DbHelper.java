@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -232,10 +233,33 @@ class DBHelper extends SQLiteOpenHelper {
 	}
 
 	public static void openOnMap(Context context, String crds) {
-		Intent intent_openmap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:"
-				+ crds));
-		intent_openmap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(intent_openmap);
+
+
+		// http://developer.android.com/guide/components/intents-common.html
+		// Example: "geo:0,0?q=34.99,-106.61(Treasure)"
+		// с Меткой глючат Яндекс.Карты
+	
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		String geo = "geo:0,0?q=" + crds;
+
+		//if (!label.equalsIgnoreCase("")) {
+		//	geo = geo + "(" + label + ")";
+		//}
+
+		intent.setData(Uri.parse(geo));
+		if (intent.resolveActivity(context.getPackageManager()) != null) {
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(intent);
+		}
+
+		/*
+		 * String uri = String.format(Locale.ENGLISH,
+		 * DBHelper.getGoogleMapsLink(crds)); Intent intent = new
+		 * Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+		 * intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		 * context.startActivity(intent);
+		 */
+
 	}
 
 	public static void clipboardCopy(Context context, String crds1,

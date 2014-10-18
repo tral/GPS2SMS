@@ -50,12 +50,16 @@ public class IncomingSms extends BroadcastReceiver {
 						Matcher m = p.matcher(message);
 
 						if (m.find()) {
-							Intent intent_openmap = new Intent(
-									Intent.ACTION_VIEW, Uri.parse("geo:"
-											+ m.group(0)));
-							intent_openmap
-									.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							context.startActivity(intent_openmap);
+
+							DBHelper.openOnMap(context, m.group(0));
+
+							/*
+							 * Intent intent_openmap = new Intent(
+							 * Intent.ACTION_VIEW, Uri.parse("geo:" +
+							 * m.group(0))); intent_openmap
+							 * .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							 * context.startActivity(intent_openmap);
+							 */
 						}
 
 						// Show Alert
