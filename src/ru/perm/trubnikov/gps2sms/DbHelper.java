@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
