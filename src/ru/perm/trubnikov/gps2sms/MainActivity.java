@@ -188,7 +188,7 @@ public class MainActivity extends Activity {
 
 				coordsToSend = la + "," + lo;
 
-				coordsToNavitel = "<NavitelLoc>" + la + " " + lo + "<N>";
+				coordsToNavitel = "<NavitelLoc>" + (loc.getLatitude()>0?"N":"S") + la + "° " + (loc.getLongitude()>0?"E":"W") + lo + "°<N>";
 
 				coordsToShare = DBHelper.getShareBody(MainActivity.this,
 						coordsToSend, accuracy);
