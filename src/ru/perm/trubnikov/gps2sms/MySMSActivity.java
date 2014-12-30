@@ -85,7 +85,7 @@ public class MySMSActivity extends Activity {
 				TypedValue.COMPLEX_UNIT_DIP, 64, r.getDisplayMetrics());
 
 		try {
-			
+
 			Cursor cursor = getContentResolver()
 					.query(Uri.parse("content://sms/" + getSMSSource()),
 							new String[] { "DISTINCT strftime('%d.%m.%Y %H:%M:%S', date/1000, 'unixepoch',  'localtime') || '\n' || body " },

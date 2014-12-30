@@ -4,7 +4,7 @@ public class MySMSOutActivity extends MySMSActivity {
 
 	@Override
 	protected String getSMSSource() {
-		return "outbox";
+		return "sent";
 	}
 	
 	
