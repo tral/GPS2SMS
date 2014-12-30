@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -67,7 +66,6 @@ public class TabsActivity extends TabActivity {
 		tabSpec.setIndicator(getString(R.string.tab_mysms_out));
 		tabSpec.setContent(new Intent(this, MySMSOutActivity.class));
 		tabHost.addTab(tabSpec);
-		
 
 	}
 
