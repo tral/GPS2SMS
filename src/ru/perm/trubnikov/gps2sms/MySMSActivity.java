@@ -33,7 +33,6 @@ public class MySMSActivity extends Activity {
 	private final static int SAVE_POINT_DIALOG_ID = 10;
 
 	DBHelper dbHelper;
-
 	private String actionCoords;
 	private String[] myCoords;
 
@@ -48,10 +47,16 @@ public class MySMSActivity extends Activity {
 		refillMainScreen();
 	}
 
+	protected String getSMSSource() {
+		return "inbox";
+	}
+	
 	// ------------------------------------------------------------------------------------------
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
+
+		
 		// Определение темы должно быть ДО super.onCreate и setContentView
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -80,9 +85,9 @@ public class MySMSActivity extends Activity {
 				TypedValue.COMPLEX_UNIT_DIP, 64, r.getDisplayMetrics());
 
 		try {
-
+			
 			Cursor cursor = getContentResolver()
-					.query(Uri.parse("content://sms/inbox"),
+					.query(Uri.parse("content://sms/" + getSMSSource()),
 							new String[] { "DISTINCT strftime('%d.%m.%Y %H:%M:%S', date/1000, 'unixepoch',  'localtime') || '\n' || body " },
 							// "thread_id","address","person","date","body","type"
 							"body  like '%__._______,__._______' ", null,

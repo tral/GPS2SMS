@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">3.2.4</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="version_name">3.2.5</string> <!-- Править в ДВУХ файлах !!! -->
     <string name="app_name">GPS2SMS</string>
     <string name="sms_text_placeholder"></string>
     <string name="send_coords_text">Добавить координаты к SMS</string>
@@ -92,8 +92,9 @@
 	
 	<string name="err_no_sms_regexp">Не найдено СМС с координатами</string>	
 	
-	<string name="tab_mycoords">Мои координаты</string>
-	<string name="tab_mysms">Мои СМС</string>
+	<string name="tab_mycoords">Сохраненные</string>
+	<string name="tab_mysms">Вх. СМС</string>
+	<string name="tab_mysms_out">Исх. СМС</string>
 	
 	<string name="point_edit_text_placeholder">Название точки</string>
 	<string name="save_point_dlg_header">Сохранение координат</string>
