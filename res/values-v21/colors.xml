@@ -21,10 +21,12 @@
     <color name="accent_dt">#18FFFF</color>
     <color name="lolli_background_dt">#3E2723</color>
     
-    <color name="lolli_primary_lt">#795548</color>
-    <color name="lolli_top_lt">#5D4037</color>
-    <color name="accent_lt">#18FFFF</color>
-    <color name="lolli_background_lt">#3E2723</color>
+    <color name="lolli_primary_lt">#607D8B</color>
+    <color name="lolli_top_lt">#455A64</color>
+    <color name="accent_lt">#FF4081</color>
+    <color name="lolli_background_lt">#ECEFF1</color>
+    <color name="lolli_btn_lt">#90A4AE</color>
+    
    
     <!-- 
     <color name="gps_green">@color/lolli_accent</color>

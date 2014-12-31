@@ -47,7 +47,7 @@
 	    <!--   theme UI controls like checkboxes and text fields -->
 	    <item name="android:colorAccent">@color/accent_lt</item>
 	    <item name="android:windowBackground">@color/lolli_background_lt</item>
-		<item name="android:colorButtonNormal">@color/lolli_top_lt</item>
+		<item name="android:colorButtonNormal">@color/lolli_btn_lt</item>
         
         <!--
             Theme customizations available in newer API levels can go in
