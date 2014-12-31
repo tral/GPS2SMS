@@ -7,5 +7,4 @@ public class MySMSOutActivity extends MySMSActivity {
 		return "sent";
 	}
 	
-	
 }
