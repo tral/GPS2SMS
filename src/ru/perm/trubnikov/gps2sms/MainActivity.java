@@ -43,7 +43,6 @@ public class MainActivity extends Activity {
 	// Menu
 	public static final int IDM_SETTINGS = 101;
 	public static final int IDM_RATE = 105;
-	// public static final int IDM_SMS_REGEXP = 106;
 
 	// Activities
 	private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
@@ -52,7 +51,6 @@ public class MainActivity extends Activity {
 	// Dialogs
 	private static final int SEND_SMS_DIALOG_ID = 0;
 	private final static int SAVE_POINT_DIALOG_ID = 1;
-	// private static final int SMS_REGEXP_DIALOG_ID = 2;
 
 	ProgressDialog mSMSProgressDialog;
 
@@ -63,13 +61,6 @@ public class MainActivity extends Activity {
 	public static final int GPS_PROVIDER_UNAVIALABLE = 4;
 	public static final int GPS_PROVIDER_OUT_OF_SERVICE = 5;
 	public static final int GPS_PAUSE_SCANNING = 6;
-
-	// Send SMS Via
-	//public static final int SMS_SEND_VIA_SMS = 1;
-	//public static final int SMS_SEND_VIA_NAVITEL = 2;
-
-	public static final int TOGGLE_ICON_HANGOUTS = 1;
-	public static final int TOGGLE_ICON_NAVITEL = 2;
 
 	// Location manager
 	private LocationManager manager;
@@ -93,7 +84,6 @@ public class MainActivity extends Activity {
 	private String coordsToSend;
 	private String coordsToShare;
 	private String coordsToNavitel;
-	//private int toggleButtonIcon;
 	private String phoneToSendSMS;
 
 	// Database
@@ -151,15 +141,11 @@ public class MainActivity extends Activity {
 		switch (state) {
 		case GPS_PROVIDER_DISABLED:
 			GPSstate.setText(R.string.gps_state_disabled);
-			//GPSstate.setTextColor(Color.RED);
-			//GPSstate.setTextColor(getResources().getColor(R.color.gps_red));
 			setGPSStateAccentColor();
 			enableGPSBtn.setVisibility(View.VISIBLE);
 			break;
 		case GPS_GETTING_COORDINATES:
 			GPSstate.setText(R.string.gps_state_in_progress);
-//			GPSstate.setTextColor(Color.rgb(190, 200, 70));
-			//GPSstate.setTextColor(getResources().getColor(R.color.gps_yellow));
 			setGPSStateNormalColor();
 			enableGPSBtn.setVisibility(View.INVISIBLE);
 			break;
@@ -198,23 +184,19 @@ public class MainActivity extends Activity {
 						+ accuracy + " " + getString(R.string.info_print2)
 						+ separ + getString(R.string.info_latitude) + " " + la
 						+ separ + getString(R.string.info_longitude) + " " + lo);
-				//GPSstate.setTextColor(Color.rgb(60, 160, 60));
-				//GPSstate.setTextColor(getResources().getColor(R.color.gps_green));
+
 				setGPSStateNormalColor();
 				
-				// sendBtn.setEnabled(true);
 				btnShare.setVisibility(View.VISIBLE);
 				btnCopy.setVisibility(View.VISIBLE);
 				btnMap.setVisibility(View.VISIBLE);
 				btnSave.setVisibility(View.VISIBLE);
-				// setActionBarShareButtonEnabled(true);
+
 				ShowSendButton();
 				enableGPSBtn.setVisibility(View.INVISIBLE);
 
 			} else {
 				GPSstate.setText(R.string.gps_state_unavialable);
-				//GPSstate.setTextColor(Color.RED);
-				//GPSstate.setTextColor(getResources().getColor(R.color.gps_red));
 				setGPSStateAccentColor();
 				enableGPSBtn.setVisibility(View.VISIBLE);
 			}
@@ -232,15 +214,6 @@ public class MainActivity extends Activity {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main_activity_actions, menu);
-
-		// Toggle Button
-		/*if (toggleButtonIcon == TOGGLE_ICON_HANGOUTS) {
-			menu.findItem(R.id.action_navitel).setIcon(
-					getResources().getDrawable(R.drawable.hangouts));
-		} else if (toggleButtonIcon == TOGGLE_ICON_NAVITEL) {
-			menu.findItem(R.id.action_navitel).setIcon(
-					getResources().getDrawable(R.drawable.navitel));
-		}*/
 
 		menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE,
 				R.string.menu_item_settings);
@@ -316,13 +289,10 @@ public class MainActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case IDM_SETTINGS:
-			// showDialog(PHONE_DIALOG_ID);
 			Intent i = new Intent(this, UserSettingActivity.class);
 			startActivityForResult(i, ACT_RESULT_SETTINGS);
-
 			break;
 		case R.id.action_sms_regexp:
-			// showDialog(SMS_REGEXP_DIALOG_ID);
 			Intent intent = new Intent(MainActivity.this, TabsActivity.class);
 			startActivity(intent);
 			break;
@@ -333,10 +303,6 @@ public class MainActivity extends Activity {
 			int_rate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			getApplicationContext().startActivity(int_rate);
 			break;
-
-		//case R.id.action_navitel:
-		//	refreshSendViaToggleButton(true);
-		//	break;
 
 		default:
 			return false;
@@ -494,25 +460,8 @@ public class MainActivity extends Activity {
 
 		// Plain phone number
 		plainPh = (EditText) findViewById(R.id.editText1);
-		/*plainPh.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				v.clearFocus();
-				((EditText) v).selectAll();
-			}
-		});*/
 
 		// Select contact
-		
-
-		
-		//RelativeLayout relLayout = (RelativeLayout) findViewById(R.id.RelLayout1);
-		//plainPh.setLayoutParams(new LayoutParams(RelativeLayout.LEFT_OF, R.id.send_plain));
-		
-		
-
-		
-		
 		chooseContactBtn = (ImageButton) findViewById(R.id.choose_contact);
 		chooseContactBtn.setOnClickListener(new OnClickListener() {
 			@Override
@@ -602,31 +551,13 @@ public class MainActivity extends Activity {
 		sendpbtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
 				initiateSMSSend(0);
-				
-				/*sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend
-						: coordsToNavitel,
-						(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true
-								: false, 0);*/
 			}
 		});
-
-		// Toggle Button init
-		//refreshSendViaToggleButton(false);
 
 		// GPS-state TextView init
 		GPSstate = (TextView) findViewById(R.id.textView1);
 		setGPSStateNormalColor();
-		
-		
-		/*if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			//GPSstate.setTextColor(Color.rgb(190, 200, 70));
-			GPSstate.setTextColor(getResources().getColor(R.color.gps_yellow));
-		} else {
-			//GPSstate.setTextColor(Color.RED);
-			GPSstate.setTextColor(getResources().getColor(R.color.gps_red));
-		}*/
 
 	}
 
@@ -643,8 +574,6 @@ public class MainActivity extends Activity {
 				.getDefaultSharedPreferences(this);
 		GPSstate.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
 				.equalsIgnoreCase("1") ? getResources().getColor(R.color.accent_dt) : getResources().getColor(R.color.accent_lt));
-		//GPSstate.setTextColor(getResources().getColor(R.color.gps_red));
-		
 	}
 	
 	// ------------------------------------------------------------------------------------------
@@ -689,87 +618,7 @@ public class MainActivity extends Activity {
 		}
 
 	}
-/*
-	private long getIntDbParam(String param) {
-		dbHelper = new DBHelper(MainActivity.this);
-		long val = dbHelper.getSettingsParamInt(param);
-		dbHelper.close();
-		return val;
-	}
 
-	private void setIntDbParam(String param, long val) {
-		dbHelper = new DBHelper(MainActivity.this);
-		dbHelper.setSettingsParamInt(param, val);
-		dbHelper.close();
-	}*/
-	
-/*
-	private void refreshSendViaToggleButton(boolean toggle) {
-
-		Drawable navitelIcon = getResources().getDrawable(R.drawable.navitel);
-		Drawable hangoutsIcon = getResources().getDrawable(R.drawable.hangouts);
-
-		if (!sendpbtn.isEnabled()) {
-			navitelIcon = convertDrawableToGrayScale(navitelIcon);
-			hangoutsIcon = convertDrawableToGrayScale(hangoutsIcon);
-		}
-
-		long sendvia = getIntDbParam("sendvia");
-
-		if (sendvia == SMS_SEND_VIA_SMS) {
-			if (toggle) {
-				setIntDbParam("sendvia", SMS_SEND_VIA_NAVITEL);
-				toggleButtonIcon = TOGGLE_ICON_HANGOUTS;
-				sendpbtn.setImageDrawable(navitelIcon);
-				send1btn.setImageDrawable(navitelIcon);
-			} else {
-				toggleButtonIcon = TOGGLE_ICON_NAVITEL;
-				sendpbtn.setImageDrawable(hangoutsIcon);
-				send1btn.setImageDrawable(hangoutsIcon);
-			}
-		}
-
-		if (sendvia == SMS_SEND_VIA_NAVITEL) {
-			if (toggle) {
-				setIntDbParam("sendvia", SMS_SEND_VIA_SMS);
-				toggleButtonIcon = TOGGLE_ICON_NAVITEL;
-				sendpbtn.setImageDrawable(hangoutsIcon);
-				send1btn.setImageDrawable(hangoutsIcon);
-			} else {
-				toggleButtonIcon = TOGGLE_ICON_HANGOUTS;
-				sendpbtn.setImageDrawable(navitelIcon);
-				send1btn.setImageDrawable(navitelIcon);
-			}
-		}
-
-		setActionBarToggleBtnIcon();
-
-	}*/
-/*
-	private void setActionBarToggleBtnIcon() {
-
-		
-
-		if (mMenu != null) {
-			MenuItem item = mMenu.findItem(R.id.action_navitel);
-			if (item != null) {
-
-				Drawable icon;
-				if (toggleButtonIcon == TOGGLE_ICON_HANGOUTS) {
-					icon = getResources().getDrawable(R.drawable.hangouts);
-				} else {
-					icon = getResources().getDrawable(R.drawable.navitel);
-				}
-
-				item.setIcon(icon);
-
-				ActivityCompat.invalidateOptionsMenu(this);
-			}
-		}
-
-		// Log.d("gps", "test");
-
-	}*/
 
 	public void initiateSMSSend(int Receiver) {
 		
