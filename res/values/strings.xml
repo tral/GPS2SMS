@@ -62,6 +62,7 @@
 	<string name="imgdesc_map">Map button</string>
 	<string name="imgdesc_save">Save button</string>
 	<string name="imgdesc_send_sms">Send SMS button</string>
+	<string name="imgdesc_choose_contact">Choose contact</string>
 	
 	<string name="action_share">Share</string>
 	<string name="action_copy">Copy</string>

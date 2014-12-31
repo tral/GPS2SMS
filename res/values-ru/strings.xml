@@ -62,6 +62,7 @@
 	<string name="imgdesc_map">Кнопка \"Открыть на карте\"</string>
 	<string name="imgdesc_save">Кнопка \"Сохранить\"</string>
 	<string name="imgdesc_send_sms">Кнопка \"Отправить СМС\"</string>
+	<string name="imgdesc_choose_contact">Выбрать контакт</string>
 	
     <string name="action_share">Поделиться</string>
     <string name="action_copy">Копировать</string>

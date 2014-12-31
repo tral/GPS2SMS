@@ -29,54 +29,34 @@
     	    android:scaleType="fitCenter"
 		 />
 
+ 	     <ImageButton android:id="@+id/choose_contact"
+			android:src="?attr/btn_ic_action_person" 
+			android:layout_width="wrap_content"
+			android:layout_height="54dp"
+			android:contentDescription="@string/imgdesc_choose_contact"
+			android:layout_alignParentLeft="true"
+			android:adjustViewBounds="true"
+    	    android:scaleType="fitCenter"
+		 />   
+ 	    
  	   <EditText
  	       android:id="@+id/editText1"
  	       android:layout_width="fill_parent"
  	       android:layout_height="wrap_content"
 		   android:hint="@string/enterAnyPhone"
  	       android:layout_centerVertical="true"
- 	       android:layout_alignParentLeft="true"
- 	       android:layout_toLeftOf="@id/send_plain"
+ 	       android:layout_toRightOf="@id/choose_contact"
+ 	       
  	       android:ems="10"
- 	       android:selectAllOnFocus="true"
  	       android:inputType="phone" >
 
+ 	   
+ 	       
  	   </EditText>
  	    
  	</RelativeLayout>
 
-	<!-- 1-й слот для контакта -->
 	
-	<RelativeLayout 
- 	    android:id="@+id/RelLayout2"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/RelLayout1"
-	    android:orientation="horizontal"
-	    android:paddingLeft="0dp"
-	    android:paddingRight="0dp" >
- 	
- 	    <ImageButton android:id="@+id/send1"
-			android:src="?attr/btn_ic_action_send_now" 
-			android:layout_width="wrap_content"
-			android:layout_height="54dp"
-			android:layout_alignParentRight="true"
-			android:contentDescription="@string/imgdesc_send_sms"
-			android:adjustViewBounds="true"
-    	    android:scaleType="fitCenter" 
-		 />
-
- 	    <Button
-           android:id="@+id/cont1"
-           android:layout_width="fill_parent"
-           android:layout_height="54dp"
-           android:layout_toLeftOf="@id/send1"
-           android:text="@string/select_contact_btn_txt" 
-		/>
- 	    
- 	   
- 	    
- 	</RelativeLayout>
     
 	<!-- 
     
@@ -145,7 +125,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/RelLayout2"
+        android:layout_below="@+id/RelLayout1"
         android:orientation="horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"  >

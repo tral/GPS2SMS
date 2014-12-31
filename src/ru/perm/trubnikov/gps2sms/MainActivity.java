@@ -34,6 +34,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,11 +81,11 @@ public class MainActivity extends Activity {
 	TextView GPSstate;
 	ImageButton sendViaToggleBtn;
 	ImageButton sendpbtn;
-	ImageButton send1btn;
 	ImageButton btnShare;
 	ImageButton btnMap;
 	ImageButton btnCopy;
 	ImageButton btnSave;
+	ImageButton chooseContactBtn;
 	Button cont1;
 	Button enableGPSBtn;
 	EditText plainPh;
@@ -96,7 +97,6 @@ public class MainActivity extends Activity {
 	private String coordsToNavitel;
 	//private int toggleButtonIcon;
 	private String phoneToSendSMS;
-	private int tmpSlotId;
 
 	// Database
 	DBHelper dbHelper;
@@ -210,21 +210,7 @@ public class MainActivity extends Activity {
 				btnMap.setVisibility(View.VISIBLE);
 				btnSave.setVisibility(View.VISIBLE);
 				// setActionBarShareButtonEnabled(true);
-				sendpbtn.setVisibility(View.VISIBLE);
-				send1btn.setVisibility(View.VISIBLE);
-				/*setImageButtonEnabled(
-						getApplicationContext(),
-						true,
-						sendpbtn,
-						(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-								: R.drawable.navitel);
-				setImageButtonEnabled(
-						getApplicationContext(),
-						true,
-						send1btn,
-						(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-								: R.drawable.navitel);*/
-
+				ShowSendButton();
 				enableGPSBtn.setVisibility(View.INVISIBLE);
 
 			} else {
@@ -386,20 +372,7 @@ public class MainActivity extends Activity {
 		btnMap.setVisibility(View.INVISIBLE);
 		btnSave.setVisibility(View.INVISIBLE);
 
-		sendpbtn.setVisibility(View.INVISIBLE);
-		send1btn.setVisibility(View.INVISIBLE);
-		/*setImageButtonEnabled(
-				getApplicationContext(),
-				false,
-				sendpbtn,
-				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-						: R.drawable.navitel);
-		setImageButtonEnabled(
-				getApplicationContext(),
-				false,
-				send1btn,
-				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-						: R.drawable.navitel);*/
+		HideSendButton();
 
 		if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			printLocation(null, GPS_GETTING_COORDINATES);
@@ -414,16 +387,9 @@ public class MainActivity extends Activity {
 	}
 
 	public void showSelectedNumber(String number, String name) {
-		if (number.equalsIgnoreCase("") && name.equalsIgnoreCase("")) {
-			if (tmpSlotId == 1) {
-				cont1.setText(getString(R.string.select_contact_btn_txt));
-			}
-		} else {
-			if (tmpSlotId == 1) {
-				cont1.setText(name);
-			}
-		}
-
+		plainPh.setText(number);
+		plainPh.setSelection(plainPh.getText().length());
+		// @ TODO отображать как-то имя контакта?
 	}
 
 	@Override
@@ -460,7 +426,7 @@ public class MainActivity extends Activity {
 
 							// update
 							dbHelper = new DBHelper(MainActivity.this);
-							dbHelper.setSlot(tmpSlotId, name, number);
+							dbHelper.setSlot(0, name, number);
 							dbHelper.close();
 
 						}
@@ -530,21 +496,29 @@ public class MainActivity extends Activity {
 
 		// Plain phone number
 		plainPh = (EditText) findViewById(R.id.editText1);
-		plainPh.setOnClickListener(new OnClickListener() {
+		/*plainPh.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				v.clearFocus();
 				((EditText) v).selectAll();
 			}
-		});
+		});*/
 
 		// Select contact
-		cont1 = (Button) findViewById(R.id.cont1);
+		
 
-		cont1.setOnClickListener(new OnClickListener() {
+		
+		//RelativeLayout relLayout = (RelativeLayout) findViewById(R.id.RelLayout1);
+		//plainPh.setLayoutParams(new LayoutParams(RelativeLayout.LEFT_OF, R.id.send_plain));
+		
+		
+
+		
+		
+		chooseContactBtn = (ImageButton) findViewById(R.id.choose_contact);
+		chooseContactBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				tmpSlotId = 1;
 				Intent intent = new Intent(Intent.ACTION_PICK,
 						ContactsContract.Contacts.CONTENT_URI);
 				intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
@@ -552,18 +526,9 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		// Stored phone number & name -> to button
+		// Stored phone number -> to EditText
 		dbHelper = new DBHelper(this);
-		plainPh.setText(dbHelper.getSlot(0, "phone"));
-		tmpSlotId = 1;
-		showSelectedNumber(dbHelper.getSlot(tmpSlotId, "phone"),
-				dbHelper.getSlot(tmpSlotId, "name"));
-		tmpSlotId = 2;
-		showSelectedNumber(dbHelper.getSlot(tmpSlotId, "phone"),
-				dbHelper.getSlot(tmpSlotId, "name"));
-		tmpSlotId = 3;
-		showSelectedNumber(dbHelper.getSlot(tmpSlotId, "phone"),
-				dbHelper.getSlot(tmpSlotId, "name"));
+		showSelectedNumber(dbHelper.getSlot(0, "phone"), "");
 		dbHelper.close();
 
 		// GPS init
@@ -635,22 +600,7 @@ public class MainActivity extends Activity {
 
 		// Send buttons
 		sendpbtn = (ImageButton) findViewById(R.id.send_plain);
-		send1btn = (ImageButton) findViewById(R.id.send1);
-		sendpbtn.setVisibility(View.INVISIBLE);
-		send1btn.setVisibility(View.INVISIBLE);
-		/*setImageButtonEnabled(
-				getApplicationContext(),
-				false,
-				sendpbtn,
-				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-						: R.drawable.navitel);
-		setImageButtonEnabled(
-				getApplicationContext(),
-				false,
-				send1btn,
-				(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? R.drawable.hangouts
-						: R.drawable.navitel);*/
-
+		HideSendButton();
 		sendpbtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -661,16 +611,6 @@ public class MainActivity extends Activity {
 						: coordsToNavitel,
 						(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true
 								: false, 0);*/
-			}
-		});
-		send1btn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				initiateSMSSend(1);
-				/*sendSMS((getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? coordsToSend
-						: coordsToNavitel,
-						(getIntDbParam("sendvia") == SMS_SEND_VIA_SMS) ? true
-								: false, 1);*/
 			}
 		});
 
@@ -846,6 +786,19 @@ public class MainActivity extends Activity {
 		
 	}
 	
+	protected void ShowSendButton () {
+		sendpbtn.setVisibility(View.VISIBLE);
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)plainPh.getLayoutParams();
+		params.addRule(RelativeLayout.LEFT_OF, R.id.send_plain);
+		plainPh.setLayoutParams(params); //causes layout update
+	}
+	
+	protected void HideSendButton () {
+		sendpbtn.setVisibility(View.INVISIBLE);
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)plainPh.getLayoutParams();
+		params.addRule(RelativeLayout.LEFT_OF, 0);
+		plainPh.setLayoutParams(params); //causes layout update
+	}
 	
 	/*
 	 * TODO

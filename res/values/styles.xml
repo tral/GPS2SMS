@@ -7,6 +7,8 @@
 	<attr name="btn_ic_action_save" format="reference"/>
 	<attr name="btn_ic_action_new_label" format="reference"/>
 	<attr name="btn_ic_action_send_now" format="reference"/>
+	<attr name="btn_ic_action_person" format="reference"/>
+	
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -20,6 +22,7 @@
         <item name="btn_ic_action_save">@drawable/ic_action_save_light</item>
         <item name="btn_ic_action_new_label">@drawable/ic_action_new_label_light</item>
         <item name="btn_ic_action_send_now">@drawable/ic_action_send_now_light</item>
+        <item name="btn_ic_action_person">@drawable/ic_action_person_light</item>
         
 
         <!--
@@ -38,7 +41,8 @@
         <item name="btn_ic_action_save">@drawable/ic_action_save_light</item>
         <item name="btn_ic_action_new_label">@drawable/ic_action_new_label_light</item>
 		<item name="btn_ic_action_send_now">@drawable/ic_action_send_now_light</item>
-        
+        <item name="btn_ic_action_person">@drawable/ic_action_person_light</item>
+		
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
