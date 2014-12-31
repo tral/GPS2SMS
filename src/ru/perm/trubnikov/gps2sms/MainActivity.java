@@ -64,8 +64,8 @@ public class MainActivity extends Activity {
 	public static final int GPS_PAUSE_SCANNING = 6;
 
 	// Send SMS Via
-	public static final int SMS_SEND_VIA_SMS = 1;
-	public static final int SMS_SEND_VIA_NAVITEL = 2;
+	//public static final int SMS_SEND_VIA_SMS = 1;
+	//public static final int SMS_SEND_VIA_NAVITEL = 2;
 
 	public static final int TOGGLE_ICON_HANGOUTS = 1;
 	public static final int TOGGLE_ICON_NAVITEL = 2;
@@ -751,7 +751,7 @@ public class MainActivity extends Activity {
 		}
 
 	}
-
+/*
 	private long getIntDbParam(String param) {
 		dbHelper = new DBHelper(MainActivity.this);
 		long val = dbHelper.getSettingsParamInt(param);
@@ -763,7 +763,8 @@ public class MainActivity extends Activity {
 		dbHelper = new DBHelper(MainActivity.this);
 		dbHelper.setSettingsParamInt(param, val);
 		dbHelper.close();
-	}
+	}*/
+	
 /*
 	private void refreshSendViaToggleButton(boolean toggle) {
 
