@@ -83,6 +83,8 @@ public class MySMSActivity extends Activity {
 		// число пикселей для высоты кнопок (относительно dp)
 		int pixels_b = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 64, r.getDisplayMetrics());
+		int separators_margin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP, 8, r.getDisplayMetrics());
 
 		try {
 
@@ -99,7 +101,7 @@ public class MySMSActivity extends Activity {
 			if (cursor.moveToFirst()) {
 
 				do {
-					initOneBtn(layout, i, pixels_b, cursor.getString(0));
+					initOneBtn(layout, i, pixels_b, cursor.getString(0),separators_margin);
 					i++;
 				} while (cursor.moveToNext());
 			}
@@ -117,7 +119,7 @@ public class MySMSActivity extends Activity {
 	// ------------------------------------------------------------------------------------------
 
 	protected void initOneBtn(LinearLayout layout, int i, int pixels_b,
-			String name) {
+			String name, int separator_margin) {
 
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -144,7 +146,7 @@ public class MySMSActivity extends Activity {
 		// Separator
 		LayoutParams view_params = new LayoutParams(LayoutParams.MATCH_PARENT,
 				2);
-
+		view_params.setMargins(separator_margin, 0, separator_margin, 0);
 		View viewTag = new View(this);
 		viewTag.setLayoutParams(view_params);
 		viewTag.setBackgroundColor(Color.parseColor("#90909090"));

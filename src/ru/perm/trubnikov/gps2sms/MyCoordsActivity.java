@@ -76,6 +76,9 @@ public class MyCoordsActivity extends Activity {
 		// число пикселей для высоты кнопок (относительно dp)
 		int pixels_b = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, 64, r.getDisplayMetrics());
+		int separators_margin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP, 8, r.getDisplayMetrics());
+		
 
 		try {
 
@@ -100,7 +103,8 @@ public class MyCoordsActivity extends Activity {
 					initOneBtn(layout, i, pixels_b,
 							mCur.getString(nameColIndex),
 							mCur.getString(valColIndex),
-							mCur.getInt(idColIndex));
+							mCur.getInt(idColIndex),
+							separators_margin);
 					i++;
 				} while (mCur.moveToNext());
 			}
@@ -122,7 +126,7 @@ public class MyCoordsActivity extends Activity {
 	// ------------------------------------------------------------------------------------------
 
 	protected void initOneBtn(LinearLayout layout, int i, int pixels_b,
-			String name, String coord, int id) {
+			String name, String coord, int id, int separator_margin) {
 
 		LinearLayout row = new LinearLayout(this);
 		row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -150,7 +154,8 @@ public class MyCoordsActivity extends Activity {
 		// Separator
 		LayoutParams view_params = new LayoutParams(LayoutParams.MATCH_PARENT,
 				2);
-
+		
+		view_params.setMargins(separator_margin, 0, separator_margin, 0);
 		View viewTag = new View(this);
 		viewTag.setLayoutParams(view_params);
 		viewTag.setBackgroundColor(Color.parseColor("#90909090"));
