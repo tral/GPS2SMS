@@ -78,17 +78,15 @@ public class MainActivity extends Activity {
 	ThreadSendSMS mThreadSendSMS;
 
 	// Views
-	TextView GPSstate;
-	ImageButton sendViaToggleBtn;
+	ImageButton chooseContactBtn;
 	ImageButton sendpbtn;
 	ImageButton btnShare;
 	ImageButton btnMap;
 	ImageButton btnCopy;
 	ImageButton btnSave;
-	ImageButton chooseContactBtn;
-	Button cont1;
-	Button enableGPSBtn;
 	EditText plainPh;
+	Button enableGPSBtn;
+	TextView GPSstate;
 	Menu mMenu;
 
 	// Globals
