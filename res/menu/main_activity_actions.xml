@@ -10,10 +10,12 @@
           android:icon="?attr/btn_ic_action_collection"
           android:title="@string/menu_item_sms_regexp"
           android:showAsAction="ifRoom" />
+    <!--
 	<item android:id="@+id/action_navitel"
           android:icon="@drawable/ic_action_navitel"
           android:title="@string/toggle_sms_navitel_info"
           android:showAsAction="ifRoom" />
+         -->
 	<!-- 
 	<item android:id="@+id/action_copy"
           android:icon="@drawable/ic_action_copy"

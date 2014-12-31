@@ -90,6 +90,10 @@
 	<string name="pref_regexp_sms">Сканировать входящие СМС</string>
 	<string name="pref_regexp_sms_summary">Если отмечено, в случае обнаружения во входящем СМС сообщении координат, программа будет пытаться открыть позицию на картах по умолчанию </string>
 	
+	<string name="pref_sendnavitel">Отправлять СМС в формате Navitel</string>
+	<string name="pref_sendnavitel_summary">Если отмечено, СМС будет формироваться в специальном формате, который может прочитать программа Navitel</string>
+	
+	
 	<string name="err_no_sms_regexp">Не найдено СМС с координатами</string>	
 	
 	<string name="tab_mycoords">Сохраненные</string>

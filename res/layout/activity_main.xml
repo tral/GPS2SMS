@@ -19,7 +19,8 @@
 	    android:paddingRight="0dp" >
  	
  	    <ImageButton android:id="@+id/send_plain"
-			android:src="@drawable/hangouts" 
+			
+			android:src="?attr/btn_ic_action_send_now" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:layout_alignParentRight="true"
@@ -56,7 +57,7 @@
 	    android:paddingRight="0dp" >
  	
  	    <ImageButton android:id="@+id/send1"
-			android:src="@drawable/hangouts" 
+			android:src="?attr/btn_ic_action_send_now" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:layout_alignParentRight="true"
@@ -72,6 +73,8 @@
            android:layout_toLeftOf="@id/send1"
            android:text="@string/select_contact_btn_txt" 
 		/>
+ 	    
+ 	   
  	    
  	</RelativeLayout>
     

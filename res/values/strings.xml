@@ -90,6 +90,9 @@
 	<string name="pref_regexp_sms">Catch SMS with GPS coordinates</string>
 	<string name="pref_regexp_sms_summary">Check for automatic launching the default maps app in case of receiving SMS with coordinates</string>
 	
+	<string name="pref_sendnavitel">Send in Navitel format</string>
+	<string name="pref_sendnavitel_summary">If checked, SMS will be constructed in special Navitel format</string>
+	
 	<string name="err_no_sms_regexp">No SMS with coordinates were found</string>
 	
 	<string name="tab_mycoords">Saved</string>

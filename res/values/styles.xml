@@ -6,6 +6,7 @@
 	<attr name="btn_ic_action_share" format="reference"/>
 	<attr name="btn_ic_action_save" format="reference"/>
 	<attr name="btn_ic_action_new_label" format="reference"/>
+	<attr name="btn_ic_action_send_now" format="reference"/>
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -18,6 +19,7 @@
         <item name="btn_ic_action_share">@drawable/ic_action_share_light</item>
         <item name="btn_ic_action_save">@drawable/ic_action_save_light</item>
         <item name="btn_ic_action_new_label">@drawable/ic_action_new_label_light</item>
+        <item name="btn_ic_action_send_now">@drawable/ic_action_send_now_light</item>
         
 
         <!--
@@ -35,7 +37,7 @@
         <item name="btn_ic_action_share">@drawable/ic_action_share_light</item>
         <item name="btn_ic_action_save">@drawable/ic_action_save_light</item>
         <item name="btn_ic_action_new_label">@drawable/ic_action_new_label_light</item>
-
+		<item name="btn_ic_action_send_now">@drawable/ic_action_send_now_light</item>
         
         <!--
             Theme customizations available in newer API levels can go in
