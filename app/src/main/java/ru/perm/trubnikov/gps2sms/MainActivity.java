@@ -348,10 +348,9 @@ public class MainActivity extends Activity {
         manager.removeUpdates(locListener);
     }
 
-    public void showSelectedNumber(String number, String name) {
+    public void showSelectedNumber(String number) {
         plainPh.setText(number);
         plainPh.setSelection(plainPh.getText().length());
-        // @ TODO отображать как-то имя контакта?
     }
 
     @Override
@@ -381,12 +380,12 @@ public class MainActivity extends Activity {
                             if (c != null && c.moveToFirst()) {
                                 number = c.getString(0);
                                 number = number.replace("-", "").replace(" ", "")
-                                        .replace("(", "").replace(")", "");
+                                        .replace("(", "").replace(")", "").replace(".", "");
                                 // type = c.getInt(1);
                                 name = c.getString(2);
-                                showSelectedNumber(number, name);
+                                showSelectedNumber(number);
 
-                                // update
+                                // update saved number
                                 dbHelper = new DBHelper(MainActivity.this);
                                 dbHelper.setSlot(0, name, number);
                                 dbHelper.close();
@@ -433,8 +432,8 @@ public class MainActivity extends Activity {
      * a mutated version of the given drawable with a color filter
      * applied.
      */
-	/*public static Drawable convertDrawableToGrayScale(Drawable drawable) {
-		if (drawable == null)
+    /*public static Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null)
 			return null;
 
 		Drawable res = drawable.mutate();
@@ -459,6 +458,27 @@ public class MainActivity extends Activity {
 
         // Plain phone number
         plainPh = (EditText) findViewById(R.id.editText1);
+        plainPh.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String lPhone = plainPh.getText().toString().replace("-", "")
+                        .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
+
+                if (!lPhone.equalsIgnoreCase("")) {
+
+                    Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(lPhone));
+                    String[] projection = new String[]{"display_name"};
+                    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+
+                    if (cursor.moveToFirst()) {
+                        DBHelper.ShowToastT(MainActivity.this, cursor.getString(0),
+                                Toast.LENGTH_SHORT);
+                    }
+                    cursor.close();
+                }
+            }
+        });
+
 
         // Select contact
         chooseContactBtn = (ImageButton) findViewById(R.id.choose_contact);
@@ -474,7 +494,7 @@ public class MainActivity extends Activity {
 
         // Stored phone number -> to EditText
         dbHelper = new DBHelper(this);
-        showSelectedNumber(dbHelper.getSlot(0, "phone"), "");
+        showSelectedNumber(dbHelper.getSlot(0, "phone"));
         dbHelper.close();
 
         // GPS init
@@ -550,7 +570,7 @@ public class MainActivity extends Activity {
         sendpbtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                initiateSMSSend(0);
+                initiateSMSSend();
             }
         });
 
@@ -577,35 +597,29 @@ public class MainActivity extends Activity {
 
     // ------------------------------------------------------------------------------------------
 
-    protected void sendSMS(String lCoords, boolean addText, int Receiver) {
+    protected void sendSMS(String lCoords, boolean addText) {
 
-        dbHelper = new DBHelper(MainActivity.this);
-        String smsMsg = lCoords;
-        if (addText) {
-            SharedPreferences sharedPrefs = PreferenceManager
-                    .getDefaultSharedPreferences(this);
-            smsMsg = sharedPrefs.getString("prefSMSText",
-                    getString(R.string.default_sms_msg)) + " " + smsMsg;
-        }
-
-        if (Receiver == 0) {
-            String plph = plainPh.getText().toString().replace("-", "")
-                    .replace(" ", "").replace("(", "").replace(")", "");
-            dbHelper.setSlot(Receiver, plph, plph);
-        }
-
-        phoneToSendSMS = dbHelper.getSlot(Receiver, "phone");
-        dbHelper.close();
+        phoneToSendSMS = plainPh.getText().toString().replace("-", "")
+                .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
 
         if (phoneToSendSMS.equalsIgnoreCase("")) {
-            if (Receiver == 0)
-                DBHelper.ShowToast(MainActivity.this,
-                        R.string.error_no_phone_number, Toast.LENGTH_LONG);
-            else
-                DBHelper.ShowToast(MainActivity.this,
-                        R.string.error_contact_is_not_selected,
-                        Toast.LENGTH_LONG);
+            DBHelper.ShowToast(MainActivity.this,
+                    R.string.error_no_phone_number, Toast.LENGTH_LONG);
         } else {
+
+            // update saved number
+            dbHelper = new DBHelper(MainActivity.this);
+            dbHelper.setSlot(0, "", phoneToSendSMS);
+            dbHelper.close();
+
+            String smsMsg = lCoords;
+            if (addText) {
+                SharedPreferences sharedPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(this);
+                smsMsg = sharedPrefs.getString("prefSMSText",
+                        getString(R.string.default_sms_msg)) + " " + smsMsg;
+            }
+
             showDialog(SEND_SMS_DIALOG_ID);
 
             // Запускаем новый поток для отправки SMS
@@ -619,16 +633,14 @@ public class MainActivity extends Activity {
     }
 
 
-    public void initiateSMSSend(int Receiver) {
+    public void initiateSMSSend() {
 
         SharedPreferences sharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this);
 
         boolean isSendInNavitelFormat = sharedPrefs.getBoolean("prefSendInNavitelFormat", false);
 
-        sendSMS(isSendInNavitelFormat ? coordsToNavitel : coordsToSend,
-                !isSendInNavitelFormat,
-                Receiver);
+        sendSMS(isSendInNavitelFormat ? coordsToNavitel : coordsToSend, !isSendInNavitelFormat);
 
     }
 
@@ -645,9 +657,9 @@ public class MainActivity extends Activity {
         params.addRule(RelativeLayout.LEFT_OF, 0);
         plainPh.setLayoutParams(params); //causes layout update
     }
-	
+
 	/*
-	 * TODO
+     * TODO
 	 * 
 	 * Удаление СМС, Фотку на кнопке с выбранным контактом
 	 */
