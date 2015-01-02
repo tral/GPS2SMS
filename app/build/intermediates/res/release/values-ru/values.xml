@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-ru/arrays_themes.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-ru/arrays_themes.xml -->
     <eat-comment/>
     <string-array name="appTheme">
         <item name="1">Темная</item>
@@ -10,7 +10,7 @@
         <item name="1">1</item>
         <item name="2">2</item>
     </string-array>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-ru/arrays.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-ru/arrays.xml -->
     <eat-comment/>
     <string-array name="shareProviders">
         <item name="1">Только координаты</item>
@@ -22,11 +22,8 @@
         <item name="2">2</item>
         <item name="3">3</item>
     </string-array>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-ru/strings.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-ru/strings.xml -->
     <eat-comment/>
-    <string name="action_copy">Копировать</string>
-    <string name="action_openmap">Открыть на карте</string>
-    <string name="action_share">Поделиться</string>
     <string name="add_point_error">Вы ввели некорректные координаты!</string>
     <string name="addpoint_la">Широта</string>
     <string name="addpoint_la_ex">Например, 55.1784657</string>
@@ -34,24 +31,23 @@
     <string name="addpoint_lo_ex">Например, 57.5734553</string>
     <string name="addpoint_name">Название точки</string>
     <string name="another_msg_button_text">Отправить еще одно SMS</string>
-    <string name="app_name">GPS2SMS</string>
+    <string name="app_name">GPS to SMS</string>
     <string name="cancel_btn_txt">Отменить</string>
     <string name="default_sms_msg">Я тут</string>
     <string name="del_btn_txt">Удалить</string>
     <string name="enable_gps_btn">Включить GPS</string>
     <string name="enterAnyPhone">Номер телефона</string>
-    <string name="err_no_sms_regexp">Не найдено СМС с координатами</string>
     <string name="error_contact_is_not_selected">Выберите контакт!</string>
     <string name="error_no_phone_number">Укажите номер телефона!</string>
     <string name="gps_state_disabled">GPS выключен!</string>
     <string name="gps_state_in_progress">Определение координат...</string>
     <string name="gps_state_unavialable">Данные о местоположении недоступны</string>
     <string name="imgdesc_choose_contact">Выбрать контакт</string>
-    <string name="imgdesc_copy">Кнопка \"Копировать в буфер\"</string>
-    <string name="imgdesc_map">Кнопка \"Открыть на карте\"</string>
-    <string name="imgdesc_save">Кнопка \"Сохранить\"</string>
-    <string name="imgdesc_send_sms">Кнопка \"Отправить СМС\"</string>
-    <string name="imgdesc_share">Кнопка \"Поделиться\"</string>
+    <string name="imgdesc_copy">Копировать в буфер обмена</string>
+    <string name="imgdesc_map">Открыть на карте</string>
+    <string name="imgdesc_save">Сохранить</string>
+    <string name="imgdesc_send_sms">Отправить СМС</string>
+    <string name="imgdesc_share">Поделиться</string>
     <string name="info_accuracy">Точность:</string>
     <string name="info_latitude">Широта:</string>
     <string name="info_longitude">Долгота:</string>
@@ -65,13 +61,10 @@
     <string name="info_sms_nullpdu">Ошибка PDU! SMS не отправлена!</string>
     <string name="info_sms_radioof">Нет связи с сотовым оператором! SMS не отправлена!</string>
     <string name="info_sms_sent">SMS отправлена</string>
-    <string name="info_sms_txt">Текст SMS</string>
     <string name="menu_item_add_coord">Добавить точку</string>
     <string name="menu_item_rate">Оценить приложение</string>
-    <string name="menu_item_rules">Правила</string>
     <string name="menu_item_settings">Настройки</string>
     <string name="menu_item_sms_regexp">Сохраненные точки</string>
-    <string name="mycoords_actions">Действия</string>
     <string name="mysms_actions">Действия</string>
     <string name="phone_edit_text_placeholder"> </string>
     <string name="point_edit_text_placeholder">Название точки</string>
@@ -94,9 +87,6 @@
     <string name="pref_smstext_summary">Текст, который будет подставлен в СМС перед координатами</string>
     <string name="save_btn_txt">Сохранить</string>
     <string name="save_point_dlg_header">Сохранение координат</string>
-    <string name="select_contact_btn_txt">Выбрать контакт</string>
-    <string name="send_button_text">Отправить SMS</string>
-    <string name="send_coords_text">Добавить координаты к SMS</string>
     <string name="share_topic">Мои GPS координаты</string>
     <string name="share_via">Поделиться через</string>
     <string name="sms_is_sent_msg">Сообщение отправлено</string>
@@ -105,6 +95,5 @@
     <string name="tab_mysms">Вх. СМС</string>
     <string name="tab_mysms_out">Исх. СМС</string>
     <string name="text_copied">Скопировано в буфер обмена</string>
-    <string name="toggle_sms_navitel_info">Обычная СМС/Navitel.СМС</string>
-    <string name="version_name">3.3</string>
+    <string name="version_name">3.3.1</string>
 </resources>

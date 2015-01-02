@@ -49,7 +49,7 @@
     <string name="addpoint_lo_ex">For example 57.5734553</string>
     <string name="addpoint_name">Point name</string>
     <string name="another_msg_button_text">Send another SMS</string>
-    <string name="app_name">GPS2SMS</string>
+    <string name="app_name">GPS to SMS</string>
     <string name="cancel_btn_txt">Cancel</string>
     <string name="default_sms_msg">I\'m here</string>
     <string name="del_btn_txt">Delete</string>

@@ -31,7 +31,7 @@
     <string name="addpoint_lo_ex">Например, 57.5734553</string>
     <string name="addpoint_name">Название точки</string>
     <string name="another_msg_button_text">Отправить еще одно SMS</string>
-    <string name="app_name">GPS2SMS</string>
+    <string name="app_name">GPS to SMS</string>
     <string name="cancel_btn_txt">Отменить</string>
     <string name="default_sms_msg">Я тут</string>
     <string name="del_btn_txt">Удалить</string>

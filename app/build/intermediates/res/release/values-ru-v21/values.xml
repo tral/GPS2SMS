@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-ru-v21/arrays_themes.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-ru-v21/arrays_themes.xml -->
     <eat-comment/>
     <string-array name="appTheme">
         <item name="1">Коричневая</item>

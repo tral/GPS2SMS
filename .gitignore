@@ -5,7 +5,3 @@
 .DS_Store
 /build
 
-
-# Built application files
-/*/build/
-/*/*/build

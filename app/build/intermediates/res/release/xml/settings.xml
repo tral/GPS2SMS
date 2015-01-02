@@ -30,14 +30,7 @@
     </PreferenceCategory>
      
     <PreferenceCategory android:title="@string/pref_content" >
-        
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="prefSendInNavitelFormat"
-            android:summary="@string/pref_sendnavitel_summary"
-            android:title="@string/pref_sendnavitel" >
-        </CheckBoxPreference>
-        
+
         <EditTextPreference
             android:defaultValue="@string/default_sms_msg"
             android:title="@string/pref_smstext"
@@ -52,7 +45,14 @@
             android:summary="@string/pref_clip_summary"
             android:key="prefClipboard"
             />
-        
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefSendInNavitelFormat"
+            android:summary="@string/pref_sendnavitel_summary"
+            android:title="@string/pref_sendnavitel" >
+        </CheckBoxPreference>
+
     </PreferenceCategory>
  
     <PreferenceCategory android:title="@string/pref_about" >
@@ -65,4 +65,4 @@
         
     </PreferenceCategory>
     
-</PreferenceScreen><!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/xml/settings.xml -->
+</PreferenceScreen><!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/xml/settings.xml -->
