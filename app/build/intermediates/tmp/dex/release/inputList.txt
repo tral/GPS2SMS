@@ -1,4 +1,0 @@
-D:\Dropbox\Projects\Android\GPS2SMS\app\build\intermediates\classes\release
-D:\Dropbox\Projects\Android\GPS2SMS\app\build\intermediates\pre-dexed\release\support-annotations-21.0.3-aa16b3cf885393ef74ba8407c65bcf20627dd05b.jar
-D:\Dropbox\Projects\Android\GPS2SMS\app\build\intermediates\pre-dexed\release\internal_impl-21.0.3-fa808c12f6503a019d2c4b0831c8fae1b58a0332.jar
-D:\Dropbox\Projects\Android\GPS2SMS\app\build\intermediates\pre-dexed\release\classes-8e271290901b2331869dc06055ff72bb11158183.jar
