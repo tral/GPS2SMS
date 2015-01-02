@@ -662,6 +662,7 @@ public class MainActivity extends Activity {
      * TODO
 	 * 
 	 * Удаление СМС, Фотку на кнопке с выбранным контактом
+	 *
 	 */
 
 }
