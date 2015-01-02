@@ -2,7 +2,7 @@
 <resources>
 
     <string name="version_name">3.3.1</string> <!-- Править в ДВУХ файлах !!! -->
-    <string name="app_name">GPS2SMS</string>
+    <string name="app_name">GPS to SMS</string>
     <string name="sms_text_placeholder"></string>
 
 	<string name="info_sms_sent">SMS is sent</string>
