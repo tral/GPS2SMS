@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="version_name">3.3.1</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="app_name">GPS2SMS</string>
+    <string name="sms_text_placeholder"></string>
+
+	<string name="info_sms_sent">SMS is sent</string>
+	<string name="info_sms_delivered">SMS is delivered</string>
+	<string name="info_sms_not_delivered">SMS is NOT delivered</string>
+	<string name="info_sms_noservice">No service! SMS is NOT sent!</string>
+	<string name="info_sms_radioof">Radio off! SMS is NOT sent!</string>
+	<string name="info_sms_nullpdu">PDU error! SMS is NOT sent!</string>
+	<string name="info_sms_generic">Generic error! SMS is NOT sent!</string>
+	
+	<string name="gps_state_disabled">GPS is turned off!</string>
+	<string name="gps_state_in_progress">Acquiring coordinates...</string>
+	<string name="gps_state_unavialable">GPS coordinates is NOT available</string>
+	
+	<string name="menu_item_settings">Settings</string>
+	<string name="menu_item_rate">Rate app</string>
+	<string name="menu_item_sms_regexp">Coordinates repository</string>
+	<string name="menu_item_add_coord">Add point</string>
+	
+	<string name="phone_edit_text_placeholder"> </string>
+	
+	<string name="another_msg_button_text">Send another SMS</string>
+	
+	<string name="enable_gps_btn">Turn on GPS</string>
+
+	<string name="sms_is_sent_msg">Message was successfully sent</string>
+    
+	<string name="error_contact_is_not_selected">You should select a contact first!</string>
+	<string name="error_no_phone_number">You should specify a phone number` first!</string>
+	
+	<string name="default_sms_msg">I\'m here</string>
+	
+	<string name="save_btn_txt">Save</string>
+	<string name="cancel_btn_txt">Cancel</string>
+	<string name="del_btn_txt">Delete</string>
+	
+	<string name="info_print1">GPS OK, accuracy:</string>
+	<string name="info_print2">m</string>
+	
+	<string name="info_latitude">Latitude:</string>
+	<string name="info_longitude">Longitude:</string>
+	<string name="info_accuracy">Accuracy:</string>
+	
+	<string name="info_please_wait">Please wait while sending SMS for</string>
+	
+	<string name="share_topic">My GPS coordinates</string>
+	<string name="share_via">Share via</string>
+	
+	<string name="imgdesc_copy">Copy to clipboard</string>
+	<string name="imgdesc_share">Share</string>
+	<string name="imgdesc_map">Show on map</string>
+	<string name="imgdesc_save">Save</string>
+	<string name="imgdesc_send_sms">Send SMS</string>
+	<string name="imgdesc_choose_contact">Choose a contact</string>
+	
+	<string name="enterAnyPhone">Phone number</string>
+	<string name="text_copied">Copied to clipboard</string>
+
+    <string name="pref_keepscreen">Keep screen on</string>
+	<string name="pref_keepscreen_summary">Stop the screen turning off when this application is active</string>
+    <string name="pref_clip">Clipboard content</string>
+    <string name="pref_clip_summary">Specify data to be copied</string>
+    <string name="pref_smstext">SMS Text</string>
+    <string name="pref_smstext_summary">Default text to be inserted (before coordinates)</string>
+    <string name="pref_general">General</string>
+    <string name="pref_content">Content</string>
+    <string name="pref_about">About</string>
+    <string name="pref_about_summary">Version</string>
+    <string name="pref_apptheme">Application Theme</string>
+    <string name="pref_apptheme_summary">Restart required</string>
+	<string name="pref_regexp_sms">Handle incoming SMS messages</string>
+	<string name="pref_regexp_sms_summary">Automatically launch the Maps-app in case of receiving SMS which contains valid GPS coordinates</string>
+	
+	<string name="pref_sendnavitel">Send in Navitel format</string>
+	<string name="pref_sendnavitel_summary">If checked, SMS will be constructed in special Navitel format</string>
+	
+	<string name="tab_mycoords">Saved</string>
+	<string name="tab_mysms">Inbox</string>
+	<string name="tab_mysms_out">Sent</string>
+	
+	<string name="point_edit_text_placeholder">Point name</string>
+	<string name="save_point_dlg_header">Save point</string>
+	<string name="mysms_actions">Actions</string>
+	<string name="point_saved">Point was saved</string>
+	
+	<string name="addpoint_name">Point name</string>
+	<string name="addpoint_la">Latitude</string>
+	<string name="addpoint_la_ex">For example 55.1784657</string>
+	<string name="addpoint_lo">Longitude</string>
+	<string name="addpoint_lo_ex">For example 57.5734553</string>
+	
+	<string name="add_point_error">Invalid coordinates!</string>
+	
+			
+</resources>

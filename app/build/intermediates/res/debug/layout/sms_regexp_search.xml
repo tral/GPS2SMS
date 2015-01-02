@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/choose"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp" >
+  
+
+	<ScrollView
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content">
+	 	<LinearLayout
+	 	    android:id="@+id/linearchoose"
+	 	    android:layout_width="fill_parent"
+	 	    android:layout_height="wrap_content"
+	 	    android:gravity="center"
+	 	    android:orientation="vertical" >
+	    </LinearLayout>
+	</ScrollView>
+
+</RelativeLayout><!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/layout/sms_regexp_search.xml -->

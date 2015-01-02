@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="version_name">3.3.1</string> <!-- Править в ДВУХ файлах !!! -->
+    <string name="app_name">GPS2SMS</string>
+    <string name="sms_text_placeholder"></string>
+
+	<string name="info_sms_sent">SMS отправлена</string>
+	<string name="info_sms_delivered">SMS доставлена получателю</string>
+	<string name="info_sms_not_delivered">SMS НЕ доставлена получателю!</string>
+	<string name="info_sms_noservice">Нет обслуживания! SMS не отправлена!</string>
+	<string name="info_sms_radioof">Нет связи с сотовым оператором! SMS не отправлена!</string>
+	<string name="info_sms_nullpdu">Ошибка PDU! SMS не отправлена!</string>
+	<string name="info_sms_generic">Общий сбой! SMS не отправлена!</string>
+	
+	<string name="gps_state_disabled">GPS выключен!</string>
+	<string name="gps_state_in_progress">Определение координат...</string>
+	<string name="gps_state_unavialable">Данные о местоположении недоступны</string>
+	
+	<string name="menu_item_settings">Настройки</string>
+	<string name="menu_item_rate">Оценить приложение</string>
+	<string name="menu_item_sms_regexp">Сохраненные точки</string>
+	<string name="menu_item_add_coord">Добавить точку</string>
+	
+	<string name="phone_edit_text_placeholder"> </string>
+
+	<string name="another_msg_button_text">Отправить еще одно SMS</string>
+	
+	<string name="enable_gps_btn">Включить GPS</string>
+
+	<string name="sms_is_sent_msg">Сообщение отправлено</string>
+	
+	<string name="error_contact_is_not_selected">Выберите контакт!</string>
+	<string name="error_no_phone_number">Укажите номер телефона!</string>
+	
+	<string name="default_sms_msg">Я тут</string>
+	
+	<string name="save_btn_txt">Сохранить</string>
+	<string name="cancel_btn_txt">Отменить</string>
+	<string name="del_btn_txt">Удалить</string>
+	
+	<string name="info_print1">Координаты получены, точность:</string>
+	<string name="info_print2">м</string>
+	
+	<string name="info_latitude">Широта:</string>
+	<string name="info_longitude">Долгота:</string>
+	<string name="info_accuracy">Точность:</string>
+
+	<string name="info_please_wait">Дождитесь окончания отправки SMS на</string>
+	
+	<string name="share_topic">Мои GPS координаты</string>
+	<string name="share_via">Поделиться через</string>
+	
+	<string name="imgdesc_copy">Копировать в буфер обмена</string>
+	<string name="imgdesc_share">Поделиться</string>
+	<string name="imgdesc_map">Открыть на карте</string>
+	<string name="imgdesc_save">Сохранить</string>
+	<string name="imgdesc_send_sms">Отправить СМС</string>
+	<string name="imgdesc_choose_contact">Выбрать контакт</string>
+	
+    <string name="enterAnyPhone">Номер телефона</string>
+    <string name="text_copied">Скопировано в буфер обмена</string>
+
+    <string name="pref_keepscreen">Держать экран включенным</string>
+    <string name="pref_keepscreen_summary">Если отмечено, экран не будет отключаться автоматически</string>
+    <string name="pref_clip">Буфер обмена</string>
+    <string name="pref_clip_summary">Укажите, что копировать в буфер обмена при нажатии соответствующей кнопки</string>
+    <string name="pref_smstext">Текст СМС</string>
+    <string name="pref_smstext_summary">Текст, который будет подставлен в СМС перед координатами</string>
+    <string name="pref_general">Общие</string>
+    <string name="pref_content">Содержание</string>
+    <string name="pref_about">О приложении</string>
+    <string name="pref_about_summary">Версия</string>
+    <string name="pref_apptheme">Тема оформления</string>
+    <string name="pref_apptheme_summary">Вступит в силу после перезапуска приложения</string>
+	<string name="pref_regexp_sms">Сканировать входящие СМС</string>
+	<string name="pref_regexp_sms_summary">Если отмечено, в случае обнаружения во входящем СМС сообщении координат, программа будет пытаться открыть позицию на картах по умолчанию </string>
+	
+	<string name="pref_sendnavitel">Отправлять СМС в формате Navitel</string>
+	<string name="pref_sendnavitel_summary">Если отмечено, СМС будет формироваться в специальном формате, который может прочитать программа Navitel</string>
+
+	<string name="tab_mycoords">Сохраненные</string>
+	<string name="tab_mysms">Вх. СМС</string>
+	<string name="tab_mysms_out">Исх. СМС</string>
+	
+	<string name="point_edit_text_placeholder">Название точки</string>
+	<string name="save_point_dlg_header">Сохранение координат</string>
+	<string name="mysms_actions">Действия</string>
+	<string name="point_saved">Координаты сохранены</string>
+	
+	
+	<string name="addpoint_name">Название точки</string>
+	<string name="addpoint_la">Широта</string>
+	<string name="addpoint_la_ex">Например, 55.1784657</string>
+	<string name="addpoint_lo">Долгота</string>
+	<string name="addpoint_lo_ex">Например, 57.5734553</string>
+	
+	<string name="add_point_error">Вы ввели некорректные координаты!</string>
+	
+    
+</resources>

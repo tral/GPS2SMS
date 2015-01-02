@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/options1_mycoords_dialog_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <RelativeLayout
+        android:id="@+id/RelLayoutSh"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp" >
+
+        <ImageButton
+            android:id="@+id/btnMap1"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:layout_alignParentRight="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/imgdesc_map"
+            android:scaleType="fitCenter"
+            android:src="?attr/btn_ic_action_map" />
+
+        <ImageButton
+            android:id="@+id/btnCopy1"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:layout_toLeftOf="@id/btnMap1"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/imgdesc_copy"
+            android:scaleType="fitCenter"
+            android:src="?attr/btn_ic_action_copy" />
+
+        <ImageButton
+            android:id="@+id/btnShare1"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/btnCopy1"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/imgdesc_share"
+            android:scaleType="fitCenter"
+            android:src="?attr/btn_ic_action_share"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
