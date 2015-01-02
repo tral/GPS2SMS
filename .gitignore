@@ -5,5 +5,5 @@
 .DS_Store
 /build
 
-/app/build
-
+# Built application files
+/*/build/
