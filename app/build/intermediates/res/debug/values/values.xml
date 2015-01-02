@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values/arrays_themes.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values/arrays_themes.xml -->
     <eat-comment/>
     <string-array name="appTheme">
         <item name="1">Dark</item>
@@ -10,7 +10,7 @@
         <item name="1">1</item>
         <item name="2">2</item>
     </string-array>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values/arrays.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values/arrays.xml -->
     <eat-comment/>
     <string-array name="shareProviders">
         <item name="1">Only coordinates</item>
@@ -22,7 +22,7 @@
         <item name="2">2</item>
         <item name="3">3</item>
     </string-array>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <attr format="reference" name="btn_ic_action_collection"/>
     <attr format="reference" name="btn_ic_action_copy"/>
@@ -32,15 +32,15 @@
     <attr format="reference" name="btn_ic_action_save"/>
     <attr format="reference" name="btn_ic_action_send_now"/>
     <attr format="reference" name="btn_ic_action_share"/>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="accent_dt">#FF0000</color>
     <color name="accent_lt">#FF0000</color>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values/dimensions.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values/dimensions.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="add_point_error">Invalid coordinates!</string>
     <string name="addpoint_la">Latitude</string>
@@ -113,8 +113,8 @@
     <string name="tab_mysms">Inbox</string>
     <string name="tab_mysms_out">Sent</string>
     <string name="text_copied">Copied to clipboard</string>
-    <string name="version_name">3.3</string>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values/styles.xml -->
+    <string name="version_name">3.3.1</string>
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseThemeDark" parent="android:Theme.Black">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_light</item>

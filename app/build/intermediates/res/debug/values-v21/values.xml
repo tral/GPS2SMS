@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-v21/arrays_themes.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-v21/arrays_themes.xml -->
     <eat-comment/>
     <string-array name="appTheme">
         <item name="1">Brown</item>
@@ -10,7 +10,7 @@
         <item name="1">1</item>
         <item name="2">2</item>
     </string-array>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-v21/colors.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-v21/colors.xml -->
     <eat-comment/>
     <color name="accent_dt">#18FFFF</color>
     <color name="accent_lt">#FF4081</color>
@@ -21,7 +21,7 @@
     <color name="lolli_primary_lt">#607D8B</color>
     <color name="lolli_top_dt">#5D4037</color>
     <color name="lolli_top_lt">#455A64</color>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-v21/styles.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-v21/styles.xml -->
     <eat-comment/>
     <style name="AppBaseThemeDark" parent="android:Theme.Material">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_dark</item>

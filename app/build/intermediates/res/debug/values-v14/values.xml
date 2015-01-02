@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-v14/styles.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-v14/styles.xml -->
     <eat-comment/>
     <style name="AppBaseThemeDark" parent="android:Theme.Holo">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_dark</item>

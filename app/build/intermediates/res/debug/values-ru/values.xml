@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-ru/arrays_themes.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-ru/arrays_themes.xml -->
     <eat-comment/>
     <string-array name="appTheme">
         <item name="1">Темная</item>
@@ -10,7 +10,7 @@
         <item name="1">1</item>
         <item name="2">2</item>
     </string-array>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-ru/arrays.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-ru/arrays.xml -->
     <eat-comment/>
     <string-array name="shareProviders">
         <item name="1">Только координаты</item>
@@ -22,7 +22,7 @@
         <item name="2">2</item>
         <item name="3">3</item>
     </string-array>
-    <!-- From: file:/D:/Android/studio_workspace/gps2sms/app/src/main/res/values-ru/strings.xml -->
+    <!-- From: file:/D:/Dropbox/Projects/Android/GPS2SMS/app/src/main/res/values-ru/strings.xml -->
     <eat-comment/>
     <string name="add_point_error">Вы ввели некорректные координаты!</string>
     <string name="addpoint_la">Широта</string>
@@ -95,5 +95,5 @@
     <string name="tab_mysms">Вх. СМС</string>
     <string name="tab_mysms_out">Исх. СМС</string>
     <string name="text_copied">Скопировано в буфер обмена</string>
-    <string name="version_name">3.3</string>
+    <string name="version_name">3.3.1</string>
 </resources>
