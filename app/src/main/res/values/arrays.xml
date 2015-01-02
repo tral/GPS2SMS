@@ -2,7 +2,7 @@
 <resources>
     
     <string-array name="shareProviders">
-        <item name="1">Just coordinates</item>
+        <item name="1">Only coordinates</item>
         <item name="2">Link to Google Maps</item>
         <item name="3">Link to OpenStreetMap</item>
     </string-array>

@@ -7,7 +7,7 @@
     -->
     <style name="AppBaseThemeDark" parent="android:Theme.Holo">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_dark</item>
-        <item name="btn_ic_action_collection">@drawable/ic_action_collection_dark</item>
+        <item name="btn_ic_action_collection">@drawable/ic_action_storage_dark</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_dark</item>
         <item name="btn_ic_action_share">@drawable/ic_action_share_dark</item>
         <item name="btn_ic_action_save">@drawable/ic_action_save_dark</item>
@@ -20,7 +20,7 @@
 	
     <style name="AppBaseThemeLight" parent="android:Theme.Holo.Light">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_light</item>
-        <item name="btn_ic_action_collection">@drawable/ic_action_collection_light</item>
+        <item name="btn_ic_action_collection">@drawable/ic_action_storage_light</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_light</item>
         <item name="btn_ic_action_share">@drawable/ic_action_share_light</item>
         <item name="btn_ic_action_save">@drawable/ic_action_save_light</item>

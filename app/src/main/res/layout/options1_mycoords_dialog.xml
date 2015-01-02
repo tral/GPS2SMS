@@ -43,7 +43,7 @@
             android:contentDescription="@string/imgdesc_share"
             android:scaleType="fitCenter"
             android:src="?attr/btn_ic_action_share"
-            android:title="@string/action_share" />
+            />
     </RelativeLayout>
 
 </LinearLayout>

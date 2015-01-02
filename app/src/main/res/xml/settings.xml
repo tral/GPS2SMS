@@ -30,14 +30,7 @@
     </PreferenceCategory>
      
     <PreferenceCategory android:title="@string/pref_content" >
-        
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="prefSendInNavitelFormat"
-            android:summary="@string/pref_sendnavitel_summary"
-            android:title="@string/pref_sendnavitel" >
-        </CheckBoxPreference>
-        
+
         <EditTextPreference
             android:defaultValue="@string/default_sms_msg"
             android:title="@string/pref_smstext"
@@ -52,7 +45,14 @@
             android:summary="@string/pref_clip_summary"
             android:key="prefClipboard"
             />
-        
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="prefSendInNavitelFormat"
+            android:summary="@string/pref_sendnavitel_summary"
+            android:title="@string/pref_sendnavitel" >
+        </CheckBoxPreference>
+
     </PreferenceCategory>
  
     <PreferenceCategory android:title="@string/pref_about" >

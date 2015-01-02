@@ -222,7 +222,6 @@
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:contentDescription="@string/imgdesc_share"
-			android:title="@string/action_share"
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter"
     	    
