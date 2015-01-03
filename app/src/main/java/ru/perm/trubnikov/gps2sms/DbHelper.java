@@ -173,12 +173,12 @@ class DBHelper extends SQLiteOpenHelper {
 
         String separ = System.getProperty("line.separator");
         String crds1 = crds.replace(",",
-                separ + context.getString(R.string.info_longitude) + " ");
+                separ + context.getString(R.string.info_longitude) + ": ");
 
-        String res = context.getString(R.string.info_latitude) + " " + crds1;
+        String res = context.getString(R.string.info_latitude) + ": " + crds1;
 
         if (!accuracy.equalsIgnoreCase("")) {
-            res = res + separ + context.getString(R.string.info_accuracy) + " "
+            res = res + separ + context.getString(R.string.info_accuracy) + ": "
                     + accuracy + " " + context.getString(R.string.info_print2);
         }
 

@@ -178,10 +178,10 @@ public class MainActivity extends Activity {
                     coordsToShare = DBHelper.getShareBody(MainActivity.this,
                             coordsToSend, accuracy);
 
-                    GPSstate.setText(getString(R.string.info_print1) + " "
+                    GPSstate.setText(getString(R.string.info_print1) + ": "
                             + accuracy + " " + getString(R.string.info_print2)
-                            + separ + getString(R.string.info_latitude) + " " + la
-                            + separ + getString(R.string.info_longitude) + " " + lo);
+                            + separ + getString(R.string.info_latitude) + ": " + la
+                            + separ + getString(R.string.info_longitude) + ": " + lo);
 
                     setGPSStateNormalColor();
 

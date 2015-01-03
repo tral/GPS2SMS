@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="12dp"
-            android:text="@string/addpoint_la" />
+            android:text="@string/info_latitude" />
     </LinearLayout>
 
     <LinearLayout
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="12dp"
-            android:text="@string/addpoint_lo" />
+            android:text="@string/info_longitude" />
     </LinearLayout>
 
     <LinearLayout

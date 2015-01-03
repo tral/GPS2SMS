@@ -19,7 +19,7 @@
 	        android:maxLength="250"
 	        android:maxLines="4"
 	        
-            android:hint="@string/sms_text_placeholder">
+            >
 	        
 	     <requestFocus />
 	     

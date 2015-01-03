@@ -188,7 +188,7 @@
 			android:src="?attr/btn_ic_action_save" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
-			android:contentDescription="@string/imgdesc_save"
+			android:contentDescription="@string/save_btn_txt"
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter" 
     	    

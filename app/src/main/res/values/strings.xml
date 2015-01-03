@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">3.3.2</string> <!-- Править в ДВУХ файлах !!! -->
+    <!-- Эти две строки только в дефолтнм strings.xml !!! -->
+    <string name="version_name">3.3.2</string>
     <string name="app_name">GPS to SMS</string>
-    <string name="sms_text_placeholder"></string>
+    <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->
+
+
 
 	<string name="info_sms_sent">SMS is sent</string>
 	<string name="info_sms_delivered">SMS is delivered</string>
@@ -21,16 +24,13 @@
 	<string name="menu_item_rate">Rate app</string>
 	<string name="menu_item_sms_regexp">Coordinates repository</string>
 	<string name="menu_item_add_coord">Add point</string>
-	
-	<string name="phone_edit_text_placeholder"> </string>
-	
+
 	<string name="another_msg_button_text">Send another SMS</string>
 	
 	<string name="enable_gps_btn">Turn on GPS</string>
 
 	<string name="sms_is_sent_msg">Message was successfully sent</string>
     
-	<string name="error_contact_is_not_selected">You should select a contact first!</string>
 	<string name="error_no_phone_number">You should specify a phone number` first!</string>
 	
 	<string name="default_sms_msg">I\'m here</string>
@@ -39,12 +39,12 @@
 	<string name="cancel_btn_txt">Cancel</string>
 	<string name="del_btn_txt">Delete</string>
 	
-	<string name="info_print1">GPS OK, accuracy:</string>
+	<string name="info_print1">GPS OK, accuracy</string>
 	<string name="info_print2">m</string>
 	
-	<string name="info_latitude">Latitude:</string>
-	<string name="info_longitude">Longitude:</string>
-	<string name="info_accuracy">Accuracy:</string>
+	<string name="info_latitude">Latitude</string>
+	<string name="info_longitude">Longitude</string>
+	<string name="info_accuracy">Accuracy</string>
 	
 	<string name="info_please_wait">Please wait while sending SMS for</string>
 	
@@ -54,7 +54,6 @@
 	<string name="imgdesc_copy">Copy to clipboard</string>
 	<string name="imgdesc_share">Share</string>
 	<string name="imgdesc_map">Show on map</string>
-	<string name="imgdesc_save">Save</string>
 	<string name="imgdesc_send_sms">Send SMS</string>
 	<string name="imgdesc_choose_contact">Choose a contact</string>
 	
@@ -89,9 +88,7 @@
 	<string name="point_saved">Point was saved</string>
 	
 	<string name="addpoint_name">Point name</string>
-	<string name="addpoint_la">Latitude</string>
 	<string name="addpoint_la_ex">For example 55.1784657</string>
-	<string name="addpoint_lo">Longitude</string>
 	<string name="addpoint_lo_ex">For example 57.5734553</string>
 	
 	<string name="add_point_error">Invalid coordinates!</string>

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">3.3.2</string> <!-- Править в ДВУХ файлах !!! -->
-    <string name="app_name">GPS to SMS</string>
-    <string name="sms_text_placeholder"></string>
-
 	<string name="info_sms_sent">SMS отправлена</string>
 	<string name="info_sms_delivered">SMS доставлена получателю</string>
 	<string name="info_sms_not_delivered">SMS НЕ доставлена получателю!</string>
@@ -22,15 +18,12 @@
 	<string name="menu_item_sms_regexp">Сохраненные точки</string>
 	<string name="menu_item_add_coord">Добавить точку</string>
 	
-	<string name="phone_edit_text_placeholder"> </string>
-
 	<string name="another_msg_button_text">Отправить еще одно SMS</string>
 	
 	<string name="enable_gps_btn">Включить GPS</string>
 
 	<string name="sms_is_sent_msg">Сообщение отправлено</string>
 	
-	<string name="error_contact_is_not_selected">Выберите контакт!</string>
 	<string name="error_no_phone_number">Укажите номер телефона!</string>
 	
 	<string name="default_sms_msg">Я тут</string>
@@ -39,12 +32,12 @@
 	<string name="cancel_btn_txt">Отменить</string>
 	<string name="del_btn_txt">Удалить</string>
 	
-	<string name="info_print1">Координаты получены, точность:</string>
+	<string name="info_print1">Координаты получены, точность</string>
 	<string name="info_print2">м</string>
 	
-	<string name="info_latitude">Широта:</string>
-	<string name="info_longitude">Долгота:</string>
-	<string name="info_accuracy">Точность:</string>
+	<string name="info_latitude">Широта</string>
+	<string name="info_longitude">Долгота</string>
+	<string name="info_accuracy">Точность</string>
 
 	<string name="info_please_wait">Дождитесь окончания отправки SMS на</string>
 	
@@ -54,7 +47,6 @@
 	<string name="imgdesc_copy">Копировать в буфер обмена</string>
 	<string name="imgdesc_share">Поделиться</string>
 	<string name="imgdesc_map">Открыть на карте</string>
-	<string name="imgdesc_save">Сохранить</string>
 	<string name="imgdesc_send_sms">Отправить СМС</string>
 	<string name="imgdesc_choose_contact">Выбрать контакт</string>
 	
@@ -90,9 +82,7 @@
 	
 	
 	<string name="addpoint_name">Название точки</string>
-	<string name="addpoint_la">Широта</string>
 	<string name="addpoint_la_ex">Например, 55.1784657</string>
-	<string name="addpoint_lo">Долгота</string>
 	<string name="addpoint_lo_ex">Например, 57.5734553</string>
 	
 	<string name="add_point_error">Вы ввели некорректные координаты!</string>
