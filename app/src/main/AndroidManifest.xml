@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.perm.trubnikov.gps2sms"
     android:installLocation="auto"
-    android:versionCode="57"
+    android:versionCode="58"
     android:versionName="@string/version_name" >
 
     <uses-sdk
