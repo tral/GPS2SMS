@@ -1,0 +1,27 @@
+4ba6d38dc2f6195b7ce49dbc141fff7a=Jednoduchá, rýchla a bezplatná aplikácia na zdieľanie GPS polohy cez SMS alebo cez hocijakú inú aplikáciu (napr. e-mail, messangery, atď.)
+
+<b>HLAVNÉ VLASTNOSTI</b>
+★ Funguje na každom smartfóne alebo tablete s GPS-prijímačom bežiacom na Androide 2.1 a vyššie 
+★ Možnosť výberu tel. čísla zo zoznamu kontaktov
+★ Možnosť kopírovania geografických súradníc do schránky
+★ Zobrazenie polohy v hocijakej aplikácii s mapami
+★ Možnosť uloženia Vašej polohy do vnútornej pamäti telefónu pre ďalšiu prácu s nimi
+★ Automaticky spúšťa aplikáciu s mapami v prípade prijatia SMS, ktorá obsahujú platné GPS súradnice
+★ Zobrazuje presnosť určenia súradníc (v metroch)
+★ Možnosť mať neustále zapnutý displej
+★ Téma s Material dizajnom
+★ Možnosť poslať SMS vo formáte Navitel
+★ Možnosť presunúť aplikáciu na SD kartu
+★ Jedná sa o voľne šíriteľnú aplikáciu, ktorá je úplne zadarmo a bez reklamy
+★ Aplikácia nie je spustená na pozadí a nezdieľa Vašu polohu iným
+★ Nie je nutný prístup na internet
+★ Podpora viacerých jazykov (vďaka všetkým prekladateľom)
+
+<b>AKO PRISPIEŤ</b>
+- Nahlásenie chyby na Github stránku: http://goo.gl/exK0H0
+- Preklad aplikácie do iného jazyka: http://goo.gl/ER0B3f
+- Páči sa Vám aplikácia? Prosím napíšte svoj názor a zdieľajte ho na Twittery, Google Plus alebo hocikde, kde len chcete. Ďakujem!
+
+<b>UŽITOČNÉ ODKAZY</b>
+- Téma na 4pda: http://goo.gl/B2L9XO
+- Téma na XDA-Developers: http://goo.gl/Xja3pN
