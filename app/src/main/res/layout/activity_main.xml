@@ -216,7 +216,17 @@
     	    
     	    android:layout_toLeftOf="@id/btnMap"
 		/>
- 			     
+         <ImageButton android:id="@+id/btnFav"
+             android:src="@drawable/ic_empty"
+             android:layout_width="wrap_content"
+             android:layout_height="54dp"
+             android:contentDescription=""
+             android:adjustViewBounds="true"
+             android:scaleType="fitCenter"
+
+             android:layout_alignParentLeft="true"
+
+             />
  		<ImageButton android:id="@+id/btnShare"
 			android:src="?attr/btn_ic_action_share" 
 			android:layout_width="wrap_content"
@@ -225,17 +235,19 @@
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter"
     	    
-    	    android:layout_alignParentLeft="true"
+
     	    android:layout_toLeftOf="@id/btnCopy"
+            android:layout_toRightOf="@id/btnFav"
 		/>
- 		
- 	    
- 	    
-	   
- 	    
- 	 
- 	    
- 	</RelativeLayout>
+
+
+
+
+
+
+
+
+     </RelativeLayout>
 	<!-- Кнопка включения GPS -->
 
 	<LinearLayout

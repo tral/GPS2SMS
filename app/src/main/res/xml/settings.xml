@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" name="BaseSettingsScreen">
  
     <PreferenceCategory android:title="@string/pref_general" >
-        
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefKeepScreen"
@@ -52,6 +52,10 @@
             android:summary="@string/pref_sendnavitel_summary"
             android:title="@string/pref_sendnavitel" >
         </CheckBoxPreference>
+
+        <Preference android:title="@string/choose_fav_app"
+            android:summary="@string/choose_fav_app_info"
+            android:key="prefFav" />
 
     </PreferenceCategory>
  

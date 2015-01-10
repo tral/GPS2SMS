@@ -8,8 +8,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -34,6 +36,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends Activity {
@@ -45,6 +48,8 @@ public class MainActivity extends Activity {
     // Activities
     private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
     private static final int ACT_RESULT_SETTINGS = 1002;
+    private static final int ACT_RESULT_FAV = 1003;
+
 
     // Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
@@ -73,6 +78,7 @@ public class MainActivity extends Activity {
     ImageButton btnMap;
     ImageButton btnCopy;
     ImageButton btnSave;
+    ImageButton btnFav;
     EditText plainPh;
     Button enableGPSBtn;
     TextView GPSstate;
@@ -189,6 +195,7 @@ public class MainActivity extends Activity {
                     btnCopy.setVisibility(View.VISIBLE);
                     btnMap.setVisibility(View.VISIBLE);
                     btnSave.setVisibility(View.VISIBLE);
+                    btnFav.setVisibility(View.VISIBLE);
 
                     ShowSendButton();
                     enableGPSBtn.setVisibility(View.INVISIBLE);
@@ -333,12 +340,14 @@ public class MainActivity extends Activity {
         btnCopy.setVisibility(View.INVISIBLE);
         btnMap.setVisibility(View.INVISIBLE);
         btnSave.setVisibility(View.INVISIBLE);
+        btnFav.setVisibility(View.INVISIBLE);
 
         HideSendButton();
 
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             printLocation(null, GPS_GETTING_COORDINATES);
         }
+
 
     }
 
@@ -399,6 +408,12 @@ public class MainActivity extends Activity {
                     }
                 }
 
+                break;
+            case ACT_RESULT_SETTINGS:
+                setFavBtnIcon();
+                break;
+            case ACT_RESULT_FAV:
+                setFavBtnIcon();
                 break;
         }
     }
@@ -522,10 +537,12 @@ public class MainActivity extends Activity {
         btnCopy = (ImageButton) findViewById(R.id.btnCopy);
         btnMap = (ImageButton) findViewById(R.id.btnMap);
         btnSave = (ImageButton) findViewById(R.id.btnSave);
+        btnFav = (ImageButton) findViewById(R.id.btnFav);
         btnShare.setVisibility(View.INVISIBLE);
         btnCopy.setVisibility(View.INVISIBLE);
         btnMap.setVisibility(View.INVISIBLE);
         btnSave.setVisibility(View.INVISIBLE);
+        btnFav.setVisibility(View.INVISIBLE);
         btnShare.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -563,6 +580,17 @@ public class MainActivity extends Activity {
                 showDialog(SAVE_POINT_DIALOG_ID);
             }
         });
+        btnFav.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences localPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
+
+                initShareWithPackage(localPrefs.getString("prefFavAct", ""));
+//                DBHelper.ShowToastT(MainActivity.this, localPrefs.getString("prefFavAct", "!") + " " + localPrefs.getString("prefFavPackage", "!"), Toast.LENGTH_SHORT);
+            }
+        });
+
 
         // Send buttons
         sendpbtn = (ImageButton) findViewById(R.id.send_plain);
@@ -577,6 +605,7 @@ public class MainActivity extends Activity {
         // GPS-state TextView init
         GPSstate = (TextView) findViewById(R.id.textView1);
         setGPSStateNormalColor();
+        setFavBtnIcon();
 
     }
 
@@ -656,6 +685,72 @@ public class MainActivity extends Activity {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) plainPh.getLayoutParams();
         params.addRule(RelativeLayout.LEFT_OF, 0);
         plainPh.setLayoutParams(params); //causes layout update
+    }
+
+
+    private void setFavBtnIcon() {
+
+        try {
+
+            SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String act = localPrefs.getString("prefFavAct", "");
+
+            if (act.equalsIgnoreCase("")) {
+                return;
+            }
+
+            Intent icon_intent = new Intent(android.content.Intent.ACTION_SEND);
+            icon_intent.setType("text/plain");
+
+            List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(icon_intent, 0);
+            if (!resInfo.isEmpty()) {
+                for (ResolveInfo info : resInfo) {
+                    if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(act)) {
+                        Drawable icon = info.activityInfo.loadIcon(this.getPackageManager());
+                        btnFav.setImageDrawable(icon);
+                        break;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            //
+        }
+    }
+
+
+    private void initShareWithPackage(String pckg) {
+
+        boolean found = false;
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+
+        // gets the list of intents that can be loaded.
+        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(share, 0);
+        if (!resInfo.isEmpty()) {
+            for (ResolveInfo info : resInfo) {
+                //Log.d("gps", info.activityInfo.name.toLowerCase() + " - " + pckg);
+                if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(pckg)) { //|| info.activityInfo.name.toLowerCase().contains(pckg))
+                    share.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
+                    share.putExtra(android.content.Intent.EXTRA_TEXT, coordsToShare);
+                    share.setClassName(info.activityInfo.packageName, info.activityInfo.name);
+                    //share.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                    share.setPackage(info.activityInfo.packageName);
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) { // Otherwise show settings
+                Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
+                startActivityForResult(intent, ACT_RESULT_FAV);
+            } else {
+                startActivity(Intent.createChooser(share, ""));
+            }
+        }
+
+
     }
 
 	/*

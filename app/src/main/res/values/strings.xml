@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Эти две строки только в дефолтнм strings.xml !!! -->
-    <string name="version_name" translatable="false">3.3.4</string>
+    <string name="version_name" translatable="false">3.3.5</string>
     <string name="app_name" translatable="false">GPS to SMS</string>
     <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->
 
@@ -69,5 +69,8 @@
 	<string name="addpoint_la_ex">For example 55.1784657</string>
 	<string name="addpoint_lo_ex">For example 57.5734553</string>
 	<string name="add_point_error">Invalid coordinates!</string>
+
+    <string name="choose_fav_app">Favourite app</string>
+    <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
 
 </resources>

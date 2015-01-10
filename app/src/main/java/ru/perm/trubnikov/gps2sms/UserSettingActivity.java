@@ -1,6 +1,7 @@
 package ru.perm.trubnikov.gps2sms;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,9 +26,24 @@ public class UserSettingActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         ShowBackButton();
-        addPreferencesFromResource(R.xml.settings);
 
+        addPreferencesFromResource(R.xml.settings);
         this.initSummaries(this.getPreferenceScreen());
+
+        // Get the custom preference
+        Preference customPref = (Preference) findPreference("prefFav");
+
+        customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+            public boolean onPreferenceClick(Preference preference) {
+
+                Intent intent = new Intent(UserSettingActivity.this,
+                        ChooseFavActivity.class);
+                startActivity(intent);
+                return true;
+            }
+
+        });
 
     }
 
