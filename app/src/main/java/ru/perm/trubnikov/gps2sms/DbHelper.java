@@ -195,8 +195,7 @@ class DBHelper extends SQLiteOpenHelper {
 
     public static String getOSMLink(String crds) {
         crds = crds.replace(",", "&mlon=");
-        return "http://www.openstreetmap.org/?mlat=" + crds
-                + "&zoom=17&layers=M";
+        return "http://openstreetmap.org/?mlat=" + crds + "&zoom=17";
     }
 
     // Small util to show text messages
@@ -259,7 +258,7 @@ class DBHelper extends SQLiteOpenHelper {
 
         SharedPreferences sharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
-        String clip = sharedPrefs.getString("prefClipboard", "1");
+        String clip = sharedPrefs.getString("prefClipboard", "2");
 
         if (clip.equalsIgnoreCase("1")) {
             clipboard.setText(crds1);

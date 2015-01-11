@@ -43,7 +43,6 @@
     <string name="pref_clip">Буфер обміну</string>
     <string name="pref_clip_summary">Вкажіть, що копіювати в буфер обміну при натисканні відповідної кнопки</string>
     <string name="pref_smstext">Текст SMS</string>
-    <string name="pref_smstext_summary">Текст, який буде підставлений в SMS перед координатами</string>
     <string name="pref_general">Загальні</string>
     <string name="pref_content">Вміст</string>
     <string name="pref_about">Про програму</string>
@@ -65,4 +64,7 @@
     <string name="addpoint_lo_ex">Наприклад, 57.5734553</string>
     <string name="add_point_error">Ви ввели некоректні координати</string>
     <string name="prefs_lang">Мова</string>
+
+    <string name="pref_sms_content_summary">Текст, який буде підставлений в SMS </string>
+
 </resources>

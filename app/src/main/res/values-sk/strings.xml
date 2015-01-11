@@ -43,7 +43,6 @@
     <string name="pref_clip">Obsah schránky</string>
     <string name="pref_clip_summary">Zadajte dáta, ktoré budú skopírované</string>
     <string name="pref_smstext">Text SMS</string>
-    <string name="pref_smstext_summary">Predvolený text na vloženie (pred súradnicami)</string>
     <string name="pref_general">Hlavné</string>
     <string name="pref_content">Obsah</string>
     <string name="pref_about">O aplikácii</string>

@@ -48,7 +48,6 @@
     <string name="pref_clip">Clipboard content</string>
     <string name="pref_clip_summary">Specify data to be copied</string>
     <string name="pref_smstext">SMS Text</string>
-    <string name="pref_smstext_summary">Default text to be inserted (before coordinates)</string>
     <string name="pref_general">General</string>
     <string name="pref_content">Content</string>
     <string name="pref_about">About</string>
@@ -74,6 +73,7 @@
     <!-- УБРАТЬ  translatable="false" когда всё переведут -->
     <string name="choose_fav_app" translatable="false">Favourite app</string>
     <string name="choose_fav_app_info" translatable="false">Specify the application for fast sharing feature</string>
+    <string name="pref_sms_content_summary" translatable="false">Specify data to be sent via SMS</string>
 
 
 </resources>

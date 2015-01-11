@@ -38,14 +38,24 @@
      
     <PreferenceCategory android:title="@string/pref_content" >
 
+        <!--
         <EditTextPreference
             android:defaultValue="@string/default_sms_msg"
             android:title="@string/pref_smstext"
             android:summary="@string/pref_smstext_summary"
             android:key="prefSMSText"/>
- 
+        -->
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="2"
+            android:entries="@array/shareProviders"
+            android:entryValues="@array/shareProvidersValues"
+            android:title="@string/pref_smstext"
+            android:summary="@string/pref_sms_content_summary"
+            android:key="prefSMSContent"
+            />
+
+        <ListPreference
+            android:defaultValue="2"
             android:entries="@array/shareProviders"
             android:entryValues="@array/shareProvidersValues"
             android:title="@string/pref_clip"

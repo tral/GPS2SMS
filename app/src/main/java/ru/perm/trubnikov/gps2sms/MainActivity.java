@@ -636,7 +636,7 @@ public class MainActivity extends Activity {
 
     // ------------------------------------------------------------------------------------------
 
-    protected void sendSMS(String lCoords, boolean addText) {
+    protected void sendSMS(String lMsg) {
 
         phoneToSendSMS = plainPh.getText().toString().replace("-", "")
                 .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
@@ -651,18 +651,11 @@ public class MainActivity extends Activity {
             dbHelper.setSlot(0, "", phoneToSendSMS);
             dbHelper.close();
 
-            String smsMsg = lCoords;
-            if (addText) {
-                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-                smsMsg = sharedPrefs.getString("prefSMSText",
-                        getString(R.string.default_sms_msg)) + " " + smsMsg;
-            }
-
             showDialog(SEND_SMS_DIALOG_ID);
 
             // Запускаем новый поток для отправки SMS
             mThreadSendSMS = new ThreadSendSMS(handler, getApplicationContext());
-            mThreadSendSMS.setMsg(smsMsg);
+            mThreadSendSMS.setMsg(lMsg);
             mThreadSendSMS.setPhone(phoneToSendSMS);
             mThreadSendSMS.setState(ThreadSendSMS.STATE_RUNNING);
             mThreadSendSMS.start();
@@ -675,9 +668,23 @@ public class MainActivity extends Activity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean isSendInNavitelFormat = sharedPrefs.getBoolean("prefSendInNavitelFormat", false);
+        if (sharedPrefs.getBoolean("prefSendInNavitelFormat", false)) {
+            sendSMS(coordsToNavitel);
+        } else {
 
-        sendSMS(isSendInNavitelFormat ? coordsToNavitel : coordsToSend, !isSendInNavitelFormat);
+            String data = sharedPrefs.getString("prefSMSContent", "2");
+
+            if (data.equalsIgnoreCase("1")) {
+                sendSMS(coordsToSend);
+            }
+            if (data.equalsIgnoreCase("2")) {
+                sendSMS(DBHelper.getGoogleMapsLink(coordsToSend));
+            }
+            if (data.equalsIgnoreCase("3")) {
+                sendSMS(DBHelper.getOSMLink(coordsToSend));
+            }
+
+        }
 
     }
 
@@ -757,7 +764,6 @@ public class MainActivity extends Activity {
                 startActivity(Intent.createChooser(share, ""));
             }
         }
-
 
     }
 

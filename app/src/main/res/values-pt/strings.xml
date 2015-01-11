@@ -43,7 +43,6 @@
     <string name="pref_clip">Conteúdo do clipboard</string>
     <string name="pref_clip_summary">Especifique o que quer copiar</string>
     <string name="pref_smstext">SMS de texto</string>
-    <string name="pref_smstext_summary">Texto pré definido a inserir ( antes das coordenadas)</string>
     <string name="pref_general">Geral</string>
     <string name="pref_content">Conteudo</string>
     <string name="pref_about">Acerca</string>

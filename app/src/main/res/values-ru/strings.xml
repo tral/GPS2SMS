@@ -43,7 +43,6 @@
     <string name="pref_clip">Буфер обмена</string>
     <string name="pref_clip_summary">Укажите, что копировать в буфер обмена при нажатии соответствующей кнопки</string>
     <string name="pref_smstext">Текст СМС</string>
-    <string name="pref_smstext_summary">Текст, который будет подставлен в СМС перед координатами</string>
     <string name="pref_general">Общие</string>
     <string name="pref_content">Содержание</string>
     <string name="pref_about">О приложении</string>
@@ -68,4 +67,5 @@
 
     <string name="choose_fav_app">Любимое приложение</string>
     <string name="choose_fav_app_info">Укажите приложение для быстрой отправки координат</string>
+    <string name="pref_sms_content_summary">Укажите данные для посылки при помощи SMS</string>
 </resources>

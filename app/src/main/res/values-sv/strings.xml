@@ -43,7 +43,6 @@
     <string name="pref_clip">Kopierat</string>
     <string name="pref_clip_summary">Ange data som ska kopieras</string>
     <string name="pref_smstext">Ditt meddelande</string>
-    <string name="pref_smstext_summary">Ditt meddelande som ska visas före dina koordinater</string>
     <string name="pref_general">Allmänt</string>
     <string name="pref_content">Innehåll</string>
     <string name="pref_about">Om</string>
