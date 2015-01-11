@@ -64,4 +64,9 @@
     <string name="addpoint_lo_ex">Exempelvis 57.5734553</string>
     <string name="add_point_error">Ogiltiga koordinater!</string>
     <string name="prefs_lang">Språk</string>
+
+    <string name="choose_fav_app">Favourite app</string>
+    <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
+    <string name="pref_sms_content_summary">Specify data to be sent via SMS</string>
+
 </resources>

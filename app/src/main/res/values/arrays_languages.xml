@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="appLangs">
+    <string-array name="appLangs" translatable="false">
         <item translatable="false">English</item>
         <item translatable="false">Русский</item>
         <item translatable="false">Українська</item>
@@ -9,7 +9,7 @@
         <item translatable="false">Svenska</item>
 
     </string-array>
-    <string-array name="appLangsValues">
+    <string-array name="appLangsValues" translatable="false">
         <item translatable="false">en</item>
         <item translatable="false">ru</item>
         <item translatable="false">uk</item>

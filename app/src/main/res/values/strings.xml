@@ -70,10 +70,9 @@
 	<string name="add_point_error">Invalid coordinates!</string>
     <string name="prefs_lang">Language</string>
 
-    <!-- УБРАТЬ  translatable="false" когда всё переведут -->
-    <string name="choose_fav_app" translatable="false">Favourite app</string>
-    <string name="choose_fav_app_info" translatable="false">Specify the application for fast sharing feature</string>
-    <string name="pref_sms_content_summary" translatable="false">Specify data to be sent via SMS</string>
+    <string name="choose_fav_app">Favourite app</string>
+    <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
+    <string name="pref_sms_content_summary">Specify data to be sent via SMS</string>
 
 
 </resources>
