@@ -1,89 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" name="BaseSettingsScreen">
- 
-    <PreferenceCategory android:title="@string/pref_general" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_general">
 
         <ListPreference
             android:entries="@array/appLangs"
             android:entryValues="@array/appLangsValues"
-            android:title="@string/prefs_lang"
             android:key="prefLang"
-            />
+            android:title="@string/prefs_lang" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefKeepScreen"
             android:summary="@string/pref_keepscreen_summary"
-            android:title="@string/pref_keepscreen" >
-        </CheckBoxPreference>
-        
+            android:title="@string/pref_keepscreen" />
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefRegexpSMS"
             android:summary="@string/pref_regexp_sms_summary"
-            android:title="@string/pref_regexp_sms" >
-        </CheckBoxPreference>
-        
+            android:title="@string/pref_regexp_sms" />
+
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/appTheme"
             android:entryValues="@array/appThemeValues"
-            android:title="@string/pref_apptheme"
-            android:summary="@string/pref_apptheme_summary"
             android:key="prefAppTheme"
-            />
-        
-        
-    </PreferenceCategory>
-     
-    <PreferenceCategory android:title="@string/pref_content" >
+            android:summary="@string/pref_apptheme_summary"
+            android:title="@string/pref_apptheme" />
 
-        <!--
-        <EditTextPreference
-            android:defaultValue="@string/default_sms_msg"
-            android:title="@string/pref_smstext"
-            android:summary="@string/pref_smstext_summary"
-            android:key="prefSMSText"/>
-        -->
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_content">
+
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/shareProviders"
             android:entryValues="@array/shareProvidersValues"
-            android:title="@string/pref_smstext"
-            android:summary="@string/pref_sms_content_summary"
             android:key="prefSMSContent"
-            />
+            android:summary="@string/pref_sms_content_summary"
+            android:title="@string/pref_smstext" />
 
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/shareProviders"
             android:entryValues="@array/shareProvidersValues"
-            android:title="@string/pref_clip"
-            android:summary="@string/pref_clip_summary"
             android:key="prefClipboard"
-            />
+            android:summary="@string/pref_clip_summary"
+            android:title="@string/pref_clip" />
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="prefSendInNavitelFormat"
-            android:summary="@string/pref_sendnavitel_summary"
-            android:title="@string/pref_sendnavitel" >
-        </CheckBoxPreference>
-
-        <Preference android:title="@string/choose_fav_app"
+        <Preference
+            android:key="prefFav"
             android:summary="@string/choose_fav_app_info"
-            android:key="prefFav" />
+            android:title="@string/choose_fav_app" />
 
     </PreferenceCategory>
- 
-    <PreferenceCategory android:title="@string/pref_about" >
-        
-         <Preference 
-             android:title="@string/app_name"
-             android:summary="@string/pref_about_summary"
-             android:key="prefAbout" 
-		  />
-        
+
+    <PreferenceCategory android:title="@string/pref_about">
+
+        <Preference
+            android:key="prefAbout"
+            android:summary="@string/pref_about_summary"
+            android:title="@string/app_name" />
+
     </PreferenceCategory>
-    
+
 </PreferenceScreen>

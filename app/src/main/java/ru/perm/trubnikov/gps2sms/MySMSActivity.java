@@ -205,13 +205,8 @@ public class MySMSActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        DBHelper.clipboardCopy(getApplicationContext(),
-                                actionCoords,
-                                DBHelper.getGoogleMapsLink(actionCoords),
-                                DBHelper.getOSMLink(actionCoords));
-                        DBHelper.ShowToastT(MySMSActivity.this,
-                                getString(R.string.text_copied),
-                                Toast.LENGTH_LONG);
+                        DBHelper.clipboardCopy(getApplicationContext(), actionCoords);
+                        DBHelper.ShowToastT(MySMSActivity.this, getString(R.string.text_copied), Toast.LENGTH_LONG);
                     }
                 });
 

@@ -88,7 +88,6 @@ public class MainActivity extends Activity {
     // Globals
     private String coordsToSend;
     private String coordsToShare;
-    private String coordsToNavitel;
     private String phoneToSendSMS;
 
     // Database
@@ -179,8 +178,6 @@ public class MainActivity extends Activity {
                             loc.getLongitude());
 
                     coordsToSend = la + "," + lo;
-
-                    coordsToNavitel = "<NavitelLoc>" + (loc.getLatitude() > 0 ? "N" : "S") + la + "° " + (loc.getLongitude() > 0 ? "E" : "W") + lo + "°<N>";
 
                     coordsToShare = DBHelper.getShareBody(MainActivity.this,
                             coordsToSend, accuracy);
@@ -574,11 +571,8 @@ public class MainActivity extends Activity {
         btnCopy.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper.clipboardCopy(getApplicationContext(), coordsToSend,
-                        DBHelper.getGoogleMapsLink(coordsToSend),
-                        DBHelper.getOSMLink(coordsToSend));
-                DBHelper.ShowToast(MainActivity.this, R.string.text_copied,
-                        Toast.LENGTH_LONG);
+                DBHelper.clipboardCopy(getApplicationContext(), coordsToSend);
+                DBHelper.ShowToast(MainActivity.this, R.string.text_copied, Toast.LENGTH_LONG);
             }
         });
         btnMap.setOnClickListener(new OnClickListener() {
@@ -668,23 +662,23 @@ public class MainActivity extends Activity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (sharedPrefs.getBoolean("prefSendInNavitelFormat", false)) {
-            sendSMS(coordsToNavitel);
-        } else {
+        //String data = sharedPrefs.getString("prefSMSContent", "2");
 
-            String data = sharedPrefs.getString("prefSMSContent", "2");
+        sendSMS(DBHelper.getLinkByProvType(sharedPrefs.getString("prefSMSContent", "2"), coordsToSend));
 
-            if (data.equalsIgnoreCase("1")) {
-                sendSMS(coordsToSend);
-            }
-            if (data.equalsIgnoreCase("2")) {
-                sendSMS(DBHelper.getGoogleMapsLink(coordsToSend));
-            }
-            if (data.equalsIgnoreCase("3")) {
-                sendSMS(DBHelper.getOSMLink(coordsToSend));
-            }
-
+       /* if (data.equalsIgnoreCase("1")) {
+            sendSMS(coordsToSend);
         }
+        if (data.equalsIgnoreCase("2")) {
+            sendSMS(DBHelper.getGoogleMapsLink(coordsToSend));
+        }
+        if (data.equalsIgnoreCase("3")) {
+            sendSMS(DBHelper.getOSMLink(coordsToSend));
+        }
+        if (data.equalsIgnoreCase("4")) {
+            sendSMS(coordsToNavitel);
+        }*/
+
 
     }
 

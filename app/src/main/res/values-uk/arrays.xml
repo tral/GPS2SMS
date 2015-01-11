@@ -4,10 +4,12 @@
         <item>Тільки координати</item>
         <item>Посилання на Google Maps</item>
         <item>Посилання на OpenStreetMap</item>
+        <item>Координати в форматі Navitel</item>
     </string-array>
     <string-array name="shareProvidersValues">
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
     </string-array>
 </resources>

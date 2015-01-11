@@ -187,6 +187,11 @@ class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public static String getNavitelMessage(String crds) {
+        // ??? "<NavitelLoc>" + (loc.getLatitude() > 0 ? "N" : "S") + la + "° " + (loc.getLongitude() > 0 ? "E" : "W") + lo + "°<N>";
+        return "<NavitelLoc>" + crds + "<N>";
+    }
+
     public static String getGoogleMapsLink(String crds) {
         // gGoogleMapsLink = "https://www.google.com/maps/place/" +
         // coordsToSend;
@@ -251,23 +256,24 @@ class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public static void clipboardCopy(Context context, String crds1,
-                                     String crds2, String crds3) {
+    public static void clipboardCopy(Context context, String crds) {
         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context
                 .getSystemService(Context.CLIPBOARD_SERVICE);
 
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-        String clip = sharedPrefs.getString("prefClipboard", "2");
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        clipboard.setText(getLinkByProvType(sharedPrefs.getString("prefClipboard", "2"), crds));
+    }
 
-        if (clip.equalsIgnoreCase("1")) {
-            clipboard.setText(crds1);
-        }
-        if (clip.equalsIgnoreCase("2")) {
-            clipboard.setText(crds2);
-        }
-        if (clip.equalsIgnoreCase("3")) {
-            clipboard.setText(crds3);
+    public static String getLinkByProvType(String settVal, String crds) {
+        switch (settVal) {
+            case "2":
+                return DBHelper.getGoogleMapsLink(crds);
+            case "3":
+                return DBHelper.getOSMLink(crds);
+            case "4":
+                return DBHelper.getNavitelMessage(crds);
+            default:
+                return crds;
         }
     }
 

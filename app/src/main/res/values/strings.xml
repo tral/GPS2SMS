@@ -56,8 +56,6 @@
     <string name="pref_apptheme_summary">Restart required</string>
 	<string name="pref_regexp_sms">Handle incoming SMS messages</string>
 	<string name="pref_regexp_sms_summary">Automatically launch the Maps-app in case of receiving SMS which contains valid GPS coordinates</string>
-	<string name="pref_sendnavitel">Send in Navitel format</string>
-	<string name="pref_sendnavitel_summary">If checked, SMS will be constructed in special Navitel format</string>
 	<string name="tab_mycoords">Saved</string>
 	<string name="tab_mysms">Inbox</string>
 	<string name="tab_mysms_out">Sent</string>

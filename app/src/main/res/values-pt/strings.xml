@@ -51,8 +51,6 @@
     <string name="pref_apptheme_summary">Reiniciar a aplicação exigido</string>
     <string name="pref_regexp_sms">Manusear sms recebidas</string>
     <string name="pref_regexp_sms_summary">Lançar automaticamente o Maps-app no caso de receber uma sms que contenha coordenadas validas</string>
-    <string name="pref_sendnavitel">Enviar pelo formato Navitel</string>
-    <string name="pref_sendnavitel_summary">Se seleccionado a SMS será feita no formato Navitel</string>
     <string name="tab_mycoords">Guardada</string>
     <string name="tab_mysms">Entrada</string>
     <string name="tab_mysms_out">Senviada</string>
