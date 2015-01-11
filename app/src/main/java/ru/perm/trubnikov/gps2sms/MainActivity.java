@@ -596,6 +596,13 @@ public class MainActivity extends Activity {
 //                DBHelper.ShowToastT(MainActivity.this, localPrefs.getString("prefFavAct", "!") + " " + localPrefs.getString("prefFavPackage", "!"), Toast.LENGTH_SHORT);
             }
         });
+        btnFav.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
+                startActivityForResult(intent, ACT_RESULT_FAV);
+                return true;
+            }
+        });
 
 
         // Send buttons

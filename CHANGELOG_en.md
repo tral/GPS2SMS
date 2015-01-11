@@ -6,6 +6,7 @@
 - Option in Settings for manual language selecting
 - Option in Settings which allows user to choose what exactly to send via SMS
 - Option "Send in Navitel format" moved to "SMS Text" and "Clipboard content" options
+- Long tap on "Fav button" to choose favourite app
 - Tiny fixes and optimizations.
 
 ## v3.3.3 / 08.01.2015
