@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -21,6 +23,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -321,8 +325,7 @@ public class MainActivity extends Activity {
         super.onResume();
 
         // Держать ли экран включенным?
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (sharedPrefs.getBoolean("prefKeepScreen", true)) {
             getWindow()
@@ -411,6 +414,7 @@ public class MainActivity extends Activity {
                 break;
             case ACT_RESULT_SETTINGS:
                 setFavBtnIcon();
+                restartApp();
                 break;
             case ACT_RESULT_FAV:
                 setFavBtnIcon();
@@ -462,13 +466,25 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
                 "1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 
         super.onCreate(savedInstanceState);
+
+        // Setting up app language. This code MUST BE placed BEFORE setContentView!
+        String languageToLoad  = sharedPrefs.getString("prefLang", "");
+        if (!languageToLoad.equalsIgnoreCase("")) {
+            Locale locale = new Locale(languageToLoad);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config,
+                    getBaseContext().getResources().getDisplayMetrics());
+        }
+        // EOF Setting up app language
+
         setContentView(R.layout.activity_main);
 
         // Plain phone number
@@ -583,8 +599,7 @@ public class MainActivity extends Activity {
         btnFav.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences localPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
+                SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
 
                 initShareWithPackage(localPrefs.getString("prefFavAct", ""));
 //                DBHelper.ShowToastT(MainActivity.this, localPrefs.getString("prefFavAct", "!") + " " + localPrefs.getString("prefFavPackage", "!"), Toast.LENGTH_SHORT);
@@ -610,16 +625,14 @@ public class MainActivity extends Activity {
     }
 
     private void setGPSStateNormalColor() {
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         GPSstate.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
                 .equalsIgnoreCase("1") ? Color.parseColor("#FFFFFF") : Color
                 .parseColor("#000000"));
     }
 
     private void setGPSStateAccentColor() {
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         GPSstate.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
                 .equalsIgnoreCase("1") ? getResources().getColor(R.color.accent_dt) : getResources().getColor(R.color.accent_lt));
     }
@@ -643,8 +656,7 @@ public class MainActivity extends Activity {
 
             String smsMsg = lCoords;
             if (addText) {
-                SharedPreferences sharedPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(this);
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
                 smsMsg = sharedPrefs.getString("prefSMSText",
                         getString(R.string.default_sms_msg)) + " " + smsMsg;
             }
@@ -664,8 +676,7 @@ public class MainActivity extends Activity {
 
     public void initiateSMSSend() {
 
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         boolean isSendInNavitelFormat = sharedPrefs.getBoolean("prefSendInNavitelFormat", false);
 
@@ -752,6 +763,15 @@ public class MainActivity extends Activity {
 
 
     }
+
+
+    private void restartApp() {
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
 
 	/*
      * TODO

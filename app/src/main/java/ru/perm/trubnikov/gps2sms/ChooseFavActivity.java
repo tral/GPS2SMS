@@ -25,7 +25,6 @@ public class ChooseFavActivity extends Activity {
 
     private String[] myActNames;
     private String[] myPackages;
-    private int[] ids;
 
     @Override
     protected void onResume() {
@@ -82,7 +81,6 @@ public class ChooseFavActivity extends Activity {
 
             myActNames = new String[resInfo.size()];
             myPackages = new String[resInfo.size()];
-            ids = new int[resInfo.size()];
 
             if (!resInfo.isEmpty()) {
                 for (ResolveInfo info : resInfo) {
@@ -99,8 +97,8 @@ public class ChooseFavActivity extends Activity {
                     // targeted.putExtra(Intent.EXTRA_TEXT, "My body of post/email");
                     // targeted.putExtra(Intent.EXTRA_SUBJECT, "My subject");
 
-                    //Log.d("gps",info.activityInfo.applicationInfo.loadLabel(getPackageManager()) +" - " + info.activityInfo.packageName.toLowerCase() + " " + info.activityInfo.name.toLowerCase());
-                    Log.d("gps", info.activityInfo.loadLabel(getPackageManager()) + " - " + info.activityInfo.packageName.toLowerCase() + " " + info.activityInfo.name.toLowerCase());
+
+                    //Log.d("gps", info.activityInfo.loadLabel(getPackageManager()) + " - " + info.activityInfo.packageName.toLowerCase() + " " + info.activityInfo.name.toLowerCase());
 
                     //  targeted.setClassName(info.activityInfo.packageName, info.activityInfo.name);
                     //  targeted.setPackage(info.activityInfo.packageName);
@@ -177,7 +175,7 @@ public class ChooseFavActivity extends Activity {
 
         myPackages[i] = pkg;
         myActNames[i] = act;
-      //  ids[i] = i;
+        //  ids[i] = i;
 
        /* btnTag.setOnLongClickListener(new View.OnLongClickListener() {
             public boolean onLongClick(View v) {

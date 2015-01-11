@@ -64,6 +64,7 @@
 	<string name="addpoint_la_ex">Например, 55.1784657</string>
 	<string name="addpoint_lo_ex">Например, 57.5734553</string>
 	<string name="add_point_error">Вы ввели некорректные координаты!</string>
+    <string name="prefs_lang">Язык</string>
 
     <string name="choose_fav_app">Любимое приложение</string>
     <string name="choose_fav_app_info">Укажите приложение для быстрой отправки координат</string>

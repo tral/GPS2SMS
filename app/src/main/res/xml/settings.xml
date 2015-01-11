@@ -3,6 +3,13 @@
  
     <PreferenceCategory android:title="@string/pref_general" >
 
+        <ListPreference
+            android:entries="@array/appLangs"
+            android:entryValues="@array/appLangsValues"
+            android:title="@string/prefs_lang"
+            android:key="prefLang"
+            />
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="prefKeepScreen"

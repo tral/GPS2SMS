@@ -1,5 +1,8 @@
 Simple, fast and free app for GPS location sharing via SMS or any other third party app (like email, messengers, etc)
 
+<b>REVIEWS</b>
+ILoveFreeSoftware.com: http://goo.gl/JZy8DD
+
 <b>KEY FEATURES</b>
 ★ Works on every smartphone or tablet with GPS-receiver, running Android 2.1 and higher
 ★ Select phone number from device's phone book

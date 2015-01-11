@@ -64,4 +64,5 @@
     <string name="addpoint_la_ex">Наприклад, 55.1784657</string>
     <string name="addpoint_lo_ex">Наприклад, 57.5734553</string>
     <string name="add_point_error">Ви ввели некоректні координати</string>
+    <string name="prefs_lang">Мова</string>
 </resources>

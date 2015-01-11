@@ -64,4 +64,5 @@
     <string name="addpoint_la_ex">Exempelvis 55.1784657</string>
     <string name="addpoint_lo_ex">Exempelvis 57.5734553</string>
     <string name="add_point_error">Ogiltiga koordinater!</string>
+    <string name="prefs_lang">Språk</string>
 </resources>

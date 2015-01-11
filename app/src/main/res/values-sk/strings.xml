@@ -64,4 +64,6 @@
     <string name="addpoint_la_ex">Napríklad 55.1784657</string>
     <string name="addpoint_lo_ex">Napríklad 57.5734553</string>
     <string name="add_point_error">Nesprávne súradnice!</string>
+    <string name="prefs_lang">Jazyk</string>
+
 </resources>
