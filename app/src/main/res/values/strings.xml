@@ -71,8 +71,9 @@
 	<string name="add_point_error">Invalid coordinates!</string>
     <string name="prefs_lang">Language</string>
 
-    <string name="choose_fav_app">Favourite app</string>
-    <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
+    <!-- УБРАТЬ  translatable="false" когда всё переведут -->
+    <string name="choose_fav_app" translatable="false">Favourite app</string>
+    <string name="choose_fav_app_info" translatable="false">Specify the application for fast sharing feature</string>
 
 
 </resources>

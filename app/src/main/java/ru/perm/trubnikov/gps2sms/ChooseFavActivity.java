@@ -43,6 +43,7 @@ public class ChooseFavActivity extends Activity {
         setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
                 "1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 
+        setTitle(R.string.choose_fav_app);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_fav);
 

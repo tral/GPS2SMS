@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -23,8 +22,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -474,7 +471,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         // Setting up app language. This code MUST BE placed BEFORE setContentView!
-        String languageToLoad  = sharedPrefs.getString("prefLang", "");
+        String languageToLoad = sharedPrefs.getString("prefLang", "");
         if (!languageToLoad.equalsIgnoreCase("")) {
             Locale locale = new Locale(languageToLoad);
             Locale.setDefault(locale);
@@ -767,7 +764,7 @@ public class MainActivity extends Activity {
 
     private void restartApp() {
         Intent i = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
     }

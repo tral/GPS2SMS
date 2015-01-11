@@ -23,6 +23,8 @@ public class UserSettingActivity extends PreferenceActivity {
         setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
                 "1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
 
+        setTitle(R.string.menu_item_settings); // otherwise it's not changed
+
         super.onCreate(savedInstanceState);
 
         ShowBackButton();
