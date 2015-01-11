@@ -13,15 +13,15 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp" >
 
-        <ImageButton android:id="@+id/btnSave2"
+        <ImageButton
+            android:id="@+id/btnSave2"
 			android:src="?attr/btn_ic_action_save" 
 			android:layout_width="wrap_content"
 			android:layout_height="54dp"
 			android:contentDescription="@string/save_btn_txt"
 			android:adjustViewBounds="true"
     	    android:scaleType="fitCenter" 
-    	    
-			android:layout_alignParentRight="true"			
+			android:layout_alignParentRight="true"
 		 />
         
         <ImageButton
