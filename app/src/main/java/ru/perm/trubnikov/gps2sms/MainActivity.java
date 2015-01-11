@@ -590,9 +590,11 @@ public class MainActivity extends Activity {
         btnFav.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
-
-                initShareWithPackage(localPrefs.getString("prefFavAct", ""));
+                //initShareWithPackage();
+                if (!DBHelper.shareFav(MainActivity.this, coordsToShare)) {
+                    Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
+                    startActivityForResult(intent, ACT_RESULT_FAV);
+                };
 //                DBHelper.ShowToastT(MainActivity.this, localPrefs.getString("prefFavAct", "!") + " " + localPrefs.getString("prefFavPackage", "!"), Toast.LENGTH_SHORT);
             }
         });
@@ -735,9 +737,15 @@ public class MainActivity extends Activity {
     }
 
 
-    private void initShareWithPackage(String pckg) {
+   /* private void initShareWithPackage() {
+        if (!DBHelper.shareFav(MainActivity.this, coordsToShare)) {
+            Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
+            startActivityForResult(intent, ACT_RESULT_FAV);
+        };
+
 
         boolean found = false;
+        SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
 
@@ -746,7 +754,7 @@ public class MainActivity extends Activity {
         if (!resInfo.isEmpty()) {
             for (ResolveInfo info : resInfo) {
                 //Log.d("gps", info.activityInfo.name.toLowerCase() + " - " + pckg);
-                if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(pckg)) { //|| info.activityInfo.name.toLowerCase().contains(pckg))
+                if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(localPrefs.getString("prefFavAct", ""))) { //|| info.activityInfo.name.toLowerCase().contains(pckg))
                     share.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
                     share.putExtra(android.content.Intent.EXTRA_TEXT, coordsToShare);
                     share.setClassName(info.activityInfo.packageName, info.activityInfo.name);
@@ -766,7 +774,7 @@ public class MainActivity extends Activity {
             }
         }
 
-    }
+    }*/
 
 
     private void restartApp() {
@@ -781,7 +789,7 @@ public class MainActivity extends Activity {
      * TODO
 	 * 
 	 * Удаление СМС, Фотку на кнопке с выбранным контактом
-	 *
+	 * Refactor MyCoordsActivity and MySMSActivity (Create common parent class?)
 	 */
 
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -11,6 +12,8 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 class DBHelper extends SQLiteOpenHelper {
@@ -214,6 +217,37 @@ class DBHelper extends SQLiteOpenHelper {
         Toast toast = Toast.makeText(context, txt, lng);
         toast.setGravity(Gravity.TOP, 0, 0);
         toast.show();
+    }
+
+    public static boolean shareFav(Context context, String crds) {
+        boolean found = false;
+        SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+
+        // gets the list of intents that can be loaded.
+        List<ResolveInfo> resInfo = context.getPackageManager().queryIntentActivities(share, 0);
+        if (!resInfo.isEmpty()) {
+            for (ResolveInfo info : resInfo) {
+                //Log.d("gps", info.activityInfo.name.toLowerCase() + " - " + pckg);
+                if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(localPrefs.getString("prefFavAct", ""))) { //|| info.activityInfo.name.toLowerCase().contains(pckg))
+                    share.putExtra(android.content.Intent.EXTRA_SUBJECT, context.getString(R.string.share_topic));
+                    share.putExtra(android.content.Intent.EXTRA_TEXT, crds);
+                    share.setClassName(info.activityInfo.packageName, info.activityInfo.name);
+                    //share.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                    share.setPackage(info.activityInfo.packageName);
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                context.startActivity(Intent.createChooser(share, ""));
+            }
+        }
+
+        return found;
     }
 
     public static void shareCoordinates(Context context, String crds) {

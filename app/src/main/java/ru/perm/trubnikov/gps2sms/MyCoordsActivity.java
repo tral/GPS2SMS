@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -25,9 +30,12 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MyCoordsActivity extends Activity {
 
     private final static int MYCOORDS_PROPS_DIALOG_ID = 5;
+    private static final int ACT_RESULT_FAV = 1003;
 
     DBHelper dbHelper;
     private int actionCoordsId;
@@ -39,6 +47,7 @@ public class MyCoordsActivity extends Activity {
     private ImageButton btnShare;
     private ImageButton btnCopy;
     private ImageButton btnMap;
+    private ImageButton btnFav;
 
     @Override
     protected void onResume() {
@@ -62,6 +71,46 @@ public class MyCoordsActivity extends Activity {
 
         refillMainScreen();
 
+    }
+
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+        switch (reqCode) {
+            case ACT_RESULT_FAV:
+                setFavBtnIcon();
+                break;
+        }
+    }
+
+    private void setFavBtnIcon() {
+
+        try {
+
+            SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String act = localPrefs.getString("prefFavAct", "");
+
+            if (act.equalsIgnoreCase("")) {
+                return;
+            }
+
+            Intent icon_intent = new Intent(android.content.Intent.ACTION_SEND);
+            icon_intent.setType("text/plain");
+
+            List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(icon_intent, 0);
+            if (!resInfo.isEmpty()) {
+                for (ResolveInfo info : resInfo) {
+                    if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(act)) {
+                        Drawable icon = info.activityInfo.loadIcon(this.getPackageManager());
+                        btnFav.setImageDrawable(icon);
+                        break;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            //
+        }
     }
 
     protected void refillMainScreen() {
@@ -187,6 +236,8 @@ public class MyCoordsActivity extends Activity {
                 btnShare = (ImageButton) dialog.findViewById(R.id.btnShare1);
                 btnCopy = (ImageButton) dialog.findViewById(R.id.btnCopy1);
                 btnMap = (ImageButton) dialog.findViewById(R.id.btnMap1);
+                btnFav = (ImageButton) dialog.findViewById(R.id.btnFav1);
+                setFavBtnIcon();
 
                 btnShare.setOnClickListener(new OnClickListener() {
                     @Override
@@ -216,6 +267,23 @@ public class MyCoordsActivity extends Activity {
                         dialog.dismiss();
                         DBHelper.openOnMap(getApplicationContext(),
                                 actionCoords);
+                    }
+                });
+                btnFav.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        if (!DBHelper.shareFav(MyCoordsActivity.this, actionCoords)) {
+                            Intent intent = new Intent(MyCoordsActivity.this, ChooseFavActivity.class);
+                            startActivityForResult(intent, ACT_RESULT_FAV);
+                        };
+                    }
+                });
+                btnFav.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        Intent intent = new Intent(MyCoordsActivity.this, ChooseFavActivity.class);
+                        startActivityForResult(intent, ACT_RESULT_FAV);
+                        return true;
                     }
                 });
 

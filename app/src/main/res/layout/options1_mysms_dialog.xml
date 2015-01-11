@@ -44,16 +44,29 @@
             android:scaleType="fitCenter"
             android:src="?attr/btn_ic_action_copy" />
 
+        <ImageButton android:id="@+id/btnFav2"
+            android:src="@drawable/ic_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:contentDescription=""
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+
+            android:layout_alignParentLeft="true"
+
+            />
+
         <ImageButton
             android:id="@+id/btnShare2"
             android:layout_width="wrap_content"
             android:layout_height="54dp"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/btnCopy2"
             android:adjustViewBounds="true"
             android:contentDescription="@string/imgdesc_share"
             android:scaleType="fitCenter"
             android:src="?attr/btn_ic_action_share"
+
+            android:layout_toRightOf="@id/btnFav2"
+            android:layout_toLeftOf="@id/btnCopy2"
             />
     </RelativeLayout>
 
