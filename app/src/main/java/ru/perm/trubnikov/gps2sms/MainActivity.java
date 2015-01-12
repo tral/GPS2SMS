@@ -242,8 +242,8 @@ public class MainActivity extends Activity {
 
             case SAVE_POINT_DIALOG_ID:
                 LayoutInflater inflater_sp = getLayoutInflater();
-                View layout_sp = inflater_sp.inflate(R.layout.save_point_dialog,
-                        (ViewGroup) findViewById(R.id.save_point_dialog_layout));
+                View layout_sp = inflater_sp.inflate(R.layout.repo_save_point_dialog,
+                        (ViewGroup) findViewById(R.id.repo_save_point_dialog_layout));
 
                 AlertDialog.Builder builder_sp = new AlertDialog.Builder(this);
                 builder_sp.setView(layout_sp);

@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/save_point_dialog_layout"
+	android:id="@+id/repo_save_point_dialog_layout"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
