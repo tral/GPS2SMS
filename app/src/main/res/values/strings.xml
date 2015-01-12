@@ -53,7 +53,6 @@
     <string name="pref_about">About</string>
     <string name="pref_about_summary">Version</string>
     <string name="pref_apptheme">Application Theme</string>
-    <string name="pref_apptheme_summary">Restart required</string>
 	<string name="pref_regexp_sms">Handle incoming SMS messages</string>
 	<string name="pref_regexp_sms_summary">Automatically launch the Maps-app in case of receiving SMS which contains valid GPS coordinates</string>
 	<string name="tab_mycoords">Saved</string>

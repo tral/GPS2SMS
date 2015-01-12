@@ -48,7 +48,6 @@
     <string name="pref_about">О приложении</string>
     <string name="pref_about_summary">Версия</string>
     <string name="pref_apptheme">Тема оформления</string>
-    <string name="pref_apptheme_summary">Вступит в силу после перезапуска приложения</string>
 	<string name="pref_regexp_sms">Сканировать входящие СМС</string>
 	<string name="pref_regexp_sms_summary">Если отмечено, в случае обнаружения во входящем СМС сообщении координат, программа будет пытаться открыть позицию на картах по умолчанию </string>
 	<string name="tab_mycoords">Сохраненные</string>

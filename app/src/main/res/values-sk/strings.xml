@@ -48,7 +48,6 @@
     <string name="pref_about">O aplikácii</string>
     <string name="pref_about_summary">Verzia</string>
     <string name="pref_apptheme">Téma aplikácie</string>
-    <string name="pref_apptheme_summary">Je nutný reštart zariadenia</string>
     <string name="pref_regexp_sms">Spracovanie prichádzajúcich SMS správ</string>
     <string name="pref_regexp_sms_summary">Automaticky spustí aplikácia s mapami v prípade prijímania SMS, ktorá obsahuje platné GPS súradnice</string>
     <string name="tab_mycoords">Uložené</string>

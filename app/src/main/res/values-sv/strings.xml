@@ -48,7 +48,6 @@
     <string name="pref_about">Om</string>
     <string name="pref_about_summary">Verison</string>
     <string name="pref_apptheme">Tema</string>
-    <string name="pref_apptheme_summary">Omstart nödvändig</string>
     <string name="pref_regexp_sms">Hantera inkommande meddelande</string>
     <string name="pref_regexp_sms_summary">Startar automatiskt Maps-appen vid mottagning av meddelande med giltiga GPS-koordinater</string>
     <string name="tab_mycoords">Sparad</string>

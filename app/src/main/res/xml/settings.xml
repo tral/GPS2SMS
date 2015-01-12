@@ -26,7 +26,6 @@
             android:entries="@array/appTheme"
             android:entryValues="@array/appThemeValues"
             android:key="prefAppTheme"
-            android:summary="@string/pref_apptheme_summary"
             android:title="@string/pref_apptheme" />
 
     </PreferenceCategory>
