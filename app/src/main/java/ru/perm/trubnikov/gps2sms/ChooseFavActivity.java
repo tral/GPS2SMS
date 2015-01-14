@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 import java.util.List;
 
-public class ChooseFavActivity extends Activity {
+public class ChooseFavActivity extends ActionBarActivity {
 
     private String[] myActNames;
     private String[] myPackages;
@@ -231,12 +232,20 @@ public class ChooseFavActivity extends Activity {
         }
     }
 
+    public void ShowBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            // call something for API Level 11+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
+    }
+    /*
     @TargetApi(11)
     public void ShowBackButton() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // call something for API Level 11+
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
-    }
+    }*/
 
 }

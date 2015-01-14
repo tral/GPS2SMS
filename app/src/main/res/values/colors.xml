@@ -15,6 +15,20 @@
 -->
  
 <resources>
+
+    <color name="lolli_primary_dt">#795548</color>
+    <color name="lolli_top_dt">#5D4037</color>
+    <color name="accent_dt">#18FFFF</color>
+    <color name="lolli_background_dt">#3E2723</color>
+
+    <color name="lolli_primary_lt">#607D8B</color>
+    <color name="lolli_top_lt">#455A64</color>
+    <color name="accent_lt">#FF4081</color>
+    <color name="lolli_background_lt">#ECEFF1</color>
+    <color name="lolli_btn_lt">#90A4AE</color>
+
+    <!--
     <color name="accent_dt">#FF0000</color>
     <color name="accent_lt">#FF0000</color>
+    -->
 </resources>

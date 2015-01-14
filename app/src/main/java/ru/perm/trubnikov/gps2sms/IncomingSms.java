@@ -14,6 +14,10 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+/***
+* Incoming SMS Handler here
+***/
+
 public class IncomingSms extends BroadcastReceiver {
 
 	// Get the object of SmsManager

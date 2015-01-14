@@ -1,6 +1,5 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -17,11 +16,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,7 +41,7 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     // Menu
     public static final int IDM_SETTINGS = 101;
@@ -50,7 +51,6 @@ public class MainActivity extends Activity {
     private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
     private static final int ACT_RESULT_SETTINGS = 1002;
     private static final int ACT_RESULT_FAV = 1003;
-
 
     // Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
@@ -292,19 +292,29 @@ public class MainActivity extends Activity {
 
         switch (item.getItemId()) {
             case IDM_SETTINGS:
-                Intent i = new Intent(this, UserSettingActivity.class);
-                startActivityForResult(i, ACT_RESULT_SETTINGS);
+                Intent sett_intent;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    sett_intent = new Intent(this, PreferencesActivity.class);
+                } else {
+                    sett_intent = new Intent(this, PreferencesLegacyActivity.class);
+                }
+                startActivityForResult(sett_intent, ACT_RESULT_SETTINGS);
                 break;
             case R.id.action_sms_regexp:
-                Intent intent = new Intent(MainActivity.this, TabsActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, TabsActivity.class); OLD TABS !!!
+                //startActivity(intent);
+                Intent repo_intent = new Intent(this, SlideTabsActivity.class);
+                startActivity(repo_intent);
                 break;
             case IDM_RATE:
                 Intent int_rate = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id="
                                 + getApplicationContext().getPackageName()));
                 int_rate.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(int_rate);
+                try {
+                    getApplicationContext().startActivity(int_rate);
+                } catch (Exception e) {
+                }
                 break;
 
             default:
@@ -594,7 +604,8 @@ public class MainActivity extends Activity {
                 if (!DBHelper.shareFav(MainActivity.this, coordsToShare)) {
                     Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
                     startActivityForResult(intent, ACT_RESULT_FAV);
-                };
+                }
+                ;
 //                DBHelper.ShowToastT(MainActivity.this, localPrefs.getString("prefFavAct", "!") + " " + localPrefs.getString("prefFavPackage", "!"), Toast.LENGTH_SHORT);
             }
         });
@@ -666,29 +677,9 @@ public class MainActivity extends Activity {
 
     }
 
-
     public void initiateSMSSend() {
-
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        //String data = sharedPrefs.getString("prefSMSContent", "2");
-
         sendSMS(DBHelper.getLinkByProvType(sharedPrefs.getString("prefSMSContent", "2"), coordsToSend));
-
-       /* if (data.equalsIgnoreCase("1")) {
-            sendSMS(coordsToSend);
-        }
-        if (data.equalsIgnoreCase("2")) {
-            sendSMS(DBHelper.getGoogleMapsLink(coordsToSend));
-        }
-        if (data.equalsIgnoreCase("3")) {
-            sendSMS(DBHelper.getOSMLink(coordsToSend));
-        }
-        if (data.equalsIgnoreCase("4")) {
-            sendSMS(coordsToNavitel);
-        }*/
-
-
     }
 
     protected void ShowSendButton() {
@@ -735,47 +726,6 @@ public class MainActivity extends Activity {
             //
         }
     }
-
-
-   /* private void initShareWithPackage() {
-        if (!DBHelper.shareFav(MainActivity.this, coordsToShare)) {
-            Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
-            startActivityForResult(intent, ACT_RESULT_FAV);
-        };
-
-
-        boolean found = false;
-        SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-        share.setType("text/plain");
-
-        // gets the list of intents that can be loaded.
-        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(share, 0);
-        if (!resInfo.isEmpty()) {
-            for (ResolveInfo info : resInfo) {
-                //Log.d("gps", info.activityInfo.name.toLowerCase() + " - " + pckg);
-                if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(localPrefs.getString("prefFavAct", ""))) { //|| info.activityInfo.name.toLowerCase().contains(pckg))
-                    share.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share_topic));
-                    share.putExtra(android.content.Intent.EXTRA_TEXT, coordsToShare);
-                    share.setClassName(info.activityInfo.packageName, info.activityInfo.name);
-                    //share.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                    share.setPackage(info.activityInfo.packageName);
-
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) { // Otherwise show settings
-                Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
-                startActivityForResult(intent, ACT_RESULT_FAV);
-            } else {
-                startActivity(Intent.createChooser(share, ""));
-            }
-        }
-
-    }*/
-
 
     private void restartApp() {
         Intent i = getBaseContext().getPackageManager()

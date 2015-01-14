@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="info_sms_sent">SMS відправлено</string>
     <string name="info_sms_delivered">SMS надійшло отримувачу</string>
     <string name="info_sms_not_delivered">SMS НЕ надійшло отримувачу</string>
@@ -62,8 +61,7 @@
     <string name="add_point_error">Ви ввели некоректні координати</string>
     <string name="prefs_lang">Мова</string>
 
-    <string name="choose_fav_app">Favourite app</string>
-    <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
-    <string name="pref_sms_content_summary">Текст, який буде підставлений в SMS </string>
-
+    <string name="choose_fav_app">Улюблена програма</string>
+    <string name="choose_fav_app_info">Вкажіть програму для швидкого відправлення координат</string>
+    <string name="pref_sms_content_summary">Вкажіть дані для надсилання за допомогою SMS</string>
 </resources>

@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- should appear as action button -->
     <!-- 
 	<item android:id="@+id/action_share"
@@ -9,7 +10,10 @@
     <item android:id="@+id/action_sms_regexp"
           android:icon="?attr/btn_ic_action_collection"
           android:title="@string/menu_item_sms_regexp"
-          android:showAsAction="ifRoom" />
+          app:showAsAction="ifRoom" />
+
+
+
     <!--
 	<item android:id="@+id/action_navitel"
           android:icon="@drawable/ic_action_navitel"

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="info_sms_sent">SMS enviada</string>
     <string name="info_sms_delivered">SMS entregue</string>
     <string name="info_sms_not_delivered">SMS NÃO entregue</string>
@@ -65,5 +64,4 @@
     <string name="choose_fav_app">Favourite app</string>
     <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
     <string name="pref_sms_content_summary">Specify data to be sent via SMS</string>
-
 </resources>

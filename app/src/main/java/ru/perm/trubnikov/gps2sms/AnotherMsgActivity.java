@@ -6,12 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AnotherMsgActivity extends Activity {
+public class AnotherMsgActivity extends ActionBarActivity {
 
 	// ------------------------------------------------------------------------------------------
 	@Override
@@ -54,12 +55,21 @@ public class AnotherMsgActivity extends Activity {
 		}
 	}
 
+    public void ShowBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            // call something for API Level 11+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
+    }
+
+    /*
 	@TargetApi(11)
 	public void ShowBackButton() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			// call something for API Level 11+
             getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-	}
+	}*/
 
 }

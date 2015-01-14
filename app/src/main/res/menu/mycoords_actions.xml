@@ -1,10 +1,11 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- should appear as action button -->
 
     <item android:id="@+id/action_add_coords"
           android:icon="?attr/btn_ic_action_new_label"
           android:title="@string/menu_item_add_coord"
-          android:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />
 	
 </menu>
 
