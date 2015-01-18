@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.4.1 / 18.01.2015
+- Changing of screen orientation doesn't force coordinates re-detection anymore
+
 ## v3.4 / 15.01.2015
 - Material Design for pre-lollipop versions of Android
 - New swipe-tabs in the "Coordinates repository"
