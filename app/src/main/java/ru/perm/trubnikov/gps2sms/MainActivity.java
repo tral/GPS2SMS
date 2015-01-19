@@ -51,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
     private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
     private static final int ACT_RESULT_SETTINGS = 1002;
     private static final int ACT_RESULT_FAV = 1003;
+    private static final int ACT_RESULT_REPO = 1004;
 
     // Dialogs
     private static final int SEND_SMS_DIALOG_ID = 0;
@@ -304,7 +305,7 @@ public class MainActivity extends ActionBarActivity {
                 //Intent intent = new Intent(MainActivity.this, TabsActivity.class); OLD TABS !!!
                 //startActivity(intent);
                 Intent repo_intent = new Intent(this, SlideTabsActivity.class);
-                startActivity(repo_intent);
+                startActivityForResult(repo_intent, ACT_RESULT_REPO);
                 break;
             case IDM_RATE:
                 Intent int_rate = new Intent(Intent.ACTION_VIEW,
@@ -417,11 +418,14 @@ public class MainActivity extends ActionBarActivity {
 
                 break;
             case ACT_RESULT_SETTINGS:
-                setFavBtnIcon();
+                DBHelper.updateFavIcon(MainActivity.this, btnFav);
                 restartApp();
                 break;
             case ACT_RESULT_FAV:
-                setFavBtnIcon();
+                DBHelper.updateFavIcon(MainActivity.this, btnFav);
+                break;
+            case ACT_RESULT_REPO:
+                DBHelper.updateFavIcon(MainActivity.this, btnFav);
                 break;
         }
     }
@@ -631,7 +635,8 @@ public class MainActivity extends ActionBarActivity {
         // GPS-state TextView init
         GPSstate = (TextView) findViewById(R.id.textView1);
         setGPSStateNormalColor();
-        setFavBtnIcon();
+        //setFavBtnIcon();
+        DBHelper.updateFavIcon(MainActivity.this, btnFav);
 
     }
 
@@ -696,7 +701,7 @@ public class MainActivity extends ActionBarActivity {
         plainPh.setLayoutParams(params); //causes layout update
     }
 
-
+/*
     private void setFavBtnIcon() {
 
         try {
@@ -725,7 +730,7 @@ public class MainActivity extends ActionBarActivity {
         } catch (Exception e) {
             //
         }
-    }
+    }*/
 
     private void restartApp() {
         Intent i = getBaseContext().getPackageManager()

@@ -78,13 +78,14 @@ abstract class RepoFragment extends Fragment {
         super.onActivityResult(reqCode, resultCode, data);
         switch (reqCode) {
             case ACT_RESULT_FAV:
-                setFavBtnIcon();
+                //setFavBtnIcon();
+                DBHelper.updateFavIcon(getActivity(), btnFav);
                 break;
         }
     }
 
 
-
+/*
     final void setFavBtnIcon() {
 
         try {
@@ -113,7 +114,7 @@ abstract class RepoFragment extends Fragment {
         } catch (Exception e) {
             //
         }
-    }
+    }*/
 
     final void refillMainScreen() {
 
@@ -203,7 +204,8 @@ abstract class RepoFragment extends Fragment {
                 btnCopy = (ImageButton) dialog.findViewById(R.id.btnCopy2);
                 btnFav = (ImageButton) dialog.findViewById(R.id.btnFav2);
                 dialogAdjustment(dialog);
-                setFavBtnIcon();
+                //setFavBtnIcon();
+                DBHelper.updateFavIcon(getActivity(), btnFav);
                 dialog.show();
 
                 btnShare.setOnClickListener(new View.OnClickListener() {

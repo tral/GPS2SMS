@@ -8,9 +8,13 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.List;
@@ -159,6 +163,39 @@ class DBHelper extends SQLiteOpenHelper {
         // Log.d("gps", "save! " + name + " " + phone + " " + id);
         db.insert("mycoords", null, cv);
     }
+
+
+    public static void updateFavIcon (Context context, ImageButton btn) {
+
+            try {
+
+                SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+                String act = localPrefs.getString("prefFavAct", "");
+
+                if (act.equalsIgnoreCase("")) {
+                    return;
+                }
+
+                Intent icon_intent = new Intent(android.content.Intent.ACTION_SEND);
+                icon_intent.setType("text/plain");
+
+                List<ResolveInfo> resInfo = context.getPackageManager().queryIntentActivities(icon_intent, 0);
+                if (!resInfo.isEmpty()) {
+                    for (ResolveInfo info : resInfo) {
+                        if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(act)) {
+                            Drawable icon = info.activityInfo.loadIcon(context.getPackageManager());
+                            btn.setImageDrawable(icon);
+                            break;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                //
+            }
+
+    }
+
 
     /*public static int getRndColor() {
         Random rand = new Random();
