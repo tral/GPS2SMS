@@ -1,13 +1,10 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,11 +19,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.util.List;
-
-/**
- * Created by A on 14.01.2015.
- */
 abstract class RepoFragment extends Fragment {
 
 
@@ -43,7 +35,7 @@ abstract class RepoFragment extends Fragment {
 
     abstract void retrieveMainData(LinearLayout layout, int pixels_b, int separators_margin);
 
- //   abstract AlertDialog secondDialog();
+    //   abstract AlertDialog secondDialog();
 
     abstract String getMyCoordsItem(String toParse);
 
@@ -55,15 +47,12 @@ abstract class RepoFragment extends Fragment {
         refillMainScreen();
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_repo, container, false);
         return rootView;
     }
-
 
     // Activity created, we can work with UI
     @Override
@@ -72,49 +61,15 @@ abstract class RepoFragment extends Fragment {
         refillMainScreen();
     }
 
-
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
         switch (reqCode) {
             case ACT_RESULT_FAV:
-                //setFavBtnIcon();
                 DBHelper.updateFavIcon(getActivity(), btnFav);
                 break;
         }
     }
-
-
-/*
-    final void setFavBtnIcon() {
-
-        try {
-
-            SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String act = localPrefs.getString("prefFavAct", "");
-
-            if (act.equalsIgnoreCase("")) {
-                return;
-            }
-
-            Intent icon_intent = new Intent(android.content.Intent.ACTION_SEND);
-            icon_intent.setType("text/plain");
-
-            List<ResolveInfo> resInfo = getActivity().getPackageManager().queryIntentActivities(icon_intent, 0);
-            if (!resInfo.isEmpty()) {
-                for (ResolveInfo info : resInfo) {
-                    if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(act)) {
-                        Drawable icon = info.activityInfo.loadIcon(getActivity().getPackageManager());
-                        btnFav.setImageDrawable(icon);
-                        break;
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            //
-        }
-    }*/
 
     final void refillMainScreen() {
 
@@ -204,7 +159,6 @@ abstract class RepoFragment extends Fragment {
                 btnCopy = (ImageButton) dialog.findViewById(R.id.btnCopy2);
                 btnFav = (ImageButton) dialog.findViewById(R.id.btnFav2);
                 dialogAdjustment(dialog);
-                //setFavBtnIcon();
                 DBHelper.updateFavIcon(getActivity(), btnFav);
                 dialog.show();
 

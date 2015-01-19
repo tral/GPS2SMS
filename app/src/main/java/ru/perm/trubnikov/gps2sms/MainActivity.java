@@ -7,11 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -38,7 +36,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity {
@@ -302,8 +299,6 @@ public class MainActivity extends ActionBarActivity {
                 startActivityForResult(sett_intent, ACT_RESULT_SETTINGS);
                 break;
             case R.id.action_sms_regexp:
-                //Intent intent = new Intent(MainActivity.this, TabsActivity.class); OLD TABS !!!
-                //startActivity(intent);
                 Intent repo_intent = new Intent(this, SlideTabsActivity.class);
                 startActivityForResult(repo_intent, ACT_RESULT_REPO);
                 break;
@@ -429,44 +424,6 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
     }
-/*
-    public static void setImageButtonEnabled(Context ctxt, boolean enabled,
-			ImageButton item, int iconResId) {
-
-		item.setEnabled(enabled);
-		Drawable originalIcon = ctxt.getResources().getDrawable(iconResId);
-		Drawable icon = enabled ? originalIcon
-				: convertDrawableToGrayScale(originalIcon);
-		item.setImageDrawable(icon);
-	}
-
-	public static void setMenuItemEnabled(Context ctxt, boolean enabled,
-			MenuItem item, int iconResId) {
-
-		item.setEnabled(enabled);
-		Drawable originalIcon = ctxt.getResources().getDrawable(iconResId);
-		Drawable icon = enabled ? originalIcon
-				: convertDrawableToGrayScale(originalIcon);
-		item.setIcon(icon);
-	}
-*/
-
-    /**
-     * Mutates and applies a filter that converts the given drawable to a Gray
-     * image. This method may be used to simulate the color of disable icons in
-     * Honeycomb's ActionBar.
-     * <p/>
-     * a mutated version of the given drawable with a color filter
-     * applied.
-     */
-    /*public static Drawable convertDrawableToGrayScale(Drawable drawable) {
-        if (drawable == null)
-			return null;
-
-		Drawable res = drawable.mutate();
-		res.setColorFilter(Color.GRAY, Mode.SRC_IN);
-		return res;
-	}*/
 
 
     // ------------------------------------------------------------------------------------------
@@ -635,7 +592,6 @@ public class MainActivity extends ActionBarActivity {
         // GPS-state TextView init
         GPSstate = (TextView) findViewById(R.id.textView1);
         setGPSStateNormalColor();
-        //setFavBtnIcon();
         DBHelper.updateFavIcon(MainActivity.this, btnFav);
 
     }
@@ -700,37 +656,6 @@ public class MainActivity extends ActionBarActivity {
         params.addRule(RelativeLayout.LEFT_OF, 0);
         plainPh.setLayoutParams(params); //causes layout update
     }
-
-/*
-    private void setFavBtnIcon() {
-
-        try {
-
-            SharedPreferences localPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-            String act = localPrefs.getString("prefFavAct", "");
-
-            if (act.equalsIgnoreCase("")) {
-                return;
-            }
-
-            Intent icon_intent = new Intent(android.content.Intent.ACTION_SEND);
-            icon_intent.setType("text/plain");
-
-            List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(icon_intent, 0);
-            if (!resInfo.isEmpty()) {
-                for (ResolveInfo info : resInfo) {
-                    if (info.activityInfo.name.toLowerCase().equalsIgnoreCase(act)) {
-                        Drawable icon = info.activityInfo.loadIcon(this.getPackageManager());
-                        btnFav.setImageDrawable(icon);
-                        break;
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            //
-        }
-    }*/
 
     private void restartApp() {
         Intent i = getBaseContext().getPackageManager()

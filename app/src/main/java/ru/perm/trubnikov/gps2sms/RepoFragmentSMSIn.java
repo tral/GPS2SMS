@@ -1,28 +1,17 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 public class RepoFragmentSMSIn extends RepoFragment {
 
@@ -74,7 +63,6 @@ public class RepoFragmentSMSIn extends RepoFragment {
     }
 
 
-
     @Override
     protected void addExtraButtons(final Dialog dialog) {
         btnSave = (ImageButton) dialog.findViewById(R.id.btnSave2);
@@ -114,7 +102,6 @@ public class RepoFragmentSMSIn extends RepoFragment {
             return phoneNumber;
         }
     }
-
 
 
 }
