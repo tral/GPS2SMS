@@ -200,7 +200,7 @@ class DBHelper extends SQLiteOpenHelper {
     public static int determineTheme(Context context) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        switch (sharedPrefs.getString("prefAppTheme", "1")) {
+        switch (sharedPrefs.getString("prefAppTheme", "1")) { // determineAccendcolor актуализировать вместе с этим методом!
             case "1":
                 return R.style.AppBaseThemeDark;
             case "2":
@@ -216,7 +216,7 @@ class DBHelper extends SQLiteOpenHelper {
 
         switch (sharedPrefs.getString("prefAppTheme", "1")) {
             case "1":
-                return context.getResources().getColor(R.color.accent_yellow/*accent_dt*/);
+                return context.getResources().getColor(R.color.accent_dt);
             case "2":
                 return context.getResources().getColor(R.color.accent_lt);
             default:

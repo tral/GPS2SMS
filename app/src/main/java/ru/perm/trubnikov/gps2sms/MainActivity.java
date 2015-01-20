@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,7 +21,6 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -122,9 +120,6 @@ public class MainActivity extends ActionBarActivity {
     private LocationListener locListener = new LocationListener() {
 
         public void onLocationChanged(Location argLocation) {
-            GpsStatus gstat = manager.getGpsStatus(null);
-            Log.d("gps", "satellites ----------" + gstat.getMaxSatellites());
-
             printLocation(argLocation, GPS_GOT_COORDINATES);
         }
 
@@ -139,8 +134,6 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-            GpsStatus gstat = manager.getGpsStatus(null);
-            Log.d("gps", "satellites ----------" + gstat.getMaxSatellites());
         }
 
 
