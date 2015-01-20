@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 class DBHelper extends SQLiteOpenHelper {
@@ -195,19 +197,42 @@ class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    /*public static int getRndColor() {
-        Random rand = new Random();
-        // Чтобы не генерился слишком светлый фон, иначе символы нечитаемы
-        int rc = rand.nextInt(230);
-        int g = rand.nextInt(230);
-        int b = rand.nextInt(230);
+    public static int determineTheme(Context context) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        int randomColor = Color.rgb(rc, g, b);
-        return randomColor;
-    }*/
+        switch (sharedPrefs.getString("prefAppTheme", "1")) {
+            case "1":
+                return R.style.AppBaseThemeDark;
+            case "2":
+                return R.style.AppBaseThemeLight;
+            default:
+                return R.style.AppBaseThemeDark;
 
-    public static String getShareBody(Context context, String crds,
-                                      String accuracy) {
+        }
+    }
+
+    public static int determineAccendcolor(Context context) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        switch (sharedPrefs.getString("prefAppTheme", "1")) {
+            case "1":
+                return context.getResources().getColor(R.color.accent_yellow/*accent_dt*/);
+            case "2":
+                return context.getResources().getColor(R.color.accent_lt);
+            default:
+                return context.getResources().getColor(R.color.accent_dt);
+
+        }
+    }
+
+
+    public static String extractCoordinates(String message) {
+        Pattern p = Pattern.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
+        Matcher m = p.matcher(message);
+        return m.find() ? m.group(0) : "0,0";
+    }
+
+    public static String getShareBody(Context context, String crds, String accuracy) {
 
         String separ = System.getProperty("line.separator");
         String crds1 = crds.replace(",",
@@ -305,23 +330,11 @@ class DBHelper extends SQLiteOpenHelper {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String geo = "geo:0,0?q=" + crds;
 
-        //if (!label.equalsIgnoreCase("")) {
-        //	geo = geo + "(" + label + ")";
-        //}
-
         intent.setData(Uri.parse(geo));
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
-
-		/*
-         * String uri = String.format(Locale.ENGLISH,
-		 * DBHelper.getGoogleMapsLink(crds)); Intent intent = new
-		 * Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-		 * intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		 * context.startActivity(intent);
-		 */
 
     }
 

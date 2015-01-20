@@ -19,11 +19,7 @@ public class AnotherMsgActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		// Определение темы должно быть ДО super.onCreate и setContentView
-		SharedPreferences sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
-				"1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        setTheme(DBHelper.determineTheme(this));
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_another_msg);

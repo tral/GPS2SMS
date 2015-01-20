@@ -15,14 +15,11 @@ public class SlideTabsPagerAdapter extends FragmentPagerAdapter {
 
         switch (index) {
             case 0:
-                // Top Rated fragment activity
-                return new RepoFragmentCoords();
+                return new RepoCoordsFragment();//RepoFragmentCoords();
             case 1:
-                // Games fragment activity
-                return new RepoFragmentSMSIn();
+                return new RepoSMSInFragment(); //RepoFragmentSMSIn();
             case 2:
-                // Movies fragment activity
-                return new RepoFragmentSMSOut();
+                return new RepoSMSOutFragment(); //RepoFragmentSMSOut();
         }
 
         return null;

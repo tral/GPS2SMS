@@ -15,13 +15,8 @@
         <item name="btn_ic_action_send_now">@drawable/ic_action_send_now_dark</item>
         <item name="btn_ic_action_person">@drawable/ic_action_person_dark</item>
         
-        <!-- API 21 theme customizations can go here. -->
-        <!-- Main theme colors -->
-	    <!--   your app branding color for the app bar -->
 	    <item name="colorPrimary">@color/lolli_primary_dt</item>
-	    <!--   darker variant for the status bar and contextual app bars -->
 	    <item name="colorPrimaryDark">@color/lolli_top_dt</item>
-	    <!--   theme UI controls like checkboxes and text fields -->
 	    <item name="colorAccent">@color/accent_dt</item>
 	    <item name="android:windowBackground">@color/lolli_background_dt</item>
 		<item name="android:colorButtonNormal">@color/lolli_top_dt</item>
@@ -38,22 +33,45 @@
         <item name="btn_ic_action_send_now">@drawable/ic_action_send_now_light</item>
         <item name="btn_ic_action_person">@drawable/ic_action_person_light</item>
         
-        <!-- API 21 theme customizations can go here. -->
-        <!-- Main theme colors -->
-	    <!--   your app branding color for the app bar -->
 	    <item name="colorPrimary">@color/lolli_primary_lt</item>
-	    <!--   darker variant for the status bar and contextual app bars -->
 	    <item name="colorPrimaryDark">@color/lolli_top_lt</item>
-	    <!--   theme UI controls like checkboxes and text fields -->
 	    <item name="colorAccent">@color/accent_lt</item>
 	    <item name="android:windowBackground">@color/lolli_background_lt</item>
 		<item name="android:colorButtonNormal">@color/lolli_btn_lt</item>
         
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    </style>
+
+
+    <style name="AppThemeYellow" parent="AppBaseThemeLight">
+        <item name="colorPrimary">@color/lolli_primary_yellow</item>
+        <item name="colorPrimaryDark">@color/lolli_top_yellow</item>
+        <item name="colorAccent">@color/accent_yellow</item>
+        <item name="android:windowBackground">@color/lolli_background_yellow</item>
+        <item name="android:colorButtonNormal">@color/lolli_btn_yellow</item>
+    </style>
+
+    <style name="AppThemePink" parent="AppBaseThemeLight">
+        <item name="colorPrimary">@color/lolli_primary_pink</item>
+        <item name="colorPrimaryDark">@color/lolli_top_pink</item>
+        <item name="colorAccent">@color/accent_pink</item>
+        <item name="android:windowBackground">@color/lolli_background_pink</item>
+        <item name="android:colorButtonNormal">@color/lolli_btn_pink</item>
+    </style>
+
+    <style name="AppThemeTeal" parent="AppBaseThemeDark">
+        <item name="colorPrimary">@color/lolli_primary_teal</item>
+        <item name="colorPrimaryDark">@color/lolli_top_teal</item>
+        <item name="colorAccent">@color/accent_teal</item>
+        <item name="android:windowBackground">@color/lolli_background_teal</item>
+        <item name="android:colorButtonNormal">@color/lolli_top_teal</item>
+    </style>
+
+    <style name="AppThemeGrey" parent="AppBaseThemeDark">
+        <item name="colorPrimary">@color/lolli_primary_grey</item>
+        <item name="colorPrimaryDark">@color/lolli_top_grey</item>
+        <item name="colorAccent">@color/accent_grey</item>
+        <item name="android:windowBackground">@color/lolli_background_grey</item>
+        <item name="android:colorButtonNormal">@color/lolli_top_grey</item>
     </style>
 	
 </resources>

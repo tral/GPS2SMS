@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme_Dark">
+        android:theme="@style/AppBaseThemeDark">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -47,6 +47,7 @@
         <activity android:name=".PreferencesActivity"></activity>
         <activity
             android:name=".SlideTabsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
                 <category android:name="android.intent.category.CATEGORY_ALTERNATE" />

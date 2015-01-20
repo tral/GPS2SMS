@@ -2,6 +2,7 @@
 
 ## v3.4.2 / ??.01.2015
 - Brand new look of the "Choose favourite app" screen
+- Fixes some bugs
 
 ## v3.4.1 / 18.01.2015
 - Changing of screen orientation doesn't force coordinates re-detection anymore

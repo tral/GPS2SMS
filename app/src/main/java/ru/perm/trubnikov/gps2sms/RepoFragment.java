@@ -2,63 +2,47 @@ package ru.perm.trubnikov.gps2sms;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
-abstract class RepoFragment extends Fragment {
-
+abstract class RepoFragment extends ListFragment {
 
     protected static final int ACT_RESULT_FAV = 1003;
 
-    DBHelper dbHelper;
-    protected String actionCoords;
-    protected String[] myCoords;
+    protected String[] mFirstLines;
+    protected String[] mSecondLines;
 
     protected ImageButton btnShare;
     protected ImageButton btnCopy;
     protected ImageButton btnMap;
     protected ImageButton btnFav;
 
-    abstract void retrieveMainData(LinearLayout layout, int pixels_b, int separators_margin);
+    String actionCoords;
 
-    //   abstract AlertDialog secondDialog();
+    abstract void rebuildList();
 
-    abstract String getMyCoordsItem(String toParse);
+    abstract void setLongClickHandler();
 
-    abstract View.OnLongClickListener dialogButtonsLongListener();
+    abstract void dialogAdjustment(Dialog dialog);
+
+    abstract void addExtraButtons(Dialog dialog);
 
     @Override
     public void onResume() {
         super.onResume();
-        refillMainScreen();
+        rebuildList();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_repo, container, false);
-        return rootView;
-    }
-
-    // Activity created, we can work with UI
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        refillMainScreen();
+
+        rebuildList();
+        setLongClickHandler();
     }
 
     @Override
@@ -71,162 +55,81 @@ abstract class RepoFragment extends Fragment {
         }
     }
 
-    final void refillMainScreen() {
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
 
-        LinearLayout layout = (LinearLayout) getView().findViewById(R.id.linearLayoutRepo);
+        // selected coordinates
+        actionCoords = DBHelper.extractCoordinates((String) getListAdapter().getItem(position));
 
-        if (layout.getChildCount() > 0)
-            layout.removeAllViews();
+        // custom dialog
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.repo_buttons_dialog);
+        dialog.setTitle(getDialogTitle(mFirstLines[position]));
+        btnMap = (ImageButton) dialog.findViewById(R.id.btnMap2);
+        btnShare = (ImageButton) dialog.findViewById(R.id.btnShare2);
+        btnCopy = (ImageButton) dialog.findViewById(R.id.btnCopy2);
+        btnFav = (ImageButton) dialog.findViewById(R.id.btnFav2);
+        dialogAdjustment(dialog);
+        DBHelper.updateFavIcon(getActivity(), btnFav);
+        dialog.show();
 
-        Resources r = getActivity().getApplicationContext().getResources();
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                DBHelper.shareCoordinates(getActivity(),
+                        DBHelper.getShareBody(getActivity(),
+                                actionCoords, ""));
+            }
+        });
 
-        // число пикселей для высоты кнопок (относительно dp)
-        int pixels_b = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 64, r.getDisplayMetrics());
-        int separators_margin = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 8, r.getDisplayMetrics());
+        btnCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                DBHelper.clipboardCopy(getActivity().getApplicationContext(), actionCoords);
+                DBHelper.ShowToastT(getActivity(), getString(R.string.text_copied), Toast.LENGTH_LONG);
+            }
+        });
 
-        try {
-            retrieveMainData(layout, pixels_b, separators_margin);
-        } catch (Exception e) {
-            Log.d("gps", "EXCEPTION! " + e.toString() + " Message:" + e.getMessage());
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                DBHelper.openOnMap(getActivity().getApplicationContext(), actionCoords);
+            }
+        });
 
-        }
-
-    }
-
-    final void initOneBtn(LinearLayout layout, int i, int pixels_b,
-                          String toParseCoord, int separator_margin, String btnTitle) {
-
-        LinearLayout row = new LinearLayout(getActivity());
-        row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-        row.setOrientation(LinearLayout.VERTICAL);
-
-        // Button
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                pixels_b);
-
-        Button btnTag = new Button(getActivity());
-        btnTag.setLayoutParams(params);
-        btnTag.setText(btnTitle);
-        btnTag.setId(i);
-
-        // Only for Android LOWER than 3.0 !
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            SharedPreferences sharedPrefs = PreferenceManager
-                    .getDefaultSharedPreferences(getActivity());
-            btnTag.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
-                    .equalsIgnoreCase("1") ? Color.parseColor("#FFFFFF") : Color
-                    .parseColor("#000000"));
-        }
-
-        btnTag.setBackgroundColor(Color.TRANSPARENT);
-
-        // Separator
-        LinearLayout.LayoutParams view_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                2);
-        view_params.setMargins(separator_margin, 0, separator_margin, 0);
-        View viewTag = new View(getActivity());
-        viewTag.setLayoutParams(view_params);
-        viewTag.setBackgroundColor(Color.parseColor("#90909090"));
-
-        myCoords[i] = getMyCoordsItem(toParseCoord);
-
-        btnTag.setOnLongClickListener(dialogButtonsLongListener());
-        btnTag.setOnClickListener(dialogButtonsListener());
-
-        row.addView(btnTag);
-        row.addView(viewTag);
-        layout.addView(row);
-    }
-
-    final View.OnClickListener dialogButtonsListener() {
-        return new View.OnClickListener() {
-
+        btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // selected coordinates
-                actionCoords = myCoords[v.getId()];
-
-                // custom dialog
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.repo_buttons_dialog);
-                dialog.setTitle(getDialogTitle(v));
-                btnMap = (ImageButton) dialog.findViewById(R.id.btnMap2);
-                btnShare = (ImageButton) dialog.findViewById(R.id.btnShare2);
-                btnCopy = (ImageButton) dialog.findViewById(R.id.btnCopy2);
-                btnFav = (ImageButton) dialog.findViewById(R.id.btnFav2);
-                dialogAdjustment(dialog);
-                DBHelper.updateFavIcon(getActivity(), btnFav);
-                dialog.show();
-
-                btnShare.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        DBHelper.shareCoordinates(getActivity(),
-                                DBHelper.getShareBody(getActivity(),
-                                        actionCoords, ""));
-                    }
-                });
-
-                btnCopy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        DBHelper.clipboardCopy(getActivity().getApplicationContext(), actionCoords);
-                        DBHelper.ShowToastT(getActivity(), getString(R.string.text_copied), Toast.LENGTH_LONG);
-                    }
-                });
-
-                btnMap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        DBHelper.openOnMap(getActivity().getApplicationContext(), actionCoords);
-                    }
-                });
-
-                btnFav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        if (!DBHelper.shareFav(getActivity(),
-                                DBHelper.getShareBody(getActivity(), actionCoords, ""))) {
-                            Intent intent = new Intent(getActivity(), ChooseFavActivity.class);
-                            startActivityForResult(intent, ACT_RESULT_FAV);
-                        }
-                        ;
-                    }
-                });
-
-                btnFav.setOnLongClickListener(new View.OnLongClickListener() {
-                    public boolean onLongClick(View v) {
-                        Intent intent = new Intent(getActivity(), ChooseFavActivity.class);
-                        startActivityForResult(intent, ACT_RESULT_FAV);
-                        return true;
-                    }
-                });
-
-                addExtraButtons(dialog);
+                if (!DBHelper.shareFav(getActivity(),
+                        DBHelper.getShareBody(getActivity(), actionCoords, ""))) {
+                    Intent intent = new Intent(getActivity(), ChooseFavActivity.class);
+                    startActivityForResult(intent, ACT_RESULT_FAV);
+                } else {
+                    dialog.dismiss();
+                }
 
             }
-        };
+        });
+
+        btnFav.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(getActivity(), ChooseFavActivity.class);
+                startActivityForResult(intent, ACT_RESULT_FAV);
+                return true;
+            }
+        });
+
+        addExtraButtons(dialog);
 
     }
 
-    protected void dialogAdjustment(Dialog dialog) {
-    }
-
-    protected void addExtraButtons(Dialog dialog) {
-    }
-
-    protected String getDialogTitle(View v) {
+    protected String getDialogTitle(String s) {
         return getString(R.string.mysms_actions);
     }
 
+
 }
-
-

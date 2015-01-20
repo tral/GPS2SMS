@@ -18,11 +18,7 @@ public class PreferencesActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
-
-        setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
-                "1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        setTheme(DBHelper.determineTheme(this));
 
         setTitle(R.string.menu_item_settings); // otherwise it's not changed
 

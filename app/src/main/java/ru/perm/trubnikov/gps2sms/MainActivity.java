@@ -7,9 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Color;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,6 +22,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -87,6 +89,7 @@ public class MainActivity extends ActionBarActivity {
     private String coordsToSend;
     private String coordsToShare;
     private String phoneToSendSMS;
+    ColorStateList GPSSstateColorDefault;
 
     // Database
     DBHelper dbHelper;
@@ -119,6 +122,9 @@ public class MainActivity extends ActionBarActivity {
     private LocationListener locListener = new LocationListener() {
 
         public void onLocationChanged(Location argLocation) {
+            GpsStatus gstat = manager.getGpsStatus(null);
+            Log.d("gps", "satellites ----------" + gstat.getMaxSatellites());
+
             printLocation(argLocation, GPS_GOT_COORDINATES);
         }
 
@@ -133,7 +139,11 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+            GpsStatus gstat = manager.getGpsStatus(null);
+            Log.d("gps", "satellites ----------" + gstat.getMaxSatellites());
         }
+
+
     };
 
     private void printLocation(Location loc, int state) {
@@ -431,14 +441,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
-                "1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        setTheme(DBHelper.determineTheme(this));
 
         super.onCreate(savedInstanceState);
 
         // Setting up app language. This code MUST BE placed BEFORE setContentView!
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad = sharedPrefs.getString("prefLang", "");
         if (!languageToLoad.equalsIgnoreCase("")) {
             Locale locale = new Locale(languageToLoad);
@@ -591,22 +599,18 @@ public class MainActivity extends ActionBarActivity {
 
         // GPS-state TextView init
         GPSstate = (TextView) findViewById(R.id.textView1);
+        GPSSstateColorDefault = GPSstate.getTextColors();
         setGPSStateNormalColor();
         DBHelper.updateFavIcon(MainActivity.this, btnFav);
 
     }
 
     private void setGPSStateNormalColor() {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        GPSstate.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
-                .equalsIgnoreCase("1") ? Color.parseColor("#FFFFFF") : Color
-                .parseColor("#000000"));
+        GPSstate.setTextColor(GPSSstateColorDefault);
     }
 
     private void setGPSStateAccentColor() {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        GPSstate.setTextColor(sharedPrefs.getString("prefAppTheme", "1")
-                .equalsIgnoreCase("1") ? getResources().getColor(R.color.accent_dt) : getResources().getColor(R.color.accent_lt));
+        GPSstate.setTextColor(DBHelper.determineAccendcolor(MainActivity.this));
     }
 
     // ------------------------------------------------------------------------------------------
@@ -667,7 +671,9 @@ public class MainActivity extends ActionBarActivity {
 
 	/*
      * TODO
-	 * 
+	 *
+	 * Перехват СМС работает только если экран включен (сделать пуш-ап уведомления)
+	 *
 	 * Удаление СМС, Фотку на кнопке с выбранным контактом
 	 * Refactor MyCoordsActivity and MySMSActivity (Create common parent class?)
 	 */

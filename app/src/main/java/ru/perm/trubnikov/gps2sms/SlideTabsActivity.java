@@ -26,9 +26,6 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeListener, OnPageChangeListener {
     private final static int MYCOORDS_SAVE_POINT_DIALOG_ID = 20;
     private final static int MYCOORDS_ADD_POINT_DIALOG_ID = 15;
@@ -42,12 +39,7 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        SharedPreferences sharedPrefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
-
-        setTheme(sharedPrefs.getString("prefAppTheme", "1").equalsIgnoreCase(
-                "1") ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
-
+        setTheme(DBHelper.determineTheme(this));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slidetabs_activity);
@@ -135,7 +127,7 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
                     e1.requestFocus();
 
                     DBHelper dbHelper = new DBHelper(SlideTabsActivity.this);
-                    RepoFragmentCoords fragment = (RepoFragmentCoords) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
+                    RepoCoordsFragment fragment = (RepoCoordsFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
                     e1.setText(dbHelper.getMyccordName(fragment.actionCoordsId));
                     dbHelper.close();
                     e1.selectAll();
@@ -195,16 +187,12 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Pattern p = Pattern
-                                .compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
-                        Matcher m = p.matcher(laEdit.getText().toString() + ","
-                                + loEdit.getText().toString());
+                        String Coordinates = DBHelper.extractCoordinates(laEdit.getText().toString() + "," + loEdit.getText().toString());
 
-                        if (m.find()) {
+                        if (!Coordinates.equalsIgnoreCase("0,0")) {
 
                             DBHelper dbHelper = new DBHelper(SlideTabsActivity.this);
-                            dbHelper.insertMyCoord(pEdit.getText().toString(),
-                                    m.group(0));
+                            dbHelper.insertMyCoord(pEdit.getText().toString(), Coordinates);
                             dbHelper.close();
 
                         } else {
@@ -215,8 +203,10 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
                         }
 
                         mTabHost.setCurrentTab(0);
-                        RepoFragmentCoords fragment = (RepoFragmentCoords) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
-                        fragment.refillMainScreen();
+                        RepoCoordsFragment fragment = (RepoCoordsFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
+                        //fragment.refillMainScreen();
+
+                        fragment.rebuildList();
 
                         pEdit.requestFocus();
                         pEdit.setText("");
@@ -261,24 +251,26 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        RepoFragmentCoords fragment = (RepoFragmentCoords) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
+                        RepoCoordsFragment fragment = (RepoCoordsFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
 
                         DBHelper dbHelper = new DBHelper(SlideTabsActivity.this);
                         dbHelper.setMyccordName(fragment.actionCoordsId, nameEdit
                                 .getText().toString());
                         dbHelper.close();
-                        fragment.refillMainScreen();
+                        fragment.rebuildList();
+                        //fragment.refillMainScreen();
                     }
                 });
 
         builder.setNegativeButton(getString(R.string.del_btn_txt),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        RepoFragmentCoords fragment = (RepoFragmentCoords) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
+                        RepoCoordsFragment fragment = (RepoCoordsFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
                         DBHelper dbHelper = new DBHelper(SlideTabsActivity.this);
                         dbHelper.deleteMyccord(fragment.actionCoordsId);
                         dbHelper.close();
-                        fragment.refillMainScreen();
+                        //fragment.refillMainScreen();
+                        fragment.rebuildList();
                     }
                 });
 
@@ -312,8 +304,8 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
         builder_sp.setPositiveButton(getString(R.string.save_btn_txt),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //!!!!!!!!!!!! RepoFragmentSMSOut, судя по всему, нормально приводится к RepoFragmentSMSIn
-                        RepoFragmentSMSIn fragment = (RepoFragmentSMSIn) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, mViewPager.getCurrentItem()));
+                        //!!!!!!!!!!!! RepoFragmentSMSOut, судя по всему, нормально приводится к RepoSMSInFragmentNew
+                        RepoSMSInFragment fragment = (RepoSMSInFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, mViewPager.getCurrentItem()));
 
                         DBHelper dbHelper = new DBHelper(SlideTabsActivity.this);
                         dbHelper.insertMyCoord(lPointName.getText().toString(), fragment.actionCoords);
@@ -322,8 +314,9 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
                         DBHelper.ShowToast(SlideTabsActivity.this, R.string.point_saved, Toast.LENGTH_LONG);
 
                         mTabHost.setCurrentTab(0);
-                        RepoFragmentCoords fragment0 = (RepoFragmentCoords) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
-                        fragment0.refillMainScreen();
+                        RepoCoordsFragment fragment0 = (RepoCoordsFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewpager, 0));
+                        //fragment0.refillMainScreen();
+                        fragment0.rebuildList();
                     }
                 });
 
@@ -344,7 +337,6 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
         return dialog;
 
     }
-
 
     protected void AdjustAddDialogColors(View layout) {
         // Only for Android LOWER than 3.0 !
