@@ -26,7 +26,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeListener, OnPageChangeListener {
+public class SlideTabsActivity extends BaseActivity implements OnTabChangeListener, OnPageChangeListener {
     private final static int MYCOORDS_SAVE_POINT_DIALOG_ID = 20;
     private final static int MYCOORDS_ADD_POINT_DIALOG_ID = 15;
     protected final static int DIALOG_COORD_PROPS_ID = 5;
@@ -39,7 +39,7 @@ public class SlideTabsActivity extends ActionBarActivity implements OnTabChangeL
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        setTheme(DBHelper.determineTheme(this));
+        //setTheme(DBHelper.determineTheme(this));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slidetabs_activity);

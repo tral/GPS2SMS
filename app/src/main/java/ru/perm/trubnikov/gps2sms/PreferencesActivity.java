@@ -12,13 +12,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 @TargetApi(11)
-public class PreferencesActivity extends ActionBarActivity {
+public class PreferencesActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        setTheme(DBHelper.determineTheme(this));
+        //setTheme(DBHelper.determineTheme(this));
 
         setTitle(R.string.menu_item_settings); // otherwise it's not changed
 

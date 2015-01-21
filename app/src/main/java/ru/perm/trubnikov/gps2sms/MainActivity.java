@@ -38,7 +38,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity {
 
     // Menu
     public static final int IDM_SETTINGS = 101;
@@ -434,7 +434,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        setTheme(DBHelper.determineTheme(this));
+        //setTheme(DBHelper.determineTheme(this));
 
         super.onCreate(savedInstanceState);
 

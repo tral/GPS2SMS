@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-public class ChooseFavActivity extends ActionBarActivity {
+public class ChooseFavActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
@@ -18,7 +18,7 @@ public class ChooseFavActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Определение темы должно быть ДО super.onCreate и setContentView
-        setTheme(DBHelper.determineTheme(this));
+        //setTheme(DBHelper.determineTheme(this));
 
         setTitle(R.string.choose_fav_app);
         super.onCreate(savedInstanceState);

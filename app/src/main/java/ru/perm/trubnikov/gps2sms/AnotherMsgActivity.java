@@ -12,14 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AnotherMsgActivity extends ActionBarActivity {
+public class AnotherMsgActivity extends BaseActivity {
 
 	// ------------------------------------------------------------------------------------------
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		// Определение темы должно быть ДО super.onCreate и setContentView
-        setTheme(DBHelper.determineTheme(this));
+        //setTheme(DBHelper.determineTheme(this));
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_another_msg);
