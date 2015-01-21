@@ -43,6 +43,8 @@ public class MainActivity extends BaseActivity {
     // Menu
     public static final int IDM_SETTINGS = 101;
     public static final int IDM_RATE = 105;
+    public static final int IDM_DONATE = 106;
+
 
     // Activities
     private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
@@ -222,6 +224,7 @@ public class MainActivity extends BaseActivity {
         menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE,
                 R.string.menu_item_settings);
         menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
+        //menu.add(Menu.NONE, IDM_DONATE, Menu.NONE, "DONATE"); // @TODO string -> resources
 
         return (super.onCreateOptionsMenu(menu));
     }
@@ -304,6 +307,11 @@ public class MainActivity extends BaseActivity {
             case R.id.action_sms_regexp:
                 Intent repo_intent = new Intent(this, SlideTabsActivity.class);
                 startActivityForResult(repo_intent, ACT_RESULT_REPO);
+                break;
+
+            case IDM_DONATE:
+                Intent donate_intent = new Intent(this, DonateActivity.class);
+                startActivity(donate_intent);
                 break;
             case IDM_RATE:
                 Intent int_rate = new Intent(Intent.ACTION_VIEW,
@@ -665,6 +673,7 @@ public class MainActivity extends BaseActivity {
 	/*
      * TODO
 	 *
+	 * Добавить в маркет версию для Android 2.1 (API 7) отдельным приложением
 	 * Перехват СМС работает только если экран включен (сделать пуш-ап уведомления)
 	 *
 	 * Удаление СМС, Фотку на кнопке с выбранным контактом
