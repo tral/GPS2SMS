@@ -17,9 +17,6 @@ public class ChooseFavActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // Определение темы должно быть ДО super.onCreate и setContentView
-        //setTheme(DBHelper.determineTheme(this));
-
         setTitle(R.string.choose_fav_app);
         super.onCreate(savedInstanceState);
 

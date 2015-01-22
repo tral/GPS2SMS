@@ -64,4 +64,18 @@
     <string name="choose_fav_app">Favourite app</string>
     <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
     <string name="pref_sms_content_summary">Specify data to be sent via SMS</string>
+
+    <!-- Themes -->
+    <string name="app_theme_1">Marrom</string>
+    <string name="app_theme_2">Azul Cinza</string>
+    <string name="app_theme_3">Amarelo</string>
+    <string name="app_theme_4">Rosa</string>
+    <string name="app_theme_5">Cerceta</string>
+    <string name="app_theme_6">Cinza</string>
+
+    <string name="donate_price_1">0.50 EUR</string>
+    <string name="donate_price_2">0.89 EUR</string>
+    <string name="donate_price_3">1.71 EUR</string>
+    <string name="donate_price_4">3.29 EUR</string>
+    <string name="donate_price_5">8.56 EUR</string>
 </resources>

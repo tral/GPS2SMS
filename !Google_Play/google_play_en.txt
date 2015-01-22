@@ -1,5 +1,7 @@
 Simple, fast and free app for GPS location sharing via SMS or any other third party app (like email, messengers, etc)
 
+<b>ATTENTION!!! In-app purchases are only used for donations!</b>
+
 <b>REVIEWS</b>
 ILoveFreeSoftware.com: http://goo.gl/JZy8DD
 

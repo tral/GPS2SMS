@@ -64,4 +64,18 @@
     <string name="choose_fav_app">Любимое приложение</string>
     <string name="choose_fav_app_info">Укажите приложение для быстрой отправки координат</string>
     <string name="pref_sms_content_summary">Укажите данные для посылки при помощи SMS</string>
+
+    <!-- Themes -->
+    <string name="app_theme_1">Коричневая</string>
+    <string name="app_theme_2">Сине-серая</string>
+    <string name="app_theme_3">Желтая</string>
+    <string name="app_theme_4">Розовая</string>
+    <string name="app_theme_5">Бирюзовая</string>
+    <string name="app_theme_6">Серая</string>
+
+    <string name="donate_price_1">30 руб.</string>
+    <string name="donate_price_2">67 руб.</string>
+    <string name="donate_price_3">130 руб.</string>
+    <string name="donate_price_4">250 руб.</string>
+    <string name="donate_price_5">650 руб.</string>
 </resources>

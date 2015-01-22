@@ -23,8 +23,6 @@
 
         <ListPreference
             android:defaultValue="1"
-            android:entries="@array/appTheme"
-            android:entryValues="@array/appThemeValues"
             android:key="prefAppTheme"
             android:title="@string/pref_apptheme" />
 

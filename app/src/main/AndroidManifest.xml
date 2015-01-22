@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.perm.trubnikov.gps2sms"
     android:installLocation="auto"
-    android:versionCode="62"
+    android:versionCode="64"
     android:versionName="@string/version_name">
 
     <uses-sdk
-        android:minSdkVersion="7"
+        android:minSdkVersion="8"
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

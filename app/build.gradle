@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "ru.perm.trubnikov.gps2sms"
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 21
     }
 
@@ -19,9 +19,12 @@ android {
 }
 
 
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
-
+    compile 'com.anjlab.android.iab.v3:library:1.0.+@aar'
 }
 

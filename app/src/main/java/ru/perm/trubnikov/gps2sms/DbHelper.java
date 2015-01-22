@@ -29,46 +29,6 @@ class DBHelper extends SQLiteOpenHelper {
         super(context, "rupermtrubnikovgps2smsDB", null, 4);
         defSmsMsg = context.getString(R.string.default_sms_msg);
     }
-/*
-    public long getSettingsParamInt(String param) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.query("settings", null, "param = '" + param + "'", null,
-                null, null, null);
-
-        if (c.moveToFirst()) {
-            int idx = c.getColumnIndex("val_int");
-            return c.getLong(idx);
-        }
-
-        return 0;
-    }
-
-    public String getSettingsParamTxt(String param) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.query("settings", null, "param = '" + param + "'", null,
-                null, null, null);
-
-        if (c.moveToFirst()) {
-            int idx = c.getColumnIndex("val_txt");
-            return c.getString(idx);
-        }
-
-        return "";
-    }
-
-    public void setSettingsParamInt(String param, long val) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("val_int", val);
-        db.update("settings", cv, "param = ?", new String[]{param});
-    }
-
-    public void setSettingsParamTxt(String param, String val) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("val_txt", val);
-        db.update("settings", cv, "param = ?", new String[]{param});
-    }*/
 
     public void setMyccordName(int id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -96,19 +56,6 @@ class DBHelper extends SQLiteOpenHelper {
         db.delete("mycoords", "_id = " + id, null);
     }
 
-   /* public String getPhone() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.query("phone", null, "_id=1", null, null, null, null);
-
-        if (c.moveToFirst()) {
-            int idx = c.getColumnIndex("phone");
-            String phone = c.getString(idx);
-            return phone;
-        }
-
-        return "";
-    }*/
-
     public String getName() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.query("contact", null, "_id=1", null, null, null, null);
@@ -120,18 +67,6 @@ class DBHelper extends SQLiteOpenHelper {
 
         return "";
     }
-
-    /*public String getSmsMsg() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.query("msg", null, "_id=1", null, null, null, null);
-
-        if (c.moveToFirst()) {
-            int idx = c.getColumnIndex("msg");
-            return c.getString(idx);
-        }
-
-        return "";
-    }*/
 
     public String getSlot(int id, String col) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -164,7 +99,6 @@ class DBHelper extends SQLiteOpenHelper {
         db.insert("mycoords", null, cv);
     }
 
-
     public static void updateFavIcon(Context context, ImageButton btn) {
 
         try {
@@ -196,7 +130,6 @@ class DBHelper extends SQLiteOpenHelper {
 
     }
 
-
     public static int determineTheme(Context context) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -205,6 +138,14 @@ class DBHelper extends SQLiteOpenHelper {
                 return R.style.AppBaseThemeDark;
             case "2":
                 return R.style.AppBaseThemeLight;
+            case "3":
+                return R.style.AppThemeYellow;
+            case "4":
+                return R.style.AppThemePink;
+            case "5":
+                return R.style.AppThemeTeal;
+            case "6":
+                return R.style.AppThemeGrey;
             default:
                 return R.style.AppBaseThemeDark;
 
@@ -219,6 +160,14 @@ class DBHelper extends SQLiteOpenHelper {
                 return context.getResources().getColor(R.color.accent_dt);
             case "2":
                 return context.getResources().getColor(R.color.accent_lt);
+            case "3":
+                return context.getResources().getColor(R.color.accent_yellow);
+            case "4":
+                return context.getResources().getColor(R.color.accent_pink);
+            case "5":
+                return context.getResources().getColor(R.color.accent_teal);
+            case "6":
+                return context.getResources().getColor(R.color.accent_grey);
             default:
                 return context.getResources().getColor(R.color.accent_dt);
 
@@ -321,7 +270,6 @@ class DBHelper extends SQLiteOpenHelper {
     }
 
     public static void openOnMap(Context context, String crds) {
-
 
         // http://developer.android.com/guide/components/intents-common.html
         // Example: "geo:0,0?q=34.99,-106.61(Treasure)"

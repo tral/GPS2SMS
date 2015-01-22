@@ -64,4 +64,18 @@
     <string name="choose_fav_app">Улюблена програма</string>
     <string name="choose_fav_app_info">Вкажіть програму для швидкого відправлення координат</string>
     <string name="pref_sms_content_summary">Вкажіть дані для надсилання за допомогою SMS</string>
+
+    <!-- Themes -->
+    <string name="app_theme_1">Коричнева</string>
+    <string name="app_theme_2">Синьо-сіра</string>
+    <string name="app_theme_3">Жовта</string>
+    <string name="app_theme_4">Рожева</string>
+    <string name="app_theme_5">Бірюзова</string>
+    <string name="app_theme_6">Сіра</string>
+
+    <string name="donate_price_1">8.00 Грн.</string>
+    <string name="donate_price_2">16.39 Грн.</string>
+    <string name="donate_price_3">31.44 Грн.</string>
+    <string name="donate_price_4">60.63 Грн.</string>
+    <string name="donate_price_5">157.63 Грн.</string>
 </resources>

@@ -66,4 +66,18 @@
     <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
     <string name="pref_sms_content_summary">Specify data to be sent via SMS</string>
 
+    <!-- Themes -->
+    <string name="app_theme_1">Brun</string>
+    <string name="app_theme_2">Blå Grå</string>
+    <string name="app_theme_3">Gul</string>
+    <string name="app_theme_4">Rosa</string>
+    <string name="app_theme_5">Teal</string>
+    <string name="app_theme_6">Grå</string>
+
+    <string name="donate_price_1">7.00 SEK</string>
+    <string name="donate_price_2">8.41 SEK</string>
+    <string name="donate_price_3">16.15 SEK</string>
+    <string name="donate_price_4">31.15 SEK</string>
+    <string name="donate_price_5">80.99 SEK</string>
+
 </resources>
