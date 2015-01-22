@@ -26,7 +26,7 @@
         <item name="colorPrimary">@color/lolli_primary_dt</item>
         <item name="colorPrimaryDark">@color/lolli_top_dt</item>
         <item name="colorAccent">@color/accent_dt</item>
-        <item name="colorButtonNormal">@color/lolli_top_dt</item>
+        <item name="android:windowBackground">@color/lolli_background_dt</item>
 
     </style>
 
@@ -44,7 +44,7 @@
         <item name="colorPrimary">@color/lolli_primary_lt</item>
         <item name="colorPrimaryDark">@color/lolli_top_lt</item>
         <item name="colorAccent">@color/accent_lt</item>
-        <item name="colorButtonNormal">@color/lolli_btn_lt</item>
+        <item name="android:windowBackground">@color/lolli_background_lt</item>
 
     </style>
 
@@ -52,28 +52,28 @@
         <item name="colorPrimary">@color/lolli_primary_yellow</item>
         <item name="colorPrimaryDark">@color/lolli_top_yellow</item>
         <item name="colorAccent">@color/accent_yellow</item>
-        <item name="colorButtonNormal">@color/lolli_btn_yellow</item>
+        <item name="android:windowBackground">@color/lolli_background_yellow</item>
     </style>
 
     <style name="AppThemePink" parent="AppBaseThemeLight">
         <item name="colorPrimary">@color/lolli_primary_pink</item>
         <item name="colorPrimaryDark">@color/lolli_top_pink</item>
         <item name="colorAccent">@color/accent_pink</item>
-        <item name="colorButtonNormal">@color/lolli_btn_pink</item>
+        <item name="android:windowBackground">@color/lolli_background_pink</item>
     </style>
 
     <style name="AppThemeTeal" parent="AppBaseThemeDark">
         <item name="colorPrimary">@color/lolli_primary_teal</item>
         <item name="colorPrimaryDark">@color/lolli_top_teal</item>
         <item name="colorAccent">@color/accent_teal</item>
-        <item name="colorButtonNormal">@color/lolli_top_teal</item>
+        <item name="android:windowBackground">@color/lolli_background_teal</item>
     </style>
 
     <style name="AppThemeGrey" parent="AppBaseThemeDark">
         <item name="colorPrimary">@color/lolli_primary_grey</item>
         <item name="colorPrimaryDark">@color/lolli_top_grey</item>
         <item name="colorAccent">@color/accent_grey</item>
-        <item name="colorButtonNormal">@color/lolli_top_grey</item>
+        <item name="android:windowBackground">@color/lolli_background_grey</item>
     </style>
     
 </resources>

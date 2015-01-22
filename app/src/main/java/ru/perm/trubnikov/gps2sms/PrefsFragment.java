@@ -33,17 +33,20 @@ public class PrefsFragment extends PreferenceFragment {
         bp = new BillingProcessor(getActivity(), null, new BillingProcessor.IBillingHandler() {
             @Override
             public void onBillingInitialized() {
-                if (bp.isPurchased("donation_1") || bp.isPurchased("donation_2") ||
-                        bp.isPurchased("donation_3") || bp.isPurchased("donation_4") ||
-                        bp.isPurchased("donation_5")) {
-                    ListPreference prefTheme = (ListPreference) findPreference("prefAppTheme");
-                    prefTheme.setEntries(new String[]{getString(R.string.app_theme_1),
-                            getString(R.string.app_theme_2),
-                            getString(R.string.app_theme_3),
-                            getString(R.string.app_theme_4),
-                            getString(R.string.app_theme_5),
-                            getString(R.string.app_theme_6)});
-                    prefTheme.setEntryValues(new String[]{"1", "2", "3", "4", "5", "6"});
+                try {
+                    if (bp.isPurchased("donation_1") || bp.isPurchased("donation_2") ||
+                            bp.isPurchased("donation_3") || bp.isPurchased("donation_4") ||
+                            bp.isPurchased("donation_5")) {
+                        ListPreference prefTheme = (ListPreference) findPreference("prefAppTheme");
+                        prefTheme.setEntries(new String[]{getString(R.string.app_theme_1),
+                                getString(R.string.app_theme_2),
+                                getString(R.string.app_theme_3),
+                                getString(R.string.app_theme_4),
+                                getString(R.string.app_theme_5),
+                                getString(R.string.app_theme_6)});
+                        prefTheme.setEntryValues(new String[]{"1", "2", "3", "4", "5", "6"});
+                    }
+                } catch (Exception e) {
                 }
             }
 
@@ -58,26 +61,40 @@ public class PrefsFragment extends PreferenceFragment {
             @Override
             public void onPurchaseHistoryRestored() {
             }
-        });
+        }
+
+        );
 
         Preference pref = findPreference("prefAbout");
-        pref.setSummary(getString(R.string.pref_about_summary) + " "
-                + getString(R.string.version_name));
+        pref.setSummary(
+
+                getString(R.string.pref_about_summary)
+
+                        + " "
+                        +
+
+                        getString(R.string.version_name)
+
+        );
 
         // Get the custom preference
         Preference customPref = findPreference("prefFav");
 
-        customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
 
-            public boolean onPreferenceClick(Preference preference) {
+                                                {
 
-                Intent intent = new Intent(getActivity(),
-                        ChooseFavActivity.class);
-                startActivity(intent);
-                return true;
-            }
+                                                    public boolean onPreferenceClick(Preference preference) {
 
-        });
+                                                        Intent intent = new Intent(getActivity(),
+                                                                ChooseFavActivity.class);
+                                                        startActivity(intent);
+                                                        return true;
+                                                    }
+
+                                                }
+
+        );
 
     }
 

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,7 +41,7 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
         //setTheme(DBHelper.determineTheme(this));
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.slidetabs_activity);
+        setContentView(R.layout.activity_slidetabs);
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 

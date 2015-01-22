@@ -78,4 +78,14 @@
     <string name="donate_price_3">1.71 EUR</string>
     <string name="donate_price_4">3.29 EUR</string>
     <string name="donate_price_5">8.56 EUR</string>
+
+    <string name="menu_item_donate">Doar</string>
+
+    <string name="donation_title">Thank you for donating!</string>
+    <string name="donation_desc">
+        \nAs a small gift for your donation, there are few <b>new Application themes</b> available in Settings, check them out after making the donation!
+        \n\nSo, you can help developer to buy anything from the following list:
+        \n
+    </string>
+
 </resources>

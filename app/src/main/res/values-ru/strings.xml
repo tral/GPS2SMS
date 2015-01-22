@@ -78,4 +78,16 @@
     <string name="donate_price_3">130 руб.</string>
     <string name="donate_price_4">250 руб.</string>
     <string name="donate_price_5">650 руб.</string>
+
+    <string name="menu_item_donate">Пожертвование</string>
+
+    <string name="donation_title">Спасибо за пожертвование!</string>
+    <string name="donation_desc">
+        \nВ качестве небольшого подарка за Ваше пожертвование, будет открыто несколько новых тем оформления. Они будут доступны в «Настройках»!
+        \n\nИтак, Вы можете помочь разработчику купить что-то из этого списка:
+        \n
+    </string>
+
+
+
 </resources>

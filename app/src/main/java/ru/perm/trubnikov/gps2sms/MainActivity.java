@@ -224,7 +224,7 @@ public class MainActivity extends BaseActivity {
         menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE,
                 R.string.menu_item_settings);
         menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
-        menu.add(Menu.NONE, IDM_DONATE, Menu.NONE, "DONATE"); // @TODO string -> resources
+        menu.add(Menu.NONE, IDM_DONATE, Menu.NONE, R.string.menu_item_donate);
 
         return (super.onCreateOptionsMenu(menu));
     }

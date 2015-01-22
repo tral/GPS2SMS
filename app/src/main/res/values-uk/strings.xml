@@ -78,4 +78,14 @@
     <string name="donate_price_3">31.44 Грн.</string>
     <string name="donate_price_4">60.63 Грн.</string>
     <string name="donate_price_5">157.63 Грн.</string>
+
+    <string name="menu_item_donate">Пожертвування</string>
+
+    <string name="donation_title">Спасибі за пожертву!</string>
+    <string name="donation_desc">
+        \nAs a small gift for your donation, there are few <b>new Application themes</b> available in Settings, check them out after making the donation!
+        \n\nSo, you can help developer to buy anything from the following list:
+        \n
+    </string>
+
 </resources>

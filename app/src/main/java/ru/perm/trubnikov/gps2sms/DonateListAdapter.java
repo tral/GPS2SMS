@@ -9,20 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * Created by A on 22.01.2015.
- */
-public class DonateListAdapter  extends ArrayAdapter<String> {
+public class DonateListAdapter extends ArrayAdapter<String> {
     private final Context context;
     private final String[] titles;
-    private final String[] descrs;
+    private final String[] descs;
     private final Drawable[] icons;
 
-    public DonateListAdapter(Context context, String[] product_ids, String[] titles, String[] descrs, Drawable[] icons) {
+    public DonateListAdapter(Context context, String[] product_ids, String[] titles, String[] descs, Drawable[] icons) {
         super(context, R.layout.choose_fav_list_item, product_ids); // !!!
         this.context = context;
         this.titles = titles;
-        this.descrs = descrs;
+        this.descs = descs;
         this.icons = icons;
     }
 
@@ -34,7 +31,7 @@ public class DonateListAdapter  extends ArrayAdapter<String> {
         TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         firstLine.setText(titles[position]);
-        secondLine.setText(descrs[position]);
+        secondLine.setText(descs[position]);
         imageView.setImageDrawable(icons[position]);
 
         return rowView;

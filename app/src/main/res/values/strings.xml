@@ -92,6 +92,8 @@
     <string name="donate_price_5">$ 9.95</string>
 
 
+    <string name="menu_item_donate">Donate</string>
+
     <string name="donation_title">Thank you for donating!</string>
     <string name="donation_desc">
         \nAs a small gift for your donation, there are few <b>new Application themes</b> available in Settings, check them out after making the donation!
