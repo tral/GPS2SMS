@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.4.3 / ??.01.2015
+- You can now support the author by making donations (and get 4 brand new color themes)!
+- Color themes fixes for pre-lollipop devices
+- Bugfixes and optimizations
+
 ## v3.4.2 / 21.01.2015
 - Brand new look of the "Choose favourite app" screen
 - Brand new look of Saved, Inbox and Sent screens

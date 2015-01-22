@@ -66,35 +66,22 @@ public class PrefsFragment extends PreferenceFragment {
         );
 
         Preference pref = findPreference("prefAbout");
-        pref.setSummary(
-
-                getString(R.string.pref_about_summary)
-
-                        + " "
-                        +
-
-                        getString(R.string.version_name)
-
-        );
+        pref.setSummary(getString(R.string.pref_about_summary) + " " + getString(R.string.version_name));
 
         // Get the custom preference
         Preference customPref = findPreference("prefFav");
 
-        customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+        customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
-                                                {
+            public boolean onPreferenceClick(Preference preference) {
 
-                                                    public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(getActivity(),
+                        ChooseFavActivity.class);
+                startActivity(intent);
+                return true;
+            }
 
-                                                        Intent intent = new Intent(getActivity(),
-                                                                ChooseFavActivity.class);
-                                                        startActivity(intent);
-                                                        return true;
-                                                    }
-
-                                                }
-
-        );
+        });
 
     }
 

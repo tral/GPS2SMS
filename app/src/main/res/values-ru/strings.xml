@@ -73,6 +73,11 @@
     <string name="app_theme_5">Бирюзовая</string>
     <string name="app_theme_6">Серая</string>
 
+    <string name="donate_title_1">Поездка на автобусе</string>
+    <string name="donate_title_2">Вкусный гамбургер</string>
+    <string name="donate_title_3">Хорошее пивко</string>
+    <string name="donate_title_4">Билет в кино</string>
+    <string name="donate_title_5">Оплатить вечеринку! Тусэ!</string>
     <string name="donate_price_1">30 руб.</string>
     <string name="donate_price_2">67 руб.</string>
     <string name="donate_price_3">130 руб.</string>
