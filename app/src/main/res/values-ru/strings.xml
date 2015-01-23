@@ -93,6 +93,6 @@
         \n
     </string>
 
-
+    <string name="donation_already_purchased">Вы уже сделали это пожертвование! Спасибо кстати!</string>
 
 </resources>
