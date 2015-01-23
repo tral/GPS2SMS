@@ -61,35 +61,35 @@
     <string name="add_point_error">Nesprávne súradnice!</string>
     <string name="prefs_lang">Jazyk</string>
 
-    <string name="choose_fav_app">Favourite app</string>
-    <string name="choose_fav_app_info">Specify the application for fast sharing feature</string>
-    <string name="pref_sms_content_summary">Specify data to be sent via SMS</string>
+    <string name="choose_fav_app">Obľúbená aplikácia</string>
+    <string name="choose_fav_app_info">Špecifikujte aplikáciu pre rýchle zdieľanie</string>
+    <string name="pref_sms_content_summary">Špecifikujte dáta na odoslanie cez SMS</string>
 
     <!-- Themes -->
-    <string name="app_theme_1">Hnedý</string>
-    <string name="app_theme_2">Modrá sivá</string>
-    <string name="app_theme_3">Žltý</string>
-    <string name="app_theme_4">Ružový</string>
-    <string name="app_theme_5">Teal</string>
-    <string name="app_theme_6">Grey</string>
+    <string name="app_theme_1">Hnedá</string>
+    <string name="app_theme_2">Modro-sivá</string>
+    <string name="app_theme_3">Žltá</string>
+    <string name="app_theme_4">Ružová</string>
+    <string name="app_theme_5">Modro-zelená</string>
+    <string name="app_theme_6">Sivá</string>
 
-    <string name="donate_title_1">Bus ride</string>
-    <string name="donate_title_2">Tasty hamburger</string>
-    <string name="donate_title_3">Good beer</string>
-    <string name="donate_title_4">Cinema ticket</string>
-    <string name="donate_title_5">Pay for the party! Lets\'s rock!</string>
+    <string name="donate_title_1">Jazda autobusom</string>
+    <string name="donate_title_2">Chutný hamburger</string>
+    <string name="donate_title_3">Dobré pivo</string>
+    <string name="donate_title_4">Lístok do kina</string>
+    <string name="donate_title_5">Zaplať za párty!Do toho!</string>
     <string name="donate_price_1">0.50 EUR</string>
     <string name="donate_price_2">0.89 EUR</string>
     <string name="donate_price_3">1.71 EUR</string>
     <string name="donate_price_4">3.29 EUR</string>
     <string name="donate_price_5">8.56 EUR</string>
 
-    <string name="menu_item_donate">Darovať</string>
+    <string name="menu_item_donate">Podporiť</string>
 
-    <string name="donation_title">Thank you for donating!</string>
+    <string name="donation_title">Ďakujem za podporu!</string>
     <string name="donation_desc">
-        \nAs a small gift for your donation, there are few <b>new Application themes</b> available in Settings, check them out after making the donation!
-        \n\nSo, you can help developer to buy anything from the following list:
+        \nAko darček za podporu získate niekoľko <b>nových tém</b>, ktoré sú po platbe dostupné v Nastaveniach.
+        \n\nTakže, môžete podporiť autora kúpením niektorej z nasledovných vecí:
         \n
     </string>
 
