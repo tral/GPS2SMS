@@ -1,7 +1,11 @@
 package ru.perm.trubnikov.gps2sms;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.anjlab.android.iab.v3.SkuDetails;
 
 
 public class DonateActivity extends BaseActivity {
@@ -18,7 +22,11 @@ public class DonateActivity extends BaseActivity {
         DonateListFragment fragment = new DonateListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frgmCont, fragment).commit();
 
+
+
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

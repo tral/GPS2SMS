@@ -13,6 +13,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 public class PreferencesLegacyActivity extends PreferenceActivity {
 
     private BillingProcessor bp;
+    private static final String LICENSE_KEY = null; // PUT YOUR MERCHANT KEY HERE; // UPD: NO NEED to verify donations
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,8 +25,6 @@ public class PreferencesLegacyActivity extends PreferenceActivity {
 
         super.onCreate(savedInstanceState);
 
-      /*  ShowBackButton();*/
-
         addPreferencesFromResource(R.xml.settings);
 
         // Default themes
@@ -34,7 +33,7 @@ public class PreferencesLegacyActivity extends PreferenceActivity {
         prefTheme.setEntryValues(new String[]{"1", "2"});
 
         // Additional themes
-        bp = new BillingProcessor(PreferencesLegacyActivity.this, null, new BillingProcessor.IBillingHandler() {
+        bp = new BillingProcessor(PreferencesLegacyActivity.this, LICENSE_KEY, new BillingProcessor.IBillingHandler() {
             @Override
             public void onBillingInitialized() {
                 try {

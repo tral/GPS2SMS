@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -34,10 +35,14 @@ public class DonateListFragment extends ListFragment {
         bp = new BillingProcessor(getActivity(), LICENSE_KEY, new BillingProcessor.IBillingHandler() {
             @Override
             public void onProductPurchased(String productId, TransactionDetails details) {
+                showToast("onProductPurchased: " + productId);
+                bp.loadOwnedPurchasesFromGoogle();
             }
 
             @Override
             public void onBillingError(int errorCode, Throwable error) {
+                showToast("onBillingError: " + Integer.toString(errorCode));
+                bp.loadOwnedPurchasesFromGoogle();
             }
 
             @Override
@@ -74,11 +79,14 @@ public class DonateListFragment extends ListFragment {
 
             @Override
             public void onPurchaseHistoryRestored() {
+                showToast("onPurchaseHistoryRestored");
             }
         });
 
 
     }
+
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -86,7 +94,15 @@ public class DonateListFragment extends ListFragment {
         //Toast.makeText(getActivity(), (String) getListAdapter().getItem(position), Toast.LENGTH_SHORT).show();
 
         if (readyToPurchase) {
-            bp.purchase(getActivity(), (String) getListAdapter().getItem(position));
+
+            bp.loadOwnedPurchasesFromGoogle();
+
+            if (bp.isPurchased((String) getListAdapter().getItem(position))) {
+                DBHelper.ShowToast(getActivity(), R.string.donation_already_purchased, Toast.LENGTH_LONG);
+            } else {
+                bp.purchase(getActivity(), (String) getListAdapter().getItem(position));
+            }
+
             return;
         }
 
@@ -115,5 +131,9 @@ public class DonateListFragment extends ListFragment {
             return "";
         }
     }*/
+
+    private void showToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
 
 }

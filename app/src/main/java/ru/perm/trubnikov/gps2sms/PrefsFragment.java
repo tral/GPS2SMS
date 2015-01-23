@@ -15,6 +15,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 public class PrefsFragment extends PreferenceFragment {
 
     private BillingProcessor bp;
+    private static final String LICENSE_KEY = null; // PUT YOUR MERCHANT KEY HERE; // UPD: NO NEED to verify donations
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class PrefsFragment extends PreferenceFragment {
         prefTheme.setEntryValues(new String[]{"1", "2"});
 
         // Additional themes
-        bp = new BillingProcessor(getActivity(), null, new BillingProcessor.IBillingHandler() {
+        bp = new BillingProcessor(getActivity(), LICENSE_KEY, new BillingProcessor.IBillingHandler() {
             @Override
             public void onBillingInitialized() {
                 try {

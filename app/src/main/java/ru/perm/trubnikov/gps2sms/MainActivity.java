@@ -1,5 +1,6 @@
 package ru.perm.trubnikov.gps2sms;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity {
     public static final int IDM_SETTINGS = 101;
     public static final int IDM_RATE = 105;
     public static final int IDM_DONATE = 106;
+    public static final int IDM_TEST = 107;
 
 
     // Activities
@@ -226,6 +228,8 @@ public class MainActivity extends BaseActivity {
         menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
         menu.add(Menu.NONE, IDM_DONATE, Menu.NONE, R.string.menu_item_donate);
 
+        menu.add(Menu.NONE, IDM_TEST, Menu.NONE, "TEST");
+
         return (super.onCreateOptionsMenu(menu));
     }
 
@@ -312,6 +316,11 @@ public class MainActivity extends BaseActivity {
             case IDM_DONATE:
                 Intent donate_intent = new Intent(this, DonateActivity.class);
                 startActivity(donate_intent);
+                break;
+
+            case IDM_TEST:
+                Intent test_intent = new Intent(this, TestActivity.class);
+                startActivity(test_intent);
                 break;
             case IDM_RATE:
                 Intent int_rate = new Intent(Intent.ACTION_VIEW,
@@ -470,7 +479,7 @@ public class MainActivity extends BaseActivity {
                 String lPhone = plainPh.getText().toString().replace("-", "")
                         .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
 
-                if (!lPhone.equalsIgnoreCase("")) {
+                if (lPhone.length() >= 5) {
 
                     Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(lPhone));
                     String[] projection = new String[]{"display_name"};
