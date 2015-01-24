@@ -95,5 +95,6 @@
     </string>
 
     <string name="donation_already_purchased">You have already made this donation! Thanks for that by the way!</string>
+    <string name="donation_restore_purchases">Restore purchases</string>
 
 </resources>

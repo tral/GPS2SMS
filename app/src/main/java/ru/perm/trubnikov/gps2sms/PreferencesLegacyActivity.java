@@ -1,19 +1,15 @@
 package ru.perm.trubnikov.gps2sms;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
-
 public class PreferencesLegacyActivity extends PreferenceActivity {
-
-    private BillingProcessor bp;
-    private static final String LICENSE_KEY = null; // PUT YOUR MERCHANT KEY HERE; // UPD: NO NEED to verify donations
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,51 +23,33 @@ public class PreferencesLegacyActivity extends PreferenceActivity {
 
         addPreferencesFromResource(R.xml.settings);
 
-        // Default themes
         ListPreference prefTheme = (ListPreference) findPreference("prefAppTheme");
-        prefTheme.setEntries(new String[]{getString(R.string.app_theme_1), getString(R.string.app_theme_2)});
-        prefTheme.setEntryValues(new String[]{"1", "2"});
-
-        // Additional themes
-        bp = new BillingProcessor(PreferencesLegacyActivity.this, LICENSE_KEY, new BillingProcessor.IBillingHandler() {
-            @Override
-            public void onBillingInitialized() {
-                try {
-                    if (bp.isPurchased("donation_1") || bp.isPurchased("donation_2") ||
-                            bp.isPurchased("donation_3") || bp.isPurchased("donation_4") ||
-                            bp.isPurchased("donation_5")) {
-                        ListPreference prefTheme = (ListPreference) findPreference("prefAppTheme");
-                        prefTheme.setEntries(new String[]{getString(R.string.app_theme_1),
-                                getString(R.string.app_theme_2),
-                                getString(R.string.app_theme_3),
-                                getString(R.string.app_theme_4),
-                                getString(R.string.app_theme_5),
-                                getString(R.string.app_theme_6)});
-                        prefTheme.setEntryValues(new String[]{"1", "2", "3", "4", "5", "6"});
-                    }
-                } catch (Exception e) {
-                }
-            }
-
-            @Override
-            public void onProductPurchased(String productId, TransactionDetails details) {
-            }
-
-            @Override
-            public void onBillingError(int errorCode, Throwable error) {
-            }
-
-            @Override
-            public void onPurchaseHistoryRestored() {
-            }
-        });
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(PreferencesLegacyActivity.this);
+        if (settings.getInt("prefDonate1", 0) > 0 ||
+                settings.getInt("prefDonate2", 0) > 0 ||
+                settings.getInt("prefDonate3", 0) > 0 ||
+                settings.getInt("prefDonate4", 0) > 0 ||
+                settings.getInt("prefDonate5", 0) > 0) {
+            // Additional themes
+            prefTheme.setEntries(new String[]{getString(R.string.app_theme_1),
+                    getString(R.string.app_theme_2),
+                    getString(R.string.app_theme_3),
+                    getString(R.string.app_theme_4),
+                    getString(R.string.app_theme_5),
+                    getString(R.string.app_theme_6)});
+            prefTheme.setEntryValues(new String[]{"1", "2", "3", "4", "5", "6"});
+        } else {
+            // Default themes
+            prefTheme.setEntries(new String[]{getString(R.string.app_theme_1), getString(R.string.app_theme_2)});
+            prefTheme.setEntryValues(new String[]{"1", "2"});
+        }
 
         Preference pref = findPreference("prefAbout");
         pref.setSummary(getString(R.string.pref_about_summary) + " "
                 + getString(R.string.version_name));
 
         // Get the custom preference
-        Preference customPref = (Preference) findPreference("prefFav");
+        Preference customPref = findPreference("prefFav");
 
         customPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
@@ -97,13 +75,5 @@ public class PreferencesLegacyActivity extends PreferenceActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    @Override
-    public void onDestroy() {
-        if (bp != null)
-            bp.release();
-        super.onDestroy();
-    }
-
 
 }

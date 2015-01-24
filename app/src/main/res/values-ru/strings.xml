@@ -94,5 +94,6 @@
     </string>
 
     <string name="donation_already_purchased">Вы уже сделали это пожертвование! Спасибо кстати!</string>
+    <string name="donation_restore_purchases">Восстановить покупки</string>
 
 </resources>

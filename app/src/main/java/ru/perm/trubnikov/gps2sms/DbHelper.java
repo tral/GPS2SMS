@@ -227,6 +227,9 @@ class DBHelper extends SQLiteOpenHelper {
         toast.setGravity(Gravity.TOP, 0, 0);
         toast.show();
     }
+    public static String getFragmentTag(int viewPagerId, int fragmentPosition) {
+        return "android:switcher:" + viewPagerId + ":" + fragmentPosition;
+    }
 
     public static boolean shareFav(Context context, String crds) {
         boolean found = false;

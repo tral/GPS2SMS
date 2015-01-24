@@ -1,15 +1,12 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
 
 /**
  * To make In-App purchases we use the following
@@ -18,110 +15,63 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 
 public class DonateListFragment extends ListFragment {
 
-    private static final String LICENSE_KEY = null; // PUT YOUR MERCHANT KEY HERE; // UPD: NO NEED to verify donations
-    private BillingProcessor bp;
-    private boolean readyToPurchase = false;
-
-    private final String PRODUCT_ID_1 = "donation_1";
-    private final String PRODUCT_ID_2 = "donation_2";
-    private final String PRODUCT_ID_3 = "donation_3";
-    private final String PRODUCT_ID_4 = "donation_4";
-    private final String PRODUCT_ID_5 = "donation_5";
+    private DonateListAdapter adapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        bp = new BillingProcessor(getActivity(), LICENSE_KEY, new BillingProcessor.IBillingHandler() {
-            @Override
-            public void onProductPurchased(String productId, TransactionDetails details) {
-                showToast("onProductPurchased: " + productId);
-                bp.loadOwnedPurchasesFromGoogle();
-            }
+        String[] donateTitles = new String[]{getString(R.string.donate_title_1),
+                getString(R.string.donate_title_2),
+                getString(R.string.donate_title_3),
+                getString(R.string.donate_title_4),
+                getString(R.string.donate_title_5)
+        };
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        DonateActivity activity = (DonateActivity) getActivity();
+        adapter = new DonateListAdapter(
+                getActivity(),
+                new String[]{activity.getProductId(1), activity.getProductId(2), activity.getProductId(3), activity.getProductId(4), activity.getProductId(5)},
+                donateTitles,
+                new String[]{getString(R.string.donate_price_1),
+                        getString(R.string.donate_price_2),
+                        getString(R.string.donate_price_3),
+                        getString(R.string.donate_price_4),
+                        getString(R.string.donate_price_5)
+                },
+                new Drawable[]{getResources().getDrawable(R.drawable.donate_busride),
+                        getResources().getDrawable(R.drawable.donate_hambruger),
+                        getResources().getDrawable(R.drawable.donate_beer),
+                        getResources().getDrawable(R.drawable.donate_cinema),
+                        getResources().getDrawable(R.drawable.donate_party)},
+                new Integer[]{
+                        settings.getInt("prefDonate1", 0),
+                        settings.getInt("prefDonate2", 0),
+                        settings.getInt("prefDonate3", 0),
+                        settings.getInt("prefDonate4", 0),
+                        settings.getInt("prefDonate5", 0)
+                },
+                getResources().getDrawable(R.drawable.donate_owned)
+        );
 
-            @Override
-            public void onBillingError(int errorCode, Throwable error) {
-                showToast("onBillingError: " + Integer.toString(errorCode));
-                bp.loadOwnedPurchasesFromGoogle();
-            }
-
-            @Override
-            public void onBillingInitialized() {
-                readyToPurchase = true;
-
-                String[] donateTitles = new String[]{getString(R.string.donate_title_1),
-                        getString(R.string.donate_title_2),
-                        getString(R.string.donate_title_3),
-                        getString(R.string.donate_title_4),
-                        getString(R.string.donate_title_5)
-                };
-
-                DonateListAdapter adapter = new DonateListAdapter(
-                        getActivity(),
-                        new String[]{PRODUCT_ID_1, PRODUCT_ID_2, PRODUCT_ID_3, PRODUCT_ID_4, PRODUCT_ID_5},
-                        donateTitles,
-                        new String[]{getString(R.string.donate_price_1), // retreiving this from GP might be too slow! Async task ?
-                                getString(R.string.donate_price_2),
-                                getString(R.string.donate_price_3),
-                                getString(R.string.donate_price_4),
-                                getString(R.string.donate_price_5)
-                        },
-                        new Drawable[]{getResources().getDrawable(R.drawable.donate_busride),
-                                getResources().getDrawable(R.drawable.donate_hambruger),
-                                getResources().getDrawable(R.drawable.donate_beer),
-                                getResources().getDrawable(R.drawable.donate_cinema),
-                                getResources().getDrawable(R.drawable.donate_party)}
-                );
-
-                setListAdapter(adapter);
-
-            }
-
-            @Override
-            public void onPurchaseHistoryRestored() {
-                showToast("onPurchaseHistoryRestored");
-            }
-        });
-
-
+        setListAdapter(adapter);
     }
-
-
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-
         //Toast.makeText(getActivity(), (String) getListAdapter().getItem(position), Toast.LENGTH_SHORT).show();
-
-        if (readyToPurchase) {
-
-            bp.loadOwnedPurchasesFromGoogle();
-
-            if (bp.isPurchased((String) getListAdapter().getItem(position))) {
-                DBHelper.ShowToast(getActivity(), R.string.donation_already_purchased, Toast.LENGTH_LONG);
-            } else {
-                bp.purchase(getActivity(), (String) getListAdapter().getItem(position));
-            }
-
-            return;
-        }
-
+        DonateActivity activity = (DonateActivity) getActivity();
+        activity.tryToPurchase((String) getListAdapter().getItem(position));
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!bp.handleActivityResult(requestCode, resultCode, data))
-            super.onActivityResult(requestCode, resultCode, data);
+    public void refreshListItemsStatus(int item1, int item2, int item3, int item4, int item5) {
+        adapter.setStates(0, item1);
+        adapter.setStates(1, item2);
+        adapter.setStates(2, item3);
+        adapter.setStates(3, item4);
+        adapter.setStates(4, item5);
+        adapter.notifyDataSetChanged();
     }
-
-    @Override
-    public void onDestroy() {
-        if (bp != null)
-            bp.release();
-        super.onDestroy();
-    }
-
 
         /*
     private String getPriceText(String productId) {
@@ -132,8 +82,5 @@ public class DonateListFragment extends ListFragment {
         }
     }*/
 
-    private void showToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-    }
 
 }

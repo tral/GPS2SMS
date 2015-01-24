@@ -14,13 +14,21 @@ public class DonateListAdapter extends ArrayAdapter<String> {
     private final String[] titles;
     private final String[] descs;
     private final Drawable[] icons;
+    private final Integer[] states; // purchases states
+    private final Drawable icon2;
 
-    public DonateListAdapter(Context context, String[] product_ids, String[] titles, String[] descs, Drawable[] icons) {
+    public DonateListAdapter(Context context, String[] product_ids, String[] titles, String[] descs, Drawable[] icons, Integer[] states, Drawable icon2) {
         super(context, R.layout.choose_fav_list_item, product_ids); // !!!
         this.context = context;
         this.titles = titles;
         this.descs = descs;
         this.icons = icons;
+        this.states = states;
+        this.icon2 = icon2;
+    }
+
+    public void setStates(int idx, int val) {
+        this.states[idx] = val ;
     }
 
     @Override
@@ -33,6 +41,11 @@ public class DonateListAdapter extends ArrayAdapter<String> {
         firstLine.setText(titles[position]);
         secondLine.setText(descs[position]);
         imageView.setImageDrawable(icons[position]);
+
+        if (states[position]>0) {
+            ImageView imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
+            imageView2.setImageDrawable(icon2);
+        }
 
         return rowView;
     }
