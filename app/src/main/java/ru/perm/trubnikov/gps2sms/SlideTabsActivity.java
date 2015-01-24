@@ -1,14 +1,11 @@
 package ru.perm.trubnikov.gps2sms;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -30,7 +27,6 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
     private final static int MYCOORDS_ADD_POINT_DIALOG_ID = 15;
     protected final static int DIALOG_COORD_PROPS_ID = 5;
 
-    private SlideTabsPagerAdapter mAdapter;
     private ViewPager mViewPager;
     private TabHost mTabHost;
 
@@ -47,7 +43,7 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
 
         // Tab Initialization
         initialiseTabHost();
-        mAdapter = new SlideTabsPagerAdapter(getSupportFragmentManager());
+        SlideTabsPagerAdapter mAdapter = new SlideTabsPagerAdapter(getSupportFragmentManager());
 
         // Fragments and ViewPager Initialization
         mViewPager.setAdapter(mAdapter);
@@ -90,7 +86,6 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
         mTabHost = (TabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
-        // TODO Put here your Tabs
         SlideTabsActivity.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(getString(R.string.tab_mycoords)).setIndicator(getString(R.string.tab_mycoords)));
         SlideTabsActivity.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(getString(R.string.tab_mysms)).setIndicator(getString(R.string.tab_mysms)));
         SlideTabsActivity.AddTab(this, this.mTabHost, this.mTabHost.newTabSpec(getString(R.string.tab_mysms_out)).setIndicator(getString(R.string.tab_mysms_out)));
@@ -343,8 +338,6 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
         // Dialog background is DIFFERENT in Android 2.1 and Android 2.3
         // That's why we use gray color everywhere for Android < 3.0
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            SharedPreferences sharedPrefs = PreferenceManager
-                    .getDefaultSharedPreferences(this);
 
             TextView tv1 = (TextView) layout.findViewById(R.id.textView1);
             TextView tv2 = (TextView) layout.findViewById(R.id.textView2);
@@ -371,8 +364,6 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
         // Dialog background is DIFFERENT in Android 2.1 and Android 2.3
         // That's why we use gray color everywhere for Android < 3.0
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            SharedPreferences sharedPrefs = PreferenceManager
-                    .getDefaultSharedPreferences(this);
 
             EditText et1 = (EditText) layout.findViewById(R.id.mycoords_name);
 
@@ -380,7 +371,6 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
             et1.setHintTextColor(Color.parseColor("#9E9E9E"));
         }
     }
-
 
 
     public void ShowBackButton() {

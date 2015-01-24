@@ -1,12 +1,6 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,42 +8,42 @@ import android.widget.Button;
 
 public class AnotherMsgActivity extends BaseActivity {
 
-	// ------------------------------------------------------------------------------------------
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    // ------------------------------------------------------------------------------------------
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-		// Определение темы должно быть ДО super.onCreate и setContentView
+        // Определение темы должно быть ДО super.onCreate и setContentView
         //setTheme(DBHelper.determineTheme(this));
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_another_msg);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_another_msg);
 
-		ShowBackButton();
+        ShowBackButton();
 
-		Button btn = (Button) findViewById(R.id.button1);
-		btn.requestFocus();
-		btn.setOnClickListener(new OnClickListener() {
+        Button btn = (Button) findViewById(R.id.button1);
+        btn.requestFocus();
+        btn.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-	}
+    }
 
-	// ------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			finish();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public void ShowBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,7 +54,7 @@ public class AnotherMsgActivity extends BaseActivity {
     }
 
     /*
-	@TargetApi(11)
+    @TargetApi(11)
 	public void ShowBackButton() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			// call something for API Level 11+

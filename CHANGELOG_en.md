@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.4.3 / ??.01.2015
+## v3.4.3 / 25.01.2015
 - You can now support the author by making donations (and get 4 brand new color themes)!
 - Color themes fixes for pre-lollipop devices
 - Bugfixes and optimizations

@@ -1,9 +1,6 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 public class ChooseFavActivity extends BaseActivity {
