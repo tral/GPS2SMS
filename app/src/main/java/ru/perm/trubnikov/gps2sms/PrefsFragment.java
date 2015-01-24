@@ -23,7 +23,7 @@ public class PrefsFragment extends PreferenceFragment {
 
         ListPreference prefTheme = (ListPreference) findPreference("prefAppTheme");
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        if (settings.getInt("prefDonate1", 0) > 0 ||
+        if (settings.getInt("prefDonate1", 0) > 0 || 
                 settings.getInt("prefDonate2", 0) > 0 ||
                 settings.getInt("prefDonate3", 0) > 0 ||
                 settings.getInt("prefDonate4", 0) > 0 ||
