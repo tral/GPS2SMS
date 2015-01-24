@@ -132,16 +132,14 @@ public class DonateActivity extends BaseActivity {
 
     public void tryToPurchase(String productId) {
         if (readyToPurchase) {
-
             refreshPurchasesStatus();
-
             if (bp.isPurchased(productId)) {
                 DBHelper.ShowToast(DonateActivity.this, R.string.donation_already_purchased, Toast.LENGTH_LONG);
             } else {
                 bp.purchase(DonateActivity.this, productId);
             }
-
-            return;
+        } else {
+            DBHelper.ShowToast(DonateActivity.this, R.string.donation_billing_not_ready, Toast.LENGTH_LONG);
         }
     }
 

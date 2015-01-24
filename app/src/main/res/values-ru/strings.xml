@@ -95,5 +95,6 @@
 
     <string name="donation_already_purchased">Вы уже сделали это пожертвование! Спасибо кстати!</string>
     <string name="donation_restore_purchases">Восстановить покупки</string>
+    <string name="donation_billing_not_ready">Ваша биллинговая система не подключена!</string>
 
 </resources>

@@ -19,8 +19,8 @@ public class TestActivity extends Activity {
     private static final String LOG_TAG = "iabv3";
 
     // PRODUCT & SUBSCRIPTION IDS
-    private static final String PRODUCT_ID = "android.test.purchased";
-    private static final String SUBSCRIPTION_ID = "android.test.purchased";
+    private static final String PRODUCT_ID = "donation_1";
+    private static final String SUBSCRIPTION_ID = "donation_1";
     private static final String LICENSE_KEY = null; // PUT YOUR MERCHANT KEY HERE; // WE DO NOT NEED TO VERIFY OUR DONATIONS
 
     private BillingProcessor bp;

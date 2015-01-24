@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Эти две строки только в дефолтнм strings.xml !!! -->
-    <string name="version_name" translatable="false">3.4.3_beta_7</string>
+    <string name="version_name" translatable="false">3.4.3_beta_8</string>
     <string name="app_name" translatable="false">GPS to SMS</string>
     <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->
 
@@ -103,6 +103,8 @@
 
     <string name="donation_already_purchased">You have already made this donation! Thanks for that by the way!</string>
     <string name="donation_restore_purchases">Restore purchases</string>
+    <string name="donation_billing_not_ready">Your billing system is not ready!</string>
+
 
 
 </resources>
