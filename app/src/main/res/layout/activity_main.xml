@@ -25,6 +25,7 @@
             android:layout_alignParentRight="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/imgdesc_send_sms"
+            android:onClick="initiateSMSSend"
             android:scaleType="fitCenter"
             android:src="?attr/btn_ic_action_send_now" />
 
@@ -35,6 +36,7 @@
             android:layout_alignParentLeft="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/imgdesc_choose_contact"
+            android:onClick="chooseContact"
             android:scaleType="fitCenter"
             android:src="?attr/btn_ic_action_person" />
 
@@ -45,7 +47,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/choose_contact"
             android:hint="@string/enterAnyPhone"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:onClick="tooltipContactName" />
 
     </RelativeLayout>
 
@@ -88,6 +91,7 @@
             android:layout_alignParentRight="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/save_btn_txt"
+            android:onClick="saveCoordinates"
             android:scaleType="fitCenter"
 
             android:src="?attr/btn_ic_action_save" />
@@ -99,8 +103,8 @@
             android:layout_toLeftOf="@id/btnSave"
             android:adjustViewBounds="true"
             android:contentDescription="@string/imgdesc_map"
+            android:onClick="openOnMap"
             android:scaleType="fitCenter"
-
             android:src="?attr/btn_ic_action_map" />
 
         <ImageButton
@@ -110,6 +114,7 @@
             android:layout_toLeftOf="@id/btnMap"
             android:adjustViewBounds="true"
             android:contentDescription="@string/imgdesc_copy"
+            android:onClick="copyToClipboard"
             android:scaleType="fitCenter"
 
             android:src="?attr/btn_ic_action_copy" />
@@ -121,8 +126,8 @@
             android:layout_alignParentLeft="true"
             android:adjustViewBounds="true"
             android:contentDescription=""
+            android:onClick="chooseFavApp"
             android:scaleType="fitCenter"
-
             android:src="@drawable/ic_empty"
 
             />
@@ -135,6 +140,7 @@
             android:layout_toRightOf="@id/btnFav"
             android:adjustViewBounds="true"
             android:contentDescription="@string/imgdesc_share"
+            android:onClick="shareCoordinates"
 
 
             android:scaleType="fitCenter"
@@ -159,6 +165,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="fill_parent"
             android:layout_height="54dp"
+            android:onClick="showGpsSystemDialog"
             android:text="@string/enable_gps_btn" />
 
     </LinearLayout>

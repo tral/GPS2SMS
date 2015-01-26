@@ -25,7 +25,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -253,8 +252,6 @@ public class MainActivity extends BaseActivity {
                 final EditText lPointName = (EditText) layout_sp
                         .findViewById(R.id.point_edit_text);
 
-                // builder_sp.setMessage(getString(R.string.save_point_dlg_header));
-
                 builder_sp.setPositiveButton(getString(R.string.save_btn_txt),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -433,13 +430,74 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public void tooltipContactName(View v) {
+        String lPhone = ((EditText) v).getText().toString().replace("-", "")
+                .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
+
+        if (lPhone.length() >= 5) {
+
+            Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(lPhone));
+            String[] projection = new String[]{"display_name"};
+            Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+
+            if (cursor.moveToFirst()) {
+                DBHelper.ShowToastT(MainActivity.this, cursor.getString(0),
+                        Toast.LENGTH_SHORT);
+            }
+            cursor.close();
+        }
+    }
+
+    public void chooseContact(View v) {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI);
+        intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);
+    }
+
+    public void showGpsSystemDialog(View v) {
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            startActivity(new Intent(
+                    android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
+    }
+
+    public void shareCoordinates(View v) {
+        Intent sharingIntent = new Intent(
+                android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = coordsToShare;
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                getString(R.string.share_topic));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                shareBody);
+        startActivity(Intent.createChooser(sharingIntent,
+                getString(R.string.share_via)));
+    }
+
+    public void copyToClipboard(View v) {
+        DBHelper.clipboardCopy(getApplicationContext(), coordsToSend);
+        DBHelper.ShowToast(MainActivity.this, R.string.text_copied, Toast.LENGTH_LONG);
+    }
+
+    public void openOnMap(View v) {
+        DBHelper.openOnMap(getApplicationContext(), coordsToSend);
+    }
+
+    public void saveCoordinates(View v) {
+        showDialog(SAVE_POINT_DIALOG_ID);
+    }
+
+    public void chooseFavApp(View v) {
+        if (!DBHelper.shareFav(MainActivity.this, coordsToShare)) {
+            Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
+            startActivityForResult(intent, ACT_RESULT_FAV);
+        }
+    }
 
     // ------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // Определение темы должно быть ДО super.onCreate и setContentView
-        //setTheme(DBHelper.determineTheme(this));
 
         super.onCreate(savedInstanceState);
 
@@ -456,44 +514,13 @@ public class MainActivity extends BaseActivity {
         }
         // EOF Setting up app language
 
-
         setContentView(R.layout.activity_main);
 
         // Plain phone number
         plainPh = (EditText) findViewById(R.id.editText1);
-        plainPh.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String lPhone = plainPh.getText().toString().replace("-", "")
-                        .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
-
-                if (lPhone.length() >= 5) {
-
-                    Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(lPhone));
-                    String[] projection = new String[]{"display_name"};
-                    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-
-                    if (cursor.moveToFirst()) {
-                        DBHelper.ShowToastT(MainActivity.this, cursor.getString(0),
-                                Toast.LENGTH_SHORT);
-                    }
-                    cursor.close();
-                }
-            }
-        });
-
 
         // Select contact
         chooseContactBtn = (ImageButton) findViewById(R.id.choose_contact);
-        chooseContactBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        ContactsContract.Contacts.CONTENT_URI);
-                intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-                startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);
-            }
-        });
 
         // Stored phone number -> to EditText
         dbHelper = new DBHelper(this);
@@ -507,20 +534,7 @@ public class MainActivity extends BaseActivity {
         enableGPSBtn = (Button) findViewById(R.id.button3);
         enableGPSBtn.setVisibility(View.INVISIBLE);
 
-        enableGPSBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    startActivity(new Intent(
-                            android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                }
-            }
-
-        });
-
         // Share buttons
-
         btnShare = (ImageButton) findViewById(R.id.btnShare);
         btnCopy = (ImageButton) findViewById(R.id.btnCopy);
         btnMap = (ImageButton) findViewById(R.id.btnMap);
@@ -531,50 +545,7 @@ public class MainActivity extends BaseActivity {
         btnMap.setVisibility(View.INVISIBLE);
         btnSave.setVisibility(View.INVISIBLE);
         btnFav.setVisibility(View.INVISIBLE);
-        btnShare.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(
-                        android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = coordsToShare;
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                        getString(R.string.share_topic));
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-                        shareBody);
-                startActivity(Intent.createChooser(sharingIntent,
-                        getString(R.string.share_via)));
-            }
-        });
-        btnCopy.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHelper.clipboardCopy(getApplicationContext(), coordsToSend);
-                DBHelper.ShowToast(MainActivity.this, R.string.text_copied, Toast.LENGTH_LONG);
-            }
-        });
-        btnMap.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHelper.openOnMap(getApplicationContext(), coordsToSend);
-            }
-        });
-        btnSave.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(SAVE_POINT_DIALOG_ID);
-            }
-        });
-        btnFav.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //initShareWithPackage();
-                if (!DBHelper.shareFav(MainActivity.this, coordsToShare)) {
-                    Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
-                    startActivityForResult(intent, ACT_RESULT_FAV);
-                }
-            }
-        });
+
         btnFav.setOnLongClickListener(new View.OnLongClickListener() {
             public boolean onLongClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
@@ -586,12 +557,6 @@ public class MainActivity extends BaseActivity {
         // Send buttons
         sendpbtn = (ImageButton) findViewById(R.id.send_plain);
         HideSendButton();
-        sendpbtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initiateSMSSend();
-            }
-        });
 
         // GPS-state TextView init
         GPSstate = (TextView) findViewById(R.id.textView1);
@@ -638,7 +603,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    public void initiateSMSSend() {
+    public void initiateSMSSend(View v) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         sendSMS(DBHelper.getLinkByProvType(sharedPrefs.getString("prefSMSContent", "2"), coordsToSend));
     }
