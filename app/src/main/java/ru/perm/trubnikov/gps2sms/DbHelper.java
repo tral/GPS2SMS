@@ -227,6 +227,7 @@ class DBHelper extends SQLiteOpenHelper {
         toast.setGravity(Gravity.TOP, 0, 0);
         toast.show();
     }
+
     public static String getFragmentTag(int viewPagerId, int fragmentPosition) {
         return "android:switcher:" + viewPagerId + ":" + fragmentPosition;
     }
@@ -272,16 +273,20 @@ class DBHelper extends SQLiteOpenHelper {
                 context.getString(R.string.share_via)));
     }
 
+    public static Intent getIntentForMap(String crds) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String geo = "geo:0,0?q=" + crds;
+        intent.setData(Uri.parse(geo));
+        return intent;
+    }
+
     public static void openOnMap(Context context, String crds) {
 
         // http://developer.android.com/guide/components/intents-common.html
         // Example: "geo:0,0?q=34.99,-106.61(Treasure)"
         // с Меткой глючат Яндекс.Карты
 
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        String geo = "geo:0,0?q=" + crds;
-
-        intent.setData(Uri.parse(geo));
+        Intent intent = DBHelper.getIntentForMap(crds);
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
