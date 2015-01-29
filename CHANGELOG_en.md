@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.4.4 / 29.01.2015
+- Changes in SMS-handler (Push Notification instead of instant opening Maps-app)
+- "http" in all links changed to "https"
+- New option to choose content type for Share Buttons
+- Bugfixes and optimizations
+
 ## v3.4.3 / 25.01.2015
 - You can now support the author by making donations (and get 4 brand new color themes)!
 - Color themes fixes for pre-lollipop devices
