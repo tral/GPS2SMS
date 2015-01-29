@@ -83,7 +83,7 @@ public class IncomingSms extends BroadcastReceiver {
 
     public void sendNotification(Context context, String Coordinates) {
 
-        Intent intent = DBHelper.getIntentForMap(context, Coordinates);
+        Intent intent = DBHelper.getIntentForMap(Coordinates);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 

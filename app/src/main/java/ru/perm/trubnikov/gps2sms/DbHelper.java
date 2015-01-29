@@ -185,6 +185,7 @@ class DBHelper extends SQLiteOpenHelper {
 
 
     public static String extractCoordinates(String message) {
+        message = message.replace(",", "&mlon=");
         Pattern p = Pattern.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
         Matcher m = p.matcher(message);
         return m.find() ? m.group(0) : "0,0";
@@ -216,12 +217,12 @@ class DBHelper extends SQLiteOpenHelper {
     public static String getGoogleMapsLink(String crds) {
         // gGoogleMapsLink = "https://www.google.com/maps/place/" +
         // coordsToSend;
-        return "http://maps.google.com/maps?q=loc:" + crds;
+        return "https://maps.google.com/maps?q=loc:" + crds;
     }
 
     public static String getOSMLink(String crds) {
         crds = crds.replace(",", "&mlon=");
-        return "http://openstreetmap.org/?mlat=" + crds + "&zoom=17";
+        return "https://openstreetmap.org/?mlat=" + crds + "&zoom=17";
     }
 
     // Small util to show text messages
@@ -282,7 +283,7 @@ class DBHelper extends SQLiteOpenHelper {
                 context.getString(R.string.share_via)));
     }
 
-    public static Intent getIntentForMap(Context context, String crds) {
+    public static Intent getIntentForMap(String crds) {
         //Intent intent = new Intent(Intent.ACTION_VIEW);
         //String uri = "geo:" + crds;
         String uri = getGoogleMapsLink(crds);
@@ -308,11 +309,8 @@ class DBHelper extends SQLiteOpenHelper {
         // Example: "geo:0,0?q=34.99,-106.61(Treasure)"
         // с Меткой глючат Яндекс.Карты
 
-        Intent intent = DBHelper.getIntentForMap(context, crds);
-        if (intent != null) {
-            context.startActivity(intent);
-        }
-
+        Intent intent = DBHelper.getIntentForMap(crds);
+        context.startActivity(intent);
     }
 
     public static void clipboardCopy(Context context, String crds) {

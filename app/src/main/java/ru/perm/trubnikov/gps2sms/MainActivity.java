@@ -2,8 +2,6 @@ package ru.perm.trubnikov.gps2sms;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,7 +20,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -423,7 +419,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case ACT_RESULT_SETTINGS:
                 DBHelper.updateFavIcon(MainActivity.this, btnFav);
-                //restartApp();
+                restartApp();
                 break;
             case ACT_RESULT_FAV:
                 DBHelper.updateFavIcon(MainActivity.this, btnFav);
@@ -453,11 +449,11 @@ public class MainActivity extends BaseActivity {
     }
 
     public void chooseContact(View v) {
-        /*Intent intent = new Intent(Intent.ACTION_PICK,
+        Intent intent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
         intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-        startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);*/
-      IncomingSms.sendNotification(MainActivity.this, "56.5555555,56.7777777");
+        startActivityForResult(intent, ACT_RESULT_CHOOSE_CONTACT);
+        //IncomingSms.sendNotification(MainActivity.this, "56.5555555,56.7777777");
     }
 
     public void showGpsSystemDialog(View v) {

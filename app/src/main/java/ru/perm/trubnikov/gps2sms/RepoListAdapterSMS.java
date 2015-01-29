@@ -5,12 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import java.io.File;
 
 /**
  * Created by A on 20.01.2015.
@@ -37,7 +34,8 @@ public class RepoListAdapterSMS extends RepoListAdapter {
                 Uri u = getPhotoUri(contactids[position]);
                 if (u != null) {
                     imageView.setImageURI(u);
-                    if(imageView.getDrawable() == null) imageView.setImageResource(R.drawable.ic_launcher);
+                    if (imageView.getDrawable() == null)
+                        imageView.setImageResource(R.drawable.ic_launcher);
                     //Log.d("gps1", u.toString());
                 } else {
                     //imageView.setImageResource(R.drawable.ic_contact_picture_2);
