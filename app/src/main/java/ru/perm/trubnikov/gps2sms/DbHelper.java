@@ -204,9 +204,9 @@ class DBHelper extends SQLiteOpenHelper {
                     + accuracy + " " + context.getString(R.string.info_print2);
         }
 
-        res = res + separ + separ + DBHelper.getGoogleMapsLink(crds);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        return res;
+        return res + separ + separ + getLinkByProvType(sharedPrefs.getString("prefShareButtonsContent", "2"), crds);
     }
 
     public static String getNavitelMessage(String crds) {

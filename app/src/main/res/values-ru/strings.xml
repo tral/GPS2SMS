@@ -100,4 +100,7 @@
     <string name="sms_notify_title">Координаты получены</string>
     <string name="sms_notify_desc1">Нажмите, чтобы открыть на карте</string>
 
+    <string name="pref_share_buttons_text">Контент кнопок обмена</string>
+    <string name="pref_share_buttons_text_summary">Укажите данные для кнопок Поделиться и Любимое приложение</string>
+
 </resources>

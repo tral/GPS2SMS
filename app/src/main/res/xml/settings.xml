@@ -46,6 +46,14 @@
             android:summary="@string/pref_clip_summary"
             android:title="@string/pref_clip" />
 
+        <ListPreference
+            android:defaultValue="2"
+            android:entries="@array/shareProviders"
+            android:entryValues="@array/shareProvidersValues"
+            android:key="prefShareButtonsContent"
+            android:summary="@string/pref_share_buttons_text_summary"
+            android:title="@string/pref_share_buttons_text" />
+
         <Preference
             android:key="prefFav"
             android:summary="@string/choose_fav_app_info"

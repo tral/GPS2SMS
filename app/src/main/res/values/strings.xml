@@ -107,7 +107,7 @@
 
     <string name="sms_notify_title">Location received</string>
     <string name="sms_notify_desc1">Tap to view it on the map</string>
-
-
+    <string name="pref_share_buttons_text">Share Buttons content</string>
+    <string name="pref_share_buttons_text_summary">Specify data for Share and Favourite buttons</string>
 
 </resources>
