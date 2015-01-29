@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 class DBHelper extends SQLiteOpenHelper {
 
     private String defSmsMsg;
@@ -36,6 +35,7 @@ class DBHelper extends SQLiteOpenHelper {
         cv.put("name", name);
         db.update("mycoords", cv, "_id = ?",
                 new String[]{Integer.toString(id)});
+        db.close();
     }
 
     public String getMyccordName(int id) {
@@ -43,20 +43,25 @@ class DBHelper extends SQLiteOpenHelper {
         Cursor c = db.query("mycoords", null, "_id=" + id, null, null, null,
                 null);
 
+        String res = "";
         if (c.moveToFirst()) {
             int idx = c.getColumnIndex("name");
-            return c.getString(idx);
+            res = c.getString(idx);
         }
 
-        return "";
+        c.close();
+        db.close();
+
+        return res;
     }
 
     public void deleteMyccord(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("mycoords", "_id = " + id, null);
+        db.close();
     }
 
-    public String getName() {
+   /* public String getName() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.query("contact", null, "_id=1", null, null, null, null);
 
@@ -66,18 +71,20 @@ class DBHelper extends SQLiteOpenHelper {
         }
 
         return "";
-    }
+    }*/
 
     public String getSlot(int id, String col) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.query("slots", null, "_id=" + id, null, null, null, null);
 
+        String res = "";
         if (c.moveToFirst()) {
             int idx = c.getColumnIndex(col);
-            return c.getString(idx);
+            res = c.getString(idx);
         }
-
-        return "";
+        c.close();
+        db.close();
+        return res;
     }
 
     public void setSlot(int id, String name, String phone) {
@@ -87,6 +94,7 @@ class DBHelper extends SQLiteOpenHelper {
         cv.put("phone", phone);
         // Log.d("gps", "save! " + name + " " + phone + " " + id);
         db.update("slots", cv, "_id = ?", new String[]{Integer.toString(id)});
+        db.close();
     }
 
     public void insertMyCoord(String name, String coord) {
@@ -97,6 +105,7 @@ class DBHelper extends SQLiteOpenHelper {
         cv.put("coord", coord);
         // Log.d("gps", "save! " + name + " " + phone + " " + id);
         db.insert("mycoords", null, cv);
+        db.close();
     }
 
     public static void updateFavIcon(Context context, ImageButton btn) {
@@ -273,11 +282,24 @@ class DBHelper extends SQLiteOpenHelper {
                 context.getString(R.string.share_via)));
     }
 
-    public static Intent getIntentForMap(String crds) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        String geo = "geo:0,0?q=" + crds;
-        intent.setData(Uri.parse(geo));
+    public static Intent getIntentForMap(Context context, String crds) {
+        //Intent intent = new Intent(Intent.ACTION_VIEW);
+        //String uri = "geo:" + crds;
+        String uri = getGoogleMapsLink(crds);
+        //String geo = "http://maps.google.com/maps?q=loc:" + crds;
+        //intent.setData(Uri.parse(geo));
+
+        // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
+/*
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            return intent;
+        } else
+            return null;*/
+
     }
 
     public static void openOnMap(Context context, String crds) {
@@ -286,9 +308,8 @@ class DBHelper extends SQLiteOpenHelper {
         // Example: "geo:0,0?q=34.99,-106.61(Treasure)"
         // с Меткой глючат Яндекс.Карты
 
-        Intent intent = DBHelper.getIntentForMap(crds);
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = DBHelper.getIntentForMap(context, crds);
+        if (intent != null) {
             context.startActivity(intent);
         }
 

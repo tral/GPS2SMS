@@ -98,4 +98,7 @@
     <string name="donation_restore_purchases">Restore purchases</string>
     <string name="donation_billing_not_ready">Your billing system is not ready!</string>
 
+    <string name="sms_notify_title">Location received</string>
+    <string name="sms_notify_desc1">Tap to view it on the map</string>
+
 </resources>

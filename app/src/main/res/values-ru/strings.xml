@@ -97,4 +97,7 @@
     <string name="donation_restore_purchases">Восстановить покупки</string>
     <string name="donation_billing_not_ready">Ваша биллинговая система не подключена!</string>
 
+    <string name="sms_notify_title">Координаты получены</string>
+    <string name="sms_notify_desc1">Нажмите, чтобы открыть на карте</string>
+
 </resources>
