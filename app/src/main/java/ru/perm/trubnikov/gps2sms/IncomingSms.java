@@ -55,13 +55,6 @@ public class IncomingSms extends BroadcastReceiver {
                             sendNotification(context, Coordinates);
                             //DBHelper.openOnMap(context, Coordinates);
 
-							/*
-                             * Intent intent_openmap = new Intent(
-							 * Intent.ACTION_VIEW, Uri.parse("geo:" +
-							 * m.group(0))); intent_openmap
-							 * .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							 * context.startActivity(intent_openmap);
-							 */
                         }
 
                         // Show Alert

@@ -185,7 +185,7 @@ class DBHelper extends SQLiteOpenHelper {
 
 
     public static String extractCoordinates(String message) {
-        message = message.replace(",", "&mlon=");
+        message = message.replace("&mlon=", ",");
         Pattern p = Pattern.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
         Matcher m = p.matcher(message);
         return m.find() ? m.group(0) : "0,0";
