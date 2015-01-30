@@ -27,8 +27,6 @@ public class DonateActivity extends BaseActivity {
     private final String PRODUCT_ID_4 = "donation_4";
     private final String PRODUCT_ID_5 = "donation_5";
 
-    DonatePriceTextLoadAsyncTask mt;
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (!bp.handleActivityResult(requestCode, resultCode, data))
@@ -66,7 +64,7 @@ public class DonateActivity extends BaseActivity {
             @Override
             public void onBillingInitialized() {
                 readyToPurchase = true;
-                mt = new DonatePriceTextLoadAsyncTask();
+                DonatePriceTextLoadAsyncTask mt = new DonatePriceTextLoadAsyncTask();
                 mt.execute();
             }
 
@@ -112,28 +110,8 @@ public class DonateActivity extends BaseActivity {
      * Restores purchases, refreshes purchases local cache
      */
     private void refreshPurchasesStatus() {
-
-        try {
-            if (bp.loadOwnedPurchasesFromGoogle()) {
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(DonateActivity.this);
-                SharedPreferences.Editor editor = settings.edit();
-                for (int i = 1; i <= 5; i++) {
-                    //DBHelper.ShowToastT(DonateActivity.this, getProductId(i), Toast.LENGTH_SHORT);
-                    editor.putInt("prefDonate" + i, bp.isPurchased(getProductId(i)) ? 1 : 0);
-                }
-                editor.commit();
-
-                DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
-
-                fragment.refreshListItemsStatus(settings.getInt("prefDonate1", 0),
-                        settings.getInt("prefDonate2", 0),
-                        settings.getInt("prefDonate3", 0),
-                        settings.getInt("prefDonate4", 0),
-                        settings.getInt("prefDonate5", 0));
-
-            }
-        } catch (Exception e) {
-        }
+        DonateStatusesLoadAsyncTask st = new DonateStatusesLoadAsyncTask();
+        st.execute();
     }
 
     public void tryToPurchase(String productId) {
@@ -166,12 +144,10 @@ public class DonateActivity extends BaseActivity {
         }
     }
 
+    /**
+     * AsyncTask for loading text descriptions of purchases
+     */
     class DonatePriceTextLoadAsyncTask extends AsyncTask<Void, String, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -194,21 +170,59 @@ public class DonateActivity extends BaseActivity {
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
 
-            try {
-                DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
-                fragment.refreshListItemsDescs(values[0], values[1], values[2], values[3], values[4]);
-            } catch (Exception e) {
-                Log.d("gps2sms", "---> onProgressUpdate ");
-            }
-            //tvInfo.setText("Downloaded " + values[0] + " files");
+            DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
+            fragment.refreshListItemsDescs(values[0], values[1], values[2], values[3], values[4]);
         }
 
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
     }
 
 
-}
+    /**
+     * AsyncTask for checking purchases which were made by user.
+     * Also synchronizes completed purchases with local settings.
+     */
+    class DonateStatusesLoadAsyncTask extends AsyncTask<Void, Void, WrapperStatuses> {
 
+        @Override
+        protected WrapperStatuses doInBackground(Void... params) {
+            try {
+
+                WrapperStatuses res = new WrapperStatuses();
+                if (bp.loadOwnedPurchasesFromGoogle()) {
+                    for (int i = 1; i <= 5; i++) {
+                        res.statuses[i - 1] = bp.isPurchased(getProductId(i)) ? 1 : 0;
+                    }
+                }
+                return res;
+
+            } catch (Exception e) {
+                Log.d("gps2sms", "---> failed to retrieve purchases statuses from Google Play");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(WrapperStatuses result) {
+            super.onPostExecute(result);
+
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(DonateActivity.this);
+            SharedPreferences.Editor editor = settings.edit();
+            for (int i = 1; i <= 5; i++) {
+                editor.putInt("prefDonate" + i, result.statuses[i - 1]);
+            }
+            editor.commit();
+
+            DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
+            fragment.refreshListItemsStatus(settings.getInt("prefDonate1", 0),
+                    settings.getInt("prefDonate2", 0),
+                    settings.getInt("prefDonate3", 0),
+                    settings.getInt("prefDonate4", 0),
+                    settings.getInt("prefDonate5", 0));
+        }
+    }
+
+    public class WrapperStatuses {
+        public Integer[] statuses = new Integer[]{0, 0, 0, 0, 0};
+    }
+
+}
