@@ -28,7 +28,11 @@ public class DonateListAdapter extends ArrayAdapter<String> {
     }
 
     public void setStates(int idx, int val) {
-        this.states[idx] = val ;
+        this.states[idx] = val;
+    }
+
+    public void setDescs(int idx, String val) {
+        this.descs[idx] = val;
     }
 
     @Override
@@ -42,7 +46,7 @@ public class DonateListAdapter extends ArrayAdapter<String> {
         secondLine.setText(descs[position]);
         imageView.setImageDrawable(icons[position]);
 
-        if (states[position]>0) {
+        if (states[position] > 0) {
             ImageView imageView2 = (ImageView) rowView.findViewById(R.id.icon2);
             imageView2.setImageDrawable(icon2);
         }

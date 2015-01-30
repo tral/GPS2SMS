@@ -33,11 +33,12 @@ public class DonateListFragment extends ListFragment {
                 getActivity(),
                 new String[]{activity.getProductId(1), activity.getProductId(2), activity.getProductId(3), activity.getProductId(4), activity.getProductId(5)},
                 donateTitles,
-                new String[]{getString(R.string.donate_price_1),
-                        getString(R.string.donate_price_2),
-                        getString(R.string.donate_price_3),
-                        getString(R.string.donate_price_4),
-                        getString(R.string.donate_price_5)
+                new String[]{
+                        "", //getString(R.string.donate_price_1),
+                        "", //getString(R.string.donate_price_2),
+                        "", //getString(R.string.donate_price_3),
+                        "", //getString(R.string.donate_price_4),
+                        "" //getString(R.string.donate_price_5)
                 },
                 new Drawable[]{getResources().getDrawable(R.drawable.donate_busride),
                         getResources().getDrawable(R.drawable.donate_hambruger),
@@ -70,6 +71,15 @@ public class DonateListFragment extends ListFragment {
         adapter.setStates(2, item3);
         adapter.setStates(3, item4);
         adapter.setStates(4, item5);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void refreshListItemsDescs(String item1, String item2, String item3, String item4, String item5) {
+        adapter.setDescs(0, item1);
+        adapter.setDescs(1, item2);
+        adapter.setDescs(2, item3);
+        adapter.setDescs(3, item4);
+        adapter.setDescs(4, item5);
         adapter.notifyDataSetChanged();
     }
 

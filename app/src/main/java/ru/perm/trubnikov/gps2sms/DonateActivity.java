@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -62,6 +63,17 @@ public class DonateActivity extends BaseActivity {
             @Override
             public void onBillingInitialized() {
                 readyToPurchase = true;
+                /*
+                DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
+                try {
+                    fragment.refreshListItemsDescs(bp.getPurchaseListingDetails(getProductId(1)).priceText,
+                            bp.getPurchaseListingDetails(getProductId(2)).priceText,
+                            bp.getPurchaseListingDetails(getProductId(3)).priceText,
+                            bp.getPurchaseListingDetails(getProductId(4)).priceText,
+                            bp.getPurchaseListingDetails(getProductId(5)).priceText);
+                } catch (Exception e) {
+                    Log.d("gps2sms", "---> Cannot obtain priceText from Google Play");
+                }*/
             }
 
             @Override
@@ -74,6 +86,8 @@ public class DonateActivity extends BaseActivity {
         // ListView on Fragments
         DonateListFragment fragment = new DonateListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frgmCont, fragment).commit();
+
+
 
     }
 
