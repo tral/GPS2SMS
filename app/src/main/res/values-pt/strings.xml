@@ -78,11 +78,6 @@
     <string name="donate_title_3">Good beer</string>
     <string name="donate_title_4">Cinema ticket</string>
     <string name="donate_title_5">Pay for the party! Lets\'s rock!</string>
-    <string name="donate_price_1">0.50 EUR</string>
-    <string name="donate_price_2">0.89 EUR</string>
-    <string name="donate_price_3">1.71 EUR</string>
-    <string name="donate_price_4">3.29 EUR</string>
-    <string name="donate_price_5">8.56 EUR</string>
 
     <string name="menu_item_donate">Doar</string>
 

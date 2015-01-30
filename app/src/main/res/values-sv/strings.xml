@@ -79,11 +79,6 @@
     <string name="donate_title_3">Good beer</string>
     <string name="donate_title_4">Cinema ticket</string>
     <string name="donate_title_5">Pay for the party! Lets\'s rock!</string>
-    <string name="donate_price_1">7.00 SEK</string>
-    <string name="donate_price_2">8.41 SEK</string>
-    <string name="donate_price_3">16.15 SEK</string>
-    <string name="donate_price_4">31.15 SEK</string>
-    <string name="donate_price_5">80.99 SEK</string>
 
     <string name="menu_item_donate">Donera</string>
 

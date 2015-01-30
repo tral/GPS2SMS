@@ -54,7 +54,7 @@
     <string name="pref_about_summary">Version</string>
     <string name="pref_apptheme">Application Theme</string>
     <string name="pref_regexp_sms">Handle incoming SMS messages</string>
-    <string name="pref_regexp_sms_summary">Automatically launch the Maps-app in case of receiving SMS which contains valid GPS coordinates</string>
+    <string name="pref_regexp_sms_summary">Show push notification in case of receiving SMS which contains valid GPS coordinates</string>
     <string name="tab_mycoords">Saved</string>
     <string name="tab_mysms">Inbox</string>
     <string name="tab_mysms_out">Sent</string>
@@ -85,12 +85,6 @@
     <string name="donate_title_3">Good beer</string>
     <string name="donate_title_4">Cinema ticket</string>
     <string name="donate_title_5">Pay for the party! Lets\'s rock!</string>
-    <string name="donate_price_1">$ 0.99</string>
-    <string name="donate_price_2">$ 1.04</string>
-    <string name="donate_price_3">$ 1.99</string>
-    <string name="donate_price_4">$ 3.83</string>
-    <string name="donate_price_5">$ 9.95</string>
-
 
     <string name="menu_item_donate">Donate</string>
 

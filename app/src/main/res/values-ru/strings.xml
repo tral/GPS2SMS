@@ -48,7 +48,7 @@
     <string name="pref_about_summary">Версия</string>
     <string name="pref_apptheme">Тема оформления</string>
 	<string name="pref_regexp_sms">Сканировать входящие СМС</string>
-	<string name="pref_regexp_sms_summary">Если отмечено, в случае обнаружения во входящем СМС сообщении координат, программа будет пытаться открыть позицию на картах по умолчанию </string>
+	<string name="pref_regexp_sms_summary">Показывать push-уведомление в случае обнаружения во входящем СМС сообщении координат</string>
 	<string name="tab_mycoords">Сохраненные</string>
 	<string name="tab_mysms">Вх. СМС</string>
 	<string name="tab_mysms_out">Исх. СМС</string>
@@ -78,11 +78,6 @@
     <string name="donate_title_3">Хорошее пивко</string>
     <string name="donate_title_4">Билет в кино</string>
     <string name="donate_title_5">Оплатить вечеринку! Тусэ!</string>
-    <string name="donate_price_1">30 руб.</string>
-    <string name="donate_price_2">67 руб.</string>
-    <string name="donate_price_3">130 руб.</string>
-    <string name="donate_price_4">250 руб.</string>
-    <string name="donate_price_5">650 руб.</string>
 
     <string name="menu_item_donate">Пожертвование</string>
 
