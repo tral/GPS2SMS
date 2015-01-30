@@ -43,7 +43,9 @@ public class DonateListAdapter extends ArrayAdapter<String> {
         TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         firstLine.setText(titles[position]);
-        secondLine.setText(descs[position]);
+        if (!descs[position].equalsIgnoreCase("")) {
+            secondLine.setText(descs[position]);
+        }
         imageView.setImageDrawable(icons[position]);
 
         if (states[position] > 0) {

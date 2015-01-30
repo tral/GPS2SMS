@@ -2,6 +2,7 @@ package ru.perm.trubnikov.gps2sms;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -25,6 +26,8 @@ public class DonateActivity extends BaseActivity {
     private final String PRODUCT_ID_3 = "donation_3";
     private final String PRODUCT_ID_4 = "donation_4";
     private final String PRODUCT_ID_5 = "donation_5";
+
+    DonatePriceTextLoadAsyncTask mt;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -63,17 +66,8 @@ public class DonateActivity extends BaseActivity {
             @Override
             public void onBillingInitialized() {
                 readyToPurchase = true;
-                /*
-                DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
-                try {
-                    fragment.refreshListItemsDescs(bp.getPurchaseListingDetails(getProductId(1)).priceText,
-                            bp.getPurchaseListingDetails(getProductId(2)).priceText,
-                            bp.getPurchaseListingDetails(getProductId(3)).priceText,
-                            bp.getPurchaseListingDetails(getProductId(4)).priceText,
-                            bp.getPurchaseListingDetails(getProductId(5)).priceText);
-                } catch (Exception e) {
-                    Log.d("gps2sms", "---> Cannot obtain priceText from Google Play");
-                }*/
+                mt = new DonatePriceTextLoadAsyncTask();
+                mt.execute();
             }
 
             @Override
@@ -86,8 +80,6 @@ public class DonateActivity extends BaseActivity {
         // ListView on Fragments
         DonateListFragment fragment = new DonateListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frgmCont, fragment).commit();
-
-
 
     }
 
@@ -173,6 +165,50 @@ public class DonateActivity extends BaseActivity {
                 return "error_product_id";
         }
     }
+
+    class DonatePriceTextLoadAsyncTask extends AsyncTask<Void, String, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                String[] progress = new String[]{"", "", "", "", ""};
+
+                for (int i = 0; i <= 4; i++) {
+                    //TimeUnit.SECONDS.sleep(1);
+                    progress[i] = bp.getPurchaseListingDetails(getProductId(i + 1)).priceText;
+                    publishProgress(progress);
+                }
+
+            } catch (Exception e) {
+                Log.d("gps2sms", "---> Cannot load priceText from Google Play ");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+
+            try {
+                DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
+                fragment.refreshListItemsDescs(values[0], values[1], values[2], values[3], values[4]);
+            } catch (Exception e) {
+                Log.d("gps2sms", "---> onProgressUpdate ");
+            }
+            //tvInfo.setText("Downloaded " + values[0] + " files");
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
+
 
 }
 
