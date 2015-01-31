@@ -1,7 +1,7 @@
 Jednoduchá, rýchla a bezplatná aplikácia na zdieľanie GPS polohy cez SMS alebo cez hocijakú inú aplikáciu (napr. e-mail, messangery, atď.)
 
 <b>HLAVNÉ VLASTNOSTI</b>
-★ Funguje na každom smartfóne alebo tablete s GPS-prijímačom bežiacom na Androide 2.1 a vyššie 
+★ Funguje na každom smartfóne alebo tablete s GPS-prijímačom bežiacom na Androide 2.2 a vyššie 
 ★ Možnosť výberu tel. čísla zo zoznamu kontaktov
 ★ Možnosť kopírovania geografických súradníc do schránky
 ★ Zobrazenie polohy v hocijakej aplikácii s mapami
