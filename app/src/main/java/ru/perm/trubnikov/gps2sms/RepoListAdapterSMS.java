@@ -37,7 +37,7 @@ public class RepoListAdapterSMS extends RepoListAdapter {
                     imageView.setImageURI(u);
                     if (imageView.getDrawable() == null)
                         imageView.setImageResource(R.drawable.ic_launcher);
-                    //Log.d("gps1", u.toString());
+                    Log.d("gps1", u.toString());
                 } else {
                     //imageView.setImageResource(R.drawable.ic_contact_picture_2);
                 }
