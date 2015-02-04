@@ -169,9 +169,12 @@ public class DonateActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-
-            DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
-            fragment.refreshListItemsDescs(values[0], values[1], values[2], values[3], values[4]);
+            try {
+                DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
+                fragment.refreshListItemsDescs(values[0], values[1], values[2], values[3], values[4]);
+            } catch (Exception e) {
+                Log.d("gps2sms", "---> Cannot set prices (onProgressUpdate)");
+            }
         }
 
     }
@@ -205,19 +208,24 @@ public class DonateActivity extends BaseActivity {
         protected void onPostExecute(WrapperStatuses result) {
             super.onPostExecute(result);
 
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(DonateActivity.this);
-            SharedPreferences.Editor editor = settings.edit();
-            for (int i = 1; i <= 5; i++) {
-                editor.putInt("prefDonate" + i, result.statuses[i - 1]);
-            }
-            editor.commit();
+            try {
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(DonateActivity.this);
+                SharedPreferences.Editor editor = settings.edit();
+                for (int i = 1; i <= 5; i++) {
+                    editor.putInt("prefDonate" + i, result.statuses[i - 1]);
+                }
+                editor.commit();
 
-            DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
-            fragment.refreshListItemsStatus(settings.getInt("prefDonate1", 0),
-                    settings.getInt("prefDonate2", 0),
-                    settings.getInt("prefDonate3", 0),
-                    settings.getInt("prefDonate4", 0),
-                    settings.getInt("prefDonate5", 0));
+                DonateListFragment fragment = (DonateListFragment) getSupportFragmentManager().findFragmentById(R.id.frgmCont);
+                fragment.refreshListItemsStatus(settings.getInt("prefDonate1", 0),
+                        settings.getInt("prefDonate2", 0),
+                        settings.getInt("prefDonate3", 0),
+                        settings.getInt("prefDonate4", 0),
+                        settings.getInt("prefDonate5", 0));
+
+            } catch (Exception e) {
+                Log.d("gps2sms", "---> failed to refresh list (onPostExecute)");
+            }
         }
     }
 
