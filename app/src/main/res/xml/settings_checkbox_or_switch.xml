@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_general">
+
+        <ListPreference
+            android:entries="@array/appLangs"
+            android:entryValues="@array/appLangsValues"
+            android:key="prefLang"
+            android:title="@string/prefs_lang" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefKeepScreen"
+            android:summary="@string/pref_keepscreen_summary"
+            android:title="@string/pref_keepscreen" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefRegexpSMS"
+            android:summary="@string/pref_regexp_sms_summary"
+            android:title="@string/pref_regexp_sms" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:key="prefAppTheme"
+            android:title="@string/pref_apptheme" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -21,6 +21,7 @@ public class PreferencesLegacyActivity extends PreferenceActivity {
 
         super.onCreate(savedInstanceState);
 
+        addPreferencesFromResource(R.xml.settings_checkbox_or_switch);
         addPreferencesFromResource(R.xml.settings);
 
         ListPreference prefTheme = (ListPreference) findPreference("prefAppTheme");
