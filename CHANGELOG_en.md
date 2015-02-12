@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.4.5 / 12.02.2015
+- Internal improvements, bug fixes and optimizations
+
 ## v3.4.4 / 29.01.2015
 - Changes in SMS-handler (Push Notification instead of instant opening Maps-app)
 - "http" in all links changed to "https"
