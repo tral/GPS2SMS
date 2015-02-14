@@ -1,20 +1,19 @@
 <resources>
 
-    <attr name="btn_ic_action_copy" format="reference"/>
-    <attr name="btn_ic_action_collection" format="reference"/>
-	<attr name="btn_ic_action_map" format="reference"/>
-	<attr name="btn_ic_action_share" format="reference"/>
-	<attr name="btn_ic_action_save" format="reference"/>
-	<attr name="btn_ic_action_new_label" format="reference"/>
-	<attr name="btn_ic_action_send_now" format="reference"/>
-	<attr name="btn_ic_action_person" format="reference"/>
-    <attr name="btn_ic_action_refresh" format="reference"/>
+    <attr name="btn_ic_action_copy" format="reference" />
+    <attr name="btn_ic_action_collection" format="reference" />
+    <attr name="btn_ic_action_map" format="reference" />
+    <attr name="btn_ic_action_share" format="reference" />
+    <attr name="btn_ic_action_save" format="reference" />
+    <attr name="btn_ic_action_new_label" format="reference" />
+    <attr name="btn_ic_action_send_now" format="reference" />
+    <attr name="btn_ic_action_person" format="reference" />
+    <attr name="btn_ic_action_refresh" format="reference" />
 
-    <style name="AppThemeLauncher" parent="Theme.AppCompat.NoActionBar">
-    </style>
+    <style name="AppThemeLauncher" parent="Theme.AppCompat.NoActionBar"></style>
 
     <!-- На Андроид ниже 3.0 кнопки для темной темы светлые! -->
-    <style name="AppBaseThemeDark" parent="Theme.AppCompat">
+    <style name="AppDefaultThemeDark" parent="Theme.AppCompat">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_light</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_storage_dark</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_light</item>
@@ -32,15 +31,14 @@
 
     </style>
 
-    <style name="AppBaseThemeLight" parent="Theme.AppCompat.Light">
-        <!-- На Андроид ниже 3.0 кнопки для темной темы светлые! -->
+    <style name="AppDefaultThemeLight" parent="Theme.AppCompat.Light">
         <item name="btn_ic_action_copy">@drawable/ic_action_copy_light</item>
         <item name="btn_ic_action_collection">@drawable/ic_action_storage_light</item>
         <item name="btn_ic_action_map">@drawable/ic_action_map_light</item>
         <item name="btn_ic_action_share">@drawable/ic_action_share_light</item>
         <item name="btn_ic_action_save">@drawable/ic_action_save_light</item>
         <item name="btn_ic_action_new_label">@drawable/ic_action_new_label_light</item>
-		<item name="btn_ic_action_send_now">@drawable/ic_action_send_now_light</item>
+        <item name="btn_ic_action_send_now">@drawable/ic_action_send_now_light</item>
         <item name="btn_ic_action_person">@drawable/ic_action_person_light</item>
         <item name="btn_ic_action_refresh">@drawable/ic_action_refresh_light</item>
 
@@ -51,32 +49,45 @@
 
     </style>
 
-    <style name="AppThemeYellow" parent="AppBaseThemeLight">
+    <style name="AppThemeYellowBase" parent="AppBaseThemeLight">
         <item name="colorPrimary">@color/lolli_primary_yellow</item>
         <item name="colorPrimaryDark">@color/lolli_top_yellow</item>
         <item name="colorAccent">@color/accent_yellow</item>
         <item name="android:windowBackground">@color/lolli_background_yellow</item>
     </style>
 
-    <style name="AppThemePink" parent="AppBaseThemeLight">
+    <style name="AppThemePinkBase" parent="AppBaseThemeLight">
         <item name="colorPrimary">@color/lolli_primary_pink</item>
         <item name="colorPrimaryDark">@color/lolli_top_pink</item>
         <item name="colorAccent">@color/accent_pink</item>
         <item name="android:windowBackground">@color/lolli_background_pink</item>
     </style>
 
-    <style name="AppThemeTeal" parent="AppBaseThemeDark">
+    <style name="AppThemeTealBase" parent="AppBaseThemeDark">
         <item name="colorPrimary">@color/lolli_primary_teal</item>
         <item name="colorPrimaryDark">@color/lolli_top_teal</item>
         <item name="colorAccent">@color/accent_teal</item>
         <item name="android:windowBackground">@color/lolli_background_teal</item>
     </style>
 
-    <style name="AppThemeGrey" parent="AppBaseThemeDark">
+    <style name="AppThemeGreyBase" parent="AppBaseThemeDark">
         <item name="colorPrimary">@color/lolli_primary_grey</item>
         <item name="colorPrimaryDark">@color/lolli_top_grey</item>
         <item name="colorAccent">@color/accent_grey</item>
         <item name="android:windowBackground">@color/lolli_background_grey</item>
     </style>
-    
+
+
+    <style name="AppBaseThemeDark" parent="AppDefaultThemeDark"></style>
+
+    <style name="AppBaseThemeLight" parent="AppDefaultThemeLight"></style>
+
+    <style name="AppThemeYellow" parent="AppThemeYellowBase"></style>
+
+    <style name="AppThemePink" parent="AppThemePinkBase"></style>
+
+    <style name="AppThemeTeal" parent="AppThemeTealBase"></style>
+
+    <style name="AppThemeGrey" parent="AppThemeGreyBase"></style>
+
 </resources>
