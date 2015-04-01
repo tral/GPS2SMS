@@ -5,11 +5,6 @@ import android.view.MenuItem;
 
 public class ChooseFavActivity extends BaseActivity {
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     // ------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GPS2SMS.iml" filepath="$PROJECT_DIR$/GPS2SMS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GPS2SMS_appcompat.iml" filepath="$PROJECT_DIR$/GPS2SMS_appcompat.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

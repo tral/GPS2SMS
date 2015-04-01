@@ -7,7 +7,6 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.view.MenuItem;
 
 public class PreferencesLegacyActivity extends PreferenceActivity {
 
