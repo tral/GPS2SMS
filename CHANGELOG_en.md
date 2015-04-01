@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.4.6 / 01.04.2015
+- Rebuilt using new tools
+- Small optimizations
+
 ## v3.4.5 / 12.02.2015
 - Internal improvements, bug fixes and optimizations
 
