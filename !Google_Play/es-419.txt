@@ -1,0 +1,27 @@
+Aplicacion simple, rapida y gratuita para compartir la ubicacion GPS a traves de SMS o otras aplicaciones de terceros (como email, messengers, etc)
+
+<b>CARACTERISTICAS PRINCIPALES</b>
+Funciona en cualquier smartphone o tablet con receptor GPS, corriendo Android 2.1 o superior
+Selecciona numero telefonico de la libreta del telefono
+Opcion de copia de tus coordenadas geograficas al portapapeles
+Muestra la ubicacion en cualquier aplicacion de mapas de terceros
+Opcion de guardado de tu ubicacion en la memoria interna del dispositivo para uso posterior
+Lanza automaticamente la aplicacion de mapas en caso de recibir SMS que contenga coordenadas GPS validas
+Muestra la precisión de la determinación de las coordenadas (en metros)
+Opcion de mantener la pantalla encendida
+Temas Material design
+Opcion de envio de SMS en formato de aplicacion Navitel
+Se puede mover a la SD
+Aplicacion completamente Open Source. absolutamente gratuita y sin anuncios 
+No corre en segundo plano y no comparte tu localizacion con terceros
+No requiere acceso a internet
+Soporte en Muchos lenguajes (Gracias a todos los traductores!)
+
+<b>CONTRIBUYE</b>
+Reporta un problema en la pagina de Github: http://goo.gl/exK0H0
+Traduce la aplicacion: http://goo.gl/ER0B3f
+Te gusta la aplicacion? Por favor Comenta y comparte en Twitter, Google Plus o donde te guste. Gracias!
+
+<b>ENLACES UTILES</b>
+Hilo 4pda: http://goo.gl/B2L9XO
+Hilo XDA-Developers: http://goo.gl/Xja3pN

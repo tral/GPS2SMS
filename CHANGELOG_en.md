@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.4.7 / 03.07.2015
+- Spanish translations added
+- Rebuilt using new tools
+
 ## v3.4.6 / 01.04.2015
 - Rebuilt using new tools
 - Small optimizations

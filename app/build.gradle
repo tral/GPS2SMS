@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:22.0.+'
+    compile 'com.android.support:appcompat-v7:22.2.+'
     compile 'com.anjlab.android.iab.v3:library:1.0.+@aar'
 }
 
