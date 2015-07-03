@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="info_sms_sent">SMS se envia</string>
+    <string name="info_sms_delivered">SMS se entrega</string>
+    <string name="info_sms_not_delivered">SMS no se entrega</string>
+    <string name="info_sms_noservice">No hay servicio! SMS no se envia!</string>
+    <string name="info_sms_radioof">Radio apagado! SMS no se envia!</string>
+    <string name="info_sms_nullpdu">Error PDU! SMS no se envia!</string>
+    <string name="info_sms_generic">Error generico! SMS no se envia!</string>
+    <string name="gps_state_disabled">GPS esta apagado!</string>
+    <string name="gps_state_in_progress">Adquieriendo coordenadas...</string>
+    <string name="gps_state_unavialable">Coordenadas GPS no estan disponibles</string>
+    <string name="menu_item_settings">Configuraciones</string>
+    <string name="menu_item_rate">Califica App</string>
+    <string name="menu_item_sms_regexp">Repositorio de Coordenadas</string>
+    <string name="menu_item_add_coord">Añadir punto</string>
+    <string name="another_msg_button_text">Envia otro SMS</string>
+    <string name="enable_gps_btn">Enciende GPS</string>
+    <string name="sms_is_sent_msg">Mensaje fue enviado correctamente</string>
+    <string name="error_no_phone_number">Debes especificar un numero celular primero!</string>
+    <string name="default_sms_msg">Estoy aqui</string>
+    <string name="save_btn_txt">Guardar</string>
+    <string name="cancel_btn_txt">Cancelar</string>
+    <string name="del_btn_txt">Borrar</string>
+    <string name="info_print1">GPS OK, exactitud</string>
+    <string name="info_print2">m</string>
+    <string name="info_latitude">Latitud</string>
+    <string name="info_longitude">Longitud</string>
+    <string name="info_accuracy">Exactitud</string>
+    <string name="info_please_wait">Por favor espera mientras se envia SMS para</string>
+    <string name="share_topic">Mis Coordenadas GPS</string>
+    <string name="share_via">Compartir via</string>
+    <string name="imgdesc_copy">Copiar al portapapeles</string>
+    <string name="imgdesc_share">Compartir</string>
+    <string name="imgdesc_map">Mostrar en mapa</string>
+    <string name="imgdesc_send_sms">Enviar SMS</string>
+    <string name="imgdesc_choose_contact">Escoje un contacto</string>
+    <string name="enterAnyPhone">Numero telefono</string>
+    <string name="text_copied">Copiado al portapapeles</string>
+    <string name="pref_keepscreen">Mantener la pantalla encendida</string>
+    <string name="pref_keepscreen_summary">Evitar apagado de pantalla cuando la aplicacion esta activa</string>
+    <string name="pref_clip">Contenido portapapeles</string>
+    <string name="pref_clip_summary">Especificar datos a ser copiados</string>
+    <string name="pref_smstext">Texto SMS</string>
+    <string name="pref_general">General</string>
+    <string name="pref_content">Contenido</string>
+    <string name="pref_about">Acerca</string>
+    <string name="pref_about_summary">Version</string>
+    <string name="pref_apptheme">Tema Aplicacion</string>
+    <string name="pref_regexp_sms">Manejar los mensajes SMS entrantes</string>
+    <string name="pref_regexp_sms_summary">Mostrar notificaciones en caso de recibir SMS que contengan coordenas GPS validas</string>
+    <string name="tab_mycoords">Guardado</string>
+    <string name="tab_mysms">Recibidos</string>
+    <string name="tab_mysms_out">Enviados</string>
+    <string name="point_edit_text_placeholder">Nombre de punto</string>
+    <string name="save_point_dlg_header">Guardar punto</string>
+    <string name="mysms_actions">Acciones</string>
+    <string name="point_saved">Punto ha sido guardado</string>
+    <string name="addpoint_la_ex">Por ejemplo 55.1784657</string>
+    <string name="addpoint_lo_ex">Por ejemplo 57.5734553</string>
+    <string name="add_point_error">Coordenadas invalidas!</string>
+    <string name="prefs_lang">Lenguaje</string>
+
+    <string name="choose_fav_app">Aplicacion Favorita</string>
+    <string name="choose_fav_app_info">Especifica la aplicacion para funcion de compartir rapida</string>
+    <string name="pref_sms_content_summary">Especifica los datos a ser enviados via SMS</string>
+
+    <!-- Themes -->
+    <string name="app_theme_1">Marron</string>
+    <string name="app_theme_2">Gris azul</string>
+    <string name="app_theme_3">Amarillo</string>
+    <string name="app_theme_4">Rosado</string>
+    <string name="app_theme_5">Verde azulado</string>
+    <string name="app_theme_6">Gris</string>
+
+    <string name="donate_title_1">Paseo autobus</string>
+    <string name="donate_title_2">Hamburguesa apetitosa</string>
+    <string name="donate_title_3">Buena cerveza</string>
+    <string name="donate_title_4">Ticket cine</string>
+    <string name="donate_title_5">Paga por la fiesta! Vamos a Rockear!</string>
+
+    <string name="menu_item_donate">Donar</string>
+
+    <string name="donation_title">Gracias por su donacion!</string>
+    <string name="donation_desc">
+        \nComo un pequeño regalo por su donacion, aqui ahi algunos temas para la aplicacion disponibles en configuraciones, Miralos despues de hacer la donacion!
+        \n\nTu puedes ayudar al desarrollador a comprar cualquier cosa de la siguiente lista:
+        \n
+    </string>
+
+    <string name="donation_already_purchased">Ya hiciste esta donacion! Por cierto, gracias por eso!</string>
+    <string name="donation_restore_purchases">Restaurar compras</string>
+    <string name="donation_billing_not_ready">Tu sistema de facturacion no esta listo!</string>
+
+    <string name="sms_notify_title">Ubicacion recibida</string>
+    <string name="sms_notify_desc1">Pulse para ver en el mapa</string>
+
+    <string name="pref_share_buttons_text">Contenido de los botones de compartir</string>
+    <string name="pref_share_buttons_text_summary">Especifica datos para compartir y botones favoritos</string>
+
+</resources>

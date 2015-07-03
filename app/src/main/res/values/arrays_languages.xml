@@ -7,6 +7,7 @@
         <item translatable="false">Português</item>
         <item translatable="false">Slovenčina</item>
         <item translatable="false">Svenska</item>
+        <item translatable="false">Español</item>
 
     </string-array>
     <string-array name="appLangsValues" translatable="false">
@@ -16,5 +17,6 @@
         <item translatable="false">pt</item>
         <item translatable="false">sk</item>
         <item translatable="false">sv</item>
+        <item translatable="false">es</item>
     </string-array>
 </resources>
