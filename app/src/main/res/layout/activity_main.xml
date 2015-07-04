@@ -48,7 +48,8 @@
             android:layout_toRightOf="@id/choose_contact"
             android:hint="@string/enterAnyPhone"
             android:inputType="phone"
-            android:onClick="tooltipContactName" />
+
+            />
 
     </RelativeLayout>
 

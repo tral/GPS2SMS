@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Эти две строки только в дефолтнм strings.xml !!! -->
-    <string name="version_name" translatable="false">3.4.7</string>
+    <string name="version_name" translatable="false">3.4.8</string>
     <string name="app_name" translatable="false">GPS to SMS</string>
     <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->
 

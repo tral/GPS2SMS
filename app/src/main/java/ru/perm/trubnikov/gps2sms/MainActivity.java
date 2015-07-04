@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -430,24 +431,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void tooltipContactName(View v) {
-        String lPhone = ((EditText) v).getText().toString().replace("-", "")
-                .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
-
-        if (lPhone.length() >= 5) {
-
-            Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(lPhone));
-            String[] projection = new String[]{"display_name"};
-            Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-
-            if (cursor.moveToFirst()) {
-                DBHelper.ShowToastT(MainActivity.this, cursor.getString(0),
-                        Toast.LENGTH_SHORT);
-            }
-            cursor.close();
-        }
-    }
-
     public void chooseContact(View v) {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
@@ -519,6 +502,25 @@ public class MainActivity extends BaseActivity {
 
         // Plain phone number
         plainPh = (EditText) findViewById(R.id.editText1);
+        plainPh.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String lPhone = ((EditText) v).getText().toString().replace("-", "")
+                        .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
+
+                if (lPhone.length() >= 5) {
+
+                    Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(lPhone));
+                    String[] projection = new String[]{"display_name"};
+                    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+
+                    if (cursor.moveToFirst()) {
+                        DBHelper.ShowToastT(MainActivity.this, cursor.getString(0),
+                                Toast.LENGTH_SHORT);
+                    }
+                    cursor.close();
+                }
+            }
+        });
 
         // Select contact
         chooseContactBtn = (ImageButton) findViewById(R.id.choose_contact);
