@@ -1,0 +1,266 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="${relativePackage}.${activityClass}">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutScroll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+
+                android:id="@+id/linearLayoutInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/text_current_coords" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/linearLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayoutInfo"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_converter_decimals" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/linearLayoutD"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayout2"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="77.7777777, 77.7777777"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/linearLayoutDM"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayoutD"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/textViewSDM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_converter_dm" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/DMContent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayoutDM"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/valueDM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="N 77°77.7777' E 77°77.7777'"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/linearLayoutDMS"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/DMContent"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/textViewSDMS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_converter_dms" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/DMSContent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayoutDMS"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/valueDMS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="N 77°77'77'' E 77°77'77''"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/linearLayoutUTM"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/DMSContent"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/textViewUD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_converter_utm_h" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/UTMContent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayoutUTM"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/textViewUDC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="77 N 777777.77, 7777777.77"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/linearLayoutUTMZ"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/UTMContent"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/textViewUDZ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_converter_utm_z" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/UTMZContent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayoutUTMZ"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/textViewUDCZ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="77 V 777777.77, 7777777.77"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:id="@+id/linearLayoutMGRS"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/UTMZContent"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/textViewMD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MGRS" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/MGRSContent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayoutMGRS"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/textViewMC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="77V DV 77777 77777"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

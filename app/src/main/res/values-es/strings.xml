@@ -98,4 +98,14 @@
     <string name="pref_share_buttons_text">Contenido de los botones de compartir</string>
     <string name="pref_share_buttons_text_summary">Especifica datos para compartir y botones favoritos</string>
 
+    <string name="text_insufficient_privileges">Insufficient privileges</string>
+    <string name="text_current_coords">Update current coordinates</string>
+    <string name="menu_converter">Converter</string>
+    <string name="text_converter_decimals">Decimals</string>
+    <string name="text_converter_dm">Degrees, minutes</string>
+    <string name="text_converter_dms">Degrees, minutes, seconds</string>
+    <string name="text_converter_utm_h">UTM (Hemisphere)</string>
+    <string name="text_converter_utm_z">UTM (Zone)</string>
+    <string name="another_msg_button_smsapp">Open SMS App</string>
+
 </resources>

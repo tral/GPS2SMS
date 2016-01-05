@@ -1,5 +1,6 @@
 package ru.perm.trubnikov.gps2sms;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -24,7 +26,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity {
     public static final int IDM_SETTINGS = 101;
     public static final int IDM_RATE = 105;
     public static final int IDM_DONATE = 106;
+    public static final int IDM_CONVERTER = 107;
 
     // Activities
     private static final int ACT_RESULT_CHOOSE_CONTACT = 1001;
@@ -63,6 +65,8 @@ public class MainActivity extends BaseActivity {
     //public static final int GPS_PROVIDER_UNAVIALABLE = 4;
     //public static final int GPS_PROVIDER_OUT_OF_SERVICE = 5;
     public static final int GPS_PAUSE_SCANNING = 6;
+
+    public static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1001;
 
     // Location manager
     private LocationManager manager;
@@ -92,27 +96,26 @@ public class MainActivity extends BaseActivity {
     // Database
     DBHelper dbHelper;
 
-    // Define the Handler that receives messages from the thread and update the
-    // progress
     // SMS send thread. Result handling
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
 
             String res_send = msg.getData().getString("res_send");
-            // String res_deliver = msg.getData().getString("res_deliver");
+            String res_sms_text = msg.getData().getString("res_sms_text");
+            String phone = msg.getData().getString("phone");
 
             dismissDialog(SEND_SMS_DIALOG_ID);
 
             if (res_send.equalsIgnoreCase(getString(R.string.info_sms_sent))) {
-                // HideKeyboard();
                 Intent intent = new Intent(MainActivity.this,
                         AnotherMsgActivity.class);
+                intent.putExtra("SENT_SMS_TEXT", res_sms_text);
+                intent.putExtra("PHONE", phone);
                 startActivity(intent);
             } else {
                 DBHelper.ShowToastT(MainActivity.this, res_send,
                         Toast.LENGTH_SHORT);
             }
-
         }
     };
 
@@ -219,6 +222,7 @@ public class MainActivity extends BaseActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
 
+        menu.add(Menu.NONE, IDM_CONVERTER, Menu.NONE, R.string.menu_converter);
         menu.add(Menu.NONE, IDM_SETTINGS, Menu.NONE,
                 R.string.menu_item_settings);
         menu.add(Menu.NONE, IDM_RATE, Menu.NONE, R.string.menu_item_rate);
@@ -308,6 +312,10 @@ public class MainActivity extends BaseActivity {
                 Intent donate_intent = new Intent(this, DonateActivity.class);
                 startActivity(donate_intent);
                 break;
+            case IDM_CONVERTER:
+                Intent converter_intent = new Intent(this, ConverterActivity.class);
+                startActivity(converter_intent);
+                break;
             case IDM_RATE:
                 Intent int_rate = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id="
@@ -327,6 +335,52 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[3] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[4] == PackageManager.PERMISSION_GRANTED) {
+                    this.startLocation();
+                } else {
+                    // permission denied
+                    DBHelper.ShowToast(MainActivity.this, R.string.text_insufficient_privileges, Toast.LENGTH_LONG);
+                    finish();
+                }
+                return;
+            }
+        }
+    }
+
+    private void stopLocation() {
+        try {
+            manager.removeUpdates(locListener);
+        } catch (SecurityException e) {
+        }
+    }
+
+    private void startLocation() {
+        // Возобновляем работу с GPS-приемником
+        try {
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
+            btnShare.setVisibility(View.INVISIBLE);
+            btnCopy.setVisibility(View.INVISIBLE);
+            btnMap.setVisibility(View.INVISIBLE);
+            btnSave.setVisibility(View.INVISIBLE);
+            btnFav.setVisibility(View.INVISIBLE);
+
+            HideSendButton();
+
+            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                printLocation(null, GPS_GETTING_COORDINATES);
+            }
+        } catch (SecurityException e) {
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -341,29 +395,25 @@ public class MainActivity extends BaseActivity {
                     WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-        // Возобновляем работу с GPS-приемником
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-                locListener);
-
-        btnShare.setVisibility(View.INVISIBLE);
-        btnCopy.setVisibility(View.INVISIBLE);
-        btnMap.setVisibility(View.INVISIBLE);
-        btnSave.setVisibility(View.INVISIBLE);
-        btnFav.setVisibility(View.INVISIBLE);
-
-        HideSendButton();
-
-        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            printLocation(null, GPS_GETTING_COORDINATES);
-        }
-
+        // For Android 6.0 ask for permissions in runtime
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (GpsHelper.canAccessLocation(MainActivity.this))
+                this.startLocation();
+        } else
+            this.startLocation();
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        manager.removeUpdates(locListener);
+
+        // For Android 6.0 ask for permissions in runtime
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (GpsHelper.canAccessLocation(MainActivity.this))
+                this.stopLocation();
+        } else
+            this.stopLocation();
     }
 
     public void showSelectedNumber(String number) {
@@ -567,6 +617,17 @@ public class MainActivity extends BaseActivity {
         setGPSStateNormalColor();
         DBHelper.updateFavIcon(MainActivity.this, btnFav);
 
+        // For Android 6.0 ask for All permissions in runtime
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.SEND_SMS,
+                    android.Manifest.permission.RECEIVE_SMS,
+                    android.Manifest.permission.READ_SMS,
+                    android.Manifest.permission.READ_CONTACTS
+            }, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+
     }
 
     private void setGPSStateNormalColor() {
@@ -641,6 +702,18 @@ public class MainActivity extends BaseActivity {
 	 *
 	 * Удаление СМС, Фотку на кнопке с выбранным контактом
 	 * Refactor MyCoordsActivity and MySMSActivity (Create common parent class?)
+	 *
+	 * программа не видит координаты в смс, пример: клевое место N56°04,1747' E61°21,8289'
+	 * в настройках в СМС добавить все типы координат
 	 */
+
+    /*
+    * v3.4.9
+    * Запрос прав доступа во время выполнения для Android 6+
+    * Пересобрано с использованием обновленного инструментария
+    * Изменен значок хранилища координат
+    * В окне, подтверждающем отправку СМС, теперь отображается текст отосланной СМС и кнопка перехода в приложение, управляющее СМСками
+    * 
+    * */
 
 }

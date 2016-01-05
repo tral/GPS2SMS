@@ -27,13 +27,36 @@
        
    </LinearLayout>
 
+
+    <LinearLayout
+
+        android:id="@+id/linearLayoutText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayoutInfo"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/textViewTxt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+
    <LinearLayout
        
         android:id="@+id/linearLayout2"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayoutInfo"
+        android:layout_below="@+id/linearLayoutText"
         android:orientation="horizontal"
         android:paddingTop="16dp" >
    
@@ -57,6 +80,27 @@
 
 	</LinearLayout>
 
-   
+
+
+
+    <RelativeLayout
+
+        android:id="@+id/linearLayoutSMSApp"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout4"
+        android:orientation="horizontal"
+        android:paddingTop="16dp" >
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="@string/another_msg_button_smsapp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

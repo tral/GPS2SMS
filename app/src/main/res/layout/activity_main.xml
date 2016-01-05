@@ -71,7 +71,7 @@
             android:gravity="center"
             android:maxLines="3"
             android:singleLine="false"
-            android:text="Координаты получены, точность 25 м\nШирота 3424234234\nДолгота 32424324" />
+            android:text="" />
 
     </LinearLayout>
 

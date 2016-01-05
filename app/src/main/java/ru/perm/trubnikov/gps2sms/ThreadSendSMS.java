@@ -49,7 +49,7 @@ public class ThreadSendSMS extends Thread {
 
     // Deliver SMS Receiver
     /*
-	 * class deliverReceiver extends BroadcastReceiver {
+     * class deliverReceiver extends BroadcastReceiver {
 	 * 
 	 * @Override public void onReceive(Context context, Intent arg1) {
 	 * 
@@ -61,6 +61,7 @@ public class ThreadSendSMS extends Thread {
 	 * setResDeliver(context.getString(R.string.info_sms_not_delivered)); break;
 	 * } } }
 	 */
+
 
     // Send SMS Receiver
     class sentReceiver extends BroadcastReceiver {
@@ -147,7 +148,7 @@ public class ThreadSendSMS extends Thread {
                         sentArrayIntents, null);
 
             } catch (Exception e) {
-                // res_error = "EX6! " + e.toString() +" Message:"
+                // String res_error = "EX6! " + e.toString() +" Message:"
                 // +e.getMessage();
             } finally {
                 mState = STATE_WAITING_RESULT;
@@ -172,7 +173,8 @@ public class ThreadSendSMS extends Thread {
                 Message msg = mHandler.obtainMessage();
                 Bundle b = new Bundle();
                 b.putString("res_send", res_send);
-                // b.putString("res_deliver", res_deliver);
+                b.putString("res_sms_text", this.smsMessage);
+                b.putString("phone", this.smsPhone);
                 msg.setData(b);
                 mState = STATE_DONE;
                 mHandler.sendMessage(msg);
@@ -206,7 +208,7 @@ public class ThreadSendSMS extends Thread {
     public void setSendRecFired(int f) {
         send_receiver_fired = f;
     }
-	/*
+    /*
 	 * public void setResDeliver(String r) { res_deliver = res_deliver+r; }
 	 * 
 	 * public void setDeliverRecToFire(int f) { deliver_receiver_to_fire = f; }

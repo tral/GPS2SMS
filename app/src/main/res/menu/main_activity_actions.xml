@@ -8,7 +8,7 @@
           android:showAsAction="ifRoom" />
     -->
     <item android:id="@+id/action_sms_regexp"
-          android:icon="?attr/btn_ic_action_collection"
+          android:icon="?attr/btn_ic_action_save"
           android:title="@string/menu_item_sms_regexp"
           app:showAsAction="ifRoom" />
 

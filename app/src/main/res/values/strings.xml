@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Эти две строки только в дефолтнм strings.xml !!! -->
-    <string name="version_name" translatable="false">3.4.8</string>
+    <string name="version_name" translatable="false">3.4.9</string>
     <string name="app_name" translatable="false">GPS to SMS</string>
     <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->
 
@@ -103,5 +103,15 @@
     <string name="sms_notify_desc1">Tap to view it on the map</string>
     <string name="pref_share_buttons_text">Share Buttons content</string>
     <string name="pref_share_buttons_text_summary">Specify data for Share and Favourite buttons</string>
+
+    <string name="text_insufficient_privileges">Insufficient privileges</string>
+    <string name="text_current_coords">Update current coordinates</string>
+    <string name="menu_converter">Converter</string>
+    <string name="text_converter_decimals">Decimals</string>
+    <string name="text_converter_dm">Degrees, minutes</string>
+    <string name="text_converter_dms">Degrees, minutes, seconds</string>
+    <string name="text_converter_utm_h">UTM (Hemisphere)</string>
+    <string name="text_converter_utm_z">UTM (Zone)</string>
+    <string name="another_msg_button_smsapp">Open SMS App</string>
 
 </resources>

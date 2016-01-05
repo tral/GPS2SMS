@@ -98,4 +98,14 @@
     <string name="pref_share_buttons_text">Контент кнопок обмена</string>
     <string name="pref_share_buttons_text_summary">Укажите данные для кнопок Поделиться и Любимое приложение</string>
 
+	<string name="text_insufficient_privileges">Недостаточно прав</string>
+    <string name="text_current_coords">Обновлять текущие координаты</string>
+    <string name="menu_converter">Конвертер</string>
+    <string name="text_converter_decimals">Десятичные</string>
+    <string name="text_converter_dm">Градусы, минуты</string>
+    <string name="text_converter_dms">Градусы, минуты, секунды</string>
+    <string name="text_converter_utm_h">UTM (Полусфера)</string>
+    <string name="text_converter_utm_z">UTM (Зона)</string>
+    <string name="another_msg_button_smsapp">Открыть приложение для СМС</string>
+
 </resources>
