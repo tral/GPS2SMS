@@ -81,11 +81,6 @@ public class ConverterActivity extends BaseActivity {
 
         mCoordsConv = new CoordinateConversion();
 
-        //DBHelper.ShowToastT(MainActivity.this, mCoordsConv.latLon2UTM(58.01205, 56.214005),
-        //      Toast.LENGTH_SHORT);
-
-        //DBHelper.ShowToastT(MainActivity.this, a.latLon2MGRUTM(58.01205, 56.214005),Toast.LENGTH_SHORT);
-
     }
 
     @Override
@@ -208,6 +203,7 @@ public class ConverterActivity extends BaseActivity {
                 if (loc != null) {
 
                     // Accuracy
+                    /*
                     if (loc.getAccuracy() < 0.0001) {
                         accuracy = "?";
                     } else if (loc.getAccuracy() > 99) {
@@ -215,59 +211,18 @@ public class ConverterActivity extends BaseActivity {
                     } else {
                         accuracy = String.format(Locale.US, "%2.0f",
                                 loc.getAccuracy());
-                    }
-
-                    String separ = System.getProperty("line.separator");
+                    }*/
 
                     double lon = loc.getLongitude();
                     double lat = loc.getLatitude();
 
 
-                    String la = String
-                            .format(Locale.US, "%2.7f", lat);
-                    String lo = String.format(Locale.US, "%3.7f",
-                            lon);
-
-                    //  String coordsToSend = la + "," + lo;
-
-                    //coordsToShare = DBHelper.getShareBody(MainActivity.this,
-                    //       coordsToSend, accuracy);
-
-                    mDecimals.setText(la + ", " + lo);
+                    mDecimals.setText(String.format(Locale.US, "%2.7f", lat) + ", " + String.format(Locale.US, "%3.7f", lon));
                     mUTM.setText(mCoordsConv.latLon2UTM(lat, lon));
                     mUTMH.setText(mCoordsConv.latLon2UTMH(lat, lon));
                     mMGRS.setText(mCoordsConv.latLon2MGRUTM(lat, lon));
-
-
-                    String mod_lat = (lat >= 0) ? "N" : "S";
-                    String mod_lon = (lon >= 0) ? "E" : "W";
-                    double degrees_lat = Math.floor(lat);
-                    double mmgg_lat = (lat - degrees_lat) * 60;
-                    double minutes_lat = Math.floor(mmgg_lat);
-                    double seconds_lat = Math.floor((mmgg_lat - minutes_lat) * 60);
-                    double degrees_lon = Math.floor(lon);
-                    double mmgg_lon = (lat - degrees_lon) * 60;
-                    double minutes_lon = Math.floor(mmgg_lon);
-                    double seconds_lon = Math.floor((mmgg_lon - minutes_lon) * 60);
-
-                    String dms1 = String.format(Locale.US, "%2.0f", degrees_lat) + "°" + String.format(Locale.US, "%2.0f", minutes_lat) + "'" + String.format(Locale.US, "%2.0f", seconds_lat) + "''";
-                    String dms2 = String.format(Locale.US, "%2.0f", degrees_lon) + "°" + String.format(Locale.US, "%2.0f", minutes_lon) + "'" + String.format(Locale.US, "%2.0f", seconds_lon) + "''";
-                    mDMS.setText(mod_lat + " " + dms1.replace(" ", "") + ", " + mod_lon + " " + dms2.replace(" ", ""));
-
-                    String dm1 = String.format(Locale.US, "%2.0f", degrees_lat) + "°" + String.format(Locale.US, "%2.4f", mmgg_lat) + "'";
-                    String dm2 = String.format(Locale.US, "%2.0f", degrees_lon) + "°" + String.format(Locale.US, "%2.4f", mmgg_lon) + "'";
-                    mDM.setText(mod_lat + " " + dm1.replace(" ", "") + ", " + mod_lon + " " + dm2.replace(" ", ""));
-
-//                    setGPSStateNormalColor();
-//
-//                    btnShare.setVisibility(View.VISIBLE);
-//                    btnCopy.setVisibility(View.VISIBLE);
-//                    btnMap.setVisibility(View.VISIBLE);
-//                    btnSave.setVisibility(View.VISIBLE);
-//                    btnFav.setVisibility(View.VISIBLE);
-//
-//                    ShowSendButton();
-//                    enableGPSBtn.setVisibility(View.INVISIBLE);
+                    mDMS.setText(GpsHelper.latLonToDMS(lat, true) + ", " + GpsHelper.latLonToDMS(lon, false));
+                    mDM.setText(GpsHelper.latLonToDM(lat, true) + ", " + GpsHelper.latLonToDM(lon, false));
 
                 } else {
 //                    GPSstate.setText(R.string.gps_state_unavialable);
