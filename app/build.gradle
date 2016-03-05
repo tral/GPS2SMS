@@ -5,11 +5,14 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
+        generatedDensities = []
         applicationId "ru.perm.trubnikov.gps2sms"
         minSdkVersion 8
         targetSdkVersion 23
     }
-
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
     buildTypes {
         release {
             minifyEnabled false
