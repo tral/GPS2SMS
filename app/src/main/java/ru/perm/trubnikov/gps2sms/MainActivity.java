@@ -106,16 +106,21 @@ public class MainActivity extends BaseActivity {
 
             dismissDialog(SEND_SMS_DIALOG_ID);
 
-            if (res_send.equalsIgnoreCase(getString(R.string.info_sms_sent))) {
-                Intent intent = new Intent(MainActivity.this,
-                        AnotherMsgActivity.class);
-                intent.putExtra("SENT_SMS_TEXT", res_sms_text);
-                intent.putExtra("PHONE", phone);
-                startActivity(intent);
-            } else {
-                DBHelper.ShowToastT(MainActivity.this, res_send,
-                        Toast.LENGTH_SHORT);
-            }
+            DBHelper.ShowToastT(MainActivity.this, res_send,
+                    Toast.LENGTH_SHORT);
+
+//            if (res_send.equalsIgnoreCase(getString(R.string.info_sms_sent))) {
+//                Intent intent = new Intent(MainActivity.this,
+//                        AnotherMsgActivity.class);
+//                intent.putExtra("SENT_SMS_TEXT", res_sms_text);
+//                intent.putExtra("PHONE", phone);
+//                startActivity(intent);
+//                DBHelper.ShowToastT(MainActivity.this, res_send,
+//                        Toast.LENGTH_SHORT);
+//            } else {
+//                DBHelper.ShowToastT(MainActivity.this, res_send,
+//                        Toast.LENGTH_SHORT);
+//            }
         }
     };
 
