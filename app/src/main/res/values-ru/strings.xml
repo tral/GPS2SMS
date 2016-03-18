@@ -108,4 +108,9 @@
     <string name="text_converter_utm_z">UTM (Зона)</string>
     <string name="another_msg_button_smsapp">Открыть приложение для СМС</string>
 
+    <string name="pref_text_before">Текст до координат в СМС</string>
+    <string name="pref_text_before_summary">Этот текст будет вставлен в СМС перед координатами</string>
+    <string name="pref_text_after">Текст после координат в СМС</string>
+    <string name="pref_text_after_summary">Этот текст будет вставлен в СМС после координат</string>
+
 </resources>

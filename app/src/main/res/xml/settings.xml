@@ -32,6 +32,20 @@
             android:summary="@string/choose_fav_app_info"
             android:title="@string/choose_fav_app" />
 
+        <EditTextPreference
+            android:key="prefTextBefore"
+            android:title="@string/pref_text_before"
+            android:summary="@string/pref_text_before_summary"
+            android:dialogTitle="@string/pref_text_before"
+            android:defaultValue="" />
+
+        <EditTextPreference
+            android:key="prefTextAfter"
+            android:title="@string/pref_text_after"
+            android:summary="@string/pref_text_after_summary"
+            android:dialogTitle="@string/pref_text_after"
+            android:defaultValue="" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_about">

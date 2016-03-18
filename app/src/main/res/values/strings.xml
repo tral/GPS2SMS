@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Эти две строки только в дефолтнм strings.xml !!! -->
-    <string name="version_name" translatable="false">3.4.12</string>
+    <string name="version_name" translatable="false">3.4.15</string>
     <string name="app_name" translatable="false">GPS to SMS</string>
     <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->
 
@@ -113,5 +113,11 @@
     <string name="text_converter_utm_h">UTM (Hemisphere)</string>
     <string name="text_converter_utm_z">UTM (Zone)</string>
     <string name="another_msg_button_smsapp">Open SMS App</string>
+
+
+    <string name="pref_text_before">Text before coordinates in SMS</string>
+    <string name="pref_text_before_summary">This text will be inserted in SMS before coordinates</string>
+    <string name="pref_text_after">Text after coordinates in SMS</string>
+    <string name="pref_text_after_summary">This text will be inserted in SMS after coordinates</string>
 
 </resources>

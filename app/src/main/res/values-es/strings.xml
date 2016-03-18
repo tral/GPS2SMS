@@ -108,4 +108,9 @@
     <string name="text_converter_utm_z">UTM (Zone)</string>
     <string name="another_msg_button_smsapp">Open SMS App</string>
 
+    <string name="pref_text_before">Text before coordinates in SMS</string>
+    <string name="pref_text_before_summary">This text will be inserted in SMS before coordinates</string>
+    <string name="pref_text_after">Text after coordinates in SMS</string>
+    <string name="pref_text_after_summary">This text will be inserted in SMS after coordinates</string>
+
 </resources>

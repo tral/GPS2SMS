@@ -1,6 +1,5 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -643,6 +642,22 @@ public class MainActivity extends BaseActivity {
         GPSstate.setTextColor(DBHelper.determineAccendcolor(MainActivity.this));
     }
 
+    protected String handleSMSText(String lMsg) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String tBefore = sharedPrefs.getString("prefTextBefore", "");
+        String tAfter = sharedPrefs.getString("prefTextAfter", "");
+
+        if (!tBefore.equalsIgnoreCase("")) {
+            lMsg = tBefore + " " + lMsg;
+        }
+
+        if (!tAfter.equalsIgnoreCase("")) {
+            lMsg = lMsg +" "+ tAfter;
+        }
+
+        return lMsg;
+    }
+
     // ------------------------------------------------------------------------------------------
 
     protected void sendSMS(String lMsg) {
@@ -664,7 +679,7 @@ public class MainActivity extends BaseActivity {
 
             // Запускаем новый поток для отправки SMS
             mThreadSendSMS = new ThreadSendSMS(handler, getApplicationContext());
-            mThreadSendSMS.setMsg(lMsg);
+            mThreadSendSMS.setMsg(handleSMSText(lMsg));
             mThreadSendSMS.setPhone(phoneToSendSMS);
             mThreadSendSMS.setState(ThreadSendSMS.STATE_RUNNING);
             mThreadSendSMS.start();
@@ -708,7 +723,6 @@ public class MainActivity extends BaseActivity {
 	 * Виджет
 	 * Программа не видит координаты в смс, пример: клевое место N56°04,1747' E61°21,8289'
 	 * В настройках в СМС добавить все типы координат
-	 * Пользовательский текст в СМС
 	 * Показывать все типы координат на главном экране?
 	 */
 
