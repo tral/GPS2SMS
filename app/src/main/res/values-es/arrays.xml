@@ -5,11 +5,13 @@
         <item>Vincular a Google Maps</item>
         <item>Vincular a OpenStreetMap</item>
         <item>Coordenadas en formato Navitel</item>
+        <item>Vincular a Yandex Maps</item>
     </string-array>
     <string-array name="shareProvidersValues">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
     </string-array>
 </resources>

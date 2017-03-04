@@ -3,7 +3,7 @@
 
     <!-- Эти две строки только в дефолтнм strings.xml !!! -->
 
-    <string name="version_name1" translatable="false">3.4.19</string>
+    <string name="version_name1" translatable="false">3.4.21</string>
 
     <string name="app_name" translatable="false">GPS to SMS</string>
     <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->

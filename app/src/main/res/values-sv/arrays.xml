@@ -5,11 +5,13 @@
         <item>Länk till Google Maps</item>
         <item>Länk till OpenStreetMap</item>
         <item>Koordinater i Navitel format</item>
+        <item>Länk till Yandex Maps</item>
     </string-array>
     <string-array name="shareProvidersValues">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
     </string-array>
 </resources>

@@ -220,6 +220,12 @@ class DBHelper extends SQLiteOpenHelper {
         return "https://maps.google.com/maps?q=loc:" + crds;
     }
 
+    public static String getYandexMapsLink(String crds) {
+        // gGoogleMapsLink = "https://www.google.com/maps/place/" +
+        // coordsToSend;
+        return "https://yandex.ru/maps/?mode=search&text=" + crds.replace(",", "%20");
+    }
+
     public static String getOSMLink(String crds) {
         crds = crds.replace(",", "&mlon=");
         return "https://openstreetmap.org/?mlat=" + crds + "&zoom=17";
@@ -329,6 +335,8 @@ class DBHelper extends SQLiteOpenHelper {
                 return DBHelper.getOSMLink(crds);
             case "4":
                 return DBHelper.getNavitelMessage(crds);
+            case "5":
+                return DBHelper.getYandexMapsLink(crds);
             default:
                 return crds;
         }
