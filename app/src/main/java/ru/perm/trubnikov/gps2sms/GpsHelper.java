@@ -1,6 +1,7 @@
 package ru.perm.trubnikov.gps2sms;
 
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 
@@ -18,7 +19,7 @@ public class GpsHelper {
         // All needed permissions
         return (hasPermission(android.Manifest.permission.ACCESS_FINE_LOCATION, a) && hasPermission(android.Manifest.permission.SEND_SMS, a) &&
                 hasPermission(android.Manifest.permission.RECEIVE_SMS, a) && hasPermission(android.Manifest.permission.READ_SMS, a) &&
-                hasPermission(android.Manifest.permission.READ_CONTACTS, a));
+                hasPermission(android.Manifest.permission.READ_CONTACTS, a) && hasPermission(android.Manifest.permission.READ_PHONE_STATE, a));
     }
 
     public static String latLonToDMS (double val, boolean is_lat) {

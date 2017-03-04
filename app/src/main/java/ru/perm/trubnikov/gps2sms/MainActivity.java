@@ -1,5 +1,6 @@
 package ru.perm.trubnikov.gps2sms;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -21,6 +22,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +37,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
@@ -628,6 +631,7 @@ public class MainActivity extends BaseActivity {
                     android.Manifest.permission.SEND_SMS,
                     android.Manifest.permission.RECEIVE_SMS,
                     android.Manifest.permission.READ_SMS,
+                    android.Manifest.permission.READ_PHONE_STATE,
                     android.Manifest.permission.READ_CONTACTS
             }, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -660,11 +664,44 @@ public class MainActivity extends BaseActivity {
 
     // ------------------------------------------------------------------------------------------
 
-    protected void sendSMS(String lMsg) {
+    public void sendSMS_Debug(String lMsg) {
 
         phoneToSendSMS = plainPh.getText().toString().replace("-", "")
                 .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
 
+        if (phoneToSendSMS.equalsIgnoreCase("")) {
+            DBHelper.ShowToast(MainActivity.this,
+                    R.string.error_no_phone_number, Toast.LENGTH_LONG);
+        } else {
+            try {
+
+
+            // update saved number
+            dbHelper = new DBHelper(MainActivity.this);
+            dbHelper.setSlot(0, "", phoneToSendSMS);
+            dbHelper.close();
+
+            SmsManager smsManager = SmsManager.getDefault();
+            ArrayList<String> parts = smsManager.divideMessage(lMsg);
+            smsManager.sendMultipartTextMessage(phoneToSendSMS, null, parts, null, null);
+
+            DBHelper.ShowToastT(MainActivity.this, getString(R.string.info_sms_sent),
+                    Toast.LENGTH_SHORT);
+
+            } catch (Exception e) {
+                DBHelper.ShowToastT(MainActivity.this, e.getMessage(),
+                        Toast.LENGTH_LONG);
+            }
+
+        }
+
+    }
+
+    protected void sendSMS(String lMsg) {
+
+        phoneToSendSMS = plainPh.getText().toString().replace("-", "")
+                .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
+//
         if (phoneToSendSMS.equalsIgnoreCase("")) {
             DBHelper.ShowToast(MainActivity.this,
                     R.string.error_no_phone_number, Toast.LENGTH_LONG);

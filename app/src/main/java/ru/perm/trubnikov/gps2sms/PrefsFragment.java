@@ -44,7 +44,7 @@ public class PrefsFragment extends PreferenceFragment {
         }
 
         Preference pref = findPreference("prefAbout");
-        pref.setSummary(getString(R.string.pref_about_summary) + " " + getString(R.string.version_name));
+        pref.setSummary(getString(R.string.pref_about_summary) + " " + getString(R.string.version_name1));
 
         // Get the custom preference
         Preference customPref = findPreference("prefFav");

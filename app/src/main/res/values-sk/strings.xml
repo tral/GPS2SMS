@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="info_sms_sent">SMS je odoslaná</string>
     <string name="info_sms_delivered">SMS je doručená</string>
     <string name="info_sms_not_delivered">SMS nie je doručená</string>

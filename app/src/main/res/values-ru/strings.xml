@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<string name="info_sms_sent">SMS отправлена</string>
 	<string name="info_sms_delivered">SMS доставлена получателю</string>
 	<string name="info_sms_not_delivered">SMS НЕ доставлена получателю!</string>
