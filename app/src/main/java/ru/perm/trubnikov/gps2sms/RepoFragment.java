@@ -59,7 +59,7 @@ abstract class RepoFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
 
         // selected coordinates
-        actionCoords = DBHelper.extractCoordinates((String) getListAdapter().getItem(position));
+        actionCoords = GpsHelper.extractCoordinates((String) getListAdapter().getItem(position));
 
         // custom dialog
         final Dialog dialog = new Dialog(getActivity());
@@ -77,9 +77,7 @@ abstract class RepoFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                DBHelper.shareCoordinates(getActivity(),
-                        DBHelper.getShareBody(getActivity(),
-                                actionCoords, ""));
+                GpsHelper.shareCoordinates(getActivity(), GpsHelper.getShareBody(getActivity(), actionCoords, ""));
             }
         });
 
@@ -87,7 +85,7 @@ abstract class RepoFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                DBHelper.clipboardCopy(getActivity().getApplicationContext(), actionCoords);
+                GpsHelper.clipboardCopy(getActivity().getApplicationContext(), actionCoords);
                 DBHelper.ShowToastT(getActivity(), getString(R.string.text_copied), Toast.LENGTH_LONG);
             }
         });
@@ -96,7 +94,7 @@ abstract class RepoFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                DBHelper.openOnMap(getActivity().getApplicationContext(), actionCoords);
+                GpsHelper.openOnMap(getActivity().getApplicationContext(), actionCoords);
             }
         });
 
@@ -105,7 +103,7 @@ abstract class RepoFragment extends ListFragment {
             public void onClick(View v) {
 
                 if (!DBHelper.shareFav(getActivity(),
-                        DBHelper.getShareBody(getActivity(), actionCoords, ""))) {
+                        GpsHelper.getShareBody(getActivity(), actionCoords, ""))) {
                     Intent intent = new Intent(getActivity(), ChooseFavActivity.class);
                     startActivityForResult(intent, ACT_RESULT_FAV);
                 } else {

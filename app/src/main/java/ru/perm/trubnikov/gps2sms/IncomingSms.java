@@ -48,7 +48,7 @@ public class IncomingSms extends BroadcastReceiver {
                         // Log.d("gps", "senderNum: "+ senderNum + "; message: "
                         // + message);
 
-                        String Coordinates = DBHelper.extractCoordinates(currentMessage.getDisplayMessageBody());
+                        String Coordinates = GpsHelper.extractCoordinates(currentMessage.getDisplayMessageBody());
 
                         if (!Coordinates.equalsIgnoreCase("0,0")) {
 
@@ -76,7 +76,7 @@ public class IncomingSms extends BroadcastReceiver {
 
     public void sendNotification(Context context, String Coordinates) {
 
-        Intent intent = DBHelper.getIntentForMap(Coordinates);
+        Intent intent = GpsHelper.getIntentForMap(Coordinates);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 

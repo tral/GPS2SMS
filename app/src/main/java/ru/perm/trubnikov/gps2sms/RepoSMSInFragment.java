@@ -41,7 +41,7 @@ public class RepoSMSInFragment extends RepoFragment {
                 mFirstLine.add((i < 10 ? getContactName(getActivity().getApplicationContext(), cursor.getString(1)) : cursor.getString(1)));
 
                 // coordinates & timestamp
-                mSecondLine.add(DBHelper.extractCoordinates(cursor.getString(2)) + " (" + cursor.getString(0) + ")");
+                mSecondLine.add(GpsHelper.extractCoordinates(cursor.getString(2)) + " (" + cursor.getString(0) + ")");
 
                 i++;
 

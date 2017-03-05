@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="shareProviders">
-        <item>Endast koordinater</item>
+        <item>Koordinater (D)</item>
         <item>Länk till Google Maps</item>
         <item>Länk till OpenStreetMap</item>
         <item>Koordinater i Navitel format</item>
         <item>Länk till Yandex Maps</item>
+        <item>Koordinater (D/M)</item>
+        <item>Koordinater (D/M/S)</item>
     </string-array>
     <string-array name="shareProvidersValues">
         <item>1</item>
@@ -13,5 +15,7 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>6</item>
+        <item>7</item>
     </string-array>
 </resources>

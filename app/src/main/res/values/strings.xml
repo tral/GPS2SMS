@@ -3,7 +3,7 @@
 
     <!-- Эти две строки только в дефолтнм strings.xml !!! -->
 
-    <string name="version_name1" translatable="false">3.4.21</string>
+    <string name="version_name1" translatable="false">3.4.23</string>
 
     <string name="app_name" translatable="false">GPS to SMS</string>
     <!-- EOF Эти две строки только в дефолтнм strings.xml !!! -->
@@ -86,7 +86,7 @@
     <string name="donate_title_2">Tasty hamburger</string>
     <string name="donate_title_3">Good beer</string>
     <string name="donate_title_4">Cinema ticket</string>
-    <string name="donate_title_5">Pay for the party! Lets\'s rock!</string>
+    <string name="donate_title_5">Pay for the party! Let\'s rock!</string>
 
     <string name="menu_item_donate">Donate</string>
 

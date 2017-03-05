@@ -9,15 +9,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 class DBHelper extends SQLiteOpenHelper {
 
@@ -60,18 +57,6 @@ class DBHelper extends SQLiteOpenHelper {
         db.delete("mycoords", "_id = " + id, null);
         db.close();
     }
-
-   /* public String getName() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.query("contact", null, "_id=1", null, null, null, null);
-
-        if (c.moveToFirst()) {
-            int idx = c.getColumnIndex("contact");
-            return c.getString(idx);
-        }
-
-        return "";
-    }*/
 
     public String getSlot(int id, String col) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -183,54 +168,6 @@ class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-
-    public static String extractCoordinates(String message) {
-        message = message.replace("&mlon=", ",");
-        Pattern p = Pattern.compile("(\\-?\\d+\\.(\\d+)?),\\s*(\\-?\\d+\\.(\\d+)?)");
-        Matcher m = p.matcher(message);
-        return m.find() ? m.group(0) : "0,0";
-    }
-
-    public static String getShareBody(Context context, String crds, String accuracy) {
-
-        String separ = System.getProperty("line.separator");
-        String crds1 = crds.replace(",",
-                separ + context.getString(R.string.info_longitude) + ": ");
-
-        String res = context.getString(R.string.info_latitude) + ": " + crds1;
-
-        if (!accuracy.equalsIgnoreCase("")) {
-            res = res + separ + context.getString(R.string.info_accuracy) + ": "
-                    + accuracy + " " + context.getString(R.string.info_print2);
-        }
-
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        return res + separ + separ + getLinkByProvType(sharedPrefs.getString("prefShareButtonsContent", "2"), crds);
-    }
-
-    public static String getNavitelMessage(String crds) {
-        // ??? "<NavitelLoc>" + (loc.getLatitude() > 0 ? "N" : "S") + la + "° " + (loc.getLongitude() > 0 ? "E" : "W") + lo + "°<N>";
-        return "<NavitelLoc>" + crds + "<N>";
-    }
-
-    public static String getGoogleMapsLink(String crds) {
-        // gGoogleMapsLink = "https://www.google.com/maps/place/" +
-        // coordsToSend;
-        return "https://maps.google.com/maps?q=loc:" + crds;
-    }
-
-    public static String getYandexMapsLink(String crds) {
-        // gGoogleMapsLink = "https://www.google.com/maps/place/" +
-        // coordsToSend;
-        return "https://yandex.ru/maps/?mode=search&text=" + crds.replace(",", "%20");
-    }
-
-    public static String getOSMLink(String crds) {
-        crds = crds.replace(",", "&mlon=");
-        return "https://openstreetmap.org/?mlat=" + crds + "&zoom=17";
-    }
-
     // Small util to show text messages
     public static void ShowToast(Context context, int txt, int lng) {
         Toast toast = Toast.makeText(context, txt, lng);
@@ -277,69 +214,6 @@ class DBHelper extends SQLiteOpenHelper {
         }
 
         return found;
-    }
-
-    public static void shareCoordinates(Context context, String crds) {
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                context.getString(R.string.share_topic));
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, crds);
-        context.startActivity(Intent.createChooser(sharingIntent,
-                context.getString(R.string.share_via)));
-    }
-
-    public static Intent getIntentForMap(String crds) {
-        //Intent intent = new Intent(Intent.ACTION_VIEW);
-        //String uri = "geo:" + crds;
-        String uri = getGoogleMapsLink(crds);
-        //String geo = "http://maps.google.com/maps?q=loc:" + crds;
-        //intent.setData(Uri.parse(geo));
-
-        // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return intent;
-/*
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            return intent;
-        } else
-            return null;*/
-
-    }
-
-    public static void openOnMap(Context context, String crds) {
-
-        // http://developer.android.com/guide/components/intents-common.html
-        // Example: "geo:0,0?q=34.99,-106.61(Treasure)"
-        // с Меткой глючат Яндекс.Карты
-
-        Intent intent = DBHelper.getIntentForMap(crds);
-        context.startActivity(intent);
-    }
-
-    public static void clipboardCopy(Context context, String crds) {
-        android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context
-                .getSystemService(Context.CLIPBOARD_SERVICE);
-
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        clipboard.setText(getLinkByProvType(sharedPrefs.getString("prefClipboard", "2"), crds));
-    }
-
-    public static String getLinkByProvType(String settVal, String crds) {
-        switch (settVal) {
-            case "2":
-                return DBHelper.getGoogleMapsLink(crds);
-            case "3":
-                return DBHelper.getOSMLink(crds);
-            case "4":
-                return DBHelper.getNavitelMessage(crds);
-            case "5":
-                return DBHelper.getYandexMapsLink(crds);
-            default:
-                return crds;
-        }
     }
 
     // --------------------------------------------------------------------------------------------

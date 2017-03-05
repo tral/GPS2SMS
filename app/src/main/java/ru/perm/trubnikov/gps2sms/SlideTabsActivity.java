@@ -181,7 +181,7 @@ public class SlideTabsActivity extends BaseActivity implements OnTabChangeListen
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        String Coordinates = DBHelper.extractCoordinates(laEdit.getText().toString() + "," + loEdit.getText().toString());
+                        String Coordinates = GpsHelper.extractCoordinates(laEdit.getText().toString() + "," + loEdit.getText().toString());
 
                         if (!Coordinates.equalsIgnoreCase("0,0")) {
 

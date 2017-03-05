@@ -1,6 +1,5 @@
 package ru.perm.trubnikov.gps2sms;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -91,9 +90,9 @@ public class MainActivity extends BaseActivity {
 
     // Globals
     private String coordsToSend;
-    private String coordsToShare;
+    private String gAccuracy;
     private String phoneToSendSMS;
-    ColorStateList GPSSstateColorDefault;
+    ColorStateList gGpsStateColorDefault;
 
     // Database
     DBHelper dbHelper;
@@ -101,28 +100,10 @@ public class MainActivity extends BaseActivity {
     // SMS send thread. Result handling
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-
             String res_send = msg.getData().getString("res_send");
-            String res_sms_text = msg.getData().getString("res_sms_text");
-            String phone = msg.getData().getString("phone");
-
             dismissDialog(SEND_SMS_DIALOG_ID);
-
             DBHelper.ShowToastT(MainActivity.this, res_send,
                     Toast.LENGTH_SHORT);
-
-//            if (res_send.equalsIgnoreCase(getString(R.string.info_sms_sent))) {
-//                Intent intent = new Intent(MainActivity.this,
-//                        AnotherMsgActivity.class);
-//                intent.putExtra("SENT_SMS_TEXT", res_sms_text);
-//                intent.putExtra("PHONE", phone);
-//                startActivity(intent);
-//                DBHelper.ShowToastT(MainActivity.this, res_send,
-//                        Toast.LENGTH_SHORT);
-//            } else {
-//                DBHelper.ShowToastT(MainActivity.this, res_send,
-//                        Toast.LENGTH_SHORT);
-//            }
         }
     };
 
@@ -146,12 +127,9 @@ public class MainActivity extends BaseActivity {
         public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
         }
 
-
     };
 
     private void printLocation(Location loc, int state) {
-
-        String accuracy;
 
         switch (state) {
             case GPS_PROVIDER_DISABLED:
@@ -173,11 +151,11 @@ public class MainActivity extends BaseActivity {
 
                     // Accuracy
                     if (loc.getAccuracy() < 0.0001) {
-                        accuracy = "?";
+                        gAccuracy = "?";
                     } else if (loc.getAccuracy() > 99) {
-                        accuracy = "> 99";
+                        gAccuracy = "> 99";
                     } else {
-                        accuracy = String.format(Locale.US, "%2.0f",
+                        gAccuracy = String.format(Locale.US, "%2.0f",
                                 loc.getAccuracy());
                     }
 
@@ -190,11 +168,8 @@ public class MainActivity extends BaseActivity {
 
                     coordsToSend = la + "," + lo;
 
-                    coordsToShare = DBHelper.getShareBody(MainActivity.this,
-                            coordsToSend, accuracy);
-
                     GPSstate.setText(getString(R.string.info_print1) + ": "
-                            + accuracy + " " + getString(R.string.info_print2)
+                            + gAccuracy + " " + getString(R.string.info_print2)
                             + separ + getString(R.string.info_latitude) + ": " + la
                             + separ + getString(R.string.info_longitude) + ": " + lo);
 
@@ -216,7 +191,6 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
         }
-
     }
 
     // Menu
@@ -503,26 +477,13 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void shareCoordinates(View v) {
-        Intent sharingIntent = new Intent(
-                android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        String shareBody = coordsToShare;
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                getString(R.string.share_topic));
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-                shareBody);
-        startActivity(Intent.createChooser(sharingIntent,
-                getString(R.string.share_via)));
-    }
-
     public void copyToClipboard(View v) {
-        DBHelper.clipboardCopy(getApplicationContext(), coordsToSend);
+        GpsHelper.clipboardCopy(getApplicationContext(), coordsToSend);
         DBHelper.ShowToast(MainActivity.this, R.string.text_copied, Toast.LENGTH_LONG);
     }
 
     public void openOnMap(View v) {
-        DBHelper.openOnMap(getApplicationContext(), coordsToSend);
+        GpsHelper.openOnMap(getApplicationContext(), coordsToSend);
     }
 
     public void saveCoordinates(View v) {
@@ -530,7 +491,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void chooseFavApp(View v) {
-        if (!DBHelper.shareFav(MainActivity.this, coordsToShare)) {
+        if (!DBHelper.shareFav(MainActivity.this, GpsHelper.getShareBody(MainActivity.this, coordsToSend, gAccuracy))) {
             Intent intent = new Intent(MainActivity.this, ChooseFavActivity.class);
             startActivityForResult(intent, ACT_RESULT_FAV);
         }
@@ -614,13 +575,19 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                GpsHelper.shareCoordinates(MainActivity.this, GpsHelper.getShareBody(MainActivity.this, coordsToSend, gAccuracy));
+            }
+        });
+
         // Send buttons
         sendpbtn = (ImageButton) findViewById(R.id.send_plain);
         HideSendButton();
 
         // GPS-state TextView init
         GPSstate = (TextView) findViewById(R.id.textView1);
-        GPSSstateColorDefault = GPSstate.getTextColors();
+        gGpsStateColorDefault = GPSstate.getTextColors();
         setGPSStateNormalColor();
         DBHelper.updateFavIcon(MainActivity.this, btnFav);
 
@@ -639,7 +606,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setGPSStateNormalColor() {
-        GPSstate.setTextColor(GPSSstateColorDefault);
+        GPSstate.setTextColor(gGpsStateColorDefault);
     }
 
     private void setGPSStateAccentColor() {
@@ -701,7 +668,7 @@ public class MainActivity extends BaseActivity {
 
         phoneToSendSMS = plainPh.getText().toString().replace("-", "")
                 .replace(" ", "").replace("(", "").replace(")", "").replace(".", "");
-//
+
         if (phoneToSendSMS.equalsIgnoreCase("")) {
             DBHelper.ShowToast(MainActivity.this,
                     R.string.error_no_phone_number, Toast.LENGTH_LONG);
@@ -726,7 +693,7 @@ public class MainActivity extends BaseActivity {
 
     public void initiateSMSSend(View v) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        sendSMS(DBHelper.getLinkByProvType(sharedPrefs.getString("prefSMSContent", "2"), coordsToSend));
+        sendSMS(GpsHelper.getLinkByProvType(sharedPrefs.getString("prefSMSContent", "2"), coordsToSend));
     }
 
     protected void ShowSendButton() {

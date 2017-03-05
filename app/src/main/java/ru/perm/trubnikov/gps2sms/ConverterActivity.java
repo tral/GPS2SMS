@@ -182,7 +182,7 @@ public class ConverterActivity extends BaseActivity {
 
     private void printLocation(Location loc, int state) {
 
-        String accuracy;
+//        String accuracy;
 
         switch (state) {
             case GPS_PROVIDER_DISABLED:
